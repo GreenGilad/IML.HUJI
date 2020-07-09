@@ -46,7 +46,6 @@
 
 \input{headers/structure} % Insert the commands.tex file which contains the majority of the structure behind the template
 
-\input{headers/notation} % Insert mathematics and notations 
 
 \begin{document}
 \title{Introduction to Machine Learning (67577) - Course Book - Edition 1}
@@ -93,197 +92,16 @@
 \cleardoublepage % Forces the first chapter to start on an odd page so it's on the right
 \pagestyle{fancy} % Print headers again
 
-\chapter{Mathematical Basis}
-    \section{Linear Algebra}
-        \subsection{Hyperplanes}
-        \subsection{Projecting Matrices}
-        \subsection{Matrix Decomposition}
-            \subsubsection{Eigenvalues Decomposition}
-            \subsubsection{Singular Values Decomposition}
-    \section{Calculus}
-        \subsection{High Order Derivatives}
-        \subsection{Convexity}
-    \section{Probabilities Theory}
-        \subsection{Distributions and Random Variables}
-        \subsection{Multi-variate Distributions}
-        \subsection{Joint- and Marginal Distributions}
-        \subsection{PDF and CDF of Distributions}
-        \subsection{Measurements Of Concentration}
 
-\chapter{Introduction \& Linear Regression}
-    \section{Introduction to Statistical Learning}
-        \subsection{Estimation Theory}
-            \subsubsection{Estimators}
-            \subsection{Risk \& Loss Functions}
-        \subsection{Learning Principals}
-            \subsubsection{Empirical Risk Minimization}
-            \subsubsection{Maximum Likelihood}
-        \subsection{Lab: Python Data Analysis - First Steps}
-        \subsection{Lab: Data Simulation and Sampling}
-        
-    \section{Linear Regression}
-        \subsection{Ordinary Least Squares}
-        \subsection{Weighted Least Squares}
-        \subsection{Geometric Interpretation}
-        \subsection{Categorical Variables}
-        \subsection{Lab: Linear Regression}
-        
-    \section{Beyond Linearity}
-        \subsection{Polynomial Fitting}
-        \subsection{Poisson Regression}
-        \subsection{Lab: Polynomial Fitting}
-    
-\chapter{Classification}
-    \section{Classification Overview}
-        \subsection{Loss Function}
-        \subsection{Type-I and Type-II Errors}
-        \subsection{Statistical Measures of Performance}
-        
-    \section{Logistic Regression}
-        \subsection{A Probabilistic Model For Noisy Labels}
-            \subsubsection{The Hypothesis Class}
-            \subsubsection{Learning Via Maximum Likelihood}
-        \subsection{Computational Implementation}
-        \subsection{Interpretability}
-        \subsection{ROC Curve}
-        \subsection{Lab: Logistic Regression}
-    
-    \section{Half-Space Classifier}
-        \subsection{Learning Linearly Separable Data Via ERM}
-        \subsection{Computational Implementation}
-        \subsection{The Perceptron Algorithm}
-        
-    \section{Support Vector Machines}
-        \subsection{Maximum Margin Learning Principal}
-        \subsection{Hard-SVM}
-        \subsection{Soft-SVM}
-            \subsubsection{The Kernel Trick}
-        
-    \section{Nearest Neighbors}
-        \subsection{Graph-Based Approach For Learning}
-        \subsection{Classification \& Regression Using $k$-NN}
-        \subsection{Computational Implementation}
-        \subsection{Selecting Value of $k$ Hyper-Parameter}
-        \subsection{Variants of Nearest Neighbors}
-        
-    \section{Decision Trees}
-        \subsection{Axis-Parallel Partitioning of $\R^d$}
-        \subsection{Classification \& Regression Trees}
-        \subsection{Growing a Classification Tree}
-        \subsection{NP-Hardness and CART Heuristic}
-        \subsection{Pruning a Decision Tree}
-    
-    \section{Bayes Classifiers}
-        \subsection{Bayes Optimal Classifier}
-        \subsection{Naive Bayes}
-        \subsection{Linear Discriminant Analysis}
-        \subsection{Quadratic Discriminant Analysis}
-        \subsection{Lab: Maximum Likelihood Estimation}
-        
-\chapter{PAC Theory of Statistical Learning}
-    \section{Theoretical Framework For Learning}
-        \subsection{Data-Generation Model}
-        \subsection{The Realizability Assumption}
-        \subsection{Learning As A Game - First Attempt}
-        \subsection{Probably- and Approximately Correct Learners}
-    \section{No Free Lunch and Hypothesis Classes}
-        \subsection{No Free Lunch!}
-        \subsection{Restricting for Hypothesis Classes}
-        \subsection{Learning As A Game - Final Attempt}
-        \subsection{Example: Threshold Functions}
-    
-    \section{PAC Learnability of Finite Hypothesis Classes}
-    
-    \section{VC-Dimension}
-        \subsection{Formal Definition}
-        \subsection{VC-Dimension of Finite Hypothesis Classes}
-        \subsection{Example: Axis Aligned Rectangles}
-        \subsection{Example: Half-Spaces}
-        
-    \section{Agnostic PAC: Extending Framework}
-        \subsection{Data-Generation Model Over \X\times\Y}
-        \subsection{Relaxing Realizability Assumption}
-        \subsection{Introducing General Loss Functions}
-        \subsection{Agnostic PAC Learnability}
-    
-    \section{Uniform Convergence Property}
-        \subsection{\e-Representative Datasets}
-        \subsection{Achieving Uniformity In \H and \D}
-            \subsubsection{The Case Of Finite \H}
-            \subsubsection{The General Case - Infinite \H}
-    
-    \section{The Fundamental Theorem of Statistical Learning}
-    
-\chapter{Ensemble Methods}
-    \section{Bias-Variance Trade-off}
-        \subsection{Generalization Error Decomposition}
-        \subsection{Lab: Bias-Variance Via Decision Trees}
-        \subsection{Lab: Bias-Variance Via Polynomial Fitting}
-        
-    \section{Ensemble/Committee Methods}
-        \subsection{Weak-Learnability}
-        \subsection{Uncorrelated Predictors}
-        \subsection{Correlated Predictors}
-        \subsection{Committee Methods In Machine Learning}
-    
-    \section{Boosting Weak-Learners}
-        \subsection{AdaBoost Algorithm}
-        \subsection{Gradient Boosting Algorithm}
-        \subsection{Lab: Boosting - Image Classification}
-        
-    \section{Bagging}
-        \subsection{Bootstrapping}
-            \subsubsection{} % wider use
-        \subsection{Bagging Reduces Variance}
-        \subsection{Random Forests Bagging and De-correlating Decision Trees}
-        
-\chapter{Regularization, Model Selection and Model Evaluation}
-    \section{Regularization}
-        \subsection{Best Subset Selection}
-        \subsection{$L_q$ Nrom Regularizes}
-            \subsection{Ridge Regularization}
-            \subsection{Convexity vs. Sparsity}
-            \subsection{Lasso Regularization}
-        \subsection{Lab: Regularized Logistic Regression}
-    
-    \section{Model Selection and -Evaluation}
-        \subsection{Cross Validation}
-        \subsection{Bootstrap}
-        \subsection{Common Model Selection Mistakes}
-            \subsubsection{Over-estimating Generalization Error}
-            \subsubsection{Under-estimating Generalization Error}
-    \subsection{Lab: Selecting Regularized Model}
-        
-\chapter{Unsupervised Learning}
-    \section{Dimensionality Reduction}
-        \subsection{Preserved Data Properties}
-        \subsection{Principal Component Analysis}
-            \subsubsection{Closest Subspace Interpretation}
-            \subsubsection{Generalized Linear Regression Interpretation}
-            \subsubsection{Maximum Retained Variance Interpretation}
-            \subsubsection{Projection- vs. Coordinates of Data-Points}
-            \subsubsection{Variants of PCA}
-        \subsubsection{Euclidean Embedding}
-        \subsection{Lab: PCA}
-        
-    \section{Clustering}
-        \subsection{K-Means}
-            \subsubsection{}
-            \subsubsection{K-Means++}
-        \subsection{Mixture of Gaussians}
-            \subsubsection{Expectation Minimization Learning Principal}
-            \subsubsection{Estimating Model Parameters}
-        \subsection{Spectral Clustering}
-        \subsection{Lab: K-Means++}
-        \subsection{Lab: Parameters Estimation In MoG}
-    
-\chapter{Convex Optimization and Gradient Descent}
-    \subsection{Gradient Descent Learning Principal}
-    \subsection{Utilizing Sub-gradients For GD}
-    \subsection{Stochastic Gradient Descent}
-    \subsection{Variants Of Gradient Descent}
-        \subsection{Initialization Conditions}
-        \subsection{Tuning Learning Rates}
+\input{chapters/preface.tex}
+\input{chapters/mathematical.basis.tex}
+\input{chapters/intro.regression.tex}
+\input{chapters/classification.tex}
+\input{chapters/pac.tex}
+\input{chapters/ensemble.methods.tex}    
+\input{chapters/regularization.model.selection.tex}
+\input{chapters/unsupervised.learning.tex}
+\input{chapters/convex.gradient.descent.tex}
 
 \chapter{Online- and Reinforcement Learning}
 \chapter{Deep Learning}
