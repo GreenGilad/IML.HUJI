@@ -1,0 +1,196 @@
+\usepackage{graphicx,subfigure}
+% As of 2010, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2011} with
+% \usepackage[nohyperref]{icml2011} above.
+\usepackage{hyperref}
+
+% \usepackage{icml2011}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\algsetup{indent=2em}
+
+
+%% \usepackage{rotating}
+%% \usepackage{array}
+%% \usepackage{multirow}
+%% \usepackage{color}
+
+%% \usepackage{tikz}
+
+\usepackage{url}
+
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+\newtheorem{claim}{Claim}
+\newtheorem{exercise}{Exercise}
+\newtheorem{discussion}{Discussion}
+
+
+\newcommand{\gb}[1]{{\boldsymbol{#1}}}
+\newcommand{\valpha}{\gb{\alpha}}
+\newcommand{\vmu}{\gb{\mu}}
+\newcommand{\vnu}{\gb{\nu}}
+\newcommand{\vxi}{\gb{\xi}}
+\newcommand{\vtheta}{\gb{\theta}}
+\newcommand{\vrho}{\gb{\rho}}
+\newcommand{\vbeta}{\gb{\beta}}
+\newcommand{\vtau}{\gb{\tau}}
+\newcommand{\vbalpha}{\gb{\alpha^\star}}
+\newcommand{\vbbeta}{\gb{\beta^\star}}
+\newcommand{\vtalpha}{\gb{\tilde{\alpha}}}
+\newcommand{\vlambda}{\gb{\lambda}}
+\newcommand{\slambda}{\bar{\vlambda}}
+\newcommand{\stheta}{\bar{\vtheta}}
+\newcommand{\vphi}{\gb{\phi}}
+\newcommand{\vsigma}{\gb{\sigma}}
+
+\newcommand{\x}{{\mathbf x}}
+\newcommand{\y}{{\mathbf y}}
+\newcommand{\z}{{\mathbf z}}
+\newcommand{\w}{{\mathbf w}}
+\newcommand{\bw}{\bar{\w}}
+\newcommand{\bF}{\bar{F}}
+\renewcommand{\v}{{\mathbf v}}
+\renewcommand{\u}{{\mathbf u}}
+\newcommand{\e}{{\mathbf e}}
+\newcommand{\bsig}{{\mathbf \sigma}}
+\newcommand{\rE}{{\mathbf E}}
+\newcommand{\sgn}{{\mathrm{sgn}}}
+\newcommand{\cF}{{\cal F}}
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\rV}{{\mathrm {Var}}}
+\newcommand{\tr}{{\mathrm{tr}}}
+\newcommand{\trans}{\dagger}
+\newcommand{\diag}{{\mathrm{diag}}}
+\newcommand{\lspan}{{\mathrm{span}}}
+\renewcommand{\r}{{\mathbf{r}}}
+\newcommand{\tL}{\tilde{L}}
+\newcommand{\hL}{\hat{L}}
+
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\bE}{\mathbb{E}\,}
+
+
+\newcommand{\BlackBox}{\rule{1.5ex}{1.5ex}}
+\newenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
+
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\Y}{\mathcal{Y}}
+\newcommand{\X}{\mathcal{X}}
+\renewcommand{\H}{\mathcal{H}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\V}{\mathcal{V}}
+%\newcommand{\U}{\mathcal{U}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\inner}[1]{\langle #1 \rangle}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\thalf}{\tfrac{1}{2}}
+\newcommand{\eqdef}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\err}{\mathrm{err}}
+\newcommand{\opt}{\mathrm{opt}}
+\newcommand{\herr}{\widehat{\err}}
+\newcommand{\hopt}{\hat{\opt}}
+\newcommand{\eopt}{\epsilon_{\mathrm{opt}}}
+\newcommand{\eapp}{\epsilon_{\mathrm{app}}}
+\newcommand{\eest}{\epsilon_{\mathrm{est}}}
+\newcommand{\halg}{\tilde{h}}
+\newcommand{\empf}{\hat{F}_{\lambda}}
+\newcommand{\T}{\mathrm{time}}
+\newcommand{\erf}{\mathrm{erf}}
+\newcommand{\sig}{\mathrm{sig}}
+\newcommand{\poly}{\mathrm{poly}}
+
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\image}{\mathrm{image}}
+
+
+\DeclareMathOperator*{\argmin}{argmin} % Declares argmin and ensures super and subscripts are located nicely above/below such as in \min
+\DeclareMathOperator*{\argmax}{argmax} % Declares argmin and ensures super and subscripts are located nicely above/below such as in \min
+\DeclareMathOperator*{\prob}{\mathbb{P}}
+
+\renewcommand{\eqref}[1]{Equation~(\ref{#1})}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\defref}[1]{Definition~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+
+%\newcommand{\comment}[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand{\mathcomment}[1]{\color{red}{\textbf{#1}}}
+
+\newcommand{\indct}[1]{\boldsymbol{1}\!\left[ #1 \right]}
+
+\newcommand{\blambda}{\bar{\lambda}}
+\newcommand{\bA}{\bar{A}}
+\newcommand{\bI}{\bar{I}}
+
+\newcommand{\vect}{\mathrm{vec}}
+
+
+\newcommand{\coursename}{Introduction to Machine Learning (67577)}
+
+\newcommand{\handout}[5]{
+%   \renewcommand{\thepage}{#1-\arabic{page}}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{
+    \hbox to 5.78in { {\bf \coursename}
+         \hfill #2 }
+       \vspace{4mm}
+       \hbox to 5.78in { {\Large \hfill #5  \hfill} }
+       \vspace{2mm}
+       \hbox to 5.78in { {\it #3 \hfill #4} }
+      }
+   }
+   \end{center}
+   \vspace*{4mm}
+}
+
+\newcommand{\notes}[5]{
+%   \renewcommand{\thepage}{#1-\arabic{page}}
+   \noindent
+   \begin{center}
+    \hbox to 5.78in { {\bf \coursename}  \hfill #2}
+       \vspace{14mm}
+       \hbox to 5.78in { {\Large \hfill #5  \hfill} }
+   \end{center}
+   \vspace*{4mm}
+}
+
+% Lecture notes:
+\newcommand{\lecture}[5]{\handout{#1}{#3}{Lecturer:
+#4}{Scribe: #5}{Lecture #1: #2}}
+
+\newcommand{\recitation}[5]{\handout{#1}{#3}{#4}{ #5}{Recitation #1: #2}}
+
+% Exam:
+\newcommand{\exam}[1]{\handout{#1}{}{}{}{Exam}}
+\newcommand{\homeexam}[2]{\handout{#1}{}{}{Due:
+#2}{Home Exam}}
+\newcommand{\examanswer}[1]{\handout{X}{}{by: #1}{}{Exam - Answers}}
+
+% New exercise
+\newcommand{\problemset}[2]{\handout{#1}{}{}{Due:
+#2}{Problem Set #1}}
+
+% School solution
+\newcommand{\solution}[2]{\handout{#1}{}{}{Written by: #2}{Problem Set #1 - Solution}}
+
+% Submitted solution
+\newcommand{\exanswer}[2]{\handout{#1}{}{by: #2}{}{Problem Set #1 - Answers}}

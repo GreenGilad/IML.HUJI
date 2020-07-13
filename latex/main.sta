@@ -1,0 +1,5 @@
+\standalonepreambles
+\subpreamble{chapters/intro.regression.tex}
+\usepackage [subpreambles=true]{standalone}\usepackage {import}\input {../headers/structure}
+\endsubpreamble
+\endstandalonepreambles

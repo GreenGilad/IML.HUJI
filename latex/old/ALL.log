@@ -1,0 +1,4062 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.4)  4 JUL 2020 00:38
+entering extended mode
+ \write18 enabled.
+ %&-line parsing enabled.
+**ALL.tex ^M
+(./ALL.tex
+LaTeX2e <2018-04-01> patch level 2
+Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks14
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2018/02/06 v6.86b Hypertext links for LaTeX
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2018/01/30 v0.27 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
+)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen103
+\Hy@linkcounter=\count88
+\Hy@pagecounter=\count89
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+\Hy@SavedSpaceFactor=\count90
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4509.
+Package hyperref Info: Link nesting OFF on input line 4514.
+Package hyperref Info: Hyper index ON on input line 4517.
+Package hyperref Info: Plain pages OFF on input line 4524.
+Package hyperref Info: Backreferencing OFF on input line 4529.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4762.
+\c@Hy@tempcnt=\count91
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5115.
+\XeTeXLinkMargin=\dimen104
+\Fld@menulength=\count92
+\Field@Width=\dimen105
+\Fld@charsize=\dimen106
+Package hyperref Info: Hyper figures OFF on input line 6369.
+Package hyperref Info: Link nesting OFF on input line 6374.
+Package hyperref Info: Hyper index ON on input line 6377.
+Package hyperref Info: backreferencing OFF on input line 6384.
+Package hyperref Info: Link coloring OFF on input line 6389.
+Package hyperref Info: Link coloring with OCG OFF on input line 6394.
+Package hyperref Info: PDF/A mode OFF on input line 6399.
+LaTeX Info: Redefining \ref on input line 6439.
+LaTeX Info: Redefining \pageref on input line 6443.
+\Hy@abspage=\count93
+\c@Item=\count94
+\c@Hfootnote=\count95
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
+\Fld@listcount=\count96
+\c@bookmark@seq@number=\count97
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip43
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen107
+\Gin@req@width=\dimen108
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+\subfigtopskip=\skip44
+\subfigcapskip=\skip45
+\subfigcaptopadj=\dimen109
+\subfigbottomskip=\skip46
+\subfigcapmargin=\dimen110
+\subfiglabelskip=\skip47
+\c@subfigure=\count98
+\c@lofdepth=\count99
+\c@subtable=\count100
+\c@lotdepth=\count101
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(/usr/local/texlive/2018/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip48
+\subfig@bottom=\skip49
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/epsfig.sty
+Package: epsfig 2017/06/25 v1.7b (e)psfig emulation (SPQR)
+\epsfxsize=\dimen111
+\epsfysize=\dimen112
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks16
+\ex@=\dimen113
+))
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen114
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count102
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count103
+\leftroot@=\count104
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count105
+\DOTSCASE@=\count106
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen115
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count107
+\c@MaxMatrixCols=\count108
+\dotsspace@=\muskip11
+\c@parentequation=\count109
+\dspbrk@lvl=\count110
+\tag@help=\toks17
+\row@=\count111
+\column@=\count112
+\maxfields@=\count113
+\andhelp@=\toks18
+\eqnshift@=\dimen116
+\alignsep@=\dimen117
+\tagshift@=\dimen118
+\tagwidth@=\dimen119
+\totwidth@=\dimen120
+\lineht@=\dimen121
+\@envbody=\toks19
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count114
+\float@exts=\toks21
+\float@box=\box28
+\@float@everytoks=\toks22
+\@floatcapt=\box29
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks23
+\c@algorithm=\count115
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count116
+\c@ALC@line=\count117
+\c@ALC@rem=\count118
+\c@ALC@depth=\count119
+\ALC@tlm=\skip53
+\algorithmicindent=\skip54
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks24
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/boxedminipage/boxedminipage.sty)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip55
+\fb@frw=\dimen122
+\fb@frh=\dimen123
+\FrameRule=\dimen124
+\FrameSep=\dimen125
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+\c@r@tfl@t=\count120
+\rotFPtop=\skip56
+\rotFPbot=\skip57
+\rot@float@box=\box30
+\rot@mess@toks=\toks25
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/soul/soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks26
+\SOUL@lasttoken=\toks27
+\SOUL@cmds=\toks28
+\SOUL@buffer=\toks29
+\SOUL@token=\toks30
+\SOUL@spaceskip=\skip58
+\SOUL@ttwidth=\dimen126
+\SOUL@uldp=\dimen127
+\SOUL@ulht=\dimen128
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count121
+\calc@Bcount=\count122
+\calc@Adimen=\dimen129
+\calc@Bdimen=\dimen130
+\calc@Askip=\skip59
+\calc@Bskip=\skip60
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count123
+\calc@Cskip=\skip61
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count124
+\l_MT_multwidth_dim=\dimen131
+\origjot=\skip62
+\l_MT_shortvdotswithinadjustabove_dim=\dimen132
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen133
+\l_MT_above_intertext_sep=\dimen134
+\l_MT_below_intertext_sep=\dimen135
+\l_MT_above_shortintertext_sep=\dimen136
+\l_MT_below_shortintertext_sep=\dimen137
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/cancel/cancel.sty
+Package: cancel 2013/04/12 v2.2 Cancel math terms
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/04/07 v2.4g Tabular extension package (FMi)
+\col@sep=\dimen138
+\ar@mcellbox=\box31
+\extrarowheight=\dimen139
+\NC@list=\toks31
+\extratabsurround=\skip63
+\backup@length=\skip64
+\ar@cellbox=\box32
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip65
+\multirow@cntb=\count125
+\multirow@dima=\skip66
+\bigstrutjot=\dimen140
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks32
+\pgfutil@tempdima=\dimen141
+\pgfutil@tempdimb=\dimen142
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-li
+sts.tex))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box33
+(/usr/local/texlive/2018/texmf-dist/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+Package: pgfrcs 2015/08/07 v3.0.1a (rcs-revision 1.31)
+))
+Package: pgf 2015/08/07 v3.0.1a (rcs-revision 1.15)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2014/07/09 v3.0.1a (rcs-revision 1.48)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks33
+\pgfkeys@temptoks=\toks34
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
+ode.tex
+\pgfkeys@tmptoks=\toks35
+))
+\pgf@x=\dimen143
+\pgf@y=\dimen144
+\pgf@xa=\dimen145
+\pgf@ya=\dimen146
+\pgf@xb=\dimen147
+\pgf@yb=\dimen148
+\pgf@xc=\dimen149
+\pgf@yc=\dimen150
+\w@pgf@writea=\write3
+\r@pgf@reada=\read1
+\c@pgf@counta=\count126
+\c@pgf@countb=\count127
+\c@pgf@countc=\count128
+\c@pgf@countd=\count129
+\t@pgf@toka=\toks36
+\t@pgf@tokb=\toks37
+\t@pgf@tokc=\toks38
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
+ef
+File: pgfsys-pdftex.def 2014/10/11  (rcs-revision 1.35)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
+)))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
+\pgfsyssoftpath@smallbuffer@items=\count130
+\pgfsyssoftpath@bigbuffer@items=\count131
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
+))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2010/04/11 v3.0.1a (rcs-revision 1.7)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen151
+\pgfmath@count=\count132
+\pgfmath@box=\box34
+\pgfmath@toks=\toks39
+\pgfmath@stack@operand=\toks40
+\pgfmath@stack@operation=\toks41
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count133
+))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2013/10/07  (rcs-revision 1.27)
+\pgf@picminx=\dimen152
+\pgf@picmaxx=\dimen153
+\pgf@picminy=\dimen154
+\pgf@picmaxy=\dimen155
+\pgf@pathminx=\dimen156
+\pgf@pathmaxx=\dimen157
+\pgf@pathminy=\dimen158
+\pgf@pathmaxy=\dimen159
+\pgf@xx=\dimen160
+\pgf@xy=\dimen161
+\pgf@yx=\dimen162
+\pgf@yy=\dimen163
+\pgf@zx=\dimen164
+\pgf@zy=\dimen165
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2013/10/07  (rcs-revision 1.29)
+\pgf@path@lastx=\dimen166
+\pgf@path@lasty=\dimen167
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2014/11/02  (rcs-revision 1.24)
+\pgf@shorten@end@additional=\dimen168
+\pgf@shorten@start@additional=\dimen169
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2015/05/08  (rcs-revision 1.46)
+\pgfpic=\box35
+\pgf@hbox=\box36
+\pgf@layerbox@main=\box37
+\pgf@picture@serial@count=\count134
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2014/11/02  (rcs-revision 1.12)
+\pgflinewidth=\dimen170
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2015/08/07  (rcs-revision 1.20)
+\pgf@pt@x=\dimen171
+\pgf@pt@y=\dimen172
+\pgf@pt@temp=\dimen173
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2006/10/11  (rcs-revision 1.2)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2013/09/09  (rcs-revision 1.9)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2015/05/14  (rcs-revision 1.43)
+\pgfarrowsep=\dimen174
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
+\pgf@max=\dimen175
+\pgf@sys@shading@range@num=\count135
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2013/07/15  (rcs-revision 1.18)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2014/07/09  (rcs-revision 1.21)
+\pgfexternal@startupbox=\box38
+))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2013/07/18  (rcs-revision 1.7)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2013/09/30  (rcs-revision 1.5)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2013/11/07  (rcs-revision 1.5)
+)))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2014/03/21  (rcs-revision 1.35)
+\pgfnodeparttextbox=\box39
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2015/08/03  (rcs-revision 1.13)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2007/07/03 v3.0.1a (rcs-revision 1.7)
+\pgf@nodesepstart=\dimen176
+\pgf@nodesepend=\dimen177
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2007/07/23 v3.0.1a (rcs-revision 1.1)
+))
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2013/12/13 v3.0.1a (rcs-revision 1.25)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen178
+\pgffor@skip=\dimen179
+\pgffor@stack=\toks42
+\pgffor@toks=\toks43
+))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+Package: tikz 2015/08/07 v3.0.1a (rcs-revision 1.151)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex
+File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
+\pgf@plot@mark@count=\count136
+\pgfplotmarksize=\dimen180
+)
+\tikz@lastx=\dimen181
+\tikz@lasty=\dimen182
+\tikz@lastxsaved=\dimen183
+\tikz@lastysaved=\dimen184
+\tikzleveldistance=\dimen185
+\tikzsiblingdistance=\dimen186
+\tikz@figbox=\box40
+\tikz@figbox@bg=\box41
+\tikz@tempbox=\box42
+\tikz@tempbox@bg=\box43
+\tikztreelevel=\count137
+\tikznumberofchildren=\count138
+\tikznumberofcurrentchild=\count139
+\tikz@fig@count=\count140
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex
+File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
+\pgfmatrixcurrentrow=\count141
+\pgfmatrixcurrentcolumn=\count142
+\pgf@matrix@numberofcolumns=\count143
+)
+\tikz@expandcount=\count144
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.1a (rcs-revision 1.2)
+)))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/mathabx/mathabx.sty
+Package: mathabx 2003/07/29 v0.0 Non-standard LaTeX package mathabx
+\symmatha=\mathgroup6
+\symmathb=\mathgroup7
+\symmathx=\mathgroup8
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/mathabx/mathabx.dcl
+LaTeX Font Info:    Redeclaring math symbol \cdotp on input line 25.
+LaTeX Font Info:    Redeclaring math symbol \times on input line 33.
+LaTeX Font Info:    Redeclaring math symbol \div on input line 34.
+LaTeX Font Info:    Redeclaring math symbol \cdot on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \circ on input line 36.
+LaTeX Font Info:    Redeclaring math symbol \ast on input line 38.
+LaTeX Font Info:    Redeclaring math symbol \pm on input line 41.
+LaTeX Font Info:    Redeclaring math symbol \mp on input line 42.
+LaTeX Font Info:    Redeclaring math symbol \ltimes on input line 43.
+LaTeX Font Info:    Redeclaring math symbol \rtimes on input line 44.
+LaTeX Font Info:    Redeclaring math symbol \diamond on input line 45.
+LaTeX Font Info:    Redeclaring math symbol \bullet on input line 46.
+LaTeX Font Info:    Redeclaring math symbol \star on input line 47.
+LaTeX Font Info:    Redeclaring math symbol \amalg on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \dotplus on input line 58.
+LaTeX Font Info:    Redeclaring math symbol \square on input line 63.
+LaTeX Font Info:    Redeclaring math symbol \divideontimes on input line 71.
+LaTeX Font Info:    Redeclaring math symbol \bigstar on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \equiv on input line 83.
+LaTeX Font Info:    Redeclaring math symbol \sim on input line 84.
+LaTeX Font Info:    Redeclaring math symbol \approx on input line 85.
+LaTeX Font Info:    Redeclaring math symbol \simeq on input line 86.
+LaTeX Font Info:    Redeclaring math symbol \asymp on input line 89.
+LaTeX Font Info:    Redeclaring math symbol \nsim on input line 97.
+LaTeX Font Info:    Redeclaring math symbol \ncong on input line 100.
+LaTeX Font Info:    Redeclaring math symbol \risingdotseq on input line 118.
+LaTeX Font Info:    Redeclaring math symbol \fallingdotseq on input line 119.
+LaTeX Font Info:    Redeclaring math symbol \circeq on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \eqcirc on input line 126.
+LaTeX Font Info:    Redeclaring math symbol \triangleq on input line 127.
+LaTeX Font Info:    Redeclaring math symbol \neg on input line 134.
+LaTeX Font Info:    Redeclaring math symbol \ll on input line 136.
+LaTeX Font Info:    Redeclaring math symbol \gg on input line 137.
+LaTeX Font Info:    Redeclaring math symbol \vdash on input line 139.
+LaTeX Font Info:    Redeclaring math symbol \dashv on input line 140.
+LaTeX Font Info:    Redeclaring math symbol \nvdash on input line 141.
+LaTeX Font Info:    Redeclaring math symbol \vDash on input line 143.
+LaTeX Font Info:    Redeclaring math symbol \nvDash on input line 145.
+LaTeX Font Info:    Redeclaring math symbol \Vdash on input line 147.
+LaTeX Font Info:    Redeclaring math symbol \nVdash on input line 149.
+LaTeX Font Info:    Redeclaring math symbol \flat on input line 158.
+LaTeX Font Info:    Redeclaring math symbol \natural on input line 159.
+LaTeX Font Info:    Redeclaring math symbol \sharp on input line 160.
+LaTeX Font Info:    Redeclaring math symbol \infty on input line 161.
+LaTeX Font Info:    Redeclaring math symbol \propto on input line 162.
+LaTeX Font Info:    Redeclaring math symbol \dagger on input line 163.
+LaTeX Font Info:    Redeclaring math symbol \ddagger on input line 164.
+LaTeX Font Info:    Redeclaring math symbol \between on input line 170.
+LaTeX Font Info:    Redeclaring math symbol \smile on input line 171.
+LaTeX Font Info:    Redeclaring math symbol \frown on input line 172.
+LaTeX Font Info:    Redeclaring math symbol \leftthreetimes on input line 174.
+LaTeX Font Info:    Redeclaring math symbol \rightthreetimes on input line 175.
+
+LaTeX Font Info:    Redeclaring math symbol \pitchfork on input line 176.
+LaTeX Font Info:    Redeclaring math symbol \nVDash on input line 182.
+LaTeX Font Info:    Redeclaring math symbol \Vvdash on input line 184.
+LaTeX Font Info:    Redeclaring math symbol \therefore on input line 189.
+LaTeX Font Info:    Redeclaring math symbol \because on input line 190.
+LaTeX Font Info:    Redeclaring math symbol \measuredangle on input line 202.
+LaTeX Font Info:    Redeclaring math symbol \sphericalangle on input line 203.
+LaTeX Font Info:    Redeclaring math symbol \setminus on input line 218.
+LaTeX Font Info:    Redeclaring math symbol \mid on input line 222.
+LaTeX Font Info:    Redeclaring math symbol \forall on input line 279.
+LaTeX Font Info:    Redeclaring math symbol \complement on input line 280.
+LaTeX Font Info:    Redeclaring math symbol \partial on input line 281.
+LaTeX Font Info:    Redeclaring math symbol \exists on input line 284.
+LaTeX Font Info:    Redeclaring math symbol \nexists on input line 285.
+LaTeX Font Info:    Redeclaring math symbol \Finv on input line 286.
+LaTeX Font Info:    Redeclaring math symbol \Game on input line 287.
+LaTeX Font Info:    Redeclaring math symbol \emptyset on input line 288.
+LaTeX Font Info:    Redeclaring math symbol \top on input line 290.
+LaTeX Font Info:    Redeclaring math symbol \bot on input line 291.
+LaTeX Font Info:    Redeclaring math symbol \perp on input line 292.
+LaTeX Font Info:    Redeclaring math symbol \curlywedge on input line 296.
+LaTeX Font Info:    Redeclaring math symbol \curlyvee on input line 297.
+LaTeX Font Info:    Redeclaring math symbol \in on input line 299.
+LaTeX Font Info:    Redeclaring math symbol \owns on input line 300.
+LaTeX Font Info:    Redeclaring math symbol \cap on input line 312.
+LaTeX Font Info:    Redeclaring math symbol \cup on input line 313.
+LaTeX Font Info:    Redeclaring math symbol \uplus on input line 314.
+LaTeX Font Info:    Redeclaring math symbol \sqcap on input line 315.
+LaTeX Font Info:    Redeclaring math symbol \sqcup on input line 316.
+LaTeX Font Info:    Redeclaring math symbol \wedge on input line 318.
+LaTeX Font Info:    Redeclaring math symbol \vee on input line 320.
+LaTeX Font Info:    Redeclaring math symbol \barwedge on input line 327.
+LaTeX Font Info:    Redeclaring math symbol \veebar on input line 328.
+LaTeX Font Info:    Redeclaring math symbol \doublebarwedge on input line 329.
+LaTeX Font Info:    Redeclaring math symbol \doublecap on input line 331.
+LaTeX Font Info:    Redeclaring math symbol \doublecup on input line 333.
+LaTeX Font Info:    Redeclaring math symbol \subset on input line 344.
+LaTeX Font Info:    Redeclaring math symbol \supset on input line 345.
+LaTeX Font Info:    Redeclaring math symbol \subseteq on input line 348.
+LaTeX Font Info:    Redeclaring math symbol \supseteq on input line 349.
+LaTeX Font Info:    Redeclaring math symbol \nsubseteq on input line 350.
+LaTeX Font Info:    Redeclaring math symbol \nsupseteq on input line 351.
+LaTeX Font Info:    Redeclaring math symbol \subsetneq on input line 352.
+LaTeX Font Info:    Redeclaring math symbol \supsetneq on input line 353.
+LaTeX Font Info:    Redeclaring math symbol \varsubsetneq on input line 354.
+LaTeX Font Info:    Redeclaring math symbol \varsupsetneq on input line 355.
+LaTeX Font Info:    Redeclaring math symbol \subseteqq on input line 357.
+LaTeX Font Info:    Redeclaring math symbol \supseteqq on input line 358.
+LaTeX Font Info:    Redeclaring math symbol \nsubseteqq on input line 359.
+LaTeX Font Info:    Redeclaring math symbol \nsupseteqq on input line 360.
+LaTeX Font Info:    Redeclaring math symbol \subsetneqq on input line 361.
+LaTeX Font Info:    Redeclaring math symbol \supsetneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \varsubsetneqq on input line 363.
+LaTeX Font Info:    Redeclaring math symbol \varsupsetneqq on input line 364.
+LaTeX Font Info:    Redeclaring math symbol \Subset on input line 366.
+LaTeX Font Info:    Redeclaring math symbol \Supset on input line 367.
+LaTeX Font Info:    Redeclaring math symbol \sqsubseteq on input line 380.
+LaTeX Font Info:    Redeclaring math symbol \sqsupseteq on input line 381.
+LaTeX Font Info:    Redeclaring math symbol \triangleleft on input line 407.
+LaTeX Font Info:    Redeclaring math symbol \vartriangleleft on input line 408.
+
+LaTeX Font Info:    Redeclaring math symbol \triangleright on input line 409.
+LaTeX Font Info:    Redeclaring math symbol \vartriangleright on input line 410
+.
+LaTeX Font Info:    Redeclaring math symbol \ntriangleleft on input line 411.
+LaTeX Font Info:    Redeclaring math symbol \ntriangleright on input line 412.
+LaTeX Font Info:    Redeclaring math symbol \trianglelefteq on input line 413.
+LaTeX Font Info:    Redeclaring math symbol \trianglerighteq on input line 414.
+
+LaTeX Font Info:    Redeclaring math symbol \ntrianglelefteq on input line 415.
+
+LaTeX Font Info:    Redeclaring math symbol \ntrianglerighteq on input line 416
+.
+LaTeX Font Info:    Redeclaring math symbol \blacktriangledown on input line 42
+7.
+LaTeX Font Info:    Redeclaring math symbol \blacktriangleleft on input line 42
+8.
+LaTeX Font Info:    Redeclaring math symbol \blacktriangleright on input line 4
+29.
+LaTeX Font Info:    Redeclaring math symbol \nless on input line 437.
+LaTeX Font Info:    Redeclaring math symbol \ngtr on input line 438.
+LaTeX Font Info:    Redeclaring math symbol \leq on input line 439.
+LaTeX Font Info:    Redeclaring math symbol \geq on input line 441.
+LaTeX Font Info:    Redeclaring math symbol \nleq on input line 443.
+LaTeX Font Info:    Redeclaring math symbol \ngeq on input line 445.
+LaTeX Font Info:    Redeclaring math symbol \lneq on input line 451.
+LaTeX Font Info:    Redeclaring math symbol \gneq on input line 452.
+LaTeX Font Info:    Redeclaring math symbol \leqq on input line 453.
+LaTeX Font Info:    Redeclaring math symbol \geqq on input line 454.
+LaTeX Font Info:    Redeclaring math symbol \nleqq on input line 455.
+LaTeX Font Info:    Redeclaring math symbol \ngeqq on input line 456.
+LaTeX Font Info:    Redeclaring math symbol \lneqq on input line 457.
+LaTeX Font Info:    Redeclaring math symbol \gneqq on input line 458.
+LaTeX Font Info:    Redeclaring math symbol \lvertneqq on input line 459.
+LaTeX Font Info:    Redeclaring math symbol \gvertneqq on input line 460.
+LaTeX Font Info:    Redeclaring math symbol \eqslantless on input line 461.
+LaTeX Font Info:    Redeclaring math symbol \eqslantgtr on input line 462.
+LaTeX Font Info:    Redeclaring math symbol \lessgtr on input line 465.
+LaTeX Font Info:    Redeclaring math symbol \gtrless on input line 466.
+LaTeX Font Info:    Redeclaring math symbol \lesseqgtr on input line 467.
+LaTeX Font Info:    Redeclaring math symbol \gtreqless on input line 468.
+LaTeX Font Info:    Redeclaring math symbol \lesseqqgtr on input line 469.
+LaTeX Font Info:    Redeclaring math symbol \gtreqqless on input line 470.
+LaTeX Font Info:    Redeclaring math symbol \lesssim on input line 472.
+LaTeX Font Info:    Redeclaring math symbol \gtrsim on input line 473.
+LaTeX Font Info:    Redeclaring math symbol \lnsim on input line 476.
+LaTeX Font Info:    Redeclaring math symbol \gnsim on input line 477.
+LaTeX Font Info:    Redeclaring math symbol \lessapprox on input line 478.
+LaTeX Font Info:    Redeclaring math symbol \gtrapprox on input line 479.
+LaTeX Font Info:    Redeclaring math symbol \lnapprox on input line 482.
+LaTeX Font Info:    Redeclaring math symbol \gnapprox on input line 483.
+LaTeX Font Info:    Redeclaring math symbol \lessdot on input line 485.
+LaTeX Font Info:    Redeclaring math symbol \gtrdot on input line 486.
+LaTeX Font Info:    Redeclaring math symbol \lll on input line 488.
+LaTeX Font Info:    Redeclaring math symbol \ggg on input line 489.
+LaTeX Font Info:    Redeclaring math symbol \prec on input line 498.
+LaTeX Font Info:    Redeclaring math symbol \succ on input line 499.
+LaTeX Font Info:    Redeclaring math symbol \nprec on input line 500.
+LaTeX Font Info:    Redeclaring math symbol \nsucc on input line 501.
+LaTeX Font Info:    Redeclaring math symbol \preccurlyeq on input line 502.
+LaTeX Font Info:    Redeclaring math symbol \succcurlyeq on input line 503.
+LaTeX Font Info:    Redeclaring math symbol \preceq on input line 506.
+LaTeX Font Info:    Redeclaring math symbol \succeq on input line 507.
+LaTeX Font Info:    Redeclaring math symbol \npreceq on input line 508.
+LaTeX Font Info:    Redeclaring math symbol \nsucceq on input line 509.
+LaTeX Font Info:    Redeclaring math symbol \curlyeqprec on input line 512.
+LaTeX Font Info:    Redeclaring math symbol \curlyeqsucc on input line 513.
+LaTeX Font Info:    Redeclaring math symbol \precsim on input line 517.
+LaTeX Font Info:    Redeclaring math symbol \succsim on input line 518.
+LaTeX Font Info:    Redeclaring math symbol \precnsim on input line 521.
+LaTeX Font Info:    Redeclaring math symbol \succnsim on input line 522.
+LaTeX Font Info:    Redeclaring math symbol \precapprox on input line 523.
+LaTeX Font Info:    Redeclaring math symbol \succapprox on input line 524.
+LaTeX Font Info:    Redeclaring math symbol \precnapprox on input line 527.
+LaTeX Font Info:    Redeclaring math symbol \succnapprox on input line 528.
+LaTeX Font Info:    Redeclaring math symbol \leftarrow on input line 540.
+LaTeX Font Info:    Redeclaring math symbol \rightarrow on input line 542.
+LaTeX Font Info:    Redeclaring math symbol \nwarrow on input line 546.
+LaTeX Font Info:    Redeclaring math symbol \nearrow on input line 547.
+LaTeX Font Info:    Redeclaring math symbol \swarrow on input line 548.
+LaTeX Font Info:    Redeclaring math symbol \searrow on input line 549.
+LaTeX Font Info:    Redeclaring math symbol \leftrightarrow on input line 550.
+LaTeX Font Info:    Redeclaring math symbol \nleftarrow on input line 552.
+LaTeX Font Info:    Redeclaring math symbol \nrightarrow on input line 553.
+LaTeX Font Info:    Redeclaring math symbol \nleftrightarrow on input line 554.
+
+LaTeX Font Info:    Redeclaring math symbol \mapstochar on input line 557.
+LaTeX Font Info:    Redeclaring math symbol \leftharpoonup on input line 560.
+LaTeX Font Info:    Redeclaring math symbol \rightharpoonup on input line 561.
+LaTeX Font Info:    Redeclaring math symbol \leftharpoondown on input line 562.
+
+LaTeX Font Info:    Redeclaring math symbol \rightharpoondown on input line 563
+.
+LaTeX Font Info:    Redeclaring math symbol \upharpoonleft on input line 564.
+LaTeX Font Info:    Redeclaring math symbol \downharpoonleft on input line 565.
+
+LaTeX Font Info:    Redeclaring math symbol \upharpoonright on input line 566.
+LaTeX Font Info:    Redeclaring math symbol \restriction on input line 567.
+LaTeX Font Info:    Redeclaring math symbol \downharpoonright on input line 568
+.
+LaTeX Font Info:    Redeclaring math symbol \leftrightharpoons on input line 56
+9.
+LaTeX Font Info:    Redeclaring math symbol \Leftarrow on input line 575.
+LaTeX Font Info:    Redeclaring math symbol \Rightarrow on input line 576.
+LaTeX Font Info:    Redeclaring math symbol \Leftrightarrow on input line 579.
+LaTeX Font Info:    Redeclaring math symbol \nLeftarrow on input line 581.
+LaTeX Font Info:    Redeclaring math symbol \nRightarrow on input line 582.
+LaTeX Font Info:    Redeclaring math symbol \nLeftrightarrow on input line 583.
+
+LaTeX Font Info:    Redeclaring math symbol \leftleftarrows on input line 593.
+LaTeX Font Info:    Redeclaring math symbol \rightrightarrows on input line 594
+.
+LaTeX Font Info:    Redeclaring math symbol \upuparrows on input line 595.
+LaTeX Font Info:    Redeclaring math symbol \downdownarrows on input line 596.
+LaTeX Font Info:    Redeclaring math symbol \leftrightarrows on input line 597.
+
+LaTeX Font Info:    Redeclaring math symbol \rightleftarrows on input line 598.
+
+LaTeX Font Info:    Redeclaring math symbol \rhook on input line 612.
+LaTeX Font Info:    Redeclaring math symbol \lhook on input line 613.
+LaTeX Font Info:    Redeclaring math symbol \diagup on input line 614.
+LaTeX Font Info:    Redeclaring math symbol \diagdown on input line 615.
+LaTeX Font Info:    Redeclaring math symbol \Lsh on input line 617.
+LaTeX Font Info:    Redeclaring math symbol \Rsh on input line 619.
+LaTeX Font Info:    Redeclaring math symbol \looparrowleft on input line 624.
+LaTeX Font Info:    Redeclaring math symbol \looparrowright on input line 626.
+LaTeX Font Info:    Redeclaring math symbol \curvearrowleft on input line 631.
+LaTeX Font Info:    Redeclaring math symbol \curvearrowright on input line 633.
+
+LaTeX Font Info:    Redeclaring math symbol \circlearrowleft on input line 641.
+
+LaTeX Font Info:    Redeclaring math symbol \circlearrowright on input line 642
+.
+LaTeX Font Info:    Redeclaring math symbol \rightsquigarrow on input line 645.
+
+LaTeX Font Info:    Redeclaring math symbol \leftrightsquigarrow on input line 
+646.
+LaTeX Font Info:    Redeclaring math symbol \oplus on input line 658.
+LaTeX Font Info:    Redeclaring math symbol \ominus on input line 659.
+LaTeX Font Info:    Redeclaring math symbol \otimes on input line 661.
+LaTeX Font Info:    Redeclaring math symbol \odot on input line 663.
+LaTeX Font Info:    Redeclaring math symbol \oslash on input line 675.
+LaTeX Font Info:    Redeclaring math symbol \boxplus on input line 683.
+LaTeX Font Info:    Redeclaring math symbol \boxminus on input line 684.
+LaTeX Font Info:    Redeclaring math symbol \boxtimes on input line 686.
+LaTeX Font Info:    Redeclaring math symbol \boxdot on input line 688.
+\mayacnter=\count145
+\mayacnta=\count146
+\mayacntb=\count147
+\mayacntc=\count148
+\mayawidth=\dimen187
+LaTeX Font Info:    Redeclaring math symbol \intop on input line 753.
+LaTeX Font Info:    Redeclaring math symbol \ointop on input line 760.
+LaTeX Font Info:    Redeclaring math delimiter \lbrace on input line 842.
+LaTeX Info: Redefining \{ on input line 846.
+LaTeX Font Info:    Redeclaring math delimiter \rbrace on input line 848.
+LaTeX Info: Redefining \} on input line 852.
+LaTeX Font Info:    Redeclaring math delimiter \langle on input line 858.
+LaTeX Font Info:    Redeclaring math delimiter \rangle on input line 859.
+LaTeX Font Info:    Redeclaring math delimiter \vert on input line 863.
+LaTeX Font Info:    Redeclaring math delimiter \Vert on input line 865.
+LaTeX Font Info:    Redeclaring math delimiter \uparrow on input line 868.
+LaTeX Font Info:    Redeclaring math delimiter \downarrow on input line 869.
+LaTeX Font Info:    Redeclaring math delimiter \updownarrow on input line 870.
+LaTeX Font Info:    Redeclaring math delimiter \Uparrow on input line 871.
+LaTeX Font Info:    Redeclaring math delimiter \Downarrow on input line 872.
+LaTeX Font Info:    Redeclaring math delimiter \Updownarrow on input line 873.
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 880.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 881.
+LaTeX Font Info:    Redeclaring math delimiter \lceil on input line 882.
+LaTeX Font Info:    Redeclaring math delimiter \rceil on input line 883.
+LaTeX Font Info:    Redeclaring math delimiter \lfloor on input line 884.
+LaTeX Font Info:    Redeclaring math delimiter \rfloor on input line 885.
+LaTeX Font Info:    Redeclaring math symbol \braceld on input line 903.
+LaTeX Font Info:    Redeclaring math symbol \bracerd on input line 905.
+LaTeX Font Info:    Redeclaring math symbol \bracelu on input line 907.
+LaTeX Font Info:    Redeclaring math symbol \braceru on input line 909.
+LaTeX Font Info:    Redeclaring math accent \widehat on input line 944.
+LaTeX Font Info:    Redeclaring math accent \widetilde on input line 946.
+))
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2016/02/03 v2.11b `tabularx' package (DPC)
+\TX@col@width=\dimen188
+\TX@old@table=\dimen189
+\TX@old@col=\dimen190
+\TX@target=\dimen191
+\TX@delta=\dimen192
+\TX@cols=\count149
+\TX@ftn=\toks44
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/ms/ragged2e.sty
+Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/ms/everysel.sty
+Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
+)
+\CenteringLeftskip=\skip67
+\RaggedLeftLeftskip=\skip68
+\RaggedRightLeftskip=\skip69
+\CenteringRightskip=\skip70
+\RaggedLeftRightskip=\skip71
+\RaggedRightRightskip=\skip72
+\CenteringParfillskip=\skip73
+\RaggedLeftParfillskip=\skip74
+\RaggedRightParfillskip=\skip75
+\JustifyingParfillskip=\skip76
+\CenteringParindent=\skip77
+\RaggedLeftParindent=\skip78
+\RaggedRightParindent=\skip79
+\JustifyingParindent=\skip80
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen193
+\lightrulewidth=\dimen194
+\cmidrulewidth=\dimen195
+\belowrulesep=\dimen196
+\belowbottomsep=\dimen197
+\aboverulesep=\dimen198
+\abovetopsep=\dimen199
+\cmidrulesep=\dimen256
+\cmidrulekern=\dimen257
+\defaultaddspace=\dimen258
+\@cmidla=\count150
+\@cmidlb=\count151
+\@aboverulesep=\dimen259
+\@belowrulesep=\dimen260
+\@thisruleclass=\count152
+\@lastruleclass=\count153
+\@thisrulewidth=\dimen261
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen262
+\captionmargin@=\dimen263
+\captionwidth=\dimen264
+\caption@tempdima=\dimen265
+\caption@indent=\dimen266
+\caption@parindent=\dimen267
+\caption@hangindent=\dimen268
+)
+\c@ContinuedFloat=\count154
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: rotating package is loaded.
+Package caption Info: subfigure package is loaded.
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip81
+\enit@outerparindent=\dimen269
+\enit@toks=\toks45
+\enit@inbox=\box44
+\enitdp@description=\count155
+)
+(./headerCorrected.tex
+\c@definition=\count156
+\c@lemma=\count157
+\c@corollary=\count158
+\c@theorem=\count159
+\c@proposition=\count160
+\c@assumption=\count161
+\c@example=\count162
+\c@remark=\count163
+\c@claim=\count164
+\c@exercise=\count165
+\c@discussion=\count166
+) (./ALL.aux
+
+LaTeX Warning: Label `cor:basicConcentration' multiply defined.
+
+)
+\openout1 = `ALL.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for U/mathx/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+\AtBeginShipoutBox=\box45
+Package hyperref Info: Link coloring OFF on input line 136.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count167
+)
+LaTeX Info: Redefining \ref on input line 136.
+LaTeX Info: Redefining \pageref on input line 136.
+LaTeX Info: Redefining \nameref on input line 136.
+
+(./ALL.out) (./ALL.out)
+\@outlinefile=\write4
+\openout4 = `ALL.out'.
+
+
+(/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count168
+\scratchdimen=\dimen270
+\scratchbox=\box46
+\nofMPsegments=\count169
+\nofMParguments=\count170
+\everyMPshowfont=\toks46
+\MPscratchCnt=\count171
+\MPscratchDim=\dimen271
+\MPnumerator=\count172
+\makeMPintoPDFobject=\count173
+\everyMPtoPDFconversion=\toks47
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.gif,.ps,.png,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+ABD: EveryShipout initializing macros ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 136.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+msa on input line 138.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 138.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+
+LaTeX Warning: No \author given.
+
+(./ALL.toc [1
+
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+ [4] [5] [6])
+\tf@toc=\write5
+\openout5 = `ALL.toc'.
+
+ [7] [8] [9] (./lecture_1_probability_recap.tex
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 10.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 10.
+ [10]
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--78
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
+
+ []
+
+[12]
+Overfull \hbox (9.60028pt too wide) in paragraph at lines 175--176
+[]$\OML/cmm/m/it/10.95 V\U/matha/m/n/10.95 p\OML/cmm/m/it/10.95 X \U/matha/m/n/
+10.95 ^^@ \OML/cmm/m/it/10.95 Y\U/matha/m/n/10.95 q ^^P \U/msb/m/n/10.95 E  [] 
+\U/matha/m/n/10.95 ^^P \OML/cmm/m/it/10.95 V\U/matha/m/n/10.95 p\OML/cmm/m/it/1
+0.95 X\U/matha/m/n/10.95 q ^^@ \OML/cmm/m/it/10.95 V\U/matha/m/n/10.95 p\OML/cm
+m/m/it/10.95 Y\U/matha/m/n/10.95 q ^^@ \OT1/cmr/m/n/10.95 2 []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 215--221
+
+ []
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 222--227
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 246--247
+
+ []
+
+[14]
+Overfull \hbox (3.94255pt too wide) in paragraph at lines 254--255
+\OT1/cmr/m/it/10.95 (de-fined on a com-mon prob-a-bil-ity space $\U/matha/m/n/1
+0.95 p\OT1/cmr/m/n/10.95 
+\OML/cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 D\U/matha/m/n/10.95 q$\OT1/cmr/m/it/1
+0.95 ) is a ran-dom (col-umn) vec-tor: $[] \U/matha/m/n/10.95 ^^P p\OML/cmm/m/i
+t/10.95 X[]; [] ; X[]\U/matha/m/n/10.95 q[]$ 
+ []
+
+
+Overfull \hbox (5.38683pt too wide) in paragraph at lines 266--267
+[]\OT1/cmr/m/it/10.95 Two ran-dom vari-ables $\OML/cmm/m/it/10.95 X$ \OT1/cmr/m
+/it/10.95 and $\OML/cmm/m/it/10.95 Y$ \OT1/cmr/m/it/10.95 are jointly
+ []
+
+
+Overfull \hbox (5.12436pt too wide) in paragraph at lines 286--287
+[]\OT1/cmr/m/it/10.95 A ran-
+ []
+
+[15]
+<1D.png, id=1391, 1284.8pt x 963.6pt>
+File: 1D.png Graphic file (type png)
+<use 1D.png>
+Package pdftex.def Info: 1D.png  used on input line 300.
+(pdftex.def)             Requested size: 128.48752pt x 96.36565pt.
+<2D.png, id=1393, 1284.8pt x 803.0pt>
+File: 2D.png Graphic file (type png)
+<use 2D.png>
+Package pdftex.def Info: 2D.png  used on input line 305.
+(pdftex.def)             Requested size: 128.48752pt x 80.3047pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 314--316
+
+ []
+
+
+Overfull \hbox (19.0711pt too wide) in paragraph at lines 325--329
+[]
+ []
+
+[16 <./1D.png> <./2D.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 362--365
+
+ []
+
+LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 374.
+[17] [18]
+<uncorrelated.png, id=1422, 711.65875pt x 484.81125pt>
+File: uncorrelated.png Graphic file (type png)
+<use uncorrelated.png>
+Package pdftex.def Info: uncorrelated.png  used on input line 477.
+(pdftex.def)             Requested size: 213.49927pt x 145.44449pt.
+
+Underfull \hbox (badness 1694) in paragraph at lines 482--482
+[][]\OT1/cmr/m/n/9 Uncorrelated does not im-ply in-de-pen-dent. See, e.g., []$\
+OT1/cmtt/m/n/9 https : / / en . wikipedia . org / wiki / Normally _
+ []
+
+[19 <./uncorrelated.png>]
+<uncorrelated_scaled.png, id=1435, 720.6925pt x 484.81125pt>
+File: uncorrelated_scaled.png Graphic file (type png)
+<use uncorrelated_scaled.png>
+Package pdftex.def Info: uncorrelated_scaled.png  used on input line 497.
+(pdftex.def)             Requested size: 216.20941pt x 145.44449pt.
+<correlated.png, id=1436, 711.65875pt x 484.81125pt>
+File: correlated.png Graphic file (type png)
+<use correlated.png>
+Package pdftex.def Info: correlated.png  used on input line 514.
+(pdftex.def)             Requested size: 213.49927pt x 145.44449pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[20 <./uncorrelated_scaled.png>] [21 <./correlated.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 582--585
+
+ []
+
+[22] [23] [24]
+Underfull \hbox (badness 10000) in paragraph at lines 660--665
+
+ []
+
+[25]
+Overfull \hbox (13.14015pt too wide) in paragraph at lines 736--741
+[]\OT1/cmr/m/it/10.95 The sam-ple com-plex-ity of coin pre-dic-tion is bounded 
+above by $\OML/cmm/m/it/10.95 m\U/matha/m/n/10.95 p\OML/cmm/m/it/10.95 ^^O; ^^N
+\U/matha/m/n/10.95 q ¤ []$\OT1/cmr/m/it/10.95 .
+ []
+
+) [26] (./lecture_2_linear_model.tex [27]
+<forbes.png, id=1500, 572.1375pt x 572.89032pt>
+File: forbes.png Graphic file (type png)
+<use forbes.png>
+Package pdftex.def Info: forbes.png  used on input line 82.
+(pdftex.def)             Requested size: 274.6262pt x 274.98422pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[28] [29 <./forbes.png (PNG copy)>]
+<parabola.png, id=1514, 505.89pt x 383.93437pt>
+File: parabola.png Graphic file (type png)
+<use parabola.png>
+Package pdftex.def Info: parabola.png  used on input line 156.
+(pdftex.def)             Requested size: 325.215pt x 246.81853pt.
+ [30 <./parabola.png (PNG copy)>] [31]
+[32] [33]
+<PlotTsurel.png, id=1540, 837.1275pt x 549.55313pt>
+File: PlotTsurel.png Graphic file (type png)
+<use PlotTsurel.png>
+Package pdftex.def Info: PlotTsurel.png  used on input line 329.
+(pdftex.def)             Requested size: 325.215pt x 213.49469pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<Geometry2.png, id=1541, 831.105pt x 549.55313pt>
+File: Geometry2.png Graphic file (type png)
+<use Geometry2.png>
+Package pdftex.def Info: Geometry2.png  used on input line 345.
+(pdftex.def)             Requested size: 397.48499pt x 262.82655pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[34] [35 <./PlotTsurel.png (PNG copy)> <./Geometry2.png (PNG copy)>] [36]
+[37]
+<clean_poly_d_1.png, id=1565, 703.87968pt x 572.89032pt>
+File: clean_poly_d_1.png Graphic file (type png)
+<use clean_poly_d_1.png>
+Package pdftex.def Info: clean_poly_d_1.png  used on input line 410.
+(pdftex.def)             Requested size: 211.16553pt x 171.86841pt.
+<clean_poly_d_2.png, id=1566, 704.6325pt x 572.89032pt>
+File: clean_poly_d_2.png Graphic file (type png)
+<use clean_poly_d_2.png>
+Package pdftex.def Info: clean_poly_d_2.png  used on input line 415.
+(pdftex.def)             Requested size: 211.39139pt x 171.86841pt.
+<clean_poly_d_3.png, id=1567, 704.6325pt x 572.1375pt>
+File: clean_poly_d_3.png Graphic file (type png)
+<use clean_poly_d_3.png>
+Package pdftex.def Info: clean_poly_d_3.png  used on input line 419.
+(pdftex.def)             Requested size: 211.39139pt x 171.64256pt.
+<clean_poly_d_4.png, id=1568, 705.38531pt x 571.38469pt>
+File: clean_poly_d_4.png Graphic file (type png)
+<use clean_poly_d_4.png>
+Package pdftex.def Info: clean_poly_d_4.png  used on input line 424.
+(pdftex.def)             Requested size: 211.61722pt x 171.41672pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<clean_poly_d_5.png, id=1569, 704.6325pt x 569.87906pt>
+File: clean_poly_d_5.png Graphic file (type png)
+<use clean_poly_d_5.png>
+Package pdftex.def Info: clean_poly_d_5.png  used on input line 429.
+(pdftex.def)             Requested size: 211.39139pt x 170.96503pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<clean_poly_d_6.png, id=1570, 705.38531pt x 572.89032pt>
+File: clean_poly_d_6.png Graphic file (type png)
+<use clean_poly_d_6.png>
+Package pdftex.def Info: clean_poly_d_6.png  used on input line 434.
+(pdftex.def)             Requested size: 211.61722pt x 171.86841pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<clean_poly_d_7.png, id=1571, 708.39656pt x 572.1375pt>
+File: clean_poly_d_7.png Graphic file (type png)
+<use clean_poly_d_7.png>
+Package pdftex.def Info: clean_poly_d_7.png  used on input line 439.
+(pdftex.def)             Requested size: 212.5206pt x 171.64256pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<clean_poly_d_8.png, id=1572, 706.13812pt x 575.90157pt>
+File: clean_poly_d_8.png Graphic file (type png)
+<use clean_poly_d_8.png>
+Package pdftex.def Info: clean_poly_d_8.png  used on input line 444.
+(pdftex.def)             Requested size: 211.84306pt x 172.7718pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[38 <./clean_poly_d_1.png> <./clean_poly_d_2.png> <./clean_poly_d_3.png>]
+[39 <./clean_poly_d_4.png> <./clean_poly_d_5.png> <./clean_poly_d_6.png>]
+[40 <./clean_poly_d_7.png> <./clean_poly_d_8.png>]
+<single_poly_d_1_iMonte_1.png, id=1602, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_1.png Graphic file (type png)
+<use single_poly_d_1_iMonte_1.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_1.png  used on input line 463.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+<single_poly_d_1_iMonte_2.png, id=1603, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_2.png Graphic file (type png)
+<use single_poly_d_1_iMonte_2.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_2.png  used on input line 467.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+<single_poly_d_1_iMonte_3.png, id=1604, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_3.png Graphic file (type png)
+<use single_poly_d_1_iMonte_3.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_3.png  used on input line 471.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+<single_poly_d_1_iMonte_4.png, id=1605, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_4.png Graphic file (type png)
+<use single_poly_d_1_iMonte_4.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_4.png  used on input line 475.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_5.png, id=1606, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_5.png Graphic file (type png)
+<use single_poly_d_1_iMonte_5.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_5.png  used on input line 480.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_6.png, id=1607, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_6.png Graphic file (type png)
+<use single_poly_d_1_iMonte_6.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_6.png  used on input line 485.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_7.png, id=1608, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_7.png Graphic file (type png)
+<use single_poly_d_1_iMonte_7.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_7.png  used on input line 489.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_8.png, id=1609, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_8.png Graphic file (type png)
+<use single_poly_d_1_iMonte_8.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_8.png  used on input line 494.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_9.png, id=1610, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_9.png Graphic file (type png)
+<use single_poly_d_1_iMonte_9.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_9.png  used on input line 499.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_10.png, id=1611, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_10.png Graphic file (type png)
+<use single_poly_d_1_iMonte_10.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_10.png  used on input line 504.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_11.png, id=1612, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_11.png Graphic file (type png)
+<use single_poly_d_1_iMonte_11.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_11.png  used on input line 509.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_12.png, id=1613, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_12.png Graphic file (type png)
+<use single_poly_d_1_iMonte_12.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_12.png  used on input line 514.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_13.png, id=1614, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_13.png Graphic file (type png)
+<use single_poly_d_1_iMonte_13.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_13.png  used on input line 520.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_14.png, id=1615, 1894.07625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_14.png Graphic file (type png)
+<use single_poly_d_1_iMonte_14.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_14.png  used on input line 525.
+
+(pdftex.def)             Requested size: 189.41872pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_1_iMonte_15.png, id=1616, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_1_iMonte_15.png Graphic file (type png)
+<use single_poly_d_1_iMonte_15.png>
+Package pdftex.def Info: single_poly_d_1_iMonte_15.png  used on input line 529.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[41 <./single_poly_d_1_iMonte_1.png> <./single_poly_d_1_iMonte_2.png> <./single
+_poly_d_1_iMonte_3.png>]
+<single_poly_d_5_iMonte_1.png, id=1627, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_1.png Graphic file (type png)
+<use single_poly_d_5_iMonte_1.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_1.png  used on input line 545.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_2.png, id=1628, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_2.png Graphic file (type png)
+<use single_poly_d_5_iMonte_2.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_2.png  used on input line 549.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_3.png, id=1629, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_3.png Graphic file (type png)
+<use single_poly_d_5_iMonte_3.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_3.png  used on input line 553.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_4.png, id=1630, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_4.png Graphic file (type png)
+<use single_poly_d_5_iMonte_4.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_4.png  used on input line 557.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_5.png, id=1631, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_5.png Graphic file (type png)
+<use single_poly_d_5_iMonte_5.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_5.png  used on input line 562.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_6.png, id=1632, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_6.png Graphic file (type png)
+<use single_poly_d_5_iMonte_6.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_6.png  used on input line 567.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_7.png, id=1633, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_7.png Graphic file (type png)
+<use single_poly_d_5_iMonte_7.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_7.png  used on input line 571.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_8.png, id=1634, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_8.png Graphic file (type png)
+<use single_poly_d_5_iMonte_8.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_8.png  used on input line 576.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_9.png, id=1635, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_9.png Graphic file (type png)
+<use single_poly_d_5_iMonte_9.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_9.png  used on input line 581.
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_10.png, id=1636, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_10.png Graphic file (type png)
+<use single_poly_d_5_iMonte_10.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_10.png  used on input line 586.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_11.png, id=1637, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_11.png Graphic file (type png)
+<use single_poly_d_5_iMonte_11.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_11.png  used on input line 591.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_12.png, id=1638, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_12.png Graphic file (type png)
+<use single_poly_d_5_iMonte_12.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_12.png  used on input line 596.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_13.png, id=1639, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_13.png Graphic file (type png)
+<use single_poly_d_5_iMonte_13.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_13.png  used on input line 602.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_14.png, id=1640, 1894.07625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_14.png Graphic file (type png)
+<use single_poly_d_5_iMonte_14.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_14.png  used on input line 607.
+
+(pdftex.def)             Requested size: 189.41872pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<single_poly_d_5_iMonte_15.png, id=1641, 1886.04625pt x 1555.8125pt>
+File: single_poly_d_5_iMonte_15.png Graphic file (type png)
+<use single_poly_d_5_iMonte_15.png>
+Package pdftex.def Info: single_poly_d_5_iMonte_15.png  used on input line 611.
+
+(pdftex.def)             Requested size: 188.61568pt x 155.59036pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[42 <./single_poly_d_1_iMonte_4.png> <./single_poly_d_1_iMonte_5.png> <./single
+_poly_d_1_iMonte_6.png>] [43 <./single_poly_d_1_iMonte_7.png> <./single_poly_d_
+1_iMonte_8.png> <./single_poly_d_1_iMonte_9.png>] [44 <./single_poly_d_1_iMonte
+_10.png> <./single_poly_d_1_iMonte_11.png> <./single_poly_d_1_iMonte_12.png>])
+[45 <./single_poly_d_1_iMonte_13.png> <./single_poly_d_1_iMonte_14.png> <./sing
+le_poly_d_1_iMonte_15.png>] (./lecture_3_classification.tex [46 <./single_poly_
+d_5_iMonte_1.png> <./single_poly_d_5_iMonte_2.png> <./single_poly_d_5_iMonte_3.
+png>] [47 <./single_poly_d_5_iMonte_4.png> <./single_poly_d_5_iMonte_5.png> <./
+single_poly_d_5_iMonte_6.png>] [48 <./single_poly_d_5_iMonte_7.png> <./single_p
+oly_d_5_iMonte_8.png> <./single_poly_d_5_iMonte_9.png>] [49 <./single_poly_d_5_
+iMonte_10.png> <./single_poly_d_5_iMonte_11.png> <./single_poly_d_5_iMonte_12.p
+ng>]
+<SAheart_data.png, id=1724, 595.22375pt x 366.36874pt>
+File: SAheart_data.png Graphic file (type png)
+<use SAheart_data.png>
+Package pdftex.def Info: SAheart_data.png  used on input line 84.
+(pdftex.def)             Requested size: 289.07999pt x 177.929pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--87
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--87
+
+ []
+
+[50 <./single_poly_d_5_iMonte_13.png> <./single_poly_d_5_iMonte_14.png> <./sing
+le_poly_d_5_iMonte_15.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 93.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 93.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 93.
+
+<tree1.png, id=1735, 568.1225pt x 552.0625pt>
+File: tree1.png Graphic file (type png)
+<use tree1.png>
+Package pdftex.def Info: tree1.png  used on input line 104.
+(pdftex.def)             Requested size: 289.07999pt x 280.91635pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[51 <./SAheart_data.png>] [52 <./tree1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 200--214
+
+ []
+
+[53] [54]
+<b1.pdf, id=1760, 630.355pt x 579.16376pt>
+File: b1.pdf Graphic file (type pdf)
+<use b1.pdf>
+Package pdftex.def Info: b1.pdf  used on input line 294.
+(pdftex.def)             Requested size: 216.81pt x 199.20193pt.
+<b2.pdf, id=1762, 649.42625pt x 595.22375pt>
+File: b2.pdf Graphic file (type pdf)
+<use b2.pdf>
+Package pdftex.def Info: b2.pdf  used on input line 303.
+(pdftex.def)             Requested size: 216.81pt x 198.7132pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[55 <./b1.pdf>] [56 <./b2.pdf>]
+<half.pdf, id=1795, 429.605pt x 387.4475pt>
+File: half.pdf Graphic file (type pdf)
+<use half.pdf>
+Package pdftex.def Info: half.pdf  used on input line 390.
+(pdftex.def)             Requested size: 216.81pt x 195.53824pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 381--393
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 419--425
+
+ []
+
+[57 <./half.pdf>] [58]
+Overfull \hbox (19.59612pt too wide) in paragraph at lines 519--521
+[]\OT1/cmr/bx/n/10.95 A con-vex op-ti-miza-tion prob-lem \OT1/cmr/m/n/10.95 is 
+an op-ti-miza-tion prob-lem as above in which $\OML/cmm/m/it/10.95 f[]; f[]; []
+ ; f[]$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 528--549
+
+ []
+
+[59]
+Underfull \hbox (badness 10000) in paragraph at lines 577--585
+
+ []
+
+<nonuniq.pdf, id=1820, 375.4025pt x 346.29375pt>
+File: nonuniq.pdf Graphic file (type pdf)
+<use nonuniq.pdf>
+Package pdftex.def Info: nonuniq.pdf  used on input line 631.
+(pdftex.def)             Requested size: 216.81pt x 199.99977pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 671--680
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 682--694
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 682--694
+
+ []
+
+[61 <./nonuniq.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 709--726
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 709--726
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 709--726
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 731--734
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 739--756
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 739--756
+
+ []
+
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 779--786
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 793--807
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 793--807
+
+ []
+
+[63] [64] [65] [66] [67] [68]
+<radar.jpg, id=1872, 481.8pt x 481.8pt>
+File: radar.jpg Graphic file (type jpg)
+<use radar.jpg>
+Package pdftex.def Info: radar.jpg  used on input line 1181.
+(pdftex.def)             Requested size: 180.67499pt x 180.67455pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[69]
+<roc.png, id=1877, 346.29375pt x 319.1925pt>
+File: roc.png Graphic file (type png)
+<use roc.png>
+Package pdftex.def Info: roc.png  used on input line 1204.
+(pdftex.def)             Requested size: 346.2929pt x 319.19171pt.
+ [70 <./radar.jpg> <./roc.png>] [71]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1321.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1321.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1323--1332
+
+ []
+
+[72]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1353.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1353.
+
+<esl_1_nn.pdf, id=1894, 253.82137pt x 253.2668pt>
+File: esl_1_nn.pdf Graphic file (type pdf)
+<use esl_1_nn.pdf>
+Package pdftex.def Info: esl_1_nn.pdf  used on input line 1368.
+(pdftex.def)             Requested size: 253.82072pt x 253.26617pt.
+[73 <./esl_1_nn.pdf>]
+<esl_15_nn.pdf, id=1958, 255.65332pt x 252.14873pt>
+File: esl_15_nn.pdf Graphic file (type pdf)
+<use esl_15_nn.pdf>
+Package pdftex.def Info: esl_15_nn.pdf  used on input line 1397.
+(pdftex.def)             Requested size: 255.65268pt x 252.1481pt.
+<esl_nn_vary.pdf, id=1959, 158.87717pt x 169.47365pt>
+File: esl_nn_vary.pdf Graphic file (type pdf)
+<use esl_nn_vary.pdf>
+Package pdftex.def Info: esl_nn_vary.pdf  used on input line 1409.
+(pdftex.def)             Requested size: 216.81pt x 231.2724pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<ESL_bias_variance.pdf, id=1960, 265.30508pt x 182.93002pt>
+File: ESL_bias_variance.pdf Graphic file (type pdf)
+<use ESL_bias_variance.pdf>
+Package pdftex.def Info: ESL_bias_variance.pdf  used on input line 1419.
+(pdftex.def)             Requested size: 325.215pt x 224.25731pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1424.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1424.
+
+[74 <./esl_15_nn.pdf>] [75 <./esl_nn_vary.pdf> <./ESL_bias_variance.pdf>]
+[76]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1506.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 1506.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1506.
+
+<tree2.png, id=2089, 1158.3275pt x 686.565pt>
+File: tree2.png Graphic file (type png)
+<use tree2.png>
+Package pdftex.def Info: tree2.png  used on input line 1550.
+(pdftex.def)             Requested size: 361.34999pt x 214.17389pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<esl_no_tree.pdf, id=2090, 150.1329pt x 158.2997pt>
+File: esl_no_tree.pdf Graphic file (type pdf)
+<use esl_no_tree.pdf>
+Package pdftex.def Info: esl_no_tree.pdf  used on input line 1561.
+(pdftex.def)             Requested size: 216.81pt x 228.6132pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1586.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 1586.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1586.
+
+[77] [78 <./tree2.png> <./esl_no_tree.pdf>] [79] [80]
+Underfull \hbox (badness 10000) in paragraph at lines 1789--1805
+
+ []
+
+[81]
+Underfull \hbox (badness 10000) in paragraph at lines 1838--1848
+
+ []
+
+[82]) [83] (./lecture_4_PAC_part_1.tex
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+<ImmunotherapyDataSet.png, id=2157, 1119.43219pt x 588.69937pt>
+File: ImmunotherapyDataSet.png Graphic file (type png)
+<use ImmunotherapyDataSet.png>
+Package pdftex.def Info: ImmunotherapyDataSet.png  used on input line 11.
+(pdftex.def)             Requested size: 335.83224pt x 176.61116pt.
+[84 <./ImmunotherapyDataSet.png (PNG copy)>] [85]
+Underfull \hbox (badness 10000) in paragraph at lines 104--107
+
+ []
+
+[86]
+Underfull \hbox (badness 10000) in paragraph at lines 109--117
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+
+ []
+
+[87]
+Underfull \hbox (badness 10000) in paragraph at lines 165--168
+
+ []
+
+[88] [89]
+Underfull \hbox (badness 10000) in paragraph at lines 316--327
+
+ []
+
+[90]
+<m_eps_del.png, id=2201, 673.76718pt x 413.29407pt>
+File: m_eps_del.png Graphic file (type png)
+<use m_eps_del.png>
+Package pdftex.def Info: m_eps_del.png  used on input line 358.
+(pdftex.def)             Requested size: 202.13171pt x 123.98917pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[91]
+Underfull \hbox (badness 10000) in paragraph at lines 376--381
+
+ []
+
+[92 <./m_eps_del.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 395--401
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 395--401
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 429--432
+
+ []
+
+[93] [94]
+<threshold.png, id=2222, 525.46312pt x 205.5178pt>
+File: threshold.png Graphic file (type png)
+<use threshold.png>
+Package pdftex.def Info: threshold.png  used on input line 502.
+(pdftex.def)             Requested size: 157.64015pt x 61.6558pt.
+ [95 <./threshold.png>]
+<thresholds1.png, id=2229, 459.96844pt x 127.97812pt>
+File: thresholds1.png Graphic file (type png)
+<use thresholds1.png>
+Package pdftex.def Info: thresholds1.png  used on input line 519.
+(pdftex.def)             Requested size: 137.9916pt x 38.39372pt.
+<thresholds1a.png, id=2230, 459.96844pt x 127.97812pt>
+File: thresholds1a.png Graphic file (type png)
+<use thresholds1a.png>
+Package pdftex.def Info: thresholds1a.png  used on input line 525.
+(pdftex.def)             Requested size: 137.9916pt x 38.39372pt.
+<thresholds1b.png, id=2231, 459.96844pt x 127.97812pt>
+File: thresholds1b.png Graphic file (type png)
+<use thresholds1b.png>
+Package pdftex.def Info: thresholds1b.png  used on input line 531.
+(pdftex.def)             Requested size: 137.9916pt x 38.39372pt.
+<thresholds2.png, id=2232, 485.56406pt x 141.52875pt>
+File: thresholds2.png Graphic file (type png)
+<use thresholds2.png>
+Package pdftex.def Info: thresholds2.png  used on input line 537.
+(pdftex.def)             Requested size: 145.67033pt x 42.45894pt.
+<thresholds3.png, id=2233, 374.90062pt x 176.91093pt>
+File: thresholds3.png Graphic file (type png)
+<use thresholds3.png>
+Package pdftex.def Info: thresholds3.png  used on input line 564.
+(pdftex.def)             Requested size: 112.47105pt x 53.07368pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[96 <./thresholds1.png (PNG copy)> <./thresholds1a.png> <./thresholds1b.png> <.
+/thresholds2.png (PNG copy)>]
+<thresholds4.png, id=2248, 429.85594pt x 94.10156pt>
+File: thresholds4.png Graphic file (type png)
+<use thresholds4.png>
+Package pdftex.def Info: thresholds4.png  used on input line 577.
+(pdftex.def)             Requested size: 128.95776pt x 28.23068pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 574--582
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 586--591
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 586--591
+
+ []
+
+[97 <./thresholds3.png (PNG copy)> <./thresholds4.png (PNG copy)>] [98]
+Package epstopdf Info: Source file: <connection_m_eps_delta.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 68494 bytes
+(epstopdf)             Output file: <connection_m_eps_delta-eps-converted-to.pd
+f>
+(epstopdf)                    date: 2020-07-03 23:09:55
+(epstopdf)                    size: 9257 bytes
+(epstopdf)             Command: <epstopdf --outfile=connection_m_eps_delta-eps-
+converted-to.pdf connection_m_eps_delta.eps>
+(epstopdf)             \includegraphics on input line 650.
+Package epstopdf Info: Output file is already uptodate.
+<connection_m_eps_delta-eps-converted-to.pdf, id=2263, 172.645pt x 123.46124pt>
+
+File: connection_m_eps_delta-eps-converted-to.pdf Graphic file (type pdf)
+<use connection_m_eps_delta-eps-converted-to.pdf>
+Package pdftex.def Info: connection_m_eps_delta-eps-converted-to.pdf  used on i
+nput line 650.
+(pdftex.def)             Requested size: 138.11617pt x 98.7691pt.
+Package epstopdf Info: Source file: <connection_m_eps_delta_finite4.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 141654 bytes
+(epstopdf)             Output file: <connection_m_eps_delta_finite4-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:55
+(epstopdf)                    size: 15438 bytes
+(epstopdf)             Command: <epstopdf --outfile=connection_m_eps_delta_fini
+te4-eps-converted-to.pdf connection_m_eps_delta_finite4.eps>
+(epstopdf)             \includegraphics on input line 655.
+Package epstopdf Info: Output file is already uptodate.
+<connection_m_eps_delta_finite4-eps-converted-to.pdf, id=2264, 172.645pt x 141.
+52875pt>
+File: connection_m_eps_delta_finite4-eps-converted-to.pdf Graphic file (type pd
+f)
+<use connection_m_eps_delta_finite4-eps-converted-to.pdf>
+Package pdftex.def Info: connection_m_eps_delta_finite4-eps-converted-to.pdf  u
+sed on input line 655.
+(pdftex.def)             Requested size: 138.11617pt x 113.22314pt.
+Package epstopdf Info: Source file: <connection_m_eps_delta_finite2.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 127362 bytes
+(epstopdf)             Output file: <connection_m_eps_delta_finite2-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:56
+(epstopdf)                    size: 14093 bytes
+(epstopdf)             Command: <epstopdf --outfile=connection_m_eps_delta_fini
+te2-eps-converted-to.pdf connection_m_eps_delta_finite2.eps>
+(epstopdf)             \includegraphics on input line 660.
+Package epstopdf Info: Output file is already uptodate.
+<connection_m_eps_delta_finite2-eps-converted-to.pdf, id=2265, 172.645pt x 140.
+525pt>
+File: connection_m_eps_delta_finite2-eps-converted-to.pdf Graphic file (type pd
+f)
+<use connection_m_eps_delta_finite2-eps-converted-to.pdf>
+Package pdftex.def Info: connection_m_eps_delta_finite2-eps-converted-to.pdf  u
+sed on input line 660.
+(pdftex.def)             Requested size: 138.11617pt x 112.42014pt.
+Package epstopdf Info: Source file: <connection_m_eps_delta_finite3.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 125823 bytes
+(epstopdf)             Output file: <connection_m_eps_delta_finite3-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:56
+(epstopdf)                    size: 13612 bytes
+(epstopdf)             Command: <epstopdf --outfile=connection_m_eps_delta_fini
+te3-eps-converted-to.pdf connection_m_eps_delta_finite3.eps>
+(epstopdf)             \includegraphics on input line 665.
+Package epstopdf Info: Output file is already uptodate.
+<connection_m_eps_delta_finite3-eps-converted-to.pdf, id=2266, 172.645pt x 140.
+525pt>
+File: connection_m_eps_delta_finite3-eps-converted-to.pdf Graphic file (type pd
+f)
+<use connection_m_eps_delta_finite3-eps-converted-to.pdf>
+Package pdftex.def Info: connection_m_eps_delta_finite3-eps-converted-to.pdf  u
+sed on input line 665.
+(pdftex.def)             Requested size: 138.11617pt x 112.42014pt.
+
+[99 <./connection_m_eps_delta-eps-converted-to.pdf> <./connection_m_eps_delta_f
+inite4-eps-converted-to.pdf> <./connection_m_eps_delta_finite2-eps-converted-to
+.pdf> <./connection_m_eps_delta_finite3-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <complexity_measure.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 66397 bytes
+(epstopdf)             Output file: <complexity_measure-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:56
+(epstopdf)                    size: 8241 bytes
+(epstopdf)             Command: <epstopdf --outfile=complexity_measure-eps-conv
+erted-to.pdf complexity_measure.eps>
+(epstopdf)             \includegraphics on input line 693.
+Package epstopdf Info: Output file is already uptodate.
+<complexity_measure-eps-converted-to.pdf, id=2390, 256.96pt x 65.24374pt>
+File: complexity_measure-eps-converted-to.pdf Graphic file (type pdf)
+<use complexity_measure-eps-converted-to.pdf>
+Package pdftex.def Info: complexity_measure-eps-converted-to.pdf  used on input
+ line 693.
+(pdftex.def)             Requested size: 154.17719pt x 39.14653pt.
+Package epstopdf Info: Source file: <2_intervals.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 17600 bytes
+(epstopdf)             Output file: <2_intervals-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:56
+(epstopdf)                    size: 3816 bytes
+(epstopdf)             Command: <epstopdf --outfile=2_intervals-eps-converted-t
+o.pdf 2_intervals.eps>
+(epstopdf)             \includegraphics on input line 703.
+Package epstopdf Info: Output file is already uptodate.
+<2_intervals-eps-converted-to.pdf, id=2391, 225.84375pt x 49.18375pt>
+File: 2_intervals-eps-converted-to.pdf Graphic file (type pdf)
+<use 2_intervals-eps-converted-to.pdf>
+Package pdftex.def Info: 2_intervals-eps-converted-to.pdf  used on input line 7
+03.
+(pdftex.def)             Requested size: 180.67523pt x 39.34703pt.
+Package epstopdf Info: Source file: <VC_threshold_intuitive.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 2368 bytes
+(epstopdf)             Output file: <VC_threshold_intuitive-eps-converted-to.pd
+f>
+(epstopdf)                    date: 2020-07-03 23:09:56
+(epstopdf)                    size: 2433 bytes
+(epstopdf)             Command: <epstopdf --outfile=VC_threshold_intuitive-eps-
+converted-to.pdf VC_threshold_intuitive.eps>
+(epstopdf)             \includegraphics on input line 711.
+Package epstopdf Info: Output file is already uptodate.
+<VC_threshold_intuitive-eps-converted-to.pdf, id=2392, 129.48375pt x 32.12pt>
+File: VC_threshold_intuitive-eps-converted-to.pdf Graphic file (type pdf)
+<use VC_threshold_intuitive-eps-converted-to.pdf>
+Package pdftex.def Info: VC_threshold_intuitive-eps-converted-to.pdf  used on i
+nput line 711.
+(pdftex.def)             Requested size: 77.69083pt x 19.27213pt.
+Package epstopdf Info: Source file: <VC_threshold_intuitive3.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 16511 bytes
+(epstopdf)             Output file: <VC_threshold_intuitive3-eps-converted-to.p
+df>
+(epstopdf)                    date: 2020-07-03 23:09:56
+(epstopdf)                    size: 3519 bytes
+(epstopdf)             Command: <epstopdf --outfile=VC_threshold_intuitive3-eps
+-converted-to.pdf VC_threshold_intuitive3.eps>
+(epstopdf)             \includegraphics on input line 717.
+Package epstopdf Info: Output file is already uptodate.
+<VC_threshold_intuitive3-eps-converted-to.pdf, id=2393, 129.48375pt x 49.18375p
+t>
+File: VC_threshold_intuitive3-eps-converted-to.pdf Graphic file (type pdf)
+<use VC_threshold_intuitive3-eps-converted-to.pdf>
+Package pdftex.def Info: VC_threshold_intuitive3-eps-converted-to.pdf  used on 
+input line 717.
+(pdftex.def)             Requested size: 77.69083pt x 29.51045pt.
+Package epstopdf Info: Source file: <VC_threshold_intuitive2.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 2388 bytes
+(epstopdf)             Output file: <VC_threshold_intuitive2-eps-converted-to.p
+df>
+(epstopdf)                    date: 2020-07-03 23:09:57
+(epstopdf)                    size: 2448 bytes
+(epstopdf)             Command: <epstopdf --outfile=VC_threshold_intuitive2-eps
+-converted-to.pdf VC_threshold_intuitive2.eps>
+(epstopdf)             \includegraphics on input line 723.
+Package epstopdf Info: Output file is already uptodate.
+<VC_threshold_intuitive2-eps-converted-to.pdf, id=2394, 129.48375pt x 32.12pt>
+File: VC_threshold_intuitive2-eps-converted-to.pdf Graphic file (type pdf)
+<use VC_threshold_intuitive2-eps-converted-to.pdf>
+Package pdftex.def Info: VC_threshold_intuitive2-eps-converted-to.pdf  used on 
+input line 723.
+(pdftex.def)             Requested size: 77.69083pt x 19.27213pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package epstopdf Info: Source file: <VC_threshold_intuitive4.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 31516 bytes
+(epstopdf)             Output file: <VC_threshold_intuitive4-eps-converted-to.p
+df>
+(epstopdf)                    date: 2020-07-03 23:09:57
+(epstopdf)                    size: 4581 bytes
+(epstopdf)             Command: <epstopdf --outfile=VC_threshold_intuitive4-eps
+-converted-to.pdf VC_threshold_intuitive4.eps>
+(epstopdf)             \includegraphics on input line 730.
+Package epstopdf Info: Output file is already uptodate.
+<VC_threshold_intuitive4-eps-converted-to.pdf, id=2395, 129.48375pt x 49.18375p
+t>
+File: VC_threshold_intuitive4-eps-converted-to.pdf Graphic file (type pdf)
+<use VC_threshold_intuitive4-eps-converted-to.pdf>
+Package pdftex.def Info: VC_threshold_intuitive4-eps-converted-to.pdf  used on 
+input line 730.
+(pdftex.def)             Requested size: 77.69083pt x 29.51045pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package epstopdf Info: Source file: <complexity_measure2.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 97570 bytes
+(epstopdf)             Output file: <complexity_measure2-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:57
+(epstopdf)                    size: 11075 bytes
+(epstopdf)             Command: <epstopdf --outfile=complexity_measure2-eps-con
+verted-to.pdf complexity_measure2.eps>
+(epstopdf)             \includegraphics on input line 737.
+Package epstopdf Info: Output file is already uptodate.
+<complexity_measure2-eps-converted-to.pdf, id=2396, 256.96pt x 65.24374pt>
+File: complexity_measure2-eps-converted-to.pdf Graphic file (type pdf)
+<use complexity_measure2-eps-converted-to.pdf>
+Package pdftex.def Info: complexity_measure2-eps-converted-to.pdf  used on inpu
+t line 737.
+(pdftex.def)             Requested size: 205.56827pt x 52.19505pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[100 <./complexity_measure-eps-converted-to.pdf> <./2_intervals-eps-converted-t
+o.pdf> <./VC_threshold_intuitive-eps-converted-to.pdf> <./VC_threshold_intuitiv
+e3-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 753--763
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 753--763
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 753--763
+
+ []
+
+[101 <./VC_threshold_intuitive2-eps-converted-to.pdf> <./VC_threshold_intuitive
+4-eps-converted-to.pdf> <./complexity_measure2-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 777--783
+
+ []
+
+[102]) [103] (./lecture_5_PAC_part_2.tex [104]
+Underfull \hbox (badness 10000) in paragraph at lines 107--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--118
+
+ []
+
+[105]
+Underfull \hbox (badness 10000) in paragraph at lines 132--142
+
+ []
+
+<ThresholdVC1.png, id=2500, 1215.03937pt x 96.36pt>
+File: ThresholdVC1.png Graphic file (type png)
+<use ThresholdVC1.png>
+Package pdftex.def Info: ThresholdVC1.png  used on input line 159.
+(pdftex.def)             Requested size: 225.83554pt x 32.5223pt.
+<ThresholdVC2.png, id=2501, 1186.4325pt x 288.3272pt>
+File: ThresholdVC2.png Graphic file (type png)
+<use ThresholdVC2.png>
+Package pdftex.def Info: ThresholdVC2.png  used on input line 165.
+(pdftex.def)             Requested size: 225.8409pt x 32.5212pt.
+[106 <./ThresholdVC1.png> <./ThresholdVC2.png>] [107]
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 248.
+
+[108]
+Package epstopdf Info: Source file: <connection_m_eps_delta_finite4.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 141654 bytes
+(epstopdf)             Output file: <connection_m_eps_delta_finite4-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:55
+(epstopdf)                    size: 15438 bytes
+(epstopdf)             Command: <epstopdf --outfile=connection_m_eps_delta_fini
+te4-eps-converted-to.pdf connection_m_eps_delta_finite4.eps>
+(epstopdf)             \includegraphics on input line 291.
+Package epstopdf Info: Output file is already uptodate.
+File: connection_m_eps_delta_finite4-eps-converted-to.pdf Graphic file (type pd
+f)
+<use connection_m_eps_delta_finite4-eps-converted-to.pdf>
+Package pdftex.def Info: connection_m_eps_delta_finite4-eps-converted-to.pdf  u
+sed on input line 291.
+(pdftex.def)             Requested size: 138.11617pt x 113.22314pt.
+Package epstopdf Info: Source file: <connection_m_eps_delta_finite2.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 127362 bytes
+(epstopdf)             Output file: <connection_m_eps_delta_finite2-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:56
+(epstopdf)                    size: 14093 bytes
+(epstopdf)             Command: <epstopdf --outfile=connection_m_eps_delta_fini
+te2-eps-converted-to.pdf connection_m_eps_delta_finite2.eps>
+(epstopdf)             \includegraphics on input line 296.
+Package epstopdf Info: Output file is already uptodate.
+File: connection_m_eps_delta_finite2-eps-converted-to.pdf Graphic file (type pd
+f)
+<use connection_m_eps_delta_finite2-eps-converted-to.pdf>
+Package pdftex.def Info: connection_m_eps_delta_finite2-eps-converted-to.pdf  u
+sed on input line 296.
+(pdftex.def)             Requested size: 138.11617pt x 112.42014pt.
+Package epstopdf Info: Source file: <connection_m_eps_delta_finite3.eps>
+(epstopdf)                    date: 2020-07-03 23:03:51
+(epstopdf)                    size: 125823 bytes
+(epstopdf)             Output file: <connection_m_eps_delta_finite3-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:09:56
+(epstopdf)                    size: 13612 bytes
+(epstopdf)             Command: <epstopdf --outfile=connection_m_eps_delta_fini
+te3-eps-converted-to.pdf connection_m_eps_delta_finite3.eps>
+(epstopdf)             \includegraphics on input line 301.
+Package epstopdf Info: Output file is already uptodate.
+File: connection_m_eps_delta_finite3-eps-converted-to.pdf Graphic file (type pd
+f)
+<use connection_m_eps_delta_finite3-eps-converted-to.pdf>
+Package pdftex.def Info: connection_m_eps_delta_finite3-eps-converted-to.pdf  u
+sed on input line 301.
+(pdftex.def)             Requested size: 138.11617pt x 112.42014pt.
+ [109] [110]
+Underfull \hbox (badness 10000) in paragraph at lines 369--373
+
+ []
+
+[111]
+Underfull \hbox (badness 10000) in paragraph at lines 412--423
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--423
+
+ []
+
+[112]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 458.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 458.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 458.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\times' on input line 458.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 458.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 461--473
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 499--508
+
+ []
+
+[113]
+Underfull \hbox (badness 10000) in paragraph at lines 548--563
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 548--563
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 565--569
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 575--586
+
+ []
+
+[114]
+Underfull \hbox (badness 10000) in paragraph at lines 594--601
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 607--611
+
+ []
+
+
+LaTeX Warning: Reference `D:def' on page 115 undefined on input line 623.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 627--634
+
+ []
+
+[115]
+Underfull \hbox (badness 10000) in paragraph at lines 654--659
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 695--702
+
+ []
+
+[116]
+Overfull \hbox (10.13507pt too wide) in paragraph at lines 742--746
+\OT1/cmr/m/n/10.95 (ERM) learner was de-fined as any $\OML/cmm/m/it/10.95 h \U/
+matha/m/n/10.95 P \OMS/cmsy/m/n/10.95 H$ \OT1/cmr/m/n/10.95 con-sis-tent with t
+he train-ing set $\OML/cmm/m/it/10.95 S \U/matha/m/n/10.95 ^^P p\OML/cmm/m/it/1
+0.95 x[]; y[]\U/matha/m/n/10.95 q\OML/cmm/m/it/10.95 ; [] ; \U/matha/m/n/10.95 
+p\OML/cmm/m/it/10.95 x[]; y[]\U/matha/m/n/10.95 q$\OT1/cmr/m/n/10.95 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 752--755
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 752--755
+
+ []
+
+[117]
+Overfull \hbox (14.52388pt too wide) in paragraph at lines 806--810
+[]
+ []
+
+[118]
+Underfull \hbox (badness 10000) in paragraph at lines 827--855
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 827--855
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 827--855
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 880--904
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 880--904
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 880--904
+
+ []
+
+[119]
+Overfull \hbox (3.3103pt too wide) in paragraph at lines 938--941
+[]\OT1/cmr/m/it/10.95 Let $\OML/cmm/m/it/10.95 S$ \OT1/cmr/m/it/10.95 be an $\O
+ML/cmm/m/it/10.95 ^^O\U/matha/m/n/10.95 {\OT1/cmr/m/n/10.95 2$\OT1/cmr/m/it/10.
+95 -representative sam-ple for $\OMS/cmsy/m/n/10.95 D\OML/cmm/m/it/10.95 ; \OMS
+/cmsy/m/n/10.95 H\OML/cmm/m/it/10.95 ; `$\OT1/cmr/m/it/10.95 . Let $\OML/cmm/m/
+it/10.95 h[]$ \OT1/cmr/m/it/10.95 be any out-put of $\OML/cmm/m/it/10.95 ERM[]\
+U/matha/m/n/10.95 p\OML/cmm/m/it/10.95 S\U/matha/m/n/10.95 q$\OT1/cmr/m/it/10.9
+5 ,
+ []
+
+
+Overfull \hbox (0.93248pt too wide) in paragraph at lines 960--964
+ []\OT1/cmr/bx/n/10.95 Exercise.[] \OT1/cmr/m/n/10.95 Prove that if $\OMS/cmsy/
+m/n/10.95 H$ \OT1/cmr/m/n/10.95 has the uni-form con-ver-gence prop-erty with f
+unc-tion $\OML/cmm/m/it/10.95 m[] \OT1/cmr/m/n/10.95 : \U/matha/m/n/10.95 p\OT1
+/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\U/matha/m/n/10.95 q[
+] Ñ
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 966.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\infty' on input line 966.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 966.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 966.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 966.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 980.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 980.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 980.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 980.
+
+[120]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1005.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1005.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1016--1020
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1041--1058
+
+ []
+
+[121]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1089.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1089.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1090--1104
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1090--1104
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1109--1121
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1109--1121
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1129--1136
+
+ []
+
+[122]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1148.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 1148.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1148.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1148.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1148.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1148.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1148.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1180--1195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1180--1195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1180--1195
+
+ []
+
+[123]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\infty' on input line 1214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 1214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1214.
+
+) [124] (./lecture_6_boosting.tex
+Underfull \hbox (badness 10000) in paragraph at lines 23--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--60
+
+ []
+
+[125]
+Underfull \hbox (badness 10000) in paragraph at lines 81--116
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--116
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--116
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--116
+
+ []
+
+File: ESL_bias_variance.pdf Graphic file (type pdf)
+<use ESL_bias_variance.pdf>
+Package pdftex.def Info: ESL_bias_variance.pdf  used on input line 119.
+(pdftex.def)             Requested size: 325.215pt x 224.25731pt.
+[126]
+Underfull \hbox (badness 10000) in paragraph at lines 123--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--156
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--156
+
+ []
+
+[127]
+Underfull \hbox (badness 10000) in paragraph at lines 174--186
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 174--186
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--221
+
+ []
+
+<crowds.pdf, id=2662, 311.11423pt x 240.66963pt>
+File: crowds.pdf Graphic file (type pdf)
+<use crowds.pdf>
+Package pdftex.def Info: crowds.pdf  used on input line 227.
+(pdftex.def)             Requested size: 325.215pt x 251.59048pt.
+[128]
+Underfull \hbox (badness 10000) in paragraph at lines 252--273
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 252--273
+
+ []
+
+[129 <./crowds.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 276--296
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--296
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--340
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--340
+
+ []
+
+[130]
+Underfull \hbox (badness 10000) in paragraph at lines 350--378
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 350--378
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 350--378
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 350--378
+
+ []
+
+<ecdf.pdf, id=2716, 385.44pt x 295.1025pt>
+File: ecdf.pdf Graphic file (type pdf)
+<use ecdf.pdf>
+Package pdftex.def Info: ecdf.pdf  used on input line 382.
+(pdftex.def)             Requested size: 252.94499pt x 193.66052pt.
+[131 <./ecdf.pdf>]
+<munchausen.jpg, id=2733, 501.875pt x 791.95876pt>
+File: munchausen.jpg Graphic file (type jpg)
+<use munchausen.jpg>
+Package pdftex.def Info: munchausen.jpg  used on input line 407.
+(pdftex.def)             Requested size: 216.81pt x 342.13075pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 411--418
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 426--441
+
+ []
+
+[132 <./munchausen.jpg>]
+<many_trees.pdf, id=2739, 335.69244pt x 468.82654pt>
+File: many_trees.pdf Graphic file (type pdf)
+<use many_trees.pdf>
+Package pdftex.def Info: many_trees.pdf  used on input line 449.
+(pdftex.def)             Requested size: 216.81pt x 302.79498pt.
+<breiman.pdf, id=2740, 404.96123pt x 279.83005pt>
+File: breiman.pdf Graphic file (type pdf)
+<use breiman.pdf>
+Package pdftex.def Info: breiman.pdf  used on input line 471.
+(pdftex.def)             Requested size: 216.81pt x 149.81647pt.
+ [133 <./many_trees.pdf>]
+<bagging_trees.pdf, id=2778, 270.8534pt x 238.46622pt>
+File: bagging_trees.pdf Graphic file (type pdf)
+<use bagging_trees.pdf>
+Package pdftex.def Info: bagging_trees.pdf  used on input line 482.
+(pdftex.def)             Requested size: 289.07999pt x 254.51955pt.
+ [134 <./breiman.pdf> <./bagging_trees.pdf>]
+<bagging_vs_rf.pdf, id=2833, 264.23207pt x 221.03629pt>
+File: bagging_vs_rf.pdf Graphic file (type pdf)
+<use bagging_vs_rf.pdf>
+Package pdftex.def Info: bagging_vs_rf.pdf  used on input line 563.
+(pdftex.def)             Requested size: 289.07999pt x 241.83203pt.
+ [135]
+Underfull \hbox (badness 10000) in paragraph at lines 590--597
+
+ []
+
+[136 <./bagging_vs_rf.pdf>]
+<rf_decision.pdf, id=2895, 334.74582pt x 160.50032pt>
+File: rf_decision.pdf Graphic file (type pdf)
+<use rf_decision.pdf>
+Package pdftex.def Info: rf_decision.pdf  used on input line 614.
+(pdftex.def)             Requested size: 361.34999pt x 173.26918pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 622--630
+
+ []
+
+[137 <./rf_decision.pdf>]
+<boosting_toy0.png, id=2949, 172.19888pt x 182.90555pt>
+File: boosting_toy0.png Graphic file (type png)
+<use boosting_toy0.png>
+Package pdftex.def Info: boosting_toy0.png  used on input line 681.
+(pdftex.def)             Requested size: 144.54pt x 153.53633pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 645--683
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 645--683
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 645--683
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 645--683
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 645--683
+
+ []
+
+<boosting_toy1.png, id=2950, 354.21222pt x 237.33112pt>
+File: boosting_toy1.png Graphic file (type png)
+<use boosting_toy1.png>
+Package pdftex.def Info: boosting_toy1.png  used on input line 686.
+(pdftex.def)             Requested size: 180.67499pt x 121.05898pt.
+[138]
+<boosting_toy2.png, id=2955, 533.54889pt x 239.11555pt>
+File: boosting_toy2.png Graphic file (type png)
+<use boosting_toy2.png>
+Package pdftex.def Info: boosting_toy2.png  used on input line 692.
+(pdftex.def)             Requested size: 289.07999pt x 129.55464pt.
+<boosting_toy3.png, id=2956, 539.79445pt x 238.22333pt>
+File: boosting_toy3.png Graphic file (type png)
+<use boosting_toy3.png>
+Package pdftex.def Info: boosting_toy3.png  used on input line 698.
+(pdftex.def)             Requested size: 289.07999pt x 127.57726pt.
+<boosting_final.png, id=2957, 607.60333pt x 397.9311pt>
+File: boosting_final.png Graphic file (type png)
+<use boosting_final.png>
+Package pdftex.def Info: boosting_final.png  used on input line 704.
+(pdftex.def)             Requested size: 361.34999pt x 236.65353pt.
+ [139 <./boosting_toy0.png (PNG copy)> <./boosting_toy1.png (PNG copy)> <./boos
+ting_toy2.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 712--721
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 712--721
+
+ []
+
+[140 <./boosting_toy3.png (PNG copy)> <./boosting_final.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 729--750
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 729--750
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 729--750
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 771--776
+
+ []
+
+[141]
+Underfull \hbox (badness 10000) in paragraph at lines 797--809
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 811--815
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 827--838
+
+ []
+
+[142]
+Underfull \hbox (badness 10000) in paragraph at lines 864--878
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 879--893
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 910--923
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 910--923
+
+ []
+
+[143]
+Underfull \hbox (badness 10000) in paragraph at lines 961--969
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 961--969
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 974--996
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 974--996
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 974--996
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 974--996
+
+ []
+
+[144]
+<adaboost_stumps.pdf, id=2993, 258.75822pt x 230.09341pt>
+File: adaboost_stumps.pdf Graphic file (type pdf)
+<use adaboost_stumps.pdf>
+Package pdftex.def Info: adaboost_stumps.pdf  used on input line 1011.
+(pdftex.def)             Requested size: 289.07999pt x 257.06036pt.
+
+Underfull \hbox (badness 3735) in paragraph at lines 1054--1054
+[]|\OT1/cmr/m/n/10.95 Learns com-mit-tee mem-
+ []
+
+
+Underfull \hbox (badness 5388) in paragraph at lines 1068--1068
+[]|\OT1/cmr/m/n/10.95 Parallel com-pute im-ple-
+ []
+
+
+Overfull \hbox (41.15656pt too wide) in paragraph at lines 1050--1073
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1080--1088
+
+ []
+
+[145 <./adaboost_stumps.pdf>]) [146] (./lecture_7_regularization.tex
+Underfull \hbox (badness 10000) in paragraph at lines 16--41
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--41
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--41
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 45.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\in' on input line 45.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 45.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 47--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--69
+
+ []
+
+[147]
+Underfull \hbox (badness 10000) in paragraph at lines 92--103
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--130
+
+ []
+
+[148]
+Underfull \hbox (badness 10000) in paragraph at lines 138--155
+
+ []
+
+[149]
+Underfull \hbox (badness 10000) in paragraph at lines 213--222
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 236--243
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 246--258
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 246--258
+
+ []
+
+[150]
+Underfull \hbox (badness 10000) in paragraph at lines 264--273
+
+ []
+
+[151]
+Underfull \hbox (badness 10000) in paragraph at lines 328--352
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--352
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--352
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 355--371
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 355--371
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 355--371
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--385
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--385
+
+ []
+
+[152]
+Underfull \hbox (badness 10000) in paragraph at lines 389--403
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 405.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 405.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 405.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 416--438
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 416--438
+
+ []
+
+[153]
+Underfull \hbox (badness 10000) in paragraph at lines 441--448
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 450--455
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 458--474
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 458--474
+
+ []
+
+[154]
+Underfull \hbox (badness 10000) in paragraph at lines 495--499
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--512
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 546--553
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 554.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\ell' on input line 554.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 554.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 554.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 556--559
+
+ []
+
+[155]
+Underfull \hbox (badness 10000) in paragraph at lines 562--578
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 562--578
+
+ []
+
+<ridge_coefs.jpeg, id=3077, 1290.8225pt x 1138.2525pt>
+File: ridge_coefs.jpeg Graphic file (type jpg)
+<use ridge_coefs.jpeg>
+Package pdftex.def Info: ridge_coefs.jpeg  used on input line 594.
+(pdftex.def)             Requested size: 216.81pt x 191.173pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 587--614
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 587--614
+
+ []
+
+[156 <./ridge_coefs.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 624--634
+
+ []
+
+<ridge_bias_variance.jpeg, id=3083, 1248.665pt x 1294.8375pt>
+File: ridge_bias_variance.jpeg Graphic file (type jpg)
+<use ridge_bias_variance.jpeg>
+Package pdftex.def Info: ridge_bias_variance.jpeg  used on input line 647.
+(pdftex.def)             Requested size: 216.81pt x 224.82176pt.
+[157 <./ridge_bias_variance.jpeg>]
+<ridge_path.jpeg, id=3090, 991.705pt x 1011.78pt>
+File: ridge_path.jpeg Graphic file (type jpg)
+<use ridge_path.jpeg>
+Package pdftex.def Info: ridge_path.jpeg  used on input line 662.
+(pdftex.def)             Requested size: 216.81pt x 221.18738pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 671--681
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 684--690
+
+ []
+
+<lasso_rope.jpg, id=3092, 501.875pt x 501.875pt>
+File: lasso_rope.jpg Graphic file (type jpg)
+<use lasso_rope.jpg>
+Package pdftex.def Info: lasso_rope.jpg  used on input line 693.
+(pdftex.def)             Requested size: 216.81pt x 216.8129pt.
+[158 <./ridge_path.jpeg>]
+File: ridge_coefs.jpeg Graphic file (type jpg)
+<use ridge_coefs.jpeg>
+Package pdftex.def Info: ridge_coefs.jpeg  used on input line 709.
+(pdftex.def)             Requested size: 216.81pt x 191.173pt.
+<lasso_coefs.jpeg, id=3100, 943.525pt x 839.135pt>
+File: lasso_coefs.jpeg Graphic file (type jpg)
+<use lasso_coefs.jpeg>
+Package pdftex.def Info: lasso_coefs.jpeg  used on input line 711.
+(pdftex.def)             Requested size: 216.81pt x 192.81772pt.
+File: ridge_path.jpeg Graphic file (type jpg)
+<use ridge_path.jpeg>
+Package pdftex.def Info: ridge_path.jpeg  used on input line 721.
+(pdftex.def)             Requested size: 216.81pt x 221.18738pt.
+<lasso_path.jpeg, id=3101, 1067.99pt x 1088.065pt>
+File: lasso_path.jpeg Graphic file (type jpg)
+<use lasso_path.jpeg>
+Package pdftex.def Info: lasso_path.jpeg  used on input line 723.
+(pdftex.def)             Requested size: 216.81pt x 220.87984pt.
+ [159 <./lasso_rope.jpg> <./lasso_coefs.jpeg>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 747.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\ell' on input line 747.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 747.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 747.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 749--754
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 761--777
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 761--777
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 761--777
+
+ []
+
+[160 <./lasso_path.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 786--806
+
+ []
+
+<l1_l2_balls.jpeg, id=3115, 1616.0375pt x 915.42pt>
+File: l1_l2_balls.jpeg Graphic file (type jpg)
+<use l1_l2_balls.jpeg>
+Package pdftex.def Info: l1_l2_balls.jpeg  used on input line 809.
+(pdftex.def)             Requested size: 361.34999pt x 204.68951pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 818--827
+
+ []
+
+[161 <./l1_l2_balls.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 845--860
+
+ []
+
+<orthogonal_design_shrink.jpeg, id=3121, 1642.135pt x 481.8pt>
+File: orthogonal_design_shrink.jpeg Graphic file (type jpg)
+<use orthogonal_design_shrink.jpeg>
+Package pdftex.def Info: orthogonal_design_shrink.jpeg  used on input line 880.
+
+(pdftex.def)             Requested size: 433.62pt x 127.22058pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 864--884
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 864--884
+
+ []
+
+[162]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 889.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\ell' on input line 889.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 889.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 889.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 891--907
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 891--907
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 891--907
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 912--918
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 923--931
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 937--945
+
+ []
+
+[163 <./orthogonal_design_shrink.jpeg>]) (./lecture_8_model_selection.tex
+[164]
+Underfull \hbox (badness 10000) in paragraph at lines 24--33
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--51
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--87
+
+ []
+
+[165]
+Underfull \hbox (badness 10000) in paragraph at lines 126--148
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--148
+
+ []
+
+[166]
+Underfull \hbox (badness 10000) in paragraph at lines 187--193
+
+ []
+
+Package epstopdf Info: Source file: <poly_bias_variance.eps>
+(epstopdf)                    date: 2020-07-03 23:29:07
+(epstopdf)                    size: 23325 bytes
+(epstopdf)             Output file: <poly_bias_variance-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-07-03 23:29:25
+(epstopdf)                    size: 7822 bytes
+(epstopdf)             Command: <epstopdf --outfile=poly_bias_variance-eps-conv
+erted-to.pdf poly_bias_variance.eps>
+(epstopdf)             \includegraphics on input line 197.
+Package epstopdf Info: Output file is already uptodate.
+<poly_bias_variance-eps-converted-to.pdf, id=3145, 457.71pt x 363.3575pt>
+File: poly_bias_variance-eps-converted-to.pdf Graphic file (type pdf)
+<use poly_bias_variance-eps-converted-to.pdf>
+Package pdftex.def Info: poly_bias_variance-eps-converted-to.pdf  used on input
+ line 197.
+(pdftex.def)             Requested size: 216.81pt x 172.11423pt.
+<esl_bias_variance_regression.pdf, id=3146, 304.61935pt x 187.86777pt>
+File: esl_bias_variance_regression.pdf Graphic file (type pdf)
+<use esl_bias_variance_regression.pdf>
+Package pdftex.def Info: esl_bias_variance_regression.pdf  used on input line 2
+05.
+(pdftex.def)             Requested size: 361.34999pt x 222.87167pt.
+[167 <./poly_bias_variance-eps-converted-to.pdf>]
+File: ESL_bias_variance.pdf Graphic file (type pdf)
+<use ESL_bias_variance.pdf>
+Package pdftex.def Info: ESL_bias_variance.pdf  used on input line 235.
+(pdftex.def)             Requested size: 325.215pt x 224.25731pt.
+ [168 <./esl_bias_variance_regression.pdf>]
+<esl_bias_variance_classification.pdf, id=3195, 312.05515pt x 185.14832pt>
+File: esl_bias_variance_classification.pdf Graphic file (type pdf)
+<use esl_bias_variance_classification.pdf>
+Package pdftex.def Info: esl_bias_variance_classification.pdf  used on input li
+ne 246.
+(pdftex.def)             Requested size: 325.215pt x 192.9678pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 254--261
+
+ []
+
+[169 <./esl_bias_variance_classification.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 283--295
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 283--295
+
+ []
+
+<train_vs_gen.pdf, id=3235, 284.69392pt x 224.0629pt>
+File: train_vs_gen.pdf Graphic file (type pdf)
+<use train_vs_gen.pdf>
+Package pdftex.def Info: train_vs_gen.pdf  used on input line 298.
+(pdftex.def)             Requested size: 289.07999pt x 227.51886pt.
+[170]
+Underfull \hbox (badness 10000) in paragraph at lines 329--337
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 338.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 338.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 340--349
+
+ []
+
+[171 <./train_vs_gen.pdf>]
+<cv.jpeg, id=3279, 1246.6575pt x 327.2225pt>
+File: cv.jpeg Graphic file (type jpg)
+<use cv.jpeg>
+Package pdftex.def Info: cv.jpeg  used on input line 351.
+(pdftex.def)             Requested size: 289.07999pt x 75.87872pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 366--374
+
+ []
+
+<cv_lambda.jpeg, id=3280, 1088.065pt x 1037.8775pt>
+File: cv_lambda.jpeg Graphic file (type jpg)
+<use cv_lambda.jpeg>
+Package pdftex.def Info: cv_lambda.jpeg  used on input line 378.
+(pdftex.def)             Requested size: 289.07999pt x 275.74889pt.
+[172 <./cv.jpeg>]
+<cv_vs_test.jpeg, id=3285, 1620.0525pt x 1148.29pt>
+File: cv_vs_test.jpeg Graphic file (type jpg)
+<use cv_vs_test.jpeg>
+Package pdftex.def Info: cv_vs_test.jpeg  used on input line 400.
+(pdftex.def)             Requested size: 289.07999pt x 204.89609pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 390--405
+
+ []
+
+[173 <./cv_lambda.jpeg>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 409.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 409.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 429--447
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 429--447
+
+ []
+
+[174 <./cv_vs_test.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 458--475
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 458--475
+
+ []
+
+<learning_curve.jpeg, id=3296, 1489.565pt x 1130.2225pt>
+File: learning_curve.jpeg Graphic file (type jpg)
+<use learning_curve.jpeg>
+Package pdftex.def Info: learning_curve.jpeg  used on input line 478.
+(pdftex.def)             Requested size: 238.49121pt x 180.94276pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 491--497
+
+ []
+
+[175 <./learning_curve.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 510--514
+
+ []
+
+[176]) [177] (./lecture_10_unsupervised.tex
+Underfull \hbox (badness 10000) in paragraph at lines 10--27
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--27
+
+ []
+
+<headtrack.jpg, id=3314, 540.51938pt x 252.945pt>
+File: headtrack.jpg Graphic file (type jpg)
+<use headtrack.jpg>
+Package pdftex.def Info: headtrack.jpg  used on input line 41.
+(pdftex.def)             Requested size: 325.215pt x 152.19272pt.
+[178 <./headtrack.jpg>]
+<digits.jpg, id=3322, 263.98625pt x 270.00874pt>
+File: digits.jpg Graphic file (type jpg)
+<use digits.jpg>
+Package pdftex.def Info: digits.jpg  used on input line 55.
+(pdftex.def)             Requested size: 180.67499pt x 184.79419pt.
+<digit3_pca.jpeg, id=3323, 997.7275pt x 550.055pt>
+File: digit3_pca.jpeg Graphic file (type jpg)
+<use digit3_pca.jpeg>
+Package pdftex.def Info: digit3_pca.jpeg  used on input line 66.
+(pdftex.def)             Requested size: 361.34999pt x 199.21147pt.
+ [179 <./digits.jpg> <./digit3_pca.jpeg>]
+<pca_faces_before.jpeg, id=3330, 1864.9675pt x 1447.4075pt>
+File: pca_faces_before.jpeg Graphic file (type jpg)
+<use pca_faces_before.jpeg>
+Package pdftex.def Info: pca_faces_before.jpeg  used on input line 103.
+(pdftex.def)             Requested size: 325.91888pt x 252.94499pt.
+<pca_faces_proj.jpeg, id=3331, 1939.245pt x 925.4575pt>
+File: pca_faces_proj.jpeg Graphic file (type jpg)
+<use pca_faces_proj.jpeg>
+Package pdftex.def Info: pca_faces_proj.jpeg  used on input line 112.
+(pdftex.def)             Requested size: 408.88095pt x 195.12877pt.
+ [180 <./pca_faces_before.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 158--169
+
+ []
+
+[181 <./pca_faces_proj.jpeg>]
+<subspace.png, id=3345, 562.1pt x 421.575pt>
+File: subspace.png Graphic file (type png)
+<use subspace.png>
+Package pdftex.def Info: subspace.png  used on input line 194.
+(pdftex.def)             Requested size: 240.90063pt x 180.67499pt.
+ [182 <./subspace.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 229--234
+
+ []
+
+[183]
+Underfull \hbox (badness 10000) in paragraph at lines 322--326
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 329--344
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--353
+
+ []
+
+[184]
+Underfull \hbox (badness 10000) in paragraph at lines 362--371
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 379--393
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 394.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 394.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 394.
+
+<pca_proj_colors.pdf, id=3361, 325.10237pt x 177.273pt>
+File: pca_proj_colors.pdf Graphic file (type pdf)
+<use pca_proj_colors.pdf>
+Package pdftex.def Info: pca_proj_colors.pdf  used on input line 469.
+(pdftex.def)             Requested size: 331.35197pt x 180.67499pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 423--473
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 423--473
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 423--473
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 423--473
+
+ []
+
+[185]
+Underfull \hbox (badness 10000) in paragraph at lines 474--483
+
+ []
+
+[186 <./pca_proj_colors.pdf>]
+<pca_tib_1.jpeg, id=3417, 2182.1525pt x 1158.3275pt>
+File: pca_tib_1.jpeg Graphic file (type jpg)
+<use pca_tib_1.jpeg>
+Package pdftex.def Info: pca_tib_1.jpeg  used on input line 491.
+(pdftex.def)             Requested size: 340.36115pt x 180.67499pt.
+<pca_tib_2.jpeg, id=3418, 2146.0175pt x 788.9475pt>
+File: pca_tib_2.jpeg Graphic file (type jpg)
+<use pca_tib_2.jpeg>
+Package pdftex.def Info: pca_tib_2.jpeg  used on input line 502.
+(pdftex.def)             Requested size: 491.44519pt x 180.67499pt.
+
+Overfull \hbox (39.75769pt too wide) in paragraph at lines 502--503
+ [][] 
+ []
+
+[187 <./pca_tib_1.jpeg> <./pca_tib_2.jpeg>]
+File: pca_faces_before.jpeg Graphic file (type jpg)
+<use pca_faces_before.jpeg>
+Package pdftex.def Info: pca_faces_before.jpeg  used on input line 517.
+(pdftex.def)             Requested size: 251.41826pt x 195.12877pt.
+<pca_faces_after.jpeg, id=3426, 1852.9225pt x 1467.4825pt>
+File: pca_faces_after.jpeg Graphic file (type jpg)
+<use pca_faces_after.jpeg>
+Package pdftex.def Info: pca_faces_after.jpeg  used on input line 529.
+(pdftex.def)             Requested size: 246.3734pt x 195.12877pt.
+File: pca_faces_proj.jpeg Graphic file (type jpg)
+<use pca_faces_proj.jpeg>
+Package pdftex.def Info: pca_faces_proj.jpeg  used on input line 544.
+(pdftex.def)             Requested size: 408.88095pt x 195.12877pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 533--548
+
+ []
+
+[188 <./pca_faces_after.jpeg>]
+<3_pca_sum.jpeg, id=3434, 965.6075pt x 250.9375pt>
+File: 3_pca_sum.jpeg Graphic file (type jpg)
+<use 3_pca_sum.jpeg>
+Package pdftex.def Info: 3_pca_sum.jpeg  used on input line 567.
+(pdftex.def)             Requested size: 278.08885pt x 72.26999pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 554--569
+
+ []
+
+<yale_eigenfaces.png, id=3435, 281.05pt x 32.12pt>
+File: yale_eigenfaces.png Graphic file (type png)
+<use yale_eigenfaces.png>
+Package pdftex.def Info: yale_eigenfaces.png  used on input line 581.
+(pdftex.def)             Requested size: 433.62pt x 49.55951pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 570--584
+
+ []
+
+[189 <./3_pca_sum.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 598--615
+
+ []
+
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 618.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 635.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 635.
+
+<screeplot.pdf, id=3442, 493.845pt x 356.33125pt>
+File: screeplot.pdf Graphic file (type pdf)
+<use screeplot.pdf>
+Package pdftex.def Info: screeplot.pdf  used on input line 671.
+(pdftex.def)             Requested size: 270.43251pt x 195.12877pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 637--674
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 637--674
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 637--674
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 637--674
+
+ []
+
+[190 <./yale_eigenfaces.png>] [191 <./screeplot.pdf>]
+<cluster0.jpeg, id=3464, 608.2725pt x 562.1pt>
+File: cluster0.jpeg Graphic file (type jpg)
+<use cluster0.jpeg>
+Package pdftex.def Info: cluster0.jpeg  used on input line 709.
+(pdftex.def)             Requested size: 211.15364pt x 195.12877pt.
+<cluster1.jpeg, id=3465, 750.805pt x 664.4825pt>
+File: cluster1.jpeg Graphic file (type jpg)
+<use cluster1.jpeg>
+Package pdftex.def Info: cluster1.jpeg  used on input line 716.
+(pdftex.def)             Requested size: 220.47739pt x 195.12877pt.
+ [192 <./cluster0.jpeg>]
+<cluster2.jpeg, id=3471, 742.775pt x 680.5425pt>
+File: cluster2.jpeg Graphic file (type jpg)
+<use cluster2.jpeg>
+Package pdftex.def Info: cluster2.jpeg  used on input line 723.
+(pdftex.def)             Requested size: 212.97379pt x 195.12877pt.
+
+[193 <./cluster1.jpeg> <./cluster2.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 760--774
+
+ []
+
+<kmeans.jpeg, id=3479, 1862.96pt x 1170.3725pt>
+File: kmeans.jpeg Graphic file (type jpg)
+<use kmeans.jpeg>
+Package pdftex.def Info: kmeans.jpeg  used on input line 813.
+(pdftex.def)             Requested size: 402.63216pt x 252.94499pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 796--815
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 796--815
+
+ []
+
+[194]
+<kmeans_iter.jpeg, id=3484, 2150.0325pt x 734.745pt>
+File: kmeans_iter.jpeg Graphic file (type jpg)
+<use kmeans_iter.jpeg>
+Package pdftex.def Info: kmeans_iter.jpeg  used on input line 833.
+(pdftex.def)             Requested size: 422.94542pt x 144.54pt.
+ [195 <./kmeans.jpeg>]
+<kmeans_k_ss.pdf, id=3490, 298.2351pt x 182.64165pt>
+File: kmeans_k_ss.pdf Graphic file (type pdf)
+<use kmeans_k_ss.pdf>
+Package pdftex.def Info: kmeans_k_ss.pdf  used on input line 847.
+(pdftex.def)             Requested size: 283.22162pt x 173.44756pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 836--849
+
+ []
+
+) [196 <./kmeans_iter.jpeg> <./kmeans_k_ss.pdf>] [197] [198] [199] [200]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 239.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 239.
+
+(./ALL.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 239.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 239.
+
+
+Package rerunfilecheck Warning: File `ALL.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `ALL.out':
+(rerunfilecheck)             Before: A7BC0517F5F307752E2A3E592D976000;19732
+(rerunfilecheck)             After:  B730DEDB339902A4F4F3425A33DB73F2;20188.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 239.
+ ) 
+Here is how much of TeX's memory you used:
+ 21051 strings out of 492649
+ 382581 string characters out of 6129623
+ 432728 words of memory out of 5000000
+ 23620 multiletter control sequences out of 15000+600000
+ 32322 words of font info for 112 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 55i,17n,54p,1089b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.22} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.21} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.20} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.19} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.18} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.17} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.16} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.15} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.14} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.13} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.12} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.10} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.9} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.8} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.7} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
+, replaced by a fixed one
+
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/lo
+cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/lo
+cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/loca
+l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/
+texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/te
+xlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texl
+ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texliv
+e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/20
+18/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2018/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2018/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2018/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2018/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmti12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmti9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmtt9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/am
+sfonts/latxfont/line10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/publ
+ic/mathabx-type1/matha10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/pu
+blic/mathabx-type1/matha12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/
+public/mathabx-type1/matha5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1
+/public/mathabx-type1/matha6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type
+1/public/mathabx-type1/matha8.pfb></usr/local/texlive/2018/texmf-dist/fonts/typ
+e1/public/mathabx-type1/matha9.pfb></usr/local/texlive/2018/texmf-dist/fonts/ty
+pe1/public/mathabx-type1/mathx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/
+type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fo
+nts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on ALL.pdf (200 pages, 20054407 bytes).
+PDF statistics:
+ 3816 PDF objects out of 4296 (max. 8388607)
+ 3205 compressed objects within 33 object streams
+ 755 named destinations out of 1000 (max. 500000)
+ 2657 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,0 +1,248 @@
+\BOOKMARK [0][-]{part*.2}{Introduction}{}% 1
+\BOOKMARK [0][-]{part*.3}{Lecture 1: Mathematical Background}{}% 2
+\BOOKMARK [1][-]{section.1}{Recap: Probability and Statistics}{part*.3}% 3
+\BOOKMARK [2][-]{subsection.1.1}{Probability Space}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.2}{Random Variables, discrete and continuous}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.3}{Mean and Variance}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.4}{A little Statistics: Mean and variance estimation}{section.1}% 7
+\BOOKMARK [1][-]{section.2}{High dimensional distributions}{part*.3}% 8
+\BOOKMARK [2][-]{subsection.2.1}{Basic definitions}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{Normal Distribution}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{Covariance Matrix}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.4}{Estimating the Covariance Matrix}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.5}{Linear Transformations of the Data Set}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{Probability Inequalities}{part*.3}% 14
+\BOOKMARK [2][-]{subsection.3.1}{Motivation and Background}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Recap}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Coin Prediction}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Hoeffding's Inequality}{subsection.3.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Coin Prediction Revisited}{subsection.3.3}% 19
+\BOOKMARK [0][-]{part*.8}{Lecture 2: The Linear Model}{}% 20
+\BOOKMARK [1][-]{section.4}{The Linear Model, Noiseless Case}{part*.8}% 21
+\BOOKMARK [2][-]{subsection.4.1}{Problem: Customer Lifetime Value prediction}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.2}{The training data matrix}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.3}{Setup}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.4}{The Linear Hypothesis Class}{section.4}% 25
+\BOOKMARK [3][-]{subsubsection.4.4.1}{The Realizable Case}{subsection.4.4}% 26
+\BOOKMARK [3][-]{subsubsection.4.4.2}{The Non-Realizable Case}{subsection.4.4}% 27
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Geometric interpretation}{subsection.4.4}% 28
+\BOOKMARK [2][-]{subsection.4.5}{Designing the Learning Algorithm}{section.4}% 29
+\BOOKMARK [3][-]{subsubsection.4.5.1}{The Loss Function}{subsection.4.5}% 30
+\BOOKMARK [3][-]{subsubsection.4.5.2}{Empirical Risk Minimization}{subsection.4.5}% 31
+\BOOKMARK [3][-]{subsubsection.4.5.3}{Least Squares}{subsection.4.5}% 32
+\BOOKMARK [2][-]{subsection.4.6}{The Normal Equations}{section.4}% 33
+\BOOKMARK [3][-]{subsubsection.4.6.1}{Solving the Normal Equations}{subsection.4.6}% 34
+\BOOKMARK [2][-]{subsection.4.7}{Singular Value Decomposition}{section.4}% 35
+\BOOKMARK [3][-]{subsubsection.4.7.1}{Making the SVD solution numerically stable}{subsection.4.7}% 36
+\BOOKMARK [2][-]{subsection.4.8}{How many samples do we need to learn a linear function?}{section.4}% 37
+\BOOKMARK [2][-]{subsection.4.9}{Summary - Noiseless Case}{section.4}% 38
+\BOOKMARK [1][-]{section.5}{The Linear Model - Noisy Case }{part*.8}% 39
+\BOOKMARK [2][-]{subsection.5.1}{Data Generation Model With Noise}{section.5}% 40
+\BOOKMARK [2][-]{subsection.5.2}{The Maximum Likelihood Principle}{section.5}% 41
+\BOOKMARK [2][-]{subsection.5.3}{Noise, Bias and Variance}{section.5}% 42
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Polynomial fitting}{subsection.5.3}% 43
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Polynomial fitting: no noise}{subsection.5.3}% 44
+\BOOKMARK [3][-]{subsubsection.5.3.3}{Bias}{subsection.5.3}% 45
+\BOOKMARK [2][-]{subsection.5.4}{Polynomial fitting: with noise}{section.5}% 46
+\BOOKMARK [2][-]{subsection.5.5}{Variance}{section.5}% 47
+\BOOKMARK [2][-]{subsection.5.6}{Variance in linear model: Geometrical Interpretation}{section.5}% 48
+\BOOKMARK [2][-]{subsection.5.7}{Bias-Variance Tradeoff}{section.5}% 49
+\BOOKMARK [0][-]{part*.51}{Lecture 3: Classification}{}% 50
+\BOOKMARK [1][-]{section.6}{Introduction}{part*.51}% 51
+\BOOKMARK [2][-]{subsection.6.1}{Textbook references}{section.6}% 52
+\BOOKMARK [2][-]{subsection.6.2}{Some preliminaries}{section.6}% 53
+\BOOKMARK [2][-]{subsection.6.3}{Examples for classification problems}{section.6}% 54
+\BOOKMARK [2][-]{subsection.6.4}{Heart disease data}{section.6}% 55
+\BOOKMARK [2][-]{subsection.6.5}{Plotting and imagining a feature space Rd with binary labeled data}{section.6}% 56
+\BOOKMARK [2][-]{subsection.6.6}{What loss function should we use?}{section.6}% 57
+\BOOKMARK [2][-]{subsection.6.7}{Type-I and Type-II errors}{section.6}% 58
+\BOOKMARK [2][-]{subsection.6.8}{False Positive, False Negative and all that jazz}{section.6}% 59
+\BOOKMARK [2][-]{subsection.6.9}{Decision boundary}{section.6}% 60
+\BOOKMARK [2][-]{subsection.6.10}{Our goal in this lecture}{section.6}% 61
+\BOOKMARK [1][-]{section.7}{The Half-Space classifier}{part*.51}% 62
+\BOOKMARK [2][-]{subsection.7.1}{Assumption - training sample is linearly separable}{section.7}% 63
+\BOOKMARK [2][-]{subsection.7.2}{Learning using ERM}{section.7}% 64
+\BOOKMARK [2][-]{subsection.7.3}{Computationally implementing ERM for halfspace classifiers}{section.7}% 65
+\BOOKMARK [2][-]{subsection.7.4}{Commercial break: Convex optimization}{section.7}% 66
+\BOOKMARK [2][-]{subsection.7.5}{Solving ERM for half-space by linear programming}{section.7}% 67
+\BOOKMARK [2][-]{subsection.7.6}{What about a training sample that's not linearly separable?}{section.7}% 68
+\BOOKMARK [2][-]{subsection.7.7}{Summary}{section.7}% 69
+\BOOKMARK [1][-]{section.8}{Support Vector Machines}{part*.51}% 70
+\BOOKMARK [2][-]{subsection.8.1}{A new learning principle: Maximum Margin}{section.8}% 71
+\BOOKMARK [2][-]{subsection.8.2}{Hard SVM}{section.8}% 72
+\BOOKMARK [2][-]{subsection.8.3}{Soft SVM}{section.8}% 73
+\BOOKMARK [2][-]{subsection.8.4}{A family of learners}{section.8}% 74
+\BOOKMARK [2][-]{subsection.8.5}{When is SVM useful?}{section.8}% 75
+\BOOKMARK [2][-]{subsection.8.6}{Summary - Soft SVM}{section.8}% 76
+\BOOKMARK [1][-]{section.9}{Logistic Regression}{part*.51}% 77
+\BOOKMARK [2][-]{subsection.9.1}{A probabilistic model for noisy labels}{section.9}% 78
+\BOOKMARK [2][-]{subsection.9.2}{The hypothesis class}{section.9}% 79
+\BOOKMARK [2][-]{subsection.9.3}{The learning principle: maximum likelihood}{section.9}% 80
+\BOOKMARK [2][-]{subsection.9.4}{Computational implementation}{section.9}% 81
+\BOOKMARK [2][-]{subsection.9.5}{Interpretability}{section.9}% 82
+\BOOKMARK [3][-]{subsubsection.9.5.1}{Which features were important}{subsection.9.5}% 83
+\BOOKMARK [3][-]{subsubsection.9.5.2}{Why was this label predicted?}{subsection.9.5}% 84
+\BOOKMARK [3][-]{subsubsection.9.5.3}{Example: Interpretability of linear regression}{subsection.9.5}% 85
+\BOOKMARK [3][-]{subsubsection.9.5.4}{Interpretability of logistic regression}{subsection.9.5}% 86
+\BOOKMARK [2][-]{subsection.9.6}{How to make predictions on a new sample: working with estimated class probabilities and choosing the cutoff}{section.9}% 87
+\BOOKMARK [2][-]{subsection.9.7}{Summary}{section.9}% 88
+\BOOKMARK [1][-]{section.10}{Nearest Neighbors}{part*.51}% 89
+\BOOKMARK [2][-]{subsection.10.1}{No hypothesis class}{section.10}% 90
+\BOOKMARK [2][-]{subsection.10.2}{Prediction with k-nearest neighbors}{section.10}% 91
+\BOOKMARK [2][-]{subsection.10.3}{Choosing k}{section.10}% 92
+\BOOKMARK [2][-]{subsection.10.4}{Computational implementation of k-nearest neighbors}{section.10}% 93
+\BOOKMARK [2][-]{subsection.10.5}{Other sample spaces}{section.10}% 94
+\BOOKMARK [2][-]{subsection.10.6}{Summary}{section.10}% 95
+\BOOKMARK [1][-]{section.11}{Classification Trees}{part*.51}% 96
+\BOOKMARK [2][-]{subsection.11.1}{Tree-induced, axis-parallel partitions of Rd}{section.11}% 97
+\BOOKMARK [2][-]{subsection.11.2}{The Regression Tree hypothesis class}{section.11}% 98
+\BOOKMARK [2][-]{subsection.11.3}{Any hypothesis in HCT corresponds to a Decision Tree, and vice-versa}{section.11}% 99
+\BOOKMARK [2][-]{subsection.11.4}{How not to grow a classification tree}{section.11}% 100
+\BOOKMARK [2][-]{subsection.11.5}{How to grow a classification tree}{section.11}% 101
+\BOOKMARK [2][-]{subsection.11.6}{Growing classification Trees a-la CART}{section.11}% 102
+\BOOKMARK [2][-]{subsection.11.7}{Why to prune a classification tree}{section.11}% 103
+\BOOKMARK [2][-]{subsection.11.8}{How to make predictions on a new sample}{section.11}% 104
+\BOOKMARK [2][-]{subsection.11.9}{Interpretability}{section.11}% 105
+\BOOKMARK [2][-]{subsection.11.10}{Summary- Classification Trees}{section.11}% 106
+\BOOKMARK [0][-]{part*.68}{Lecture 4: PAC Theory of Statistical Learning, Part I}{}% 107
+\BOOKMARK [1][-]{section.12}{Introduction}{part*.68}% 108
+\BOOKMARK [1][-]{section.13}{A Theoretical framework for learning}{part*.68}% 109
+\BOOKMARK [2][-]{subsection.13.1}{A Data-generation Model }{section.13}% 110
+\BOOKMARK [2][-]{subsection.13.2}{Classifiers}{section.13}% 111
+\BOOKMARK [2][-]{subsection.13.3}{The framework so far}{section.13}% 112
+\BOOKMARK [2][-]{subsection.13.4}{Our goal in this lecture}{section.13}% 113
+\BOOKMARK [2][-]{subsection.13.5}{Learning as a Game - first attempt}{section.13}% 114
+\BOOKMARK [1][-]{section.14}{Probably correct \046 Approximately correct learners}{part*.68}% 115
+\BOOKMARK [2][-]{subsection.14.1}{The game - for Probably Approximately correct learners}{section.14}% 116
+\BOOKMARK [1][-]{section.15}{No Free Lunch and Hypothesis Classes}{part*.68}% 117
+\BOOKMARK [2][-]{subsection.15.1}{No Free Lunch!}{section.15}% 118
+\BOOKMARK [2][-]{subsection.15.2}{We need hypothesis classes}{section.15}% 119
+\BOOKMARK [2][-]{subsection.15.3}{Updating the game one last time}{section.15}% 120
+\BOOKMARK [2][-]{subsection.15.4}{Example: Threshold functions}{section.15}% 121
+\BOOKMARK [3][-]{subsubsection.15.4.1}{Threshold functions - conclusion}{subsection.15.4}% 122
+\BOOKMARK [1][-]{section.16}{PAC learning}{part*.68}% 123
+\BOOKMARK [2][-]{subsection.16.1}{Finite hypothesis classes are PAC learnable}{section.16}% 124
+\BOOKMARK [3][-]{subsubsection.16.1.1}{Empirical Risk Minimization}{subsection.16.1}% 125
+\BOOKMARK [3][-]{subsubsection.16.1.2}{Learning Finite Classes}{subsection.16.1}% 126
+\BOOKMARK [1][-]{section.17}{VC Dimension}{part*.68}% 127
+\BOOKMARK [2][-]{subsection.17.1}{Motivation}{section.17}% 128
+\BOOKMARK [2][-]{subsection.17.2}{Formal Definition}{section.17}% 129
+\BOOKMARK [2][-]{subsection.17.3}{Exercises to help you understand the definition of VC-dimension}{section.17}% 130
+\BOOKMARK [3][-]{subsubsection.17.3.1}{Axis aligned rectangles}{subsection.17.3}% 131
+\BOOKMARK [3][-]{subsubsection.17.3.2}{Finite classes}{subsection.17.3}% 132
+\BOOKMARK [3][-]{subsubsection.17.3.3}{Half-spaces through the origin}{subsection.17.3}% 133
+\BOOKMARK [0][-]{part*.97}{Lecture 5: PAC Theory of Statistical Learning, Part II}{}% 134
+\BOOKMARK [1][-]{section.18}{Recap of PAC Theory so far}{part*.97}% 135
+\BOOKMARK [1][-]{section.19}{Finite Hypothesis Classes are PAC learnable}{part*.97}% 136
+\BOOKMARK [2][-]{subsubsection.19.0.1}{Empirical Risk Minimization}{section.19}% 137
+\BOOKMARK [3][-]{subsubsection.19.0.2}{Learning Finite Classes}{subsubsection.19.0.1}% 138
+\BOOKMARK [1][-]{section.20}{The Fundamental Theorem of Statistical Learning}{part*.97}% 139
+\BOOKMARK [1][-]{section.21}{Agnostic PAC: Extending our theoretical framework}{part*.97}% 140
+\BOOKMARK [2][-]{subsection.21.1}{Moving from a probability distribution over X to a joint probability distribution over XY}{section.21}% 141
+\BOOKMARK [2][-]{subsection.21.2}{Removing the realizability assumption}{section.21}% 142
+\BOOKMARK [2][-]{subsection.21.3}{Introducing a general loss function}{section.21}% 143
+\BOOKMARK [1][-]{section.22}{Agnostic-PAC learnability}{part*.97}% 144
+\BOOKMARK [2][-]{subsection.22.1}{Probably Approximately correct learner - in the new framework.}{section.22}% 145
+\BOOKMARK [2][-]{subsection.22.2}{Agnostic-PAC learnability}{section.22}% 146
+\BOOKMARK [2][-]{subsection.22.3}{PAC learnability is equivalent to Agnostic-PAC learnability}{section.22}% 147
+\BOOKMARK [1][-]{section.23}{Back to the Fundamental Theorem of Statistical Learning}{part*.97}% 148
+\BOOKMARK [2][-]{subsection.23.1}{Empirical Risk Minimization strikes again}{section.23}% 149
+\BOOKMARK [2][-]{subsection.23.2}{ERM makes sense due to WLLN}{section.23}% 150
+\BOOKMARK [2][-]{subsection.23.3}{The Fundamental Theorem - now with Agnostic-PAC}{section.23}% 151
+\BOOKMARK [1][-]{section.24}{A Taste of the Proof}{part*.97}% 152
+\BOOKMARK [2][-]{subsection.24.1}{The uniform convergence property}{section.24}% 153
+\BOOKMARK [1][-]{section.25}{Proving that if VCdim\(H\)< then H has the uniform convergence property}{part*.97}% 154
+\BOOKMARK [2][-]{subsection.25.1}{Achieving uniformity in both H and D}{section.25}% 155
+\BOOKMARK [2][-]{subsection.25.2}{The case of finite H}{section.25}% 156
+\BOOKMARK [2][-]{subsection.25.3}{The general case - infinite H}{section.25}% 157
+\BOOKMARK [3][-]{subsubsection.25.3.1}{First part of the proof: if |HC| grows polynomially in |C| then H has the uniform convergence property}{subsection.25.3}% 158
+\BOOKMARK [3][-]{subsubsection.25.3.2}{If VCdim\(H\)<, |HC| only grows polynomially in |C|}{subsection.25.3}% 159
+\BOOKMARK [3][-]{subsubsection.25.3.3}{Summary}{subsection.25.3}% 160
+\BOOKMARK [0][-]{part*.134}{Lecture 6: Ensemble Methods - Bagging and Boosting}{}% 161
+\BOOKMARK [1][-]{section.26}{Introduction}{part*.134}% 162
+\BOOKMARK [2][-]{subsection.26.1}{Bias/Variance}{section.26}% 163
+\BOOKMARK [2][-]{subsection.26.2}{Ensemble / Committee methods}{section.26}% 164
+\BOOKMARK [2][-]{subsection.26.3}{The uncorrelated case.}{section.26}% 165
+\BOOKMARK [2][-]{subsection.26.4}{The correlated case.}{section.26}% 166
+\BOOKMARK [2][-]{subsection.26.5}{Summary}{section.26}% 167
+\BOOKMARK [1][-]{section.27}{Committee methods in machine learning}{part*.134}% 168
+\BOOKMARK [1][-]{section.28}{The Bootstrap}{part*.134}% 169
+\BOOKMARK [2][-]{subsection.28.1}{Why does the Bootstrap work?}{section.28}% 170
+\BOOKMARK [1][-]{section.29}{Bagging}{part*.134}% 171
+\BOOKMARK [2][-]{subsection.29.1}{This is shockingly effective}{section.29}% 172
+\BOOKMARK [2][-]{subsection.29.2}{Bagging reduces variance}{section.29}% 173
+\BOOKMARK [2][-]{subsection.29.3}{Decorrelation}{section.29}% 174
+\BOOKMARK [2][-]{subsection.29.4}{Random Forest: Bagging of Decision Trees + De-correlation}{section.29}% 175
+\BOOKMARK [2][-]{subsection.29.5}{Some discussion points about Bagging}{section.29}% 176
+\BOOKMARK [2][-]{subsection.29.6}{Random Forest classifier summary}{section.29}% 177
+\BOOKMARK [1][-]{section.30}{Boosting}{part*.134}% 178
+\BOOKMARK [2][-]{subsection.30.1}{Classification problem with a weighted sample}{section.30}% 179
+\BOOKMARK [2][-]{subsection.30.2}{Adaboost}{section.30}% 180
+\BOOKMARK [2][-]{subsection.30.3}{PAC view of boosting}{section.30}% 181
+\BOOKMARK [2][-]{subsection.30.4}{Bias and variance in boosting}{section.30}% 182
+\BOOKMARK [2][-]{subsection.30.5}{It's often better to Boost very simple learners}{section.30}% 183
+\BOOKMARK [1][-]{section.31}{Bagging vs Boosting - Comparison}{part*.134}% 184
+\BOOKMARK [1][-]{section.32}{Summary}{part*.134}% 185
+\BOOKMARK [0][-]{part*.163}{Lecture 7: Regression, Regularization, Model Selection and Model Evaluation}{}% 186
+\BOOKMARK [1][-]{section.33}{Introduction}{part*.163}% 187
+\BOOKMARK [1][-]{section.34}{Regularization}{part*.163}% 188
+\BOOKMARK [2][-]{subsection.34.1}{The setup: Choosing hH by minimizing fidelity}{section.34}% 189
+\BOOKMARK [2][-]{subsection.34.2}{Adding a regularization term}{section.34}% 190
+\BOOKMARK [2][-]{subsection.34.3}{Let's focus on Euclidean sample space, regression problems and ERM fidelity for the square loss}{section.34}% 191
+\BOOKMARK [1][-]{section.35}{CART Regression Trees}{part*.163}% 192
+\BOOKMARK [2][-]{subsection.35.1}{Regression Trees}{section.35}% 193
+\BOOKMARK [2][-]{subsection.35.2}{Growing a CART regression tree}{section.35}% 194
+\BOOKMARK [2][-]{subsection.35.3}{Pruning a CART regression tree - using regularization}{section.35}% 195
+\BOOKMARK [2][-]{subsection.35.4}{The complete Random Forest algorithms for regression and for classification}{section.35}% 196
+\BOOKMARK [1][-]{section.36}{Modern Regression methods on Rd}{part*.163}% 197
+\BOOKMARK [2][-]{subsection.36.1}{Linear Regression with high-dimensional data}{section.36}% 198
+\BOOKMARK [2][-]{subsection.36.2}{Best subset selection}{section.36}% 199
+\BOOKMARK [2][-]{subsection.36.3}{0 regularization: Best subset selection}{section.36}% 200
+\BOOKMARK [2][-]{subsection.36.4}{Ridge}{section.36}% 201
+\BOOKMARK [2][-]{subsection.36.5}{Lasso}{section.36}% 202
+\BOOKMARK [1][-]{section.37}{The 1 norm induces sparsity}{part*.163}% 203
+\BOOKMARK [2][-]{subsection.37.1}{Unit balls}{section.37}% 204
+\BOOKMARK [2][-]{subsection.37.2}{Orthogonal design}{section.37}% 205
+\BOOKMARK [1][-]{section.38}{1-regularized logistic regression}{part*.163}% 206
+\BOOKMARK [1][-]{section.39}{Practical considerations}{part*.163}% 207
+\BOOKMARK [2][-]{subsection.39.1}{Choosing lambda}{section.39}% 208
+\BOOKMARK [2][-]{subsection.39.2}{Intercept}{section.39}% 209
+\BOOKMARK [2][-]{subsection.39.3}{Software implementation}{section.39}% 210
+\BOOKMARK [1][-]{section.40}{Introduction}{part*.163}% 211
+\BOOKMARK [2][-]{subsection.40.1}{Model Selection}{section.40}% 212
+\BOOKMARK [2][-]{subsection.40.2}{Model Evaluation}{section.40}% 213
+\BOOKMARK [2][-]{subsection.40.3}{What is the generalization error, exactly?}{section.40}% 214
+\BOOKMARK [1][-]{section.41}{Bias-Variance}{part*.163}% 215
+\BOOKMARK [2][-]{subsection.41.1}{Bias-Variance decomposition for square error loss}{section.41}% 216
+\BOOKMARK [2][-]{subsection.41.2}{The bias-variance tradeoff}{section.41}% 217
+\BOOKMARK [1][-]{section.42}{Can't naively use training sample for model selection / evaluation}{part*.163}% 218
+\BOOKMARK [1][-]{section.43}{Model selection and evaluation with unlimited data}{part*.163}% 219
+\BOOKMARK [1][-]{section.44}{k-fold Cross Validation}{part*.163}% 220
+\BOOKMARK [2][-]{subsection.44.1}{Cross validation for model selection}{section.44}% 221
+\BOOKMARK [2][-]{subsection.44.2}{Cross validation for model evaluation}{section.44}% 222
+\BOOKMARK [2][-]{subsection.44.3}{Considerations in choosing number of folds k}{section.44}% 223
+\BOOKMARK [1][-]{section.45}{Bootstrap}{part*.163}% 224
+\BOOKMARK [1][-]{section.46}{Two common mistakes in model evaluation and how to avoid them}{part*.163}% 225
+\BOOKMARK [2][-]{subsection.46.1}{Over-estimating generalization error}{section.46}% 226
+\BOOKMARK [2][-]{subsection.46.2}{Under-estimating generalization error}{section.46}% 227
+\BOOKMARK [2][-]{subsection.46.3}{What can we do to avoid under-estimating generalization error?}{section.46}% 228
+\BOOKMARK [0][-]{part*.185}{Lecture 8: Unsupervised Learning}{}% 229
+\BOOKMARK [1][-]{section.47}{Unsupervised learning: Introduction}{part*.185}% 230
+\BOOKMARK [2][-]{subsection.47.1}{This lecture}{section.47}% 231
+\BOOKMARK [1][-]{section.48}{Dimension reduction}{part*.185}% 232
+\BOOKMARK [2][-]{subsection.48.1}{Linear dimension reduction}{section.48}% 233
+\BOOKMARK [2][-]{subsection.48.2}{Principal Components Analysis \(PCA\)}{section.48}% 234
+\BOOKMARK [2][-]{subsection.48.3}{PCA as Variance Maximization}{section.48}% 235
+\BOOKMARK [2][-]{subsection.48.4}{PCA - formal definition.}{section.48}% 236
+\BOOKMARK [2][-]{subsection.48.5}{Applying PCA dimension reduction to an arbitrary vector in Rd}{section.48}% 237
+\BOOKMARK [2][-]{subsection.48.6}{The subtle difference between the projected points and their coordinates.}{section.48}% 238
+\BOOKMARK [2][-]{subsection.48.7}{Interpreting and using the principal vectors as ``typical data points''}{section.48}% 239
+\BOOKMARK [2][-]{subsection.48.8}{Practical considerations.}{section.48}% 240
+\BOOKMARK [3][-]{subsubsection.48.8.1}{Fast computation of PCA}{subsection.48.8}% 241
+\BOOKMARK [3][-]{subsubsection.48.8.2}{Choosing k}{subsection.48.8}% 242
+\BOOKMARK [1][-]{section.49}{Clustering}{part*.185}% 243
+\BOOKMARK [2][-]{subsection.49.1}{k-means}{section.49}% 244
+\BOOKMARK [0][-]{part*.208}{Lecture 9: ML Actually}{}% 245
+\BOOKMARK [0][-]{part*.209}{Lecture 10: Convex Optimization and SGD}{}% 246
+\BOOKMARK [0][-]{part*.210}{Lecture 11: Online Learning and RL}{}% 247
+\BOOKMARK [0][-]{part*.211}{Lecture 12: Deep Learning}{}% 248

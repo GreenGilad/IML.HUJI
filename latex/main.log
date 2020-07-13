@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2019.10.30)  9 JUL 2020 11:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2019.10.30)  13 JUL 2020 15:18
 entering extended mode
 **./main.tex
 (main.tex
@@ -1283,36 +1283,89 @@ Package hyperref Warning: Option `bookmarks' has already been used,
 (hyperref)                setting the option has no effect on input line 320.
 
 Package hyperref Info: Option `bookmarksopen' set `false' on input line 320.
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/mathtools\mathtools.sty"
+Package: mathtools 2019/07/31 v1.22 mathematical typesetting tools
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/tools\calc.sty"
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count443
+\calc@Bcount=\count444
+\calc@Adimen=\dimen287
+\calc@Bdimen=\dimen288
+\calc@Askip=\skip158
+\calc@Bskip=\skip159
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count445
+\calc@Cskip=\skip160
 )
+("C:\Program Files\MiKTeX 2.9\tex/latex/mathtools\mhsetup.sty"
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count446
+\l_MT_multwidth_dim=\dimen289
+\origjot=\skip161
+\l_MT_shortvdotswithinadjustabove_dim=\dimen290
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen291
+\l_MT_above_intertext_sep=\dimen292
+\l_MT_below_intertext_sep=\dimen293
+\l_MT_above_shortintertext_sep=\dimen294
+\l_MT_below_shortintertext_sep=\dimen295
+)
+(headers/style.tex ("C:\Program Files\MiKTeX 2.9\tex/latex/caption\caption.sty"
+Package: caption 2019/09/01 v3.3d Customizing captions (AR)
+("C:\Program Files\MiKTeX 2.9\tex/latex/caption\caption3.sty"
+Package: caption3 2019/09/01 v1.8d caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen296
+\captionmargin@=\dimen297
+\captionwidth=\dimen298
+\caption@tempdima=\dimen299
+\caption@indent=\dimen300
+\caption@parindent=\dimen301
+\caption@hangindent=\dimen302
+)
+\c@caption@flags=\count447
+\c@ContinuedFloat=\count448
+Package caption Info: hyperref package is loaded.
+)
+LaTeX Font Info:    Redeclaring math alphabet \mathcal on input line 7.
+)
+(headers/commands.tex)
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
- ("C:\Program Files\MiKTeX 2.9\tex/latex/biblatex/lbx\english.lbx"
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/biblatex/lbx\english.lbx"
 File: english.lbx 2019/08/31 v3.13a biblatex localization (PK/MW)
 )
 
 Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (biblatex)                Loading 'csquotes' recommended.
 
-\@quotelevel=\count443
-\@quotereset=\count444
+\@quotelevel=\count449
+\@quotereset=\count450
 (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 50
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 54
 .
  ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\t1ptm.fd"
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
@@ -1353,16 +1406,16 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 
 ("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count445
-\scratchdimen=\dimen287
+\scratchcounter=\count451
+\scratchdimen=\dimen303
 \scratchbox=\box66
-\nofMPsegments=\count446
-\nofMParguments=\count447
+\nofMPsegments=\count452
+\nofMParguments=\count453
 \everyMPshowfont=\toks44
-\MPscratchCnt=\count448
-\MPscratchDim=\dimen288
-\MPnumerator=\count449
-\makeMPintoPDFobject=\count450
+\MPscratchCnt=\count454
+\MPscratchDim=\dimen304
+\MPnumerator=\count455
+\makeMPintoPDFobject=\count456
 \everyMPtoPDFconversion=\toks45
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1377,14 +1430,14 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-LaTeX Info: Redefining \microtypecontext on input line 50.
+LaTeX Info: Redefining \microtypecontext on input line 54.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 50.
+LaTeX Info: Redefining \showhyphens on input line 54.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1400,12 +1453,12 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (main.bbl)
-Package biblatex Info: Reference section=0 on input line 50.
-Package biblatex Info: Reference segment=0 on input line 50.
+Package biblatex Info: Reference section=0 on input line 54.
+Package biblatex Info: Reference segment=0 on input line 54.
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box67
-Package hyperref Info: Link coloring OFF on input line 50.
+Package hyperref Info: Link coloring OFF on input line 54.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -1413,17 +1466,19 @@ Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count451
+\c@section@level=\count457
 )
-LaTeX Info: Redefining \ref on input line 50.
-LaTeX Info: Redefining \pageref on input line 50.
-LaTeX Info: Redefining \nameref on input line 50.
+LaTeX Info: Redefining \ref on input line 54.
+LaTeX Info: Redefining \pageref on input line 54.
+LaTeX Info: Redefining \nameref on input line 54.
 
 (main.out) (main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
-LaTeX Font Info:    Trying to load font information for T1+pag on input line 62
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Trying to load font information for T1+pag on input line 66
 .
  ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\t1pag.fd"
 File: t1pag.fd 2001/06/04 font definitions for T1/pag.
@@ -1433,42 +1488,42 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/pag/bx/n' in size <35> not available
-(Font)              Font shape `T1/pag/b/n' tried instead on input line 63.
+(Font)              Font shape `T1/pag/b/n' tried instead on input line 67.
 LaTeX Font Info:    Font shape `T1/pag/b/n' in size <35> not available
-(Font)              Font shape `T1/pag/db/n' tried instead on input line 63.
-<pictures/esahubble.png, id=598, 614.295pt x 794.97pt>
+(Font)              Font shape `T1/pag/db/n' tried instead on input line 67.
+<pictures/esahubble.png, id=602, 614.295pt x 794.97pt>
 File: pictures/esahubble.png Graphic file (type png)
 <use pictures/esahubble.png>
-Package pdftex.def Info: pictures/esahubble.png  used on input line 73.
+Package pdftex.def Info: pictures/esahubble.png  used on input line 77.
 (pdftex.def)             Requested size: 767.86685pt x 993.71007pt.
 [1
 
 {C:/Users/gilad/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./pictures/
 esahubble.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 77--78
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 81--82
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--86
+
+ []
+
 [2]
-<pictures/head1.png, id=612, 1027.6794pt x 514.0806pt>
+<pictures/head1.png, id=616, 1027.6794pt x 514.0806pt>
 File: pictures/head1.png Graphic file (type png)
 <use pictures/head1.png>
-Package pdftex.def Info: pictures/head1.png  used on input line 91.
+Package pdftex.def Info: pictures/head1.png  used on input line 95.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
 LaTeX Font Info:    Font shape `T1/pag/bx/n' in size <20.74> not available
-(Font)              Font shape `T1/pag/b/n' tried instead on input line 91.
+(Font)              Font shape `T1/pag/b/n' tried instead on input line 95.
 LaTeX Font Info:    Font shape `T1/pag/b/n' in size <20.74> not available
-(Font)              Font shape `T1/pag/db/n' tried instead on input line 91.
+(Font)              Font shape `T1/pag/db/n' tried instead on input line 95.
  (main.toc
 LaTeX Font Info:    Font shape `T1/pag/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/pag/b/n' tried instead on input line 4.
@@ -1486,7 +1541,7 @@ LaTeX Font Info:    Font shape `T1/pag/b/n' in size <14.4> not available
 
  <./pictures/head1.png>]
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 130.
+ 144.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\ot1ztmcm.fd"
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
@@ -1496,35 +1551,35 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 130.
+ 144.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\omlztmcm.fd"
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 130.
+ 144.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\omsztmcm.fd"
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 130.
+ 144.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\omxztmcm.fd"
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 1
-30.
+44.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/microtype\mt-msa.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
@@ -1533,9 +1588,9 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
  [4] [5] [6])
 \tf@toc=\write6
 \openout6 = `main.toc'.
@@ -1545,12 +1600,14 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
 
 ] (chapters/preface.tex
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 11.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 8.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10.95> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 8.
 ) (chapters/mathematical.basis.tex [9] [10
 
 ]
 Chapter 1.
-\c@ttl@toc@default=\count452
+\c@ttl@toc@default=\count458
 File: pictures/head1.png Graphic file (type png)
 <use pictures/head1.png>
 Package pdftex.def Info: pictures/head1.png  used on input line 1.
@@ -1567,7 +1624,39 @@ File: pictures/head1.png Graphic file (type png)
 <use pictures/head1.png>
 Package pdftex.def Info: pictures/head1.png  used on input line 1.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-) (chapters/classification.tex [13] [14
+[13]
+<pictures/../pictures/regression_noiseless_intuition.PNG, id=978, 498.96413pt x
+ 381.8265pt>
+File: pictures/../pictures/regression_noiseless_intuition.PNG Graphic file (typ
+e png)
+<use pictures/../pictures/regression_noiseless_intuition.PNG>
+Package pdftex.def Info: pictures/../pictures/regression_noiseless_intuition.PN
+G  used on input line 26.
+(pdftex.def)             Requested size: 129.66058pt x 99.22011pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 47--51
+
+ []
+
+[14 <./pictures/../pictures/regression_noiseless_intuition.PNG>]
+<pictures/../pictures/rss_shape.png, id=988, 505.89pt x 383.93437pt>
+File: pictures/../pictures/rss_shape.png Graphic file (type png)
+<use pictures/../pictures/rss_shape.png>
+Package pdftex.def Info: pictures/../pictures/rss_shape.png  used on input line
+ 79.
+(pdftex.def)             Requested size: 216.09877pt x 164.00476pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[15]
+Overfull \hbox (44.16957pt too wide) detected at line 127
+[] \OT1/ztmcm/m/n/10.95 = []\OML/ztmcm/m/it/10.95 L [] \OT1/ztmcm/m/n/10.95 = [
+] [] \OML/ztmcm/m/it/10.95 L [] \OT1/ztmcm/m/n/10.95 = [] [] [] = [] [] [][]
+ []
+
+) (chapters/classification.tex [16 <./pictures/../pictures/rss_shape.png (PNG c
+opy)>] [17] [18
 
 ]
 Chapter 3.
@@ -1606,11 +1695,11 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 ) (chapters/pac.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15]
+ [19]
 Overfull \vbox (254.04417pt too high) has occurred while \output is active []
 
 
-[16]
+[20]
 Chapter 4.
 File: pictures/head1.png Graphic file (type png)
 <use pictures/head1.png>
@@ -1659,21 +1748,21 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 ) (chapters/ensemble.methods.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [17
+ [21
 
 ]
 Overfull \vbox (64.35744pt too high) has occurred while \output is active []
 
 
-[18]
+[22]
 Chapter 5.
 File: pictures/head1.png Graphic file (type png)
 <use pictures/head1.png>
 Package pdftex.def Info: pictures/head1.png  used on input line 1.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-) (chapters/regularization.model.selection.tex [19
+) (chapters/regularization.model.selection.tex [23
 
-] [20
+] [24
 
 ]
 Chapter 6.
@@ -1693,7 +1782,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 4.
 
-) (chapters/unsupervised.learning.tex [21] [22
+) (chapters/unsupervised.learning.tex [25] [26
 
 ]
 Chapter 7.
@@ -1701,7 +1790,7 @@ File: pictures/head1.png Graphic file (type png)
 <use pictures/head1.png>
 Package pdftex.def Info: pictures/head1.png  used on input line 1.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-) (chapters/convex.gradient.descent.tex [23] [24
+) (chapters/convex.gradient.descent.tex [27] [28
 
 ]
 Chapter 8.
@@ -1713,58 +1802,60 @@ Package pdftex.def Info: pictures/head1.png  used on input line 1.
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 2.
 
-) [25] [26
+) [29] [30
 
 ]
 Chapter 9.
 File: pictures/head1.png Graphic file (type png)
 <use pictures/head1.png>
-Package pdftex.def Info: pictures/head1.png  used on input line 106.
+Package pdftex.def Info: pictures/head1.png  used on input line 110.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-[27] [28
+[31] [32
 
 ]
 Chapter 10.
 File: pictures/head1.png Graphic file (type png)
 <use pictures/head1.png>
-Package pdftex.def Info: pictures/head1.png  used on input line 107.
+Package pdftex.def Info: pictures/head1.png  used on input line 111.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-[29]
+[33]
 \tf@ptc=\write7
 \openout7 = `main.ptc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 110.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 110.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 114.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 114.
  (main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 110.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 110.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 114.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 114.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8538549671C8B9DB9B27BDBF2479D211;11395.
+(rerunfilecheck)             Checksum: 076E37D4CACBD786D038493CB07EA584;11450.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39496 strings out of 492452
- 745960 string characters out of 3129807
- 1310668 words of memory out of 3000000
- 43027 multiletter control sequences out of 15000+200000
- 611429 words of font info for 146 fonts, out of 3000000 for 9000
+ 41266 strings out of 492452
+ 777561 string characters out of 3129807
+ 1343231 words of memory out of 3000000
+ 44670 multiletter control sequences out of 15000+200000
+ 624885 words of font info for 208 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,12n,69p,855b,1972s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 63i,12n,69p,855b,1970s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-rsfs/rsfs10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/avantgar/uagd8a.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/avantgar/uagk8a.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/f
-onts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ti
-mes/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (29 pages, 7741952 bytes).
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/avantgar/ua
+gd8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/avantgar/uagk8a.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (33 pages, 8151392 bytes).
 PDF statistics:
- 1132 PDF objects out of 1200 (max. 8388607)
- 203 named destinations out of 1000 (max. 500000)
- 43703 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 1187 PDF objects out of 1200 (max. 8388607)
+ 221 named destinations out of 1000 (max. 500000)
+ 44233 words of extra memory for PDF output out of 51595 (max. 10000000)
 

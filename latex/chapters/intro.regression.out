@@ -1,0 +1,19 @@
+\BOOKMARK [1][-]{section.1}{Introduction to Statistical Learning}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Estimation Theory}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Estimators}{subsection.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.2}{Risk \046 Loss Functions}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.3}{Learning Principals}{section.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Empirical Risk Minimization}{subsection.1.3}% 6
+\BOOKMARK [3][-]{subsubsection.1.3.2}{Maximum Likelihood}{subsection.1.3}% 7
+\BOOKMARK [2][-]{subsection.1.4}{Lab: Python Data Analysis - First Steps}{section.1}% 8
+\BOOKMARK [2][-]{subsection.1.5}{Lab: Data Simulation and Sampling}{section.1}% 9
+\BOOKMARK [1][-]{section.2}{Linear Regression}{}% 10
+\BOOKMARK [2][-]{subsection.2.1}{Ordinary Least Squares}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.2}{Weighted Least Squares}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.3}{Geometric Interpretation}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.4}{Categorical Variables}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.5}{Lab: Linear Regression}{section.2}% 15
+\BOOKMARK [1][-]{section.3}{Beyond Linearity}{}% 16
+\BOOKMARK [2][-]{subsection.3.1}{Polynomial Fitting}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Poisson Regression}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.3}{Lab: Polynomial Fitting}{section.3}% 19
