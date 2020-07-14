@@ -1,14 +1,4 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  My documentation report
-%  Objective: Explain what I did and how, in order to help someone continue with the investigation
-%
-% Important note:
-% Chapter heading images should have a 2:1 width:height ratio,
-% e.g. 920px width and 460px height.
-%
-% The images can be found anywhere, usually on sky surveys websites or the
-% Astronomy Picture of the day archive http://apod.nasa.gov/apod/archivepix.html
-%
 % The original template (the Legrand Orange Book Template) can be found here --> http://www.latextemplates.com/template/the-legrand-orange-book
 %
 % Original author of the Legrand Orange Book Template:
@@ -34,7 +24,7 @@
 \usepackage{avant} % Use the Avantgarde font for headings
 %\usepackage{times} % Use the Times font for headings
 \usepackage{mathptmx} % Use the Adobe Times Roman as the default text font together with math symbols from the Sym­bol, Chancery and Com­puter Modern fonts
-
+\usepackage{mathtools}
 \usepackage{microtype} % Slightly tweak font spacing for aesthetics
 \usepackage[utf8]{inputenc} % Required for including letters with accents
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
@@ -44,11 +34,8 @@
 \addbibresource{bibliography.bib} % BibTeX bibliography file
 \defbibheading{bibempty}{}
 
-\input{headers/structure} % Insert the commands.tex file which contains the majority of the structure behind the template
-
-\usepackage{mathtools}
+\input{headers/structure}
 \input{headers/style.tex}
-
 \input{headers/commands.tex}
 
 \begin{document}
@@ -60,7 +47,7 @@
 
 \begingroup
 \thispagestyle{empty}
-\AddToShipoutPicture*{\put(0,0){\includegraphics[scale=1.25]{esahubble}}} % Image background
+\AddToShipoutPicture*{\put(0,0){\includegraphics[scale=1.25]{cover}}} % Image background
 \centering
 \vspace*{5cm}
 \par\normalfont\fontsize{35}{35}\sffamily\selectfont
@@ -78,34 +65,31 @@
 ~\vfill
 \thispagestyle{empty}
 %\noindent Copyright \copyright\ 2014 Andrea Hidalgo\\ % Copyright notice
-\noindent \textsc{Introduction to Machine Learning, The Hebrew University, Jerusalem}\\
-
-\noindent \textsc{Address to code examples and labs repository}\\ % URL
-
-\noindent Written by and by.\\ % License information
-
-\noindent \textit{First release, October 2020} % Printing/edition date
+\textsc{Introduction to Machine Learning, The Hebrew University, Jerusalem}\\\\
+\textsc{Address to code examples and labs repository}\\\\ % URL
+Written by and by.\\\\ % License information
+\textit{First release, October 2020} % Printing/edition date
 
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
 
-\chapterimage{head1.png} % Table of contents heading image
+\chapterimage{toc_header.png} % Table of contents heading image
 \pagestyle{empty} % No headers
 \tableofcontents % Print the table of contents itself
 \cleardoublepage % Forces the first chapter to start on an odd page so it's on the right
 \pagestyle{fancy} % Print headers again
 
 
-\input{chapters/preface.tex}
-\input{chapters/mathematical.basis.tex}
-\input{chapters/intro.regression.tex}
-\input{chapters/classification.tex}
-\input{chapters/pac.tex}
-\input{chapters/ensemble.methods.tex}    
-\input{chapters/regularization.model.selection.tex}
-\input{chapters/unsupervised.learning.tex}
-\input{chapters/convex.gradient.descent.tex}
+\input{chapters/preface/content.tex}
+\input{chapters/mathematical.basis/content.tex}
+\input{chapters/intro.regression/content.tex}
+\input{chapters/classification/content.tex}
+\input{chapters/pac/content.tex}
+\input{chapters/ensemble.methods/content.tex}    
+\input{chapters/regularization.model.selection/content.tex}
+\input{chapters/unsupervised.learning/content.tex}
+\input{chapters/gradient.descent/content.tex}
 
 \chapter{Online- and Reinforcement Learning}
 \chapter{Deep Learning}
