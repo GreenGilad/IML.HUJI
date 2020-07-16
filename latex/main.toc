@@ -17,9 +17,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.1.3}Matrix Decomposition}{11}{subsection.1.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Eigenvalues Decomposition}{11}{section*.3}% 
+\contentsline {subsubsection}{\numberline {1.1.3.1}Eigenvalues Decomposition}{11}{subsubsection.1.1.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Singular Values Decomposition}{11}{section*.4}% 
+\contentsline {subsubsection}{\numberline {1.1.3.2}Singular Values Decomposition}{11}{subsubsection.1.1.3.2}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.2}Calculus}{11}{section.1.2}% 
 \defcounter {refsection}{0}\relax 
@@ -45,15 +45,15 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.1}Estimation Theory}{13}{subsection.2.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Estimators}{13}{section*.5}% 
+\contentsline {subsubsection}{\numberline {2.1.1.1}Estimators}{13}{subsubsection.2.1.1.1}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.2}Risk \& Loss Functions}{13}{subsection.2.1.2}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.3}Learning Principals}{13}{subsection.2.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Empirical Risk Minimization}{13}{section*.6}% 
+\contentsline {subsubsection}{\numberline {2.1.3.1}Empirical Risk Minimization}{13}{subsubsection.2.1.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Maximum Likelihood}{13}{section*.7}% 
+\contentsline {subsubsection}{\numberline {2.1.3.2}Maximum Likelihood}{13}{subsubsection.2.1.3.2}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.4}Lab: Python Data Analysis - First Steps}{13}{subsection.2.1.4}% 
 \defcounter {refsection}{0}\relax 
@@ -63,35 +63,35 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.1}Ordinary Least Squares}{15}{subsection.2.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Least Squares Loss Function}{15}{section*.9}% 
+\contentsline {subsubsection}{\numberline {2.2.1.1}Least Squares Loss Function}{15}{subsubsection.2.2.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Residual Sum of Squares}{15}{section*.10}% 
+\contentsline {subsubsection}{\numberline {2.2.1.2}Residual Sum of Squares}{15}{subsubsection.2.2.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{The Normal Equations}{16}{section*.12}% 
+\contentsline {subsubsection}{\numberline {2.2.1.3}The Normal Equations}{16}{subsubsection.2.2.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{A Statistical Model - Existence of Noise}{16}{section*.13}% 
+\contentsline {subsubsection}{\numberline {2.2.1.4}A Statistical Model - Existence of Noise}{16}{subsubsection.2.2.1.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Goodness Of Fit}{16}{section*.14}% 
+\contentsline {subsubsection}{\numberline {2.2.1.5}Goodness Of Fit}{17}{subsubsection.2.2.1.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Maximum Likelihood Equivalence}{16}{section*.15}% 
+\contentsline {subsubsection}{\numberline {2.2.1.6}Maximum Likelihood Equivalence}{17}{subsubsection.2.2.1.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.2}Weighted Least Squares}{17}{subsection.2.2.2}% 
+\contentsline {subsection}{\numberline {2.2.2}Weighted Least Squares}{18}{subsection.2.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.3}Geometric Interpretation}{17}{subsection.2.2.3}% 
+\contentsline {subsection}{\numberline {2.2.3}Geometric Interpretation}{18}{subsection.2.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.4}Categorical Variables}{17}{subsection.2.2.4}% 
+\contentsline {subsection}{\numberline {2.2.4}Categorical Variables}{18}{subsection.2.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.5}Lab: Linear Regression}{17}{subsection.2.2.5}% 
+\contentsline {subsection}{\numberline {2.2.5}Lab: Linear Regression}{18}{subsection.2.2.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Beyond Linearity}{17}{section.2.3}% 
+\contentsline {section}{\numberline {2.3}Beyond Linearity}{18}{section.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.1}Polynomial Fitting}{17}{subsection.2.3.1}% 
+\contentsline {subsection}{\numberline {2.3.1}Polynomial Fitting}{18}{subsection.2.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.2}Poisson Regression}{17}{subsection.2.3.2}% 
+\contentsline {subsection}{\numberline {2.3.2}Poisson Regression}{18}{subsection.2.3.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Summary}{17}{section.2.4}% 
+\contentsline {section}{\numberline {2.4}Summary}{18}{section.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.1}Lab: Polynomial Fitting}{17}{subsection.2.4.1}% 
+\contentsline {subsection}{\numberline {2.4.1}Lab: Polynomial Fitting}{18}{subsection.2.4.1}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Classification}{19}{chapter.3}% 
 \defcounter {refsection}{0}\relax 
@@ -107,9 +107,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.2.1}A Probabilistic Model For Noisy Labels}{20}{subsection.3.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{The Hypothesis Class}{20}{section*.16}% 
+\contentsline {subsubsection}{\numberline {3.2.1.1}The Hypothesis Class}{20}{subsubsection.3.2.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Learning Via Maximum Likelihood}{20}{section*.17}% 
+\contentsline {subsubsection}{\numberline {3.2.1.2}Learning Via Maximum Likelihood}{20}{subsubsection.3.2.1.2}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.2.2}Computational Implementation}{20}{subsection.3.2.2}% 
 \defcounter {refsection}{0}\relax 
@@ -135,7 +135,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.4.3}Soft-SVM}{20}{subsection.3.4.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{The Kernel Trick}{20}{section*.18}% 
+\contentsline {subsubsection}{\numberline {3.4.3.1}The Kernel Trick}{20}{subsubsection.3.4.3.1}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.5}Nearest Neighbors}{20}{section.3.5}% 
 \defcounter {refsection}{0}\relax 
@@ -223,9 +223,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.6.2}Achieving Uniformity In $\ensuremath {\mathcal {H}}$ and $\ensuremath {\mathcal {D}}$}{22}{subsection.4.6.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{The Case Of Finite $\ensuremath {\mathcal {H}}$}{22}{section*.19}% 
+\contentsline {subsubsection}{\numberline {4.6.2.1}The Case Of Finite $\ensuremath {\mathcal {H}}$}{22}{subsubsection.4.6.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{The General Case - Infinite $\ensuremath {\mathcal {H}}$}{22}{section*.20}% 
+\contentsline {subsubsection}{\numberline {4.6.2.2}The General Case - Infinite $\ensuremath {\mathcal {H}}$}{22}{subsubsection.4.6.2.2}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.7}The Fundamental Theorem of Statistical Learning}{22}{section.4.7}% 
 \defcounter {refsection}{0}\relax 
@@ -261,7 +261,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.4.1}Bootstrapping}{23}{subsection.5.4.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{}{23}{section*.21}% 
+\contentsline {subsubsection}{\numberline {5.4.1.1}}{23}{subsubsection.5.4.1.1}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.4.2}Bagging Reduces Variance}{23}{subsection.5.4.2}% 
 \defcounter {refsection}{0}\relax 
@@ -291,9 +291,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.2.3}Common Model Selection Mistakes}{25}{subsection.6.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Over-estimating Generalization Error}{25}{section*.22}% 
+\contentsline {subsubsection}{\numberline {6.2.3.1}Over-estimating Generalization Error}{25}{subsubsection.6.2.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Under-estimating Generalization Error}{25}{section*.23}% 
+\contentsline {subsubsection}{\numberline {6.2.3.2}Under-estimating Generalization Error}{25}{subsubsection.6.2.3.2}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.2.4}Lab: Selecting Regularized Model}{25}{subsection.6.2.4}% 
 \defcounter {refsection}{0}\relax 
@@ -305,17 +305,17 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.1.2}Principal Component Analysis}{27}{subsection.7.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Closest Subspace Interpretation}{27}{section*.24}% 
+\contentsline {subsubsection}{\numberline {7.1.2.1}Closest Subspace Interpretation}{27}{subsubsection.7.1.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Generalized Linear Regression Interpretation}{27}{section*.25}% 
+\contentsline {subsubsection}{\numberline {7.1.2.2}Generalized Linear Regression Interpretation}{27}{subsubsection.7.1.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Maximum Retained Variance Interpretation}{27}{section*.26}% 
+\contentsline {subsubsection}{\numberline {7.1.2.3}Maximum Retained Variance Interpretation}{27}{subsubsection.7.1.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Projection- vs. Coordinates of Data-Points}{27}{section*.27}% 
+\contentsline {subsubsection}{\numberline {7.1.2.4}Projection- vs. Coordinates of Data-Points}{27}{subsubsection.7.1.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Variants of PCA}{27}{section*.28}% 
+\contentsline {subsubsection}{\numberline {7.1.2.5}Variants of PCA}{27}{subsubsection.7.1.2.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Euclidean Embedding}{27}{section*.29}% 
+\contentsline {subsubsection}{\numberline {7.1.2.6}Euclidean Embedding}{27}{subsubsection.7.1.2.6}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.1.3}Lab: PCA}{27}{subsection.7.1.3}% 
 \defcounter {refsection}{0}\relax 
@@ -323,15 +323,15 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.2.1}K-Means}{27}{subsection.7.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{}{27}{section*.30}% 
+\contentsline {subsubsection}{\numberline {7.2.1.1}}{27}{subsubsection.7.2.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{K-Means++}{27}{section*.31}% 
+\contentsline {subsubsection}{\numberline {7.2.1.2}K-Means++}{27}{subsubsection.7.2.1.2}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.2.2}Mixture of Gaussians}{27}{subsection.7.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Expectation Minimization Learning Principal}{27}{section*.32}% 
+\contentsline {subsubsection}{\numberline {7.2.2.1}Expectation Minimization Learning Principal}{27}{subsubsection.7.2.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Estimating Model Parameters}{27}{section*.33}% 
+\contentsline {subsubsection}{\numberline {7.2.2.2}Estimating Model Parameters}{27}{subsubsection.7.2.2.2}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.2.3}Spectral Clustering}{27}{subsection.7.2.3}% 
 \defcounter {refsection}{0}\relax 

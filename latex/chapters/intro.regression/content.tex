@@ -20,7 +20,7 @@ R\left(\theta,\widehat{\theta}\right)=\E_\theta\left(\theta-\widehat{\theta}\rig
 \newpage
 \section{Linear Regression}
 
-Regression is a statistical method to model the relation between a set of explanatory variable (i.e features) and a scalar response, also referred to as dependent variable. Therefore, our sample domain is $\X=\R^d$ and our response set is $\Y=\R$. We assume that there exists some deterministic (unknown to us) function $f:\X\rightarrow\Y$ that is \textit{underlying} the relation between each sample $x$ and it's response $y$.
+Regression is a statistical method to model the relation between a set of explanatory variable (i.e features) and a scalar response, also referred to as dependent variable. Therefore, our sample domain is $\Xc=\R^d$ and our response set is $\Yc=\R$. We assume that there exists some deterministic (unknown to us) function $f:\Xc\rightarrow\Yc$ that is \textit{underlying} the relation between each sample $x$ and it's response $y$.
 
 \begin{figure}[!h]
 	\centering
@@ -29,12 +29,12 @@ Regression is a statistical method to model the relation between a set of explan
 \end{figure}
 
 In the case of linear regression we aim to model this relation by $f$ being a linear predictor function. Formally, the hypothesis class of linear regressors is the set of linear functions from the domain set to the response set: $$ \Hreg=\left\{h: h\left(x_1,\ldots,x_d\right)=w_0+\sum^d_{i=1}x_iw_i,\,\, w_0,w_1,\ldots,w_d\in\R\right\} $$
-Each function $h$ in the class is characterized by the \textbf{weights} (or regression coefficients) $w_1,\ldots,w_d$ representing the $d$ features and an \textbf{intercept} $w_0$. To simplify notation, for a given sample $\x=\left(x_1,\ldots,x_d\right)^\top \in \R^d$ we add a zero-th coordinate with the value of one, and define $\x=\left(1,x_1,\ldots,x_d\right)^\top \in \R^{d+1}$. Using this notation each function in the hypothesis class can be written in the form $h\left(\x\right)=\left<w,x\right>=\x^\top w$. From this point onward we will assume that the intercept is already incorporated into the weights vector and samples.
+Each function $h$ in the class is characterized by the \textbf{weights} (or regression coefficients) $w_1,\ldots,w_d$ representing the $d$ features and an \textbf{intercept} $w_0$. To simplify notation, for a given sample $\x=\left(x_1,\ldots,x_d\right)^\top \in \R^d$ we add a zero-th coordinate with the value of one, and define $\x=\left(1,x_1,\ldots,x_d\right)^\top \in \R^{d+1}$. Using this notation each function in the hypothesis class can be written in the form $h\left(\x\right)=\left<w,\x\right>=\x^\top w$. From this point onward we will assume that the intercept is already incorporated into the weights vector and samples.
 
-Thus, given a set of samples $S=\left\{\left(x_i,y_i\right)\right\}^m_{i=1}$ also referred to as a \textit{training set}, we are looking for some vector $\w\in\R^{d}$ such that $\forall i\in\left[m\right]\,\,x^\top_i w=y_i$. Let us arrange the data in a matrix form. We define a response \textit{column vector} $\y\in\R^m$ and a samples \textit{matrix} $X\in\R^{m\times d}$ as follows (where rows represent samples and columns represent features):
+Thus, given a set of samples $S=\left\{\left(\x_i,y_i\right)\right\}^m_{i=1}$ also referred to as a \textit{training set}, we are looking for some vector $\w\in\R^{d}$ such that $\forall i\in\left[m\right]\quad y_i=\x^\top_i w$. Let us arrange the data in a matrix form. We define a response \textit{column vector} $\y\in\R^m$ and a samples \textit{matrix} $X\in\R^{m\times d}$ as follows (where rows represent samples and columns represent features):
 
 $$
-X =
+\X =
 \left[
 \begin{array}{ccc}
 \horzbar & \x_1 & \horzbar \\
@@ -45,7 +45,13 @@ X =
 \right]\quad\quad
 \y=\left[\begin{array}{c} y_1 \\ y_2 \\ \vdots \\ y_m \end{array}\right]
 $$
-Now we can write it as a system of $m$ independent linear equations, which we want to solve for $\w$ (a set of $d$ variables): $$ Xw=y $$ If there exists (at least one) solution, it means that $f$ that created our data is indeed in $\Hreg$. This is called \textbf{The Realizable Case} or \textbf{The Realizability Assumption}. Later in this chapter we will discuss why the assumption that the responses $\y$ are \textit{exactly} linear in the samples $X$ is not realistic. Many times, even when the relation is indeed linear, the given data may be almost linear. In such cases $f$ is \textit{not} in $\Hreg$. This is called \textbf{The Non-Realizable Case} in which we must settle for finding $\widehat{f}\in\Hreg$ which is "good enough" for our purposes.
+Now we can write it as a system of $m$ independent linear equations, which we want to solve for $\w$ (a set of $d$ variables): 
+\begin{equation}
+$$ \y=\X\w $$ 
+\label{eqn:lin_reg_model}
+\end{equation}
+
+If there exists (at least one) solution, it means that $f$ that created our data is indeed in $\Hreg$. This is called \textbf{The Realizable Case} or \textbf{The Realizability Assumption}. Later in this chapter we will discuss why the assumption that the responses $\y$ are \textit{exactly} linear in the samples $X$ is not realistic. Many times, even when the relation is indeed linear, the given data may be almost linear. In such cases $f$ is \textit{not} in $\Hreg$. This is called \textbf{The Non-Realizable Case} in which we must settle for finding $\widehat{f}\in\Hreg$ which is "good enough" for our purposes.
 \\
 \\
 In the realizable case, the system of equations has either a unique solution or an infinite number of solutions, depending on the kernel of $X$ being trivial or non-trivial (i.e $dim\left(Ker\left(X\right)\right)$ equals or not-equals to zero). As there exists a solution, we know that $\y\in Im\left(X\right)$. In the case of a trival kernel we conclude that the columns of $X$, meaning the features of our data, are linearly independent. In the non-realizable case, the system has no solution and therefore $\y\not\in Im\left(X\right)$.
@@ -54,26 +60,24 @@ In the realizable case, the system of equations has either a unique solution or 
 
 \subsection{Ordinary Least Squares}
 \subsubsection{Least Squares Loss Function}
-To design a learning algorithm that will learn (predict) $f$ we would like to first quantify the \textit{risk} of choosing some predictor $\widehat{f}\in\Hreg$. We derive different algorithms, each with different properties, by the choice of the risk function. In the case of Ordinary Least Squares, OLS, we choose to work with the mean squared risk \eqref{eqn:mse}. 
+To design a learning algorithm that will learn (predict) $f$, we would like to first quantify the \textit{risk} of choosing any predictor $\widehat{f}\in\Hreg$. We derive different algorithms, each with different properties, by the choice of the risk function. In the case of Ordinary Least Squares, OLS, we choose to work with the mean squared risk \eqref{eqn:mse}. 
 
-As we assess our chosen hypotheses using the squared risk $R\left(\theta,\widehat{\theta}\right)\coloneqq\E_{\widehat{f}}\left(y-\widehat{f}\left(x\right)\right)^2$ it makes sense to choose $\widehat{f}$ that minimizes the same loss \textit{on the training data we already have}. Given a training set $S=\left\{\left(x_i,y_i\right)\right\}^m_{i=1}$ and some prediction rule $\widehat{f}\in\Hreg$ the quantity of the squared risk over the training data is called the \textbf{empirical risk}. In our case the empirical risk of the linear function is given by: $$ R\left(y,\widehat{f}\left(\x\right)\right)=\sum^m_{i=1}\left(y_i-\x_i^\top\w\right)^2 = \norm{\y-X\w}^2_2=\left(\y-X\w\right)^\top \left(\y-X\w\right)$$
+As we assess our chosen hypotheses using the squared risk $R\left(\theta,\widehat{\theta}\right)\coloneqq\E_{\widehat{f}}\left(y-\widehat{f}\left(x\right)\right)^2$ it makes sense to choose $\widehat{f}$ that minimizes the same loss \textit{on the training data we already have}. Given a training set $S=\left\{\left(x_i,y_i\right)\right\}^m_{i=1}$ and some prediction rule $\widehat{f}\in\Hreg$ the quantity of the squared risk over the training data is called the \textbf{empirical risk}. In our case the empirical risk of the linear function is given by: $$ R\left(y,\widehat{f}\left(\x\right)\right)=\sum^m_{i=1}\left(y_i-\x_i^\top\w\right)^2 = \norm{\y-\X\w}^2_2=\left(\y-\X\w\right)^\top \left(\y-\X\w\right)$$
 
 \subsubsection{Residual Sum of Squares}
 Therefore, under the selection of the squared risk function, minimizing the empirical risk means minimizing the sum of squares of the deviations of the responses from a linear function. In other words, we choose the linear function in $\Hreg$ that is closest to the responses in terms of the Euclidean distance. The deviation $y_i-\x_i^\top\w$ is called the $i$-th \textbf{residual}. The total empirical risk is therefore called \textbf{Residual Sum of Squares} (or \textbf{RSS}), denoted by:
 
 \begin{align} %TODO - center
-RSS\left(\w\right) = \norm{\y-X\w}^2
+RSS\left(\w\right) = \norm{\y-\X\w}^2
 \label{eqn:rss}
 \end{align}
 
 As such, learning the lienar function by ERM is solving the quadratic problem:
-
-
 \begin{align}
-\w^*=\underset{\w\in\R^d}{argmin}\,RSS\left(\w\right)=\underset{\w\in\R^d}{argmin}\,\norm{\y-X\w}^2
+\w^*=\underset{\w\in\R^d}{argmin}\,RSS\left(\w\right)=\underset{\w\in\R^d}{argmin}\,\norm{\y-\X\w}^2
 \label{eqn:opt_rss}
 \end{align}
-It is therefore a smooth function of $\w$ with a minimum (or minima) If $X$ is of full rank then $\norm{\y-X\w}^2$ has a unique minimum. This minimum is the predictor $\widehat{f}$ we would like to find.
+It is therefore a smooth function of $\w$ with a minimum (or minima) If $X$ is of full rank then $\norm{\y-\X\w}^2$ has a unique minimum. This minimum is the predictor $\widehat{f}$ we would like to find.
 
 \begin{figure}[!h]
 	\centering
@@ -81,12 +85,12 @@ It is therefore a smooth function of $\w$ with a minimum (or minima) If $X$ is o
 	\caption{\textbf{RSS Shape:} In the case where $X$ is of full rank}
 \end{figure}
 
-For \w to be a minimizer of the $RSS$ function all its partial derivatives should be zero. Recalling the definition of the inner product, this condition can be written as: 
+For $\w$ to be a minimizer of the $RSS$ function all its partial derivatives should be zero. Recalling the definition of the inner product, this condition can be written as: 
 $$
 \begin{array}{c}
 \forall j\in\left[0,\ldots,d\right]\quad\frac{\partial}{\partial \, w_j}RSS\left(\w\right)=-2\sum^m_{i=1}\left(\x_i\right)_j\cdot\left(y_i-\x_i^\top\w\right)=0 	\\
 \Downarrow	\\
-\nabla RSS\left(\w\right)=-2X^\top\left(\y-X\w\right)=0	\\
+\nabla RSS\left(\w\right)=-2\X^\top\left(\y-\X\w\right)=0	\\
 \end{array}
 $$
 
@@ -94,38 +98,60 @@ $$
 \subsubsection{The Normal Equations}
 So a necessary condition for $\w$ to be a minimizer of the objective is to be a solution for the following linear system, known as the \textbf{Normal Equations}.
 \begin{equation}
-$$ X^\top\left(y-X\w\right)=0 \quad \iff \quad X^\top\y=X^\top X\w $$
+$$ \X^\top\left(y-\X\w\right)=0 \quad \iff \quad \X^\top\y=\X^\top X\w $$
 \label{eqn:normal_eq}
 \end{equation}
 
 %TODO - Non-singular + singular cases. Stating claims needed (which will be proven as homework)
 
 \subsubsection{A Statistical Model - Existence of Noise}
+So far we assumed that there exists some deterministic function $f:\Xc\rightarrow\Yc$ that is underlying the relation between the domain- and response- sets. We would like to describe a more general probabilistic model, which better fits reality. Let us assume, as before, that the relation is linear in $\Xc$. In addition we add an additional element $\eps$ capturing random noise in the relation. This noise element is referred to as \textit{error} and is a random variable. We make the assumptions that all errors are: (1) Centered (2) Uncorrelated (3) Have equal variance and (4) with a Gaussian distribution:
+\begin{equation}
+$$ \forall\, i \in \left[m\right] \quad y_i=\x_i^\top\w + \eps_i, \quad\quad \eps_1,\ldots,\eps_m \iid \Nc\left(0,\sigma^2\right) $$
+\label{eqn:lin_reg_prob_model}
+\end{equation}
 
-%TODO - describe the addition of noise. Show graph that noise only is added to y-axis!
-%TODO - given different noise properties (E=0, Var=\sigma, multivariate gaussian) -> deriving different properties.
-%TODO - noise -> not in Im(X)
+As our model allows some uncertainty in the responses, even for identical $\x$s, we may end up with different $y$s. Let us adapt our learning algorithm from the deterministic case, and deal with the probabilistic (noisy) one. In the same manner as before, using the linear hypothesis class $\Hreg$,  we asusme there exists an unknown coefficients vector $\w$. Denoting the noise vector $\eps=\left(\eps_1,\ldots,\eps_m\right)^\top$ we have in matrix notation: $$ \y=\X\w+\eps, \quad\quad \eps\sim\Nc\left(0_d,\sigma^2I_d\right) $$
+
+Note, that the vector $\y$ is no longer necessarily in $Im\left(\X\right)$. Therefore, the linear system $\y=\X\w$ has no solution. 
+To derive a learning algorithm let us use the squared loss as before, and learn by empirical risk minimization as in \eqref{eqn:opt_rss}. This means learning the prediction rule by solving the normal equations, which we have seen is equivalent to projecting $\y$ onto $Im\left(\X\right)$ by finding the Least Squares approximation.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{chapters/intro.regression/figures/regression_noiseless_intuition.png}
+	\caption{\textbf{Probabilistic Model:} ..........} %TODO - image and caption
+\end{figure}
+
 %TODO - Projection matrices
 
 \subsubsection{Goodness Of Fit} 
 % TODO - R^2 vs. r^2
 
 \subsubsection{Maximum Likelihood Equivalence}
-As seen above, different assumptions on the noise in our data yields different traits we can use for our advantage. Let us assume Gaussian noise $\varepsilon_i\iid\Nc\left(0,\sigma^2\right)$. This means that the $i$-th observation is independently distributed $y_i\sim\Nc\left(\x_i^\top\w,\sigma^2\right)$. Suppose we \textbf{knew} the weight vector $\w$, we could then ask the following question: Given a fixed design matrix $X$ and known coefficients vector $\w$, how likely is it to observe the response vector $\y$?
+As seen above, different assumptions on the noise in our data yields different traits we can use for our advantage. Let us assume Gaussian noise $\eps\iid\Nc\left(0,\sigma^2\right)$. This means that the $i$-th observation is independently distributed $y_i\sim\Nc\left(\x_i^\top\w,\sigma^2\right)$. Suppose we \textbf{knew} the weight vector $\w$, we could then ask the following question: Given a fixed design matrix $X$ and known coefficients vector $\w$, how likely is it to observe the response vector $\y$?
 
 As we assumed Gaussian noise, we could answer this question using the density function of the Gaussian distribution. %TODO - link to gaussian density
 Therefore, the \textbf{likelihood} of $\w$, given the data is:
 
 $$
-\begin{array}{cclcl}
-L\left(\w|X,\y\right) & = & \Prob\left(y_{1}=\x_{1}^{\top}\w,\ldots,y_{m}=\x_{m}^{\top}\w|X,\w\right) & \overset{iid}{=} & \prod_{i=1}^{m}\Prob\left(y_{i}=\x_{i}^{\top}\w|X,\right)\\
-& = & \prod_{i=1}^{m}\frac{1}{\sqrt{2\pi\sigma^{2}}}\exp\left(-\frac{\left(\x_{i}^{\top}\w-y_{i}\right)^{2}}{2\sigma^{2}}\right) & = & \frac{1}{\left(2\pi\sigma^{2}\right)^{m/2}}\prod_{i=1}^{m}\exp\left(-\frac{\left(\x_{i}^{\top}\w-y_{i}\right)^{2}}{2\sigma^{2}}\right)\\
+\begin{array}{ccl}
+L\left(\w|X,\y\right) & = & \Prob\left(y_{1}=\x_{1}^{\top}\w,\ldots,y_{m}=\x_{m}^{\top}\w|\X,\w\right) \\
+& \overset{iid}{=} & \prod_{i=1}^{m}\Prob\left(y_{i}=\x_{i}^{\top}\w|\X,\right) \\
+& = & \prod_{i=1}^{m}\frac{1}{\sqrt{2\pi\sigma^{2}}}\exp\left(-\frac{\left(\x_{i}^{\top}\w-y_{i}\right)^{2}}{2\sigma^{2}}\right) \\
+& = & \frac{1}{\left(2\pi\sigma^{2}\right)^{m/2}}\prod_{i=1}^{m}\exp\left(-\frac{\left(\x_{i}^{\top}\w-y_{i}\right)^{2}}{2\sigma^{2}}\right)\\
 & = & \frac{1}{\left(2\pi\sigma^{2}\right)^{m/2}}\exp\left(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{m}\left(\x_{i}^{\top}\w-y_{i}\right)^{2}\right)
 \end{array}
 $$
 
 So solving for $\w$:
-$$ \widehat{\w}=\underset{\w}{argmax}L\left(\w|\y\right)=\underset{\w}{argmax}\log L\left(\w|\y\right)=\underset{\w}{argmax}\exp\left(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{m}\left(\x_{i}^{\top}\w-y_{i}\right)^{2}\right)=\underset{\w}{argmin}\sum_{i=1}^{m}\left(\x_{i}^{\top}\w-y_{i}\right)^{2}$$
+$$ 
+\begin{array}{ccl}
+\quad\quad\quad\widehat{\w} & = & \underset{\w}{argmax}L\left(\w|\y\right) \\
+& = & \underset{\w}{argmax}\log L\left(\w|\y\right) \\
+& = & \underset{\w}{argmax}\exp\left(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{m}\left(\x_{i}^{\top}\w-y_{i}\right)^{2}\right) \\ 
+& = & \underset{\w}{argmin}\sum_{i=1}^{m}\left(\x_{i}^{\top}\w-y_{i}\right)^{2}
+\end{array}
+$$
 
 we conclude that the MLE (assuming Gaussian noise) is just the OLS estimator we obtained using the ERM principal over the squared loss. %TODO - link to equation
 \subsection{Weighted Least Squares}
