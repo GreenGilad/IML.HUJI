@@ -1,0 +1,239 @@
+\documentclass[11pt]{article}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{graphicx,subfigure}
+\usepackage{epsfig}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage{boxedminipage}
+\usepackage{xcolor}
+ \usepackage{framed}
+\usepackage{rotating}
+\usepackage{soul}
+\usepackage{mathtools}
+\usepackage{cancel}
+%\usepackage{palatino}
+\usepackage{setspace}
+
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{tikz}
+
+
+\usepackage{mathabx}
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\usepackage{enumitem}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\oddsidemargin=0.15in
+\evensidemargin=0.15in
+\topmargin=-.5in
+\textheight=9in
+\textwidth=6.25in
+
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclareGraphicsExtensions{.gif, .ps, .eps, .png}
+\DeclareGraphicsRule{.gif}{png}{}{`convert #1 'png:-'}
+
+\DeclareGraphicsExtensions{.gif, .ps, .eps, .png}
+\DeclareGraphicsRule{.gif}{png}{}{`convert #1 'png:-'}
+
+\newcommand{\inprod}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\norm}[1]{\left\| #1\right\|}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1\end{pmatrix}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\bN}{\mathbb{N}\,}
+
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+ % \newcommand{\E}{\ensuremath{\mathbb{E}}}
+  \newcommand{\N}{\ensuremath{\mathbb{N}}}
+  %newcommand{\C}{\ensuremath{\mathbb{C}}}
+  \newcommand{\Tr}{\ensuremath{\top}}
+  \newcommand{\Prob}{\ensuremath{\mathbb{P}}}
+  \newcommand{\Nc}{\mathcal{N}}
+\newcommand{\innerr}[2]{{\left\langle #1\,,\,#2 \right\rangle}}
+
+  % IML
+  % ----
+  \newcommand{\Xc}{\mathcal{X}}
+  \newcommand{\Yc}{\mathcal{Y}}
+  \newcommand{\Hc}{\mathcal{H}}
+  \newcommand{\Ac}{\mathcal{A}}
+  \newcommand{\Dc}{\mathcal{D}}
+  \newcommand{\Fc}{\mathcal{F}}
+  \newcommand{\Rc}{\mathcal{R}}
+%\newcommand{\inner}[2]{{\left\langle #1\,,\,#2 \right\rangle}}
+
+   \newcommand{\blue}{\color{blue}}
+   \newcommand{\red}{\color{red}}
+\newcommand{\cov}{\mathrm{Cov}}
+
+\newenvironment{myalgo}[1]%
+{
+%\vspace{0.3cm}
+\begin{center}
+\begin{boxedminipage}{0.8\linewidth}
+\begin{center}
+\textbf{\texttt{#1}}
+\end{center}
+\rm
+\begin{tabbing}
+....\=...\=...\=...\=...\=  \+ \kill
+} %
+{\end{tabbing} 
+\end{boxedminipage} \end{center} %\vspace{0.3cm}
+}
+
+
+  % ---
+
+%\newcommand{\norm}[1]{\left|\left| #1 \right|\right|}
+
+
+\newcommand{\plim}{\stackrel{p}{\rightarrow}}
+\newcommand{\aslim}{\stackrel{a.s.}{\rightarrow}}
+\newcommand{\dlim}{\stackrel{d}{\rightarrow}}
+
+% distributed as
+\newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
+\newcommand{\ind}{\stackrel{\text{ind.}}{\sim}}
+\newcommand{\indep}{\stackrel{\text{indep.}}{\sim}}
+\newcommand{\VV}[1]{\mathbf{#1}}
+\newcommand{\Vhat}[1]{\ensuremath{\hat{\mathbf{#1}}}}
+
+\newcommand{\GILAD}[1]{ 
+    {\color{cyan}  Gilad: #1}
+}
+\newcommand{\URY}[1]{
+    {\color{orange} Ury: #1}
+}
+\newcommand{\MATAN}[1]{ 
+    {\color{red}  Matan: #1}
+}
+\newcommand{\OTHER}[1]{ 
+    {\color{blue}  Other: #1}
+}
+
+
+\title{Statistical Learning for Computer Science Students}
+
+\date{March 2020}
+
+
+
+\input{headerCorrected.tex}
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+%\onehalfspacing
+
+%\newpage
+%\section*{Preface}
+%\label{sec:preface}
+%\addcontentsline{toc}{sec}{\nameref{sec:preface}}
+%This is preface
+
+\newpage
+\part*{Introduction}
+\label{part:intro}
+\addcontentsline{toc}{part}{\nameref{part:intro}}
+This is intro
+%\input{intro}
+
+\newpage
+\part*{Lecture 1: Mathematical Background}
+\label{part:lecture_1}
+\addcontentsline{toc}{part}{\nameref{part:lecture_1}}
+\input{lecture_1_probability_recap}
+
+\newpage
+\part*{Lecture 2: The Linear Model}
+\label{part:lecture_2}
+\addcontentsline{toc}{part}{\nameref{part:lecture_2}}
+\input{lecture_2_linear_model}
+
+\newpage
+\part*{Lecture 3: Classification}
+\label{part:lecture_3}
+\addcontentsline{toc}{part}{\nameref{part:lecture_3}}
+\input{lecture_3_classification}
+
+\newpage
+\part*{Lecture 4: PAC Theory of Statistical Learning, Part I}
+\label{part:lecture_4}
+\addcontentsline{toc}{part}{\nameref{part:lecture_4}}
+\input{lecture_4_PAC_part_1}
+
+\newpage
+\part*{Lecture 5: PAC Theory of Statistical Learning, Part II}
+\label{part:lecture_5}
+\addcontentsline{toc}{part}{\nameref{part:lecture_5}}
+\input{lecture_5_PAC_part_2}
+
+\newpage
+\part*{Lecture 6: Ensemble Methods - Bagging and Boosting}
+\label{part:lecture_6}
+\addcontentsline{toc}{part}{\nameref{part:lecture_6}}
+\input{lecture_6_boosting}
+
+\newpage
+\part*{Lecture 7: Regression, Regularization, Model Selection and Model
+Evaluation} 
+\label{part:lecture_7}
+\addcontentsline{toc}{part}{\nameref{part:lecture_7}}
+\input{lecture_7_regularization}
+\input{lecture_8_model_selection}
+
+\newpage
+\part*{Lecture 8: Unsupervised Learning}
+\label{part:lecture_8}
+\addcontentsline{toc}{part}{\nameref{part:lecture_8}}
+\input{lecture_10_unsupervised}
+
+
+\newpage
+\part*{Lecture 9: ML Actually}
+\label{part:lecture_9}
+\addcontentsline{toc}{part}{\nameref{part:lecture_9}}
+%\input{???}
+
+\newpage
+\part*{Lecture 10: Convex Optimization and SGD}
+\label{part:lecture_10}
+\addcontentsline{toc}{part}{\nameref{part:lecture_10}}
+%\input{???}
+
+\newpage
+\part*{Lecture 11: Online Learning and RL}
+\label{part:lecture_11}
+\addcontentsline{toc}{part}{\nameref{part:lecture_11}}
+%\input{???}
+
+\newpage
+\part*{Lecture 12: Deep Learning}
+\label{part:lecture_12}
+\addcontentsline{toc}{part}{\nameref{part:lecture_12}}
+%\input{???}
+
+
+
+
+
+
+
+
+
+\end{document}

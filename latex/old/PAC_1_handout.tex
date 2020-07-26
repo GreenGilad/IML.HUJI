@@ -1,0 +1,965 @@
+\documentclass[11pt]{article}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{graphicx,subfigure}
+\usepackage{epsfig}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage{boxedminipage}
+\usepackage{xcolor}
+ \usepackage{framed}
+
+\usepackage{tcolorbox}
+
+\usepackage{rotating}
+\usepackage{soul}
+\usepackage{mathtools}
+
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{tikz}
+
+
+\usepackage{mathabx}
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\usepackage{enumitem}
+
+\usepackage{cancel}
+\usepackage{ulem,lipsum}
+\usepackage{dsfont}
+
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\oddsidemargin=0.15in
+\evensidemargin=0.15in
+\topmargin=-.5in
+\textheight=9in
+\textwidth=6.25in
+
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclareGraphicsExtensions{.gif, .ps, .eps, .png}
+\DeclareGraphicsRule{.gif}{png}{}{`convert #1 'png:-'}
+
+\DeclareGraphicsExtensions{.gif, .ps, .eps, .png}
+\DeclareGraphicsRule{.gif}{png}{}{`convert #1 'png:-'}
+
+\newcommand{\inprod}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\norm}[1]{\left\| #1\right\|}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1\end{pmatrix}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\bN}{\mathbb{N}\,}
+
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+ % \newcommand{\E}{\ensuremath{\mathbb{E}}}
+ \newcommand{\N}{\ensuremath{\mathbb{N}}}
+ %newcommand{\C}{\ensuremath{\mathbb{C}}}
+ \newcommand{\Tr}{\ensuremath{\top}}
+ \newcommand{\Prob}{\ensuremath{\mathbb{P}}}
+ \newcommand{\Nc}{\mathcal{N}}
+  \newcommand{\Ac}{\mathcal{A}}
+  \newcommand{\Dc}{\mathcal{D}}
+
+ % IML
+ % ----
+ \newcommand{\Xc}{\mathcal{X}}
+ \newcommand{\Yc}{\mathcal{Y}}
+ \newcommand{\Hc}{\mathcal{H}}
+%\newcommand{\inner}[2]{{\left\langle #1\,,\,#2 \right\rangle}}
+
+ % ---
+
+%\newcommand{\norm}[1]{\left|\left| #1 \right|\right|}
+
+
+\newcommand{\plim}{\stackrel{p}{\rightarrow}}
+\newcommand{\aslim}{\stackrel{a.s.}{\rightarrow}}
+\newcommand{\dlim}{\stackrel{d}{\rightarrow}}
+
+% distributed as
+\newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
+\newcommand{\ind}{\stackrel{\text{ind.}}{\sim}}
+\newcommand{\indep}{\stackrel{\text{indep.}}{\sim}}
+%\newcommand{\V}[1]{\mathbf{#1}}
+\newcommand{\Vhat}[1]{\ensuremath{\hat{\mathbf{#1}}}}
+
+\title{{\large{Introduction to Machine Learning (67577) \\
+\vphantom{} The PAC Theory of Statistical Learning - Part I}}}
+
+\date{Special Covid-19 edition, 4/2020}
+
+\input{headerCorrected.tex}
+\begin{document}
+\maketitle
+
+\tableofcontents
+\pagebreak
+
+
+
+\section{Introduction}
+
+{\it(Recommended reading for this week and next week: Understanding Machine Learning, chapters 2-6)}.\\
+
+\textbf{Example: Immunotherapy}. We are working on a new medical treatment and we would like to predict for each patient whether the treatment will work for her or not.
+Available to us is a data set which is shown in Figure 1 below. On the basis of this data we need a no/yes (0 or 1) prediction in order to decide whether or not to apply the treatment.
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.3]{ImmunotherapyDataSet.png}
+    \caption{Immunotherapy Data Set}
+\end{figure}
+Let us formulate the ingredients of a general problem of this type.
+
+\begin{itemize}
+ \item The individual object, $\mathbf{x}$, that we wish to label. In our case, each such object is a vector $\mathbf{x}$ of $d$ real numbers describing $d$ features of a patient, as shown in the figure.
+ \item The set of all $\mathbf{x}$'s is called the \textbf{Domain set, $\X$}. We can take, for example,  $\X= \mathbb{R}^d$ (We could also take a smaller $\X$ since age must be positive and sex can have only two values).
+ \item \textbf{Label set, $\Y$}: set of possible labels. In our case we can take, for example,  $\Y=\{0,1\}$, where $0$ corresponds to a recommendation for not giving the treatment and 1 for giving it.
+ \item \textbf{A prediction rule, $h:\X\to \Y$}: used to label future examples. This function is called a \textbf{predictor}, a \textbf{hypothesis}, or a  \textbf{classifier}.
+\end{itemize}
+
+
+So the learner's input (e.g., the data in the figure) is called \textbf{Training data,} and consisting of $m$ already-labelled objects {$S=((\mathbf{x}_1,y_1),...,(\mathbf{x}_m,y_m)) \in  (\X\times \Y)^m$, and the learner's output is the prediction rule, $h:\X\to \Y$. So a learner is a map $\mathcal{A}:S\mapsto h$. The goal of the learner is to produce an $h$ that will be correct (as much as possible) on future examples.  So we need to have a way to quantify this, namely, to measure the quality of prediction of a candidate rule  $h$ with respect to future examples. 
+
+\section{A Theoretical framework for learning}
+
+The most basic questions in machine learning are: Is anything learnable? what
+can be learned and what cannot? When learning is possible, how many training
+samples do we need to learn? When learning is possible, how do we learn? In this lecture we develop the {\bf PAC theory of
+learning}, a famous theory that gives (within its assumptions and framework) a complete
+answer to this question - for {\bf batch  supervised learning}. 
+
+\subsection{A Data-generation Model }
+To formal mathematical answers to such questions, we must make formal
+mathematical assumptions on how our training and test samples are generated.
+From now on, we assume the following:
+\begin{itemize}
+  \item There is a distribution $\D$ over the examples $\X$.  That is, each $\mathbf{x}_i$ is sampled according to $\D$ and therefore each sequence $S$, of $m$ $\mathbf{x}$'s, has a different probability to appear.
+  \item The $\mathbf{x}$'s are \textbf{Independently Identically Distributed (i.i.d.)}.
+  In particular, the training set $S$ consists of $(x_i,f(x_i))_{i=1.. m}$, where the $\mathbf{x}_i$'s were sampled independently according to $\D$, and our test set, will be made of future examples: $x\in\Xc$, again to be  sampled according to $\D$ independently of each other and of those in the training set.
+  \item There is a function $f$ which is the correct classifier, i.e., for every $i \in [m]$, $y_i = f(x_i)$
+  For now, we assume that $f$ is deterministic (no noise): $y=f(x)$ and we will call it the "PAC model". 
+  In following lectures we'll add noise and call it the "Agnostic PAC model".
+\end{itemize}
+
+Compare the above to first learning problem we saw - the Linear Model: There, we had samples\footnote{the sample space there was $\X=\mathbb{R}^d$} $\mathbf{x}_1,..,\mathbf{x}_m\in\mathbb{R}^d$  fixed (given) and all of them received equal importance, for example, in their contribution to the global error (the loss function). In the framework we are developing now, the samples $\{x_i\}$ are  i.i.d samples according to $\D$, i.e., they have different probabilities to appear and therefore may have a different weights in the loss function.
+In the previous lecture we started with assumption $y_i=f(\mathbf{x}_i)$ where $f$ is deterministic and linear. We then assumed \textit{noise} $y_i = f(x_i)+z_i$. Next lecture we will add noise also to our current model.
+
+\subsection{Classifiers}
+
+We will focus on \textbf{classifiers} until further notice. However, many principles you'll see today are true for regression problems as well.
+
+For a classifier, we define the \textbf{Generalization Error} as:
+\[
+L_{\D,f}(h) ~\eqdef~ \prob_{x \sim \D}[h(x) \neq f(x)] ~\eqdef~ \D\left( \{ x \in \X : h(x)
+  \neq f(x) \}\right) ~.
+\]
+where $\D$ and $f$ are unknowns. The generalization error is also called the \textbf{risk}, or the \textbf{true error}. Recall that $\D$ is a distribution over $\X$, that is, for a given $A \subset \X$, the value of $\D(A)$ is the probability to see some $x \in A$.
+
+{\bf Note:} Recall that you should be critical about an error measure that counts
+total number of misclassification error of a classifier. Recall that  there are two kinds of errors a classifier can make. they are called Type-I and Type-II errors and one is usually much worse than the other\footnote{For now, we only note that, assuming $\Y =\{0,1\}$, in the above definition of the true error, $h(x) \neq f(x)$ may refer either to  $h(x)=1, f(x)=0$ or to $h(x)=0, f(x)=1$. According context of the actual learning problem at hand, one of these two cases  will correspond to a \textbf{False Positive} event and the other to a \textbf{False negative} event}.
+
+\subsection{The framework so far} \label{sec:frame}
+
+Make sure you understand the theoretical framework we have developed so far. Our task is to design a learning algorithm (a "learner"), which we denote by $\mathcal{A}$. For a given sample size $m$, $\mathcal{A}$  is a map from the training sample 
+\[S=((x_1,y_1),..,(x_m,y_m)) \in (\X\times \Y)^m\]
+to the set of all possible rules $\mathcal{X}\to\mathcal{Y}$. 
+
+We're thinking of classification problems now, so in this lecture
+$\mathcal{Y}=\{\pm 1\}$, but everything here can be generalized. The {\bf data
+generation model} we assume is probabilistic, in fact i.i.d: We assume that
+there is an unknown distribution $\mathcal{D}$ over $\mathcal{X}$ (so that
+$(\mathcal{X},\mathcal{D}$) is a probability space - we won't pay attention to
+sigma-algebras, measurable sets and all that jazz). We assume that each sample -
+both in training set and it test set - is sampled according to $\mathcal{D}$
+independently from any other sample before or after it. For the labels $y$, we assume there is an unknown function $f:\mathcal{X}\to\mathcal{Y}$ such that for each sample $x\in\mathcal{X}$, the corresponding label is $y=f(x)$.
+In particular, for our training data, we have $y_i = f(x_i)$ for $i=1,\ldots,m$. Finally, for a candidate prediction rule $h:\mathcal{X}\to\mathcal{Y}$ that our learner may produce,  will measure the generalization performance of $h$ - how well it will perform on future unseen samples - by simply using the expected misclassification rate 
+$$
+L_{\D,f}(h) ~\eqdef~ \prob_{x \sim \D}[h(x) \neq f(x)] \,.
+$$
+
+\subsection{Our goal in this lecture}
+
+Our goal in this lecture will be to understand, in detail, the following two definitions.
+
+\paragraph{Definition: PAC learnability and sample complexity}
+\begin{enumerate}
+\item
+A hypothesis class $\Hc$ is {\bf PAC Learnable} if there exists a function $\tilde{m}_\Hc : (0,1)^2 \to \N$ and a learning algorithm $\Ac$ with the following property:
+For every $\epsilon,\delta \in (0,1)$ and for every distribution $\D$ over $\X$, and for every labeling function $f:\X\to\{\pm 1\}$ that satisfies $L_{\D,f}(h^*)=0$ for some $h^*\in\Hc$, when running the learning algorithm $\Ac$ on $m\ge \tilde{m}_\Hc(\epsilon,\delta)$ i.i.d. examples generated by $\D$ and labeled by $f$, the algorithm returns an hypothesis $h_S=\Ac(S)$ such that, with probability of at least $1-\delta$ (over the choice of the training samples), we have
+$
+L_{\D, f}(h_S) \le \epsilon
+$. 
+\item For a PAC learnable hypothesis class, we define the {\bf Sample
+  Complexity} of $\Hc$ for specified $\epsilon,\delta$ as the minimal number of
+  samples $\tilde{m}_\Hc(\epsilon,\delta)$ required for the definition to hold
+  with respect to $\epsilon,\delta$. The Sample Complexity function of $\Hc$ is
+  denoted $m_\Hc:(0,1)^2\to\mathbb{N}$.
+\end{enumerate}
+
+\paragraph{Definition: VC-Dimension}
+~\\Let $\Hc\subset\left\{ \pm 1 \right\}^\X$ be an hypothesis class.
+For a subset $C\subset \X$ let $\Hc_C$ be the restriction of $\Hc$ to $C$, namely,
+$\Hc_C = \{ h_C : h \in \Hc\}$, where for $h:\X\to\Y$, $h_C:C\to\Y$ is the
+function such that $h_C(x)=h(x)$ for every $x\in C$. Define the {\bf VC-dimension} of $\Hc$ by
+\[
+  VCdim(\Hc) := \max\{ |C| ~\Big|~ C\subset\X \,\,\text{and}\,\, |\Hc_C|=2^{|C|} \}
+  \,.
+\]
+\\~\\
+Note that $VCdim(\Hc)\leq \infty$. 
+
+\paragraph{The Fundamental Theorem of Statistical Learning.}
+~\\
+These two definitions are interesting since, if we adopt PAC learnability as our
+notion of learnability, then we have a {\bf complete characterization of when it
+is possible (and impossible) to learn, in terms of the VC-dimension, as well as  the exact minimal  training sample size we need in order to learn, and a "universal" learner that successfully learns when enough training data is available. } In short, we have a full theory of batch learning - a full theory of when it is possible to generalize from a training sample to new samples, and how to do it.
+\\~\\
+This result is sometimes known as ``the fundamental theorem of statistical
+learning'' and states the following (roughly):
+\begin{itemize}
+  \item An hypothesis class $\Hc$ is PAC-learnable {\bf if and only} if
+    $VCdim(\Hc)<\infty$
+  \item The sample complexity of an hypothesis class with finite VC-dimension is
+    roughly\[
+m_H(\epsilon,\delta) \sim \frac{VCdim(\Hc)+\log(1/\delta)}{\epsilon}
+\]
+\item The ERM rule achieves this minimum, namely, when learning is possible, ERM
+  learns with a minimial number of examples.
+\end{itemize}
+
+Since the definitions of PAC-learnability and VC-dimension are quite complicated, we will take the rest of the lecture to slowly unpack them. So now, let's put ourselves in the framework as it appears in Section \ref{sec:frame}, and advance from there in baby steps. 
+
+\subsection{Learning as a Game - first attempt}
+
+This framework in Section \ref{sec:frame} can be thought of as a {\bf game} between us and Nature, with a random payoff. The game proceeds as follows. The number of training samples $m$ is given in advanced as a game parameter. \\
+
+We move first. We choose a learner $\mathcal{A}$ that trains on $m$ samples. This is our strategy.
+Nature moves second. Nature chooses a distribution $\mathcal{D}$ and a labeling function $f$. This is Nature's strategy. Importantly, Nature knows the strategy we chose when she chooses her strategy.
+To calculate the game's payoff, an i.i.d sample $S$ of length $m$ is drawn according to the distribution $\mathcal{D}$ that Nature chose, is labeled according to the function $f$ that Nature chose, and is fed into the learner $\mathcal{A}$ that we chose to obtain the prediction rule $h_S:=\mathcal{A}(S)$ (the notation $h_S$ helps us remember that the prediction rule we learn, $h_S$, strongly depends on the random sample $S$ that we drew). The payoff is $L_{\D,f}(h)$. We can think that we want it to be as small as possible, and maybe Nature is an adversary that wants it to be as large as possible. Note that the payoff is random as it depends on the sample $S$ that was drawn. If we're unlucky, and the sample $S$ is "bad", namely, does not represent $\mathcal{D}$ very well, then the rule $h_S$ our learner produces might not generalize well and the random loss (for that draw of $S$) will be high. 
+
+Now you might ask: what's the best strategy for us (how to best design $\mathcal{A}$)? 
+Remember that Nature will know what we chose, and can try to be "cruel", namely, to choose $\D$ and $f$ that our learner did not prepare well for. Also, there's always a chance that we will draw a "lousy" sample $S$, namely a misleading sample that will confuse our learner and will cause it to output a rule $h_S$ that will not generalize well. Is there a way to "defend" ourselves against "cruel" strategies $\mathcal{D},f$ that Nature might play, and against "unlucky" draws of a training sample $S$? Is there anything at all that can be said in this generality about the problem of learning (= the problem of generalizing from training samples to new samples)? 
+
+~\\
+Let's define this as {\bf The Learning Game (first version)}:
+Fix the sample size $m$. Let's view our framework as a game between us and
+  Nature, with random payoff.
+  \begin{itemize}
+  
+    \item We choose a strategy (namely, a learner) $\Ac:(\X,\Y)^m \to \Y^\X$
+      \item Nature knows our strategy, and, after us, chooses strategy that consists of a probability distribution $\D$ over $\X$, and a label function $f:\X\to\Y$. 
+    \item A sample $S$ of size $m$ is drawn according to $\D$ and is labeled
+      according to $f$
+    \item The sample $S$ is fed into $\Ac$ to produce a prediction rule
+      $h_S=\Ac(S)$
+    \item The payoff is $L_{\D,f}(h_S)$, namely, the expected fraction of misclassification errors $h_S$ will make on data drawn i.i.d according to $\D$ and labeled according to $f$.
+    {\bf The payoff is random since $S$ is random and
+      therefore $h_S$ is random.}
+    \item We are going to assume Nature is ``cruel'' and does her best to win.
+      So we'll look for learners $\Ac$ that have a {\bf guaranteed maximal 
+      loss} $L_{\D,f}(h)$ {\bf for any} strategy $\D,f$ that Nature might play.
+\end{itemize}
+
+\section{Probably correct \& Approximately correct learners}
+   We now can ask two questions. 
+   Recall that the loss is random - it depends on the draw of training sample
+       $S$.
+       
+       ~\\
+{\bf First question:}\\   
+   \begin{itemize}
+     
+      \item  Is there a strategy that will guarantee some upper bound $0\leq
+       \epsilon<1$ on the loss 
+   with probability 1 (namely, almost surely for any sample $S$ that might be
+       drawn according to $\D$?) 
+%     \item Is there a learner $\Ac$ (``strategy we play'') that will ensure 
+%        $L_{\D,f}(h) = 0$ 
+   \end{itemize}
+  
+Answer to first question: {\bf No.}
+\begin{itemize}
+  \item Choose $0\leq \epsilon <1 $. The learner cannot hope to produce,
+    regardless of how Nature plays, and with probability $1$, a
+     rule $h$ with $L_{\D,f}(h) \leq \epsilon$.
+   \item Reason: There's always a (small) probability to get a completely ``pathological'' training
+     sample $S$ that does not represent $\D$ at all. The resulting rule $h_S$ can
+     be wrong on most of $\Xc$. If $S$ is really bad, $h_S$ can have a loss as
+     high as $1$, higher than any $\epsilon$.
+   \item {\bf Example: }
+   \begin{itemize}
+       \item 
+   take $\Xc=\left\{ x_1,x_2 \right\}$.  Fix $\gamma$. Our learner $\Ac$ must specify what to predict on a point that was not seen in the training set. WLOG we choose to predict $+$ on a point we have not seen in the training set. Now, Nature plays $\D$ with
+     $\D(\{x_1\}) = 1-\gamma$, $\D(\{x_2\}) = \gamma$, and chooses a labeling function $f(x_1)=f(x_2)=-$. 
+     With probability
+     $\gamma^m$, the training sample $S$ only contains $x_2$. How does $h_S=\Ac(S)$
+     classify $x_1$ in this event? since there's no training data there, we will predict $h_S(x_1)=+$.
+     As as result, on a random test point drawn according to $\D$, unfortunately $h_S$ will be wrong with probability $1-\gamma$. So
+     $L_{\D,f}(h)=(1-\gamma)$. Now make $\gamma$ small enough to have $1-\gamma
+     > \epsilon$. 
+     \item In conclusion, even on a sample space $\X$ with only two points, for any fixed $\epsilon>0$, 
+     for every strategy $\Ac$ we might play, Nature has a strategy $\D,f$, such that 
+     with some probability $\delta$ that depends only on $\epsilon$, over the choice of training samples of length $m$, we have  
+     $L_{\D,f}(h_S) > \epsilon$.
+     \item As $\epsilon$ was arbitrary, this means that for any arbitrarily "bad" loss $\epsilon$, Nature can cause the game to end, with strictly positive probability, with a loss at least $\epsilon$.
+     \item What went wrong? In this example, with probability $\gamma^m$ (which is really very tiny) we get a "lousy" training sample $S$, one that does not represent $\D$ and good enough, and does not allow us to generalize. 
+     \end{itemize}
+      \item {\bf Claim:} For any desired upper bound $\epsilon<1$ on the loss, 
+	no learner $\Ac$ can guarantee $L_{\D,f}(h_S) \le
+  \epsilon$ with probability $1$ against {\bf any} strategy of Nature. 
+\item {\bf Relaxation:} We allow the learner $\Ac$ to ``fail completely''
+  (produce $h_S$ with potentially huge loss) with
+  probability $\delta$, where $\delta \in (0,1)$ is specified in the conditions
+  of the game.
+\item {\bf Bottom line:} We must allow a small probability for
+  ``pathological'' sample $S$, from which it is impossible to generalize. 
+\item {\bf Definition:} When a learner $\Ac$ has  an arbitrary large loss with probability
+  at most $\delta$ (for some $\delta>0$), we say that $\Ac$ is {\bf Probably}
+  correct, with {\bf confidence} $\delta$.
+\end{itemize}
+
+So, we have no choice but to make a huge sacrifice - we must allow our learner to
+       {\bf fail completely} with probability at most $\delta$, where $\delta$ is a fixed parameter. 
+       We can only hope for an upper bound on the
+       loss (an upper bound that will hold regardless of how Nature plays) - with probability at least  $1-\delta$. 
+
+   This leads us to the second question that we now ask:
+   \paragraph{Second question:}
+   \begin{itemize}
+
+     \item On the event of a non-pathological sample (the event with probability at
+	 least 
+       $1-\delta$), can we please have perfect accuracy?  Namely, is there a
+       strategy
+       $\Ac$ for us with {\bf zero loss} (w.p. at least $1-\delta$) regardless of how Nature plays?
+%     \item Is there a learner $\Ac$ (``strategy we play'') that will ensure 
+%        $L_{\D,f}(h) = 0$ 
+   \end{itemize}
+  
+Answer to second question: {\bf No.}
+ \begin{itemize}%[<+->]
+  \item Choose $\delta>0$ (probability of complete failure - getting an
+    arbitrarily large loss). The learner cannot
+    hope to produce, regardless of how Nature plays, and with probability at
+    least $1-\delta$, a
+     rule $h$ with $L_{\D,f}(h_S)=0$.
+   \item Reason: $L_{\D,f}(h)=0$ means that $\D\{h_S(x)= f(x)\}=1$
+     ($h_S$ is never wrong, almost surely with respect to $\D$). 
+     If Nature plays $\D$ that gives a
+     tiny mass to some $x\in\Xc$, with high probability, the
+     $S$ will not include $x$, and there, $h_S$ has no
+     idea what to do. So it cannot generalize perfectly to $x$.
+    \item {\bf Example:}
+    \begin{itemize}
+        \item Fix confidence $\delta>0$. Our learner will be allowed to fail
+	  completely (have an arbitrary large loss) with probability $\delta$.
+	  As before, fix $\gamma$. Our learner $\Ac$ must specify what to predict on a point that was not seen in the training set. WLOG we choose to predict $+$ on a point we have not seen in the training set. As before, Nature plays $\D$ with
+     $\D(\{x_1\}) = 1-\gamma$, $\D(\{x_2\}) = \gamma$, and chooses a labeling function $f(x_1)=f(x_2)=-$. 
+    Now, with probability
+     $(1-\gamma)^m$, $S$ does not include $x_2$. 
+     How does $h_S=\Ac(S)$
+     classify $x_2$ in this event? since there's no training data there, we will predict $h_S(x_2)=+$.
+     As as result, on a random test point drawn according to $\D$, unfortunately $h_S$ will be wrong with probability $\gamma$. So
+     $L_{\D,f}(h)=\gamma>0$. Now make $\gamma$ small enough to have $(1-\gamma)^m > \delta$.
+     \item In conclusion, for any fixed confidence $\delta>0$, 
+     for every strategy $\Ac$ we might play, Nature has a strategy $\D,f$, such that 
+     with probability strictly more that $\delta$ over the choice of training samples of length $m$, we have  
+     $L_{\D,f}(h_S)$ strictly positive and bounded away from $0$.
+     \item What went wrong? In this example, with probability $(1-\gamma)^m$ (which is large - we got a "typical" training sample), we "miss" the rare point $x_2$ in our training sample, and cannot have perfect generalization. 
+     \end{itemize}
+  \item {\bf Claim:} For any confidence $\delta$, 
+    no learner can hope to produce a perfect rule ( a rule $h_S$ with
+      $L_{\D,f}(h_S) =
+    0$) with probability at least $1-\delta$ regardless of  Nature's strategy.
+\item {\bf Relaxation:} We must be satisfied with an {\bf approximately correct}
+  learning rule: A rule $h_S$ with $L_{\D,f}(h_S) \le
+  \epsilon$, where $\epsilon$ is specified in the conditions of the game.
+\item {\bf Bottom line:} Even a ``typical'' (``non-pathological'') training sample $S$ may miss small areas in $\Xc$. On these areas
+  the resulting $h_S$ will be wrong in the worst case. We have to allow $h_S$ to
+  be wrong sometimes (to make some generalization errors) even when the training sample is ``typical''.
+\item {\bf Definition:}  When a learner $\Ac$ has an upper bound $\epsilon>0$ on
+  the loss (for some $\epsilon$), we  say that $\Ac$ is {\bf Approximately}
+  correct \\with {\bf accuracy} $\epsilon$.
+\end{itemize}
+
+
+
+
+Now we can define a {\bf Probably Approximately Correct} learner.
+  \paragraph{Definition:}
+    When a learner $\Ac$ has an upper bound $\epsilon>0$ on the loss with
+    probabilty at least $1-\delta$, for some $\delta>0$ and $\epsilon>0$, 
+    but can have an arbitrary large loss with probability at most
+  $\delta$, we say that $\Ac$ is {\bf Probably} {\bf Approximately} correct with accuracy $\epsilon$ and confidence $\delta$.
+
+%With the above formal framework, the following questions can be formulated mathematically.
+
+%\begin{itemize}
+% \item Can we find $h$ with $L_{\D,f}(h) = 0$
+%\item Can we find such "good" $h$, no matter what $S$ is?
+%\item Can we find such "good" $h$, no matter what $\D$ is?
+%\item Can we find such "good" $h$, no matter what $f$ is?
+%\item How big should $m$ be?
+%\end{itemize}
+
+It's important to understand the difference between \textbf{accuracy} $\epsilon$ and \textbf{confidence} $\delta$:
+\textit{First}, we draw the training sample $S$ at random. The learning algorithm runs on this random input and its prediction is therefore random.
+If $S$ is by chance "weird" (not representing $\D$ well), the rule $h$ produced will be "wrong", namely, it won't generalize well. The number $\delta$ is the probability of failure due to a "weird" sample $S$.
+\textit{Second}, we test the rule $h$ on new data. New data is also random. $L_{\D,f}(h)$ is the expected number of errors $h$ will make. The number $\epsilon$ refers to the accuracy of $h$.
+
+%In terms of the above example, the number $\delta$ represents the probability of getting a training sample $S$ which is "weird" because it has only  $x_1$'s and $x_2$'s in it.
+%The number $\epsilon$ refers to the accuracy of $h$ which is limited because the test samples will likely contain also $x_3$'s and $x_4$'s of which we know nothing.
+
+%\textcolor{red}{[Maybe add also the following paragraph?]}
+%Can we at least be confident-enough that most probably we will get a sample $S$  with which we can find an %approximately correct $h$ to a high-enough accuracy, no matter what $D$ and $f$ are?
+%In general, as we shall see below, the answer is "maybe" since it depends on the choice of our hypothesis class. %Considering the above example, it looks reasonable to expect with high confidence, that for large enough $m$, %$S$ will contain, additionally, to the $x_1$'s and $x_2$'s, at least one $x_3$ or one $x_4$ which will give us %enough information about $f$ to approximate it with the required accuracy. And indeed we will see that in such a %case the answer would be positive. However, in our example, the number of different possible $f$'s is limited: %there are at most $2^3$ possible functions in $\Hc$ (recall: $|\X|=3$, $|\Y|=2$). If, on the contrary, $\Xc=\R$ %then the number  of possible functions is infinite and, as we shall see, if we include too many\footnote{"too %many", in a sense that will be clearer later on in this lecture, once we define the VC dimension of $\Hc$} of %them in $\Hc$, then \textit{no} $m$ would be large enough to ensure with high-enough confidence that we can get %an $h$ with a high-enough accuracy.
+
+\subsection{The game - for Probably Approximately correct learners}
+
+Since we can only hope to build a Probably Approximately correct learner, we
+will update the game definition a little. The sample size $m$ will no longer be
+fixed. Instead, the accuracy $\epsilon$ and confidence $\delta$,  which our
+learner is required to achieve, are specified as game parameters. We get to
+decide on $m$ in our strategy. Note that there is subtle nuance in notation now:
+when we write $\Ac$ for the learner, we actually mean a {\bf sequence} of
+learners - one for each $m$. It would be better to write $\Ac_m:(\X\times \Y)^m
+\to \Y^\X$, but we won't bother writing $\Ac_m$ and will continue to use $\Ac$.
+\\~\\
+So here is our updated game - (\bf The Learning Game (second version):} Fix desired accuracy $\epsilon>0$ and confidence $\delta>0$. We play a game against Nature, with random payoff.
+  \begin{itemize}
+    \item We choose a sample size $m$ and a learner $\Ac:(\X,\Y)^m \to \Y^\X$. 
+    $m$ depends on $(\epsilon,\delta)$.
+       \item Nature knows our strategy, and, after us, chooses strategy that consists of a probability distribution $\D$ over $\X$, and a label function $f:\X\to\Y$. 
+       That is, Nature's strategy can depend on $(\epsilon,\delta)$ specified, and also on the $m,\Ac$ we chose. 
+    \item A sample $S$ of size $m$ is drawn according to $\D$ and is labeled
+      according to $f$
+    \item The sample $S$ is fed into $\Ac$ to produce a prediction rule
+      $h_S=\Ac(S)$
+    \item The payoff is $L_{\D,f}(h_S)$. It is random since $S$ is random and
+      therefore $h_S$ is random.
+    \item We are going to assume Nature is ``cruel'' and does her best to win.
+      So we'll look for learners $\Ac$ that have a {\bf guaranteed maximal 
+      loss} $L_{\D,f}(h)$ {\bf for any} strategy $\D,f$ that Nature might play.
+      \item To determine if we were successful in the game, we play the game many many times 
+      (both us and Nature play the same strategies, just the training samples drawn are different).
+      We count and calculate the probability, over the random draws of training samples $S$, of the event
+      $\{ S \sim \D^m \,\big |\,L_{\D,f}(h_S)\leq \epsilon \}$. If this probability is found to be 
+      larger than $1-\delta$, that is, if 
+      the learner $\Ac$ we chose was Probably Approximately correct with accuracy $\epsilon$ and confidence $\delta$ - against Nature's best strategy - {\bf we say that we've been successful (with regards to the parameters $\epsilon,\delta$)}.
+\end{itemize}
+
+
+If you don't like the game perspective, here our current definition of our learning challenge:
+The learner doesn't know $\D$ and $f$. The learner receives an accuracy parameter $\epsilon$ and a confidence parameter $\delta$. It then ask for training data, $S$, containing $m(\epsilon,\delta)$ examples (that is, the number of examples can depend on the value of $\epsilon$ and $\delta$, but it can not depend on the unknown $\D$ or $f$). Finally, the learner should output a hypothesis $h_S$, that depends only on $\epsilon, \delta$ and the training sample $S$ drawn, such that with probability of at least $1-\delta$  it holds that $L_{\D,f}(h) \le \epsilon$. That is, the learner should be Probably Approximately correct, with the specified accuracy $\epsilon$ and confidence $\delta$.
+
+~\\
+Since we can now choose the sample size $m$, and data costs money, we want $m$ to be as small as possible - as long as we still design a probably approximately correct learner. We sense that there must be some trade-off between $\epsilon,\delta$ and $m(\epsilon,\delta)$
+The figure below shows schematically the connection between $m$,$\delta$, and $\epsilon$.
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.3]{m_eps_del.png}
+    \caption{Connection between $m$,$\delta$, and $\epsilon$.}
+\end{figure}
+
+
+\section{No Free Lunch and Hypothesis Classes}
+
+
+%\textcolor{blue}{We note again that the meaning of "with probability of at least $1-\delta$" is the probability with respect to the sample $S$.
+%In other words, the probability of getting a sample $S$ that will cause the algorithm to output a not-accurate-enough $h$ should be smaller than $\delta$.}
+
+
+\subsection{No Free Lunch!}
+
+Turns out that, unfortunately, we cannot in general be successful against Nature even in this second version of our game - for any parameters $\epsilon,\delta$...
+Why? If we know nothing about $D$ and $f$, and if there are too many possibilities for $f$, then no matter how large our sample size, $m$, we can not be confident-enough that we can find an accurate-enough $h_S$. Let's understand why.
+\vspace{5mm}
+
+The two examples above (which demonstrated we can't hope to get a learner that enjoys confidence $\delta=0$ or accuracy $\epsilon=0$) only needed a sample space $\X$ with two points. 
+Now let's consider a sample space with a countably infinite number of points.  
+\\~\\
+{\bf Example.}
+\begin{itemize}
+\item Suppose that $|\mathcal{X}| = \infty$. Recall that we move first and choose $m$, and that Nature knows the $m$ we chose. So, let our choice of $m$ be fixed. We must choose what to predict on a point we have not seen in the training sample. Denote our choice by 
+$g(x)$. That is, our learner $\Ac$ specifies that if a point $x\in\X$ was {\bf not} observed in our training data, then the rule that $\Ac$ outputs will predict $h_S(x)=g(x)$. 
+\item Now, Nature picks some finite set $C \subset \X$ with $ |C| > 2m$, and chooses $\D$ to be uniform 
+over $C$. For the labeling function $f$, Nature plays a sinister move, and chooses $f(x)=-g(x)$ for all $x\in\X$. (The opposite of what $h_s$ will predict on unseen points!)
+\item Now, let $S$ be a training sample. Let $supp(S)\subset C$ denote all points $x\in\X$ observed in the particular training sample $S$.
+Since $|supp(S)|\leq m$ and since $\D$ is uniform over $C$, we have $\D(\{x\in \X\setminus supp(S)\})\geq 1/2$.
+In other words, the probability that a new test point drawn according to $\D$ will be unseen in $S$ is at least $1/2$.
+\item Now, as the game demands, we feed the sample $S$ into $\Ac$ and obtain $h_S=\Ac(S)$. What is the loss? Regardless of what $h_S$ predicts on points in the training sample $S$, since a test point has probability $\geq 1/2$ to be in the unseen part $\X\setminus supp(S)$, with probability at least $1/2$, the rule $h_S$ will predict $h_S(x)=g(x)$ - and will be wrong, since Nature played the function $f(x)=-g(x)$. We conclude that, on the particular training sample $S$, we must have $L_{\D,f}(h_S)\geq 1/2$.
+\item But this happens for {\bf every} training sample $S$. So, Nature played a strategy for which, with probability $1$ over the choice of training samples (according to $\D$), the game results in loss  $L_{\D,f}(h_S)\geq 1/2$.
+\item So, if we were looking to find a learner $\Ac$ that will be Probably
+  Approximately correct (to some specified $\epsilon$ and $\delta$ regardless of Nature's strategy $\D,f$, we find that we cannot. And asking for a larger training sample won't help - if we increase $m$, Nature will just choose a larger set $C$ and a distribution $\D$ uniform over that larger $C$.
+\item What went wrong? Nature could choose {\bf any labeling function at all} $f$ that she wanted, and we tried to learn (to generalize = to accurately predict) $f$ from a sample that was too small for the number of possible functions we needed to choose from. We find we just cannot design a Probably Approximately correct learner if the set of possible labeling functions is "too large". 
+\end{itemize} 
+
+~\\
+This is known as a {\bf "No Free Lunch" Theorem}: without assuming anything in advance on $f$, without an prior information on the labeling function we are trying to learn, we find that learning is impossible. Equivalently, if the set of possibilities for the labeling function $f$ is too large, then Nature can be cruel and play a function that we can't learn - the larger the sample size we choose, the more complicated the function $f$ that Nature playes. So if the set of possibilities for the labeling function $f$ is too large, learning is impossible (in the sense of the game that we defined).
+\\~\\
+{\bf Important Note!} The argument given above is in fact wrong (can you find where?). While this was not a proof of a No Free Lunch Theorem, it gives all the crucial bits of intuition, and we will need them later. So we will call it a "proof" in quotes. 
+\\~\\
+Here is an actual, formal No Free Lunch theorem. (There are many theorems that can be called by that name - basically any theorem that shows that without some prior knowledge on the labeling function, when there are "too many" possibilities for $f$, learning it is impossible.) You can read the proof in  the Understanding Machine Learning book - Theorem 5.1, and exercise 3 in section 5.5. (it is not so easy to read and uses Agnostic PAC, a notion we will only get to later.) 
+
+
+\begin{theorem}[No Free Lunch]
+ $\X$ be an infinite sample domain, $|\X|=\infty$. Fix $\epsilon < 1/2$. There always exists some $\delta>0$ so that, for every learner $\Ac$ and training set size $m$, there exists a distribution $\D(x)$ over $\X$ and a function  $f:\X\to\Y$, such that with probability of at least $\delta$ over the generation of a training sample $S$ of size $m$ drawn i.i.d from $\D$, we have
+   $L_{\D,f}(h_S) \ge \epsilon$ where $h_S=\Ac(S)$.
+\end{theorem}
+
+%As a result we can conclude the following:
+%\begin{theorem}[No Free Lunch (2)]
+%Let $\X$ be an infinite domain set and let $\Hc$ be the set of all functions from $\X$ to $\{0,1\}$.
+%for \textit{any} algorithm, there exist $D(x)$, $f$ and there exists at least some $0<\epsilon,\delta < 1$ so %that the probability of receiving an $S$ with $L_{\D,f}(A(S)) \ge \epsilon$ is larger than $\delta$.
+%In such a case  we say that "H is not \textbf{PAC learnable}" (we will repeat the definition of PAC learnability %below).
+%\end{theorem}
+
+%\color{black}
+%\pause
+%\textbf{Remark}: $L_{\D,f}(\text{random guess}) = 1/2$, so the theorem
+%states that you can't be better than a random guess
+%\begin{center}
+%  Please read the proof in {\em Understanding Machine Learning} ch. 5.1 \textcolor{blue}{and the exercises at %the end of ch. 5. Note that although the theorem in the book consider the case where $D=D(x,y)$ is a joint %probability of $x$ and $y$ (a situation we will discuss in the next lecture) the proof applies also to the case %where $D=D(x)$. }.
+%\end{center}
+
+
+\subsection{We need hypothesis classes}
+
+So, in order to be able to learn, the learner {\bf must} receive enough prior knowledge about the function $f$.
+This implies that we should assume that the target $f$ comes from some \textbf{hypothesis class}, $\Hc \subset \Y^\X$. 
+
+\paragraph{Realizability Assumption.} Suppose that an hypothesis class $\Hc$ is specified for our game. The {\bf realizable case} is when Nature must play a function $f\in\Hc$. Actually, we don't care if Nature plays a function $f$ that is not in $\Hc$ as long as $f$ is $\D$-almost surely identical to a function $h^*\in\Hc$.  (This is because we will never see samples in $\X$ where $f(x)\neq h(x)$ - not in the training and not in the test samples.) So the formal mathematical {\bf Realizability Assumption} is this: Nature plays a function $f$ such that there exists $h^*\in\Hc$ with $L_{\D,f}(h^*)=0.$
+\\~\\
+The learner is given $\Hc$ before learning starts, and will only output $h_S\in\Hc$. In other words, for a training sample of size $m$ the learner (learning algorithm) is a map $\Ac:(\X\times\Y)^m\to\Hc$ such that $\Ac:S\mapsto h\in\Hc$. (As before, we will continue to abuse notation and write $\Ac$ instead of $\Ac_m$, and when we say "the learning algorithm $\Ac$" we will sometimes mean "a sequence of learners $\{\Ac_m\}_{m=1}^\infty$, one for each possible sample size").
+
+~\\
+ We've just seen that if $|\X|=\infty$ then $\Hc   = \Y^\X$ is "too large to learn".
+ And, in a previous section we've seen that the learner gets to specify the training sample size $m$. 
+The questions that arise now are:
+\begin{itemize}
+    \item What are the "small enough" hypothesis classes $\Hc$ for which we {\bf can} find a Probably Approximately correct learner?
+    And what are the "too large" hypothesis classes $\Hc$ for which we {\bf cannot}? Can we characterize exactly the hypothesis classes for which it is possible to learn?
+     \item Assume we have a "small enough" $\Hc$. This means that for every
+       $\epsilon,\delta$ we have at least one strategy $m,\Ac$ such that $\Ac$
+       is Probably Approximately correct (with accuracy $\epsilon$ and
+       confidence $\delta$) no matter how Nature plays. This means that for
+       every $\epsilon,\delta$ there is a {\bf minimal number of training
+       samples}: maybe some learners are wasteful and need more training data
+       than others, but for every $\epsilon,\delta$ there is the absolutely
+       minimal training sample size taht allows us to choose a Probably Approximately correct learner. Can we characterize this minimal function 
+     $m_\Hc(\epsilon,\delta)$? Is there a connection between the "size" of the hypothesis class $\Hc$ and
+     $m_\Hc(\epsilon,\delta)$?
+     \item Assume we have a "small enough" $\Hc$. Can we characterize explicitly a learner $\Ac$ that always succeeds in learning functions from $\Hc$? And how many training samples $m$ does $\Ac$ need to always succeed in learning a function from $\Hc$ (always be Probably Approximately correct, no matter how Nature plays)? Can we find the {\bf most training-data efficient} learner, namely a learner that can succeed with the minimal number of samples $m_\Hc(\epsilon,\delta)$ mentioned above?
+ \end{itemize}
+ 
+ 
+ \subsection{Updating the game one last time}
+
+ So here is our final version of the game - ({\bf The Learning Game (third
+   version):} Fix desired accuracy $\epsilon>0$ and confidence $\delta>0$. Fix
+   an hypothesis class $\Hc \subset \Y^\X$. 
+ We play a game against Nature, with random payoff.
+  \begin{itemize}
+    \item We choose a sample size $m$ and a learner $\Ac:(\X,\Y)^m \to \Hc$. 
+    $m$ depends on $(\epsilon,\delta)$.
+       \item Nature knows our strategy, and, after us, chooses strategy that consists of a probability distribution $\D$ over $\X$, and a label function {\bf from the specified hypothesis class} $f\in\Hc$. 
+     That is, Nature's strategy can depend on $\epsilon,\delta,\Hc$ specified, and also on the $m,\Ac$ we chose. 
+    \item A sample $S$ of size $m$ is drawn according to $\D$ and is labeled
+      according to $f$
+    \item The sample $S$ is fed into $\Ac$ to produce a prediction rule
+      $h_S=\Ac(S)$. Note that $h_S\in\Hc$.
+    \item The payoff is $L_{\D,f}(h_S)$. It is random since $S$ is random and
+      therefore $h_S$ is random.
+    \item We are going to assume Nature is ``cruel'' and does her best to win.
+      So we'll look for learners $\Ac$ that have a {\bf guaranteed maximal 
+      loss} $L_{\D,f}(h)$ {\bf for any} strategy $\D,f$ that Nature might play.
+      \item To determine if we were successful in the game, we play the game many many times 
+      (both us and Nature play the same strategies, just the training samples drawn are different).
+      We count and calculate the probability, over the random draws of training samples $S$, of the event
+      $\{ S \sim \D^m \,\big |\,L_{\D,f}(h_S)\leq \epsilon \}$. If this probability is found to be 
+      larger than $1-\delta$, that is, if 
+      the learner $\Ac$ we chose was Probably Approximately correct with accuracy $\epsilon$ and confidence $\delta$ - against Nature's best strategy - {\bf we say that we've been successful (with regards to the parameters $\epsilon,\delta$) and hypothesis class $\Hc$}.
+\end{itemize}
+
+
+\subsection{Example: Threshold functions}
+
+%\textcolor{red}{[I modified a bit this section resolve the following issues:
+%\textbf{a.} Sign function (as defined in python, wolfram) has three possible values {-1,0,+1} and therefore doesn't fit to a binary label (especially important when $\X$ is discrete). In any case, standard definition of threshold function (see e.g. Sec. 20.1 in UML) is: $f_{\theta}=\mathds{1}_{x>\theta}$ which is 0 for $x\leq %\theta$ and is 1 elsewhere.
+%\textbf{b.}  $\theta'$ is not defined if $\D(\{x: -\infty < x < \theta\})=\epsilon$, (quite possible)
+%\textbf{c.} The algorithm isn't well defined for the case $\theta < x_i$ for every $i$]}
+
+
+We saw above that if $|\X|=\infty$ and $\Hc$ is the class of all functions from
+$\X$ to $Y$, namely $\Hc=\Y^\X$, we can't be successful in the  the third version of the learning game. 
+Well, maybe it's just impossible to learn when $|\X|=\infty$?  Fortunately, when the hypothesis class is "small enough", it is possible to be successful in the third version of the learning game. (Otherwise we wouldn't be having a course in machine learning.) In the following example we will have an infinite (in fact uncountably infinite) sample space, and a very simple hypothesis class. We will see that we can be successful in the third version of the game, for any $\epsilon,\delta$ specified. 
+
+Consider the domain $\X=\mathbb{R}$, i.e., there is only one feature. We work with classification, and use the label set is $\Y=\{0,1\}$ (instead of $\{+,-\}$).
+Define the hypothesis class of \textbf{Threshold functions:}  over $\mathbb{R}$:
+$$\Hc_{th} = \{ x \mapsto h_{\theta}(x) : \theta \in \reals\ \bigcup \pm\infty\}$$
+where $ h_{\theta}(x)=0$ for $x\leq \theta$ and $ h_{\theta}(x)=1$ for $x> \theta$. (We define $h_{\infty}(x)=0$ for all $x$, and $h_{-\infty}(x)=1$ for all $x\in\mathbb{R}$).
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.3]{threshold.png}
+\end{figure}
+\vspace{5mm}
+
+What's the meaning of this definition? We are classifying points on the real line. Up until a certain unknown point, the points are in class $0$. Beyond that point, they are in class $1$. Nature chooses the true cutoff threshold $\theta$, and a distribution $\D$ over the real line.  We would like to receive a training sample $S$ of labeled points, and successfully predict the label of future examples. In this case, our job is to determine, as accurately as possible, the unknown cutoff $\theta$. (It is recommended to take some time and understand all the details of this example!) 
+
+Now that we know our hypothesis class to be $\Hc_{th}$, we should specify our strategy, which consists of the number of samples $m$ we need, and a learning algorithm $\Ac$ that will process training sample and produce a decision rule. As before let $S=((x_1,y_1),...,(x_m,y_m))$ be the training set. As we will see, our choice of learner will not depend on the $\epsilon, \delta$ specified, but our choice of $m$ will certainly depend on them.
+
+\subsubsection*{Learning algorithm}
+
+Let's start with a suggested learning algorithm.
+The training data may take the form shown in the three figures below, but not
+the form shown in the fourth figure, which is forbidden because it does not obey
+the Realizability Assumption (the assumption that Nature chooses $h\in\Hc$).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{thresholds1.png}
+\caption{Possible training data for $\Hc_{th}$}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{thresholds1a.png}
+\caption{Possible training data for $\Hc_{th}$}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{thresholds1b.png}
+\caption{Possible training data for $\Hc_{th}$}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{thresholds2.png}
+\caption{Forbidden training data for $\Hc_{th}$ - violates the Realizability Assumption}
+\end{figure}
+
+
+We suggest the following learning algorithm: return hypothesis $h_{\theta_{alg}}(x)$ with $$\theta_{alg} = \max_{y_i=0} x_i$$.
+If $y_i=1$ for all $i=1\ldots m$ then return $\theta_{alg} = -\infty$, namely, return a rule that classifies all points to $1$. Similarly, if $y_i=0$ for all $i=1\ldots m$ then return $\theta_{alg} = +\infty$, namely, return a rule that classifies all points to $0$.
+
+\vspace{5mm}
+
+\subsubsection*{Number of Samples}
+
+Let $0<\epsilon,\delta$ be the accuracy and confidence specified in the game.
+What should be out choice of $m$? Namely, how many samples are needed to guarantee that the true error is at most $\epsilon$ with probability at least $1-\delta$?
+
+\begin{claim}
+Fix $0<\epsilon,\delta$.
+If $m \ge \frac{\log(1/\delta)}{\epsilon}$ then for any distribution $\D$ over the real line, and any choice of  labeling threshold function $f_\theta \in \Hc_{th}$,  with probability of at least $1-\delta$ (over the choice of training sample $S$ of size $m$), the loss
+$L_{\D,\theta}(h_{\theta_{alg}})$
+of the algorithm for learning threshold functions is at most $\epsilon.$
+\end{claim}
+
+\textbf{Proof}:
+Fix distribution $\D$ over the domain set. Fix correct hypothesis $f_{\theta}\in \Hc_{th}$.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{thresholds3.png}
+\end{figure}
+
+
+From the properties of the algorithm we know that:
+$$\theta_{alg} < \theta$$
+Note that the prediction rule produced by the algorithm will be correct for test samples $x<\theta_{alg}$ and $x>\theta$ and is incorrect for $\theta_{alg}<x<\theta$.
+
+\vspace{5mm}
+
+If $\D(\{x: -\infty < x < \theta\})<\epsilon$  then $\D(\{x: \theta_{alg} < x < \theta\})<\epsilon$  and therefore the true error is \textit{always} (that is, with probability 1, no matter what $S$ or $m$ is) smaller than $\epsilon$ and we are done. We will therefore assume that $\D(\{x: -\infty < x < \theta\})\geq \epsilon$  and define $\theta'$ such that $\D(\{x: \theta' < x < \theta\})=\epsilon$.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{thresholds4.png}
+\end{figure}
+\\~\\
+Note that if there is $(x, y)\in S$ with $\theta'\leq x\leq\theta$ then the true error is at most $\epsilon$ and the probability not to get such a test sample is $(1-\epsilon)^m$.
+Using  $1-\epsilon \le e^{-\epsilon}$, we see that the term $e^{-\epsilon m}$ would be smaller than $\delta$ if $m \ge  \frac{\log(1/\delta)}{\epsilon}$.
+
+
+\subsubsection{Threshold functions - conclusion}
+
+We saw that, for $\X=\mathbb{R}$, $\Y=\{0,1\}$ and $\Hc=\Hc_{th}$ (the hypothesis class of threshold functions), we have a strategy (choice of sample size $m=m(\delta,\epsilon)$ and learning algorithm $\Ac$) that is {\bf always successful against Nature}, for any values $\epsilon, \delta$ specified. In other words, for any  $\epsilon, \delta$, our strategy (which depends on $\delta,\epsilon)$ specified) is a Probably Approximately correct learner regardless of how Nature plays. 
+\\~\\
+We recall that for $\X=\mathbb{R}$, $\Y={0,1}$ and $\Hc=\mathbb{R}\to\mathbb{R}$ there were values of $\epsilon, \delta$ for which we {\bf could not be successful} regardless of how we played (in fact, we could not be successful for any $\epsilon<1/2$). So whether we can be successful for any values $\epsilon, \delta$ seems to be a property of the hypothesis class we choose. 
+\\~\\
+This brings us to the famous definition of a {\bf Probably Approximately Correct (PAC) learnable hypothesis class}.
+
+
+\section{PAC learning}
+\begin{definition}
+\begin{enumerate}
+\item
+A hypothesis class $\Hc$ is {\bf PAC Learnable} if there exists a function $\tilde{m}_\Hc : (0,1)^2 \to \N$ and a learning algorithm $\Ac$ with the following property:
+For every $\epsilon,\delta \in (0,1)$ and for every distribution $\D$ over $\X$, and for every labeling function 
+$f:\X\to\{\pm 1\}$ that satisfies $L_{\D,f}(h^*)=0$ for some $h^*\in\Hc$, when running the learning algorithm $\Ac$ on $m\ge \tilde{m}_\Hc(\epsilon,\delta)$ i.i.d. examples generated by $\D$ and labeled by $f$, the algorithm returns an hypothesis $h_S=\Ac(S)$ such that, with probability of at least $1-\delta$ (over the choice of the training samples), we have
+$
+L_{\D, f}(h_S) \le \epsilon
+$. 
+\item For a PAC learnable hypothesis class, we define the {\bf Sample Complexity} of $\Hc$ for specified $\epsilon,\delta$ as the minimal number of samples $\tilde{m}_\Hc(\epsilon,\delta)$ required for the definition to hold with respect to $\epsilon,\delta$. The Sample Complexity function of $\Hc$ is denoted $m_\Hc(0,1)^2\to\mathbb{N}$.
+\end{enumerate}
+\end{definition}
+
+Note that  PAC learnability is only one possible definition of learning that can account for the fundamental limitations on accuracy and confidence. We could, for example, settle for a specific, "good enough", values of $\delta$,  and $\epsilon$ instead of requiring that the condition that $m > m(\epsilon, \delta)$ implies  $L_{\D, f}(h) \le \epsilon$, to hold, for {\bf any} $\delta, \epsilon <1$.
+
+\subsection{Finite hypothesis classes are PAC learnable}
+
+In order to understand more about when PAC learning is possible (namely, which hypothesis classes are PAC learnable) let us first consider the case where $\Hc$ is a \textit{finite} hypothesis class.
+Finite hypothesis classes can be huge: for example, take $\Hc$ is all the functions from $\X$ to $\Y$ that can be implemented using a Python program of length at most $b$, for $b$ fixed and large. Or, take $\Hc$ to be all the functions from $\X$ to $\Y$ where  $|\X|$ and $|\Y|$ are finite.
+
+\subsubsection{Empirical Risk Minimization}
+
+You might expect that there would be nothing to say in this generality, namely,
+that in order to design a successful learning algorithm we must pay attention to
+the details of the specific $\X$ and finite $\Hc$ at hand.
+Now comes a big surprise. It turns out that {\bf there is a simple learner that is always successful on finite hypothesis classes} (and on many other hypothesis classes as we will see later).
+
+The idea behind this amazing learning is very simple and natural: try to be as correct as possible on the training data!
+
+Formally, given  a training set $S = (x_1,y_1),\ldots,(x_m,y_m)$ we define the {\bf empirical risk} of a candidate prediction rule $h\in\Hc$ by
+$$L_S(h) = \frac{1}{m} |\{i : h(x_i)  \neq y_i\}|\,.$$
+
+Our amazing learning algorithm is simple: on a training sample $S$, it returns $h \in \Hc$ that {\bf minimizes the empirical risk $L_S(h)$.} In other words,
+\[
+\Ac_{ERM} : S \mapsto \text{argmin}_{h\in\Hc} L_S(h)\,.
+\]
+The minimum may not be unique, in which case the algorithm returns one of the
+minimizers. Our amazing learner is therefore called \textbf{Empirical Risk
+Minimization (ERM)} learner. We give this important learner its own special
+notation and denote it by $ERM_\Hc$ instead of $\Ac_{ERM}$.
+
+But wait, how do we know that there is a minimum?  Note that $L_S(h)\geq 0$, and we are minimizing over a finite class, so there is a minimum. In fact, under the assumption that Nature plays $f\in\Hc$, we know that for any training sample $S$,  $L_S(f) = 0$ for the particular labeling function that Nature chose. So that the lower bound $0$ is achievable. In other words, under our assumption that $f\in\Hc$, the ERM learner will always return a rule  $h$ with $y_i = h(x_i)$ for $i=1,\ldots,m$. 
+Such a rule is called \textbf{Consistent} - it is consistent with the training sample. 
+
+
+\subsubsection{Learning Finite Classes}
+
+Our main observation concerning finite classes is simple: a {\bf finite} hypothesis
+class $\Hc\subset\Y^\X$ is PAC-learnable, using the ERM rule,
+with sample complexity at most 
+$\log(|\Hc|/\delta)/\epsilon$.
+
+\begin{theorem}
+Fix $0< \epsilon,\delta <1$. If $m \ge \frac{\log(|\Hc|/\delta)}{\epsilon}$ then for every $\D,f$, with probability of at least $1-\delta$ (over the choice of $S$ of size $m$), $L_{\D,f}(ERM_\Hc(S)) \le \epsilon$.
+\end{theorem}
+
+The figures below explain schematically the relation between the accuracy, confidence and the sample size for finite classes, as implied by the above theorem.
+
+ \begin{figure}[h!]
+ \centering\includegraphics[scale=0.8]{connection_m_eps_delta.eps}
+ \end{figure}
+
+
+  \begin{figure}[h!]
+ \centering\includegraphics[scale=0.8]{connection_m_eps_delta_finite4.eps}
+  \end{figure}
+
+
+  \begin{figure}[h!]
+ \centering\includegraphics[scale=0.8]{connection_m_eps_delta_finite2.eps}
+ \end{figure}
+
+
+  \begin{figure}[h!]
+ \centering\includegraphics[scale=0.8]{connection_m_eps_delta_finite3.eps}
+ \end{figure}
+
+To summarize this section, we have  the following:
+{\bf A finite hypothesis class $\Hc$ is PAC learnable using the ERM learning algorithm, and has a sample complexity  $m_\Hc(\epsilon,\delta)\leq \log(|\Hc|/\delta)/\epsilon$ samples.}
+
+%So, given $\epsilon,\delta \in (0,1)$, all that the learning algorithm needs is to be consistent with the sample (to be an ERM) while the sample size $m$ should satisfy $m\ge m_\Hc(\epsilon,\delta)= \frac{\log(|\Hc|/\delta)}{\epsilon}$.
+Several natural questions may come to mind.
+
+  \begin{itemize}
+\item Is the bound $m_\Hc(\epsilon,\delta) \le \frac{\log(|\Hc|/\delta)}{\epsilon}$ tight? Can the ERM learner, or an other learner, be Probably Approximately correct (with accuracy $\epsilon$ and confidence $\delta$) using fewer than 
+$\frac{\log(|\Hc|/\delta)}{\epsilon}$ samples?
+\item What happens when noise is present so the $y$'s are not deterministically determined by $x$?
+\item What happens when our  hypothesis class is infinite?
+  \end{itemize}
+
+Consider the last question. As we have seen,  the  class of threshold functions
+over $\mathbb{R}$,  $\Hc_{th}$, in spite of being infinite, \textit{is}  PAC
+learnable, with sample complexity $m_{\Hc_{th}}(\epsilon,\delta)
+\le\frac{\log(1/\delta)}{\epsilon}$, which is obtained by using the
+$ERM_{\Hc_{th}}$ learning rule. So  $\Hc_{th}$ appears to be simple to learn.
+Can we explain why? Somehow, the hypothesis class $\H_{tr}$ is {\bf small} or
+{\bf simple} and the hypothesis class $\Y^\X$ is {\bf large} or {\bf complicated}. 
+
+What we need in order to answer the above questions systematically is some sort of a \textit{complexity measure} with which we can order classes by their difficulty along the complexity axis shown in the figure below.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6]{complexity_measure.eps}
+\end{figure}
+
+For example, consider the \textbf{Two-Intervals} hypothesis class, defined by
+
+\[\X = \reals, \quad \Hc = \{ h_{a,b,c} : a < b < c \in \reals\}\,,\]
+ where $h_{a,b,c}(x)=1$ if $x \in [a,b]$ or $x\geq c$ and $h_{a,b,c}(x)=0$ elsewhere.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.8]{2_intervals.eps}
+\end{figure}
+
+
+
+The following figures demonstrate this point. Suppose we would like to learn with threshold functions the following sample  (pink = 1, green = 0)
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6]{VC_threshold_intuitive.eps}
+\end{figure}
+
+A possible answer would be:
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6]{VC_threshold_intuitive3.eps}
+\end{figure}
+
+However, if $x_1 < x_2$ and $y_1=1, y_2=0, $ can not be learned by $\Hc_{th}$, although it can be learned with 2-intervals:
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6]{VC_threshold_intuitive2.eps}
+\end{figure}
+
+\vspace{5mm}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6]{VC_threshold_intuitive4.eps}
+\end{figure}
+
+Indeed, we somehow feel that the \textbf{2-Interval} class has larger complexity than that of $\Hc_{th}$ but smaller than that of finite classes.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.8]{complexity_measure2.eps}
+\end{figure}
+
+\section{VC Dimension}
+
+VC-Dimension is the definition of complexity of an hypothesis class we are
+looking for. This is a {\bf combinatorial measure of complexity} of a function
+class. What does ``combinatic measure'' mean here? It means that VC-dimension is just based on counting stuff, so that $\X$ can be any
+set, with no additional structure. In particular, the VC-dimeniosn of
+$\Hc\subset \left\{ \pm 1 \right\}^\X$ is defined even if $\X$ does not need any
+geometric or algebraic structure. VC-dimension is interesting as it provides a
+decisive characterization of hypothesis classes that are "simple enough" to
+learn (in the sense of PAC learnability), versus hypothesis classes that are "too complicated" to learn. It also provides a decisive characterization of $m_\Hc$, the sample complexity of a "simple" hypothesis class $\Hc$.  
+
+\subsection{Motivation}
+
+Suppose we got a training set $S = (x_1,y_1),\ldots,(x_m,y_m)$ and were able to fully explain the labels using a hypothesis from a class $\Hc$, namely, to find a function $h\in\Hc$ with empirical risk $L_S(h)=0$. Suppose that, only to see what will happen, we deliberately corrupt our sample $S$ by changing the labels $\{y_i\}$ - call the corrupt sample $S'$. Suppose that we  {\bf also} succeed in explaining $S'$  using a different hypothesis from the same class $\Hc$, namely, find another function $h'\in\Hc$ with $L_{S'}(h')=0$. If we can do that, no matter what corrupt labels we choose, it means that something isn't right: how can we hope to generalize based on a training sample $S$ if, regardless of the labels in $S$, we can find $h\in\Hc$ with $L_S(h)=0$? 
+\\~\\
+{\bf Definition:} Let $C\subset\X$ be a subset of the sample space and let $h:\X\to\Y$ be some hypothesis. 
+We define the {\bf restriction} of $h$ to $C$, denoted $h_C:C\to\Y$, by $h_C(x)=h(x)$, for $x\in C$.
+\\~\\
+{\bf Here is a crucial observation:} Suppose that $\Hc$ contains {\bf all} functions over some set $C\subset\X$ of size $m$, in the sense that $\{h_C\,|\,h\in\Hc\} = (C\to\Y)$. Then we cannot find a Probably Approximately correct learner that uses $m/2$ or fewer training samples.\\
+Why? Go back to the "proof" of the No Free Lunch theorem we saw above. Suppose that indeed there exists a set $C\subset \X$ of size $m$ such that $\{h_C\,|\,h\in\Hc\} = (C\to\Y)$. We play our game against Nature, choose a learner $\Ac$, and choose a training sample size of $m/2$ or less. Our learner specifies that if it hasn't seen a point $x\in\X$ in the training set, the output rule $h_S$ will predict $g(x)$ for some $g:\X\to\Y$ we specify - we just make sure that the resulting $h_S$ will belong to $\Hc$. 
+Now, as in the "proof" of the No Free Lunch theorem, Nature plays the distribution $\D$ that is uniform over  $C$, and makes an evil choice to play $f(x)=-g(x)$ for $x\in C$ (Since $\D$ is supported over $C$, Nature doesn't really care how her $f$ is defined outside $C$). {\bf This is a legal move for Nature since for every function $\tilde{f}:C\to\X$ there is a hypothesis $f\in\Hc$ with $f_C(x)=\tilde{f}(x)$, $x\in C$.} Again as in the "proof", our learner fails - regardless of the training sample of size $m/2$, the loss will be $1/2$.
+\\~\\
+We see that, as long as $\Hc$ contains {\bf any} set $C$ of size $2m$ with the property that $\{h_C\,|\,h\in\Hc\} = (C\to\Y)$, then we cannot learn with a training sample of size $m$. It follows that the {\bf maximal size} of such a set $C$ in $\Hc$ is a {\bf critical quantity}: (i) it gives us a lower bound on $m_\Hc$, the minimal sample size needed, and (ii) if the maximal size is $\infty$, namely, if for any $m\in\mathbb{N} \X$ contains such as set $C$ with $|C|>m$, the $\Hc$ is not PAC-learnable!
+
+\subsection{Formal Definition}
+
+Let $C = \{x_1,\ldots,x_{|C|}\} \subset \X$ and let $\Hc_C$ be the restriction of $\Hc$ to $C$, namely,
+ $\Hc_C = \{ h_C : h \in \Hc\}$.
+We are working with $\Y=\{\pm 1\}$, so we can represent each $h_C$ as the vector $(h(x_1),\ldots,h(x_{|C|})) \in \{\pm 1\}^{|C|}$. Therefore the total number of possible such vectors is $2^{|C|}$, so that
+$$|\Hc_C| \le 2^{|C|}\,.$$
+
+We will say that $\Hc$ \textbf{shatters} $C$ if $|\Hc_C| =  2^{|C|}$.  
+\begin{definition}
+The VC dimension of the hypothesis class $Hc$ is defined as 
+$$VCdim(\Hc) = \max\{ |C| ~:~ \Hc~\,\,\textrm{shatters}~\,\,C \}\,,$$
+that is, the VC dimension is the maximal size of a set $C\subset \X$ such that $\{h_C\,|\,h\in\Hc\} = (C\to\Y)$.
+\end{definition}
+We interpret this as the maximal size of a set $C\subset X$ such that 
+$\Hc$ gives no prior knowledge on label functions restricted to $C$.
+%
+\\~\\
+According to the above definition, in order to show that $VCdim(\Hc) = d$ we need to show that:
+\begin{enumerate}
+\item There exists a set $C$ of size $d$ which is shattered by $\Hc$.
+\item Every set $C$ of size $k$ with $k\geq d+1$ is not shattered by $\Hc$.
+\end{enumerate}
+
+\subsection{Exercises to help you understand the definition of VC-dimension}
+
+Make sure to solve all these exercises. They will help you understand the
+definition of VC-dimension.
+
+\subsubsection{Axis aligned rectangles}
+Consider the \textbf{Axis aligned rectangles} hypothesis class over the sample space 
+$\X = \reals^2$. We define $\Hc = \{h_{(a_1,  a_2, b_1 , b_2)}: a_1 < a_2 ~\text{and}~  b_1 < b_2 \}$, 
+where $ h_{(a_1, a_2, b_1 , b_2)}(x_1,x_2) = 1$ if $x_1 \in [a_1,a_2]$, and $x_2 \in [b_1,b_2]$, and  $ h_{(a_1, a_2, b_1 , b_2)}(x_1,x_2) = 0$ otherwise. (Convince yourself that a function in this hypothesis class is an indicator of a finite open rectangle aligned with the canonical basis of $\reals^2$.)
+
+\vspace{9mm}
+
+Verify that:
+\begin{center}
+\begin{tabular}{lr}
+Shattered & Not Shattered \\
+\begin{tikzpicture}[scale=1]
+\fill[blue] (0,1) circle (0.1);
+\fill[blue] (1,0) circle (0.1);
+\fill[blue] (0,-1) circle (0.1);
+\fill[blue] (-1,0) circle (0.1);
+\end{tikzpicture} & \hspace{2cm}
+\begin{tikzpicture}[scale=1]
+\fill[blue] (0,1) circle (0.1) node[above=4pt] {$c_1$};
+\fill[blue] (1,0) circle (0.1) node[above=4pt] {$c_2$};
+\fill[blue] (0,-1) circle (0.1) node[above=4pt] {$c_3$};
+\fill[blue] (-1,0) circle (0.1) node[above=4pt] {$c_4$};
+\draw[red] (0,0) circle (0.1) node[above=4pt] {$c_5$};
+\end{tikzpicture}
+\end{tabular}
+\end{center}
+~\\
+{\bf Exercise:} show that no set of 5 points can be shattered by the Axis aligned rectangles class. Hint: note that the 3 points $(x_k,y_k)$, $(x_i,y_i)$, and $(x_{k'},y_{k'})$ can not be shattered if $x_k\leq x_i\leq x_{k'}$ and $y_k\leq y_i\leq y_{k'}$.
+
+
+\subsubsection{Finite classes}
+~\\{\bf Exercise:}
+\begin{itemize}
+\item Show that the VC dimension of a finite $\Hc$ is at most
+$\log_2(|\Hc|)$.
+\item  Assume $\Hc$ is finite. Show that there can be arbitrary gap between $VCdim(\Hc)$ and
+  $\log_2(|\Hc|)$, namely, construct a finite hypothesis class $\Hc$ over some sample space $\X$ with $VCdim(\Hc) = \log_2(|\Hc|)$ 
+  and another finite hypothesis class with $VCdim(\Hc)=1$.  
+\end{itemize}
+
+\subsubsection{Half-spaces through the origin}
+Consider the sample space $\X = \reals^d$ and the hypothesis class of half-spaces through the origin
+$\Hc = \{ \x \mapsto sign(\inner{\w,\x}): \w \in \reals^d\}$. 
+
+~\\{\bf Exercise:}
+\begin{itemize}
+\item Show that $\{\e_1,\ldots,\e_d\}$ is shattered
+\item Show that any $d+1$ points cannot be shattered (hint: consider the standard basis vectors...)
+\item What is $VCdim(\Hc)$?
+\end{itemize}
+
+%\subsubsection{Classification trees}
+%What is the VC-dimension of a full balanced classification tree with $b$
+%levels?
+
+
+
+\end{document} 

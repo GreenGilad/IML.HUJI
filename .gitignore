@@ -1,0 +1,11 @@
+*.aux
+*.bbl
+*.blg
+*.log
+*.toc
+*.synctex.gz
+*.out
+*.swp
+.DS_Store
+.netrwhist
+
