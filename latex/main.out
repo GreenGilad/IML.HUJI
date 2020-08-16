@@ -22,7 +22,7 @@
 \BOOKMARK [2][-]{subsection.2.1.1}{Estimation Theory}{section.2.1}% 22
 \BOOKMARK [3][-]{subsubsection.2.1.1.1}{Estimators}{subsection.2.1.1}% 23
 \BOOKMARK [2][-]{subsection.2.1.2}{Risk \046 Loss Functions}{section.2.1}% 24
-\BOOKMARK [2][-]{subsection.2.1.3}{Learning Principals}{section.2.1}% 25
+\BOOKMARK [2][-]{subsection.2.1.3}{Learning Principles}{section.2.1}% 25
 \BOOKMARK [3][-]{subsubsection.2.1.3.1}{Empirical Risk Minimization}{subsection.2.1.3}% 26
 \BOOKMARK [3][-]{subsubsection.2.1.3.2}{Maximum Likelihood}{subsection.2.1.3}% 27
 \BOOKMARK [2][-]{subsection.2.1.4}{Lab: Python Data Analysis - First Steps}{section.2.1}% 28
@@ -33,57 +33,57 @@
 \BOOKMARK [3][-]{subsubsection.2.2.1.2}{Residual Sum of Squares}{subsection.2.2.1}% 33
 \BOOKMARK [3][-]{subsubsection.2.2.1.3}{The Normal Equations}{subsection.2.2.1}% 34
 \BOOKMARK [3][-]{subsubsection.2.2.1.4}{A Statistical Model - Existence of Noise}{subsection.2.2.1}% 35
-\BOOKMARK [3][-]{subsubsection.2.2.1.5}{Goodness Of Fit}{subsection.2.2.1}% 36
-\BOOKMARK [3][-]{subsubsection.2.2.1.6}{Maximum Likelihood Equivalence}{subsection.2.2.1}% 37
-\BOOKMARK [2][-]{subsection.2.2.2}{Weighted Least Squares}{section.2.2}% 38
-\BOOKMARK [2][-]{subsection.2.2.3}{Geometric Interpretation}{section.2.2}% 39
-\BOOKMARK [2][-]{subsection.2.2.4}{Categorical Variables}{section.2.2}% 40
-\BOOKMARK [2][-]{subsection.2.2.5}{Lab: Linear Regression}{section.2.2}% 41
-\BOOKMARK [1][-]{section.2.3}{Beyond Linearity}{chapter.2}% 42
-\BOOKMARK [2][-]{subsection.2.3.1}{Polynomial Fitting}{section.2.3}% 43
-\BOOKMARK [2][-]{subsection.2.3.2}{Poisson Regression}{section.2.3}% 44
-\BOOKMARK [1][-]{section.2.4}{Summary}{chapter.2}% 45
-\BOOKMARK [2][-]{subsection.2.4.1}{Lab: Polynomial Fitting}{section.2.4}% 46
+\BOOKMARK [3][-]{subsubsection.2.2.1.5}{Maximum Likelihood Equivalence}{subsection.2.2.1}% 36
+\BOOKMARK [2][-]{subsection.2.2.2}{Weighted Least Squares}{section.2.2}% 37
+\BOOKMARK [2][-]{subsection.2.2.3}{Geometric Interpretation}{section.2.2}% 38
+\BOOKMARK [2][-]{subsection.2.2.4}{Categorical Variables}{section.2.2}% 39
+\BOOKMARK [1][-]{section.2.3}{Beyond Linearity}{chapter.2}% 40
+\BOOKMARK [2][-]{subsection.2.3.1}{Polynomial Fitting}{section.2.3}% 41
+\BOOKMARK [2][-]{subsection.2.3.2}{Poisson Regression}{section.2.3}% 42
+\BOOKMARK [1][-]{section.2.4}{Summary}{chapter.2}% 43
+\BOOKMARK [2][-]{subsection.2.4.1}{Exercises}{section.2.4}% 44
+\BOOKMARK [2][-]{subsection.2.4.2}{Lab: Linear Regression}{section.2.4}% 45
+\BOOKMARK [2][-]{subsection.2.4.3}{Lab: Polynomial Fitting}{section.2.4}% 46
 \BOOKMARK [0][-]{chapter.3}{Classification}{}% 47
 \BOOKMARK [1][-]{section.3.1}{Classification Overview}{chapter.3}% 48
 \BOOKMARK [2][-]{subsection.3.1.1}{Loss Function}{section.3.1}% 49
 \BOOKMARK [2][-]{subsection.3.1.2}{Type-I and Type-II Errors}{section.3.1}% 50
-\BOOKMARK [2][-]{subsection.3.1.3}{Statistical Measures of Performance}{section.3.1}% 51
-\BOOKMARK [1][-]{section.3.2}{Logistic Regression}{chapter.3}% 52
-\BOOKMARK [2][-]{subsection.3.2.1}{A Probabilistic Model For Noisy Labels}{section.3.2}% 53
-\BOOKMARK [3][-]{subsubsection.3.2.1.1}{The Hypothesis Class}{subsection.3.2.1}% 54
-\BOOKMARK [3][-]{subsubsection.3.2.1.2}{Learning Via Maximum Likelihood}{subsection.3.2.1}% 55
-\BOOKMARK [2][-]{subsection.3.2.2}{Computational Implementation}{section.3.2}% 56
-\BOOKMARK [2][-]{subsection.3.2.3}{Interpretability}{section.3.2}% 57
-\BOOKMARK [2][-]{subsection.3.2.4}{ROC Curve}{section.3.2}% 58
-\BOOKMARK [2][-]{subsection.3.2.5}{Lab: Logistic Regression}{section.3.2}% 59
-\BOOKMARK [1][-]{section.3.3}{Half-Space Classifier}{chapter.3}% 60
-\BOOKMARK [2][-]{subsection.3.3.1}{Learning Linearly Separable Data Via ERM}{section.3.3}% 61
-\BOOKMARK [2][-]{subsection.3.3.2}{Computational Implementation}{section.3.3}% 62
-\BOOKMARK [2][-]{subsection.3.3.3}{The Perceptron Algorithm}{section.3.3}% 63
-\BOOKMARK [1][-]{section.3.4}{Support Vector Machines}{chapter.3}% 64
-\BOOKMARK [2][-]{subsection.3.4.1}{Maximum Margin Learning Principal}{section.3.4}% 65
-\BOOKMARK [2][-]{subsection.3.4.2}{Hard-SVM}{section.3.4}% 66
-\BOOKMARK [2][-]{subsection.3.4.3}{Soft-SVM}{section.3.4}% 67
-\BOOKMARK [3][-]{subsubsection.3.4.3.1}{The Kernel Trick}{subsection.3.4.3}% 68
-\BOOKMARK [1][-]{section.3.5}{Nearest Neighbors}{chapter.3}% 69
-\BOOKMARK [2][-]{subsection.3.5.1}{Graph-Based Approach For Learning}{section.3.5}% 70
-\BOOKMARK [2][-]{subsection.3.5.2}{Classification \046 Regression Using k-NN}{section.3.5}% 71
-\BOOKMARK [2][-]{subsection.3.5.3}{Computational Implementation}{section.3.5}% 72
-\BOOKMARK [2][-]{subsection.3.5.4}{Selecting Value of k Hyper-Parameter}{section.3.5}% 73
-\BOOKMARK [2][-]{subsection.3.5.5}{Variants of Nearest Neighbors}{section.3.5}% 74
-\BOOKMARK [1][-]{section.3.6}{Decision Trees}{chapter.3}% 75
-\BOOKMARK [2][-]{subsection.3.6.1}{Axis-Parallel Partitioning of Rd}{section.3.6}% 76
-\BOOKMARK [2][-]{subsection.3.6.2}{Classification \046 Regression Trees}{section.3.6}% 77
-\BOOKMARK [2][-]{subsection.3.6.3}{Growing a Classification Tree}{section.3.6}% 78
-\BOOKMARK [2][-]{subsection.3.6.4}{NP-Hardness and CART Heuristic}{section.3.6}% 79
-\BOOKMARK [2][-]{subsection.3.6.5}{Pruning a Decision Tree}{section.3.6}% 80
-\BOOKMARK [1][-]{section.3.7}{Bayes Classifiers}{chapter.3}% 81
-\BOOKMARK [2][-]{subsection.3.7.1}{Bayes Optimal Classifier}{section.3.7}% 82
-\BOOKMARK [2][-]{subsection.3.7.2}{Naive Bayes}{section.3.7}% 83
-\BOOKMARK [2][-]{subsection.3.7.3}{Linear Discriminant Analysis}{section.3.7}% 84
-\BOOKMARK [2][-]{subsection.3.7.4}{Quadratic Discriminant Analysis}{section.3.7}% 85
-\BOOKMARK [2][-]{subsection.3.7.5}{Lab: Maximum Likelihood Estimation}{section.3.7}% 86
+\BOOKMARK [2][-]{subsection.3.1.3}{Measurements of performance}{section.3.1}% 51
+\BOOKMARK [2][-]{subsection.3.1.4}{ROC Curve}{section.3.1}% 52
+\BOOKMARK [1][-]{section.3.2}{Half-Space Classifier}{chapter.3}% 53
+\BOOKMARK [2][-]{subsection.3.2.1}{Learning Linearly Separable Data Via ERM}{section.3.2}% 54
+\BOOKMARK [2][-]{subsection.3.2.2}{Computational Implementation}{section.3.2}% 55
+\BOOKMARK [2][-]{subsection.3.2.3}{The Perceptron Algorithm}{section.3.2}% 56
+\BOOKMARK [1][-]{section.3.3}{Support Vector Machines}{chapter.3}% 57
+\BOOKMARK [2][-]{subsection.3.3.1}{Maximum Margin Learning Principle}{section.3.3}% 58
+\BOOKMARK [2][-]{subsection.3.3.2}{Hard-SVM}{section.3.3}% 59
+\BOOKMARK [2][-]{subsection.3.3.3}{Soft-SVM}{section.3.3}% 60
+\BOOKMARK [3][-]{subsubsection.3.3.3.1}{The Kernel Trick}{subsection.3.3.3}% 61
+\BOOKMARK [1][-]{section.3.4}{Nearest Neighbors}{chapter.3}% 62
+\BOOKMARK [2][-]{subsection.3.4.1}{Graph-Based Approach For Learning}{section.3.4}% 63
+\BOOKMARK [2][-]{subsection.3.4.2}{Classification \046 Regression Using k-NN}{section.3.4}% 64
+\BOOKMARK [2][-]{subsection.3.4.3}{Computational Implementation}{section.3.4}% 65
+\BOOKMARK [2][-]{subsection.3.4.4}{Selecting Value of k Hyper-Parameter}{section.3.4}% 66
+\BOOKMARK [2][-]{subsection.3.4.5}{Variants of Nearest Neighbors}{section.3.4}% 67
+\BOOKMARK [1][-]{section.3.5}{Decision Trees}{chapter.3}% 68
+\BOOKMARK [2][-]{subsection.3.5.1}{Axis-Parallel Partitioning of Rd}{section.3.5}% 69
+\BOOKMARK [2][-]{subsection.3.5.2}{Classification \046 Regression Trees}{section.3.5}% 70
+\BOOKMARK [2][-]{subsection.3.5.3}{Growing a Classification Tree}{section.3.5}% 71
+\BOOKMARK [2][-]{subsection.3.5.4}{CART Heuristic For Growing Trees}{section.3.5}% 72
+\BOOKMARK [2][-]{subsection.3.5.5}{Pruning a Decision Tree}{section.3.5}% 73
+\BOOKMARK [1][-]{section.3.6}{Bayes Classifiers}{chapter.3}% 74
+\BOOKMARK [2][-]{subsection.3.6.1}{Bayes Optimal Classifier}{section.3.6}% 75
+\BOOKMARK [2][-]{subsection.3.6.2}{Naive Bayes}{section.3.6}% 76
+\BOOKMARK [2][-]{subsection.3.6.3}{Linear Discriminant Analysis}{section.3.6}% 77
+\BOOKMARK [2][-]{subsection.3.6.4}{Quadratic Discriminant Analysis}{section.3.6}% 78
+\BOOKMARK [2][-]{subsection.3.6.5}{Lab: Maximum Likelihood Estimation}{section.3.6}% 79
+\BOOKMARK [1][-]{section.3.7}{Logistic Regression}{chapter.3}% 80
+\BOOKMARK [2][-]{subsection.3.7.1}{A Probabilistic Model For Noisy Labels}{section.3.7}% 81
+\BOOKMARK [3][-]{subsubsection.3.7.1.1}{The Hypothesis Class}{subsection.3.7.1}% 82
+\BOOKMARK [3][-]{subsubsection.3.7.1.2}{Learning Via Maximum Likelihood}{subsection.3.7.1}% 83
+\BOOKMARK [2][-]{subsection.3.7.2}{Computational Implementation}{section.3.7}% 84
+\BOOKMARK [2][-]{subsection.3.7.3}{Interpretability}{section.3.7}% 85
+\BOOKMARK [2][-]{subsection.3.7.4}{Lab: Logistic Regression}{section.3.7}% 86
 \BOOKMARK [0][-]{chapter.4}{PAC Theory of Statistical Learning}{}% 87
 \BOOKMARK [1][-]{section.4.1}{Theoretical Framework For Learning}{chapter.4}% 88
 \BOOKMARK [2][-]{subsection.4.1.1}{Data-Generation Model}{section.4.1}% 89

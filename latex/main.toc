@@ -49,7 +49,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.2}Risk \& Loss Functions}{13}{subsection.2.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.3}Learning Principals}{13}{subsection.2.1.3}% 
+\contentsline {subsection}{\numberline {2.1.3}Learning Principles}{13}{subsection.2.1.3}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.1.3.1}Empirical Risk Minimization}{13}{subsubsection.2.1.3.1}% 
 \defcounter {refsection}{0}\relax 
@@ -69,291 +69,297 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.2.1.3}The Normal Equations}{16}{subsubsection.2.2.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.1.4}A Statistical Model - Existence of Noise}{16}{subsubsection.2.2.1.4}% 
+\contentsline {subsubsection}{\numberline {2.2.1.4}A Statistical Model - Existence of Noise}{17}{subsubsection.2.2.1.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.1.5}Goodness Of Fit}{17}{subsubsection.2.2.1.5}% 
+\contentsline {subsubsection}{\numberline {2.2.1.5}Maximum Likelihood Equivalence}{18}{subsubsection.2.2.1.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.1.6}Maximum Likelihood Equivalence}{17}{subsubsection.2.2.1.6}% 
+\contentsline {subsection}{\numberline {2.2.2}Weighted Least Squares}{19}{subsection.2.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.2}Weighted Least Squares}{18}{subsection.2.2.2}% 
+\contentsline {subsection}{\numberline {2.2.3}Geometric Interpretation}{19}{subsection.2.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.3}Geometric Interpretation}{18}{subsection.2.2.3}% 
+\contentsline {subsection}{\numberline {2.2.4}Categorical Variables}{19}{subsection.2.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.4}Categorical Variables}{18}{subsection.2.2.4}% 
+\contentsline {section}{\numberline {2.3}Beyond Linearity}{19}{section.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.5}Lab: Linear Regression}{18}{subsection.2.2.5}% 
+\contentsline {subsection}{\numberline {2.3.1}Polynomial Fitting}{19}{subsection.2.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Beyond Linearity}{18}{section.2.3}% 
+\contentsline {subsection}{\numberline {2.3.2}Poisson Regression}{19}{subsection.2.3.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.1}Polynomial Fitting}{18}{subsection.2.3.1}% 
+\contentsline {section}{\numberline {2.4}Summary}{19}{section.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.2}Poisson Regression}{18}{subsection.2.3.2}% 
+\contentsline {subsection}{\numberline {2.4.1}Exercises}{19}{subsection.2.4.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Summary}{18}{section.2.4}% 
+\contentsline {subsection}{\numberline {2.4.2}Lab: Linear Regression}{19}{subsection.2.4.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.1}Lab: Polynomial Fitting}{18}{subsection.2.4.1}% 
+\contentsline {subsection}{\numberline {2.4.3}Lab: Polynomial Fitting}{19}{subsection.2.4.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Classification}{19}{chapter.3}% 
+\contentsline {chapter}{\numberline {3}Classification}{21}{chapter.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Classification Overview}{20}{section.3.1}% 
+\contentsline {section}{\numberline {3.1}Classification Overview}{21}{section.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.1}Loss Function}{20}{subsection.3.1.1}% 
+\contentsline {paragraph}{Classification Problems Examples}{21}{section*.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.2}Type-I and Type-II Errors}{20}{subsection.3.1.2}% 
+\contentsline {subsection}{\numberline {3.1.1}Loss Function}{21}{subsection.3.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.3}Statistical Measures of Performance}{20}{subsection.3.1.3}% 
+\contentsline {subsection}{\numberline {3.1.2}Type-I and Type-II Errors}{22}{subsection.3.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Logistic Regression}{20}{section.3.2}% 
+\contentsline {subsection}{\numberline {3.1.3}Measurements of performance}{23}{subsection.3.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.1}A Probabilistic Model For Noisy Labels}{20}{subsection.3.2.1}% 
+\contentsline {subsection}{\numberline {3.1.4}ROC Curve}{24}{subsection.3.1.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.1.1}The Hypothesis Class}{20}{subsubsection.3.2.1.1}% 
+\contentsline {section}{\numberline {3.2}Half-Space Classifier}{24}{section.3.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.1.2}Learning Via Maximum Likelihood}{20}{subsubsection.3.2.1.2}% 
+\contentsline {subsection}{\numberline {3.2.1}Learning Linearly Separable Data Via ERM}{25}{subsection.3.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.2}Computational Implementation}{20}{subsection.3.2.2}% 
+\contentsline {subsection}{\numberline {3.2.2}Computational Implementation}{26}{subsection.3.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.3}Interpretability}{20}{subsection.3.2.3}% 
+\contentsline {subsection}{\numberline {3.2.3}The Perceptron Algorithm}{26}{subsection.3.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.4}ROC Curve}{20}{subsection.3.2.4}% 
+\contentsline {section}{\numberline {3.3}Support Vector Machines}{26}{section.3.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.5}Lab: Logistic Regression}{20}{subsection.3.2.5}% 
+\contentsline {subsection}{\numberline {3.3.1}Maximum Margin Learning Principle}{27}{subsection.3.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Half-Space Classifier}{20}{section.3.3}% 
+\contentsline {subsection}{\numberline {3.3.2}Hard-SVM}{27}{subsection.3.3.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.1}Learning Linearly Separable Data Via ERM}{20}{subsection.3.3.1}% 
+\contentsline {subsection}{\numberline {3.3.3}Soft-SVM}{28}{subsection.3.3.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.2}Computational Implementation}{20}{subsection.3.3.2}% 
+\contentsline {subsubsection}{\numberline {3.3.3.1}The Kernel Trick}{28}{subsubsection.3.3.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.3}The Perceptron Algorithm}{20}{subsection.3.3.3}% 
+\contentsline {section}{\numberline {3.4}Nearest Neighbors}{28}{section.3.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Support Vector Machines}{20}{section.3.4}% 
+\contentsline {subsection}{\numberline {3.4.1}Graph-Based Approach For Learning}{28}{subsection.3.4.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.1}Maximum Margin Learning Principal}{20}{subsection.3.4.1}% 
+\contentsline {subsection}{\numberline {3.4.2}Classification \& Regression Using $k$-NN}{28}{subsection.3.4.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.2}Hard-SVM}{20}{subsection.3.4.2}% 
+\contentsline {subsection}{\numberline {3.4.3}Computational Implementation}{28}{subsection.3.4.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.3}Soft-SVM}{20}{subsection.3.4.3}% 
+\contentsline {subsection}{\numberline {3.4.4}Selecting Value of $k$ Hyper-Parameter}{28}{subsection.3.4.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.4.3.1}The Kernel Trick}{20}{subsubsection.3.4.3.1}% 
+\contentsline {subsection}{\numberline {3.4.5}Variants of Nearest Neighbors}{28}{subsection.3.4.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.5}Nearest Neighbors}{20}{section.3.5}% 
+\contentsline {section}{\numberline {3.5}Decision Trees}{28}{section.3.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.1}Graph-Based Approach For Learning}{20}{subsection.3.5.1}% 
+\contentsline {subsection}{\numberline {3.5.1}Axis-Parallel Partitioning of $\ensuremath {\mathbb {R}}^d$}{28}{subsection.3.5.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.2}Classification \& Regression Using $k$-NN}{20}{subsection.3.5.2}% 
+\contentsline {subsection}{\numberline {3.5.2}Classification \& Regression Trees}{29}{subsection.3.5.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.3}Computational Implementation}{20}{subsection.3.5.3}% 
+\contentsline {subsection}{\numberline {3.5.3}Growing a Classification Tree}{30}{subsection.3.5.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.4}Selecting Value of $k$ Hyper-Parameter}{20}{subsection.3.5.4}% 
+\contentsline {paragraph}{Selecting A Value For $k$:}{31}{section*.13}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.5}Variants of Nearest Neighbors}{20}{subsection.3.5.5}% 
+\contentsline {subsection}{\numberline {3.5.4}CART Heuristic For Growing Trees}{31}{subsection.3.5.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.6}Decision Trees}{20}{section.3.6}% 
+\contentsline {paragraph}{Time Complexity Analysis}{33}{section*.14}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6.1}Axis-Parallel Partitioning of $\ensuremath {\mathbb {R}}^d$}{20}{subsection.3.6.1}% 
+\contentsline {subsection}{\numberline {3.5.5}Pruning a Decision Tree}{33}{subsection.3.5.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6.2}Classification \& Regression Trees}{20}{subsection.3.6.2}% 
+\contentsline {section}{\numberline {3.6}Bayes Classifiers}{33}{section.3.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6.3}Growing a Classification Tree}{20}{subsection.3.6.3}% 
+\contentsline {subsection}{\numberline {3.6.1}Bayes Optimal Classifier}{33}{subsection.3.6.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6.4}NP-Hardness and CART Heuristic}{20}{subsection.3.6.4}% 
+\contentsline {subsection}{\numberline {3.6.2}Naive Bayes}{33}{subsection.3.6.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6.5}Pruning a Decision Tree}{20}{subsection.3.6.5}% 
+\contentsline {subsection}{\numberline {3.6.3}Linear Discriminant Analysis}{33}{subsection.3.6.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.7}Bayes Classifiers}{20}{section.3.7}% 
+\contentsline {subsection}{\numberline {3.6.4}Quadratic Discriminant Analysis}{33}{subsection.3.6.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.1}Bayes Optimal Classifier}{20}{subsection.3.7.1}% 
+\contentsline {subsection}{\numberline {3.6.5}Lab: Maximum Likelihood Estimation}{33}{subsection.3.6.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.2}Naive Bayes}{20}{subsection.3.7.2}% 
+\contentsline {section}{\numberline {3.7}Logistic Regression}{33}{section.3.7}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.3}Linear Discriminant Analysis}{20}{subsection.3.7.3}% 
+\contentsline {subsection}{\numberline {3.7.1}A Probabilistic Model For Noisy Labels}{33}{subsection.3.7.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.4}Quadratic Discriminant Analysis}{20}{subsection.3.7.4}% 
+\contentsline {subsubsection}{\numberline {3.7.1.1}The Hypothesis Class}{33}{subsubsection.3.7.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.5}Lab: Maximum Likelihood Estimation}{20}{subsection.3.7.5}% 
+\contentsline {subsubsection}{\numberline {3.7.1.2}Learning Via Maximum Likelihood}{33}{subsubsection.3.7.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}PAC Theory of Statistical Learning}{21}{chapter.4}% 
+\contentsline {subsection}{\numberline {3.7.2}Computational Implementation}{33}{subsection.3.7.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Theoretical Framework For Learning}{22}{section.4.1}% 
+\contentsline {subsection}{\numberline {3.7.3}Interpretability}{33}{subsection.3.7.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.1}Data-Generation Model}{22}{subsection.4.1.1}% 
+\contentsline {subsection}{\numberline {3.7.4}Lab: Logistic Regression}{33}{subsection.3.7.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.2}The Realizability Assumption}{22}{subsection.4.1.2}% 
+\contentsline {chapter}{\numberline {4}PAC Theory of Statistical Learning}{35}{chapter.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.3}Learning As A Game - First Attempt}{22}{subsection.4.1.3}% 
+\contentsline {section}{\numberline {4.1}Theoretical Framework For Learning}{36}{section.4.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.4}Probably- and Approximately Correct Learners}{22}{subsection.4.1.4}% 
+\contentsline {subsection}{\numberline {4.1.1}Data-Generation Model}{36}{subsection.4.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}No Free Lunch and Hypothesis Classes}{22}{section.4.2}% 
+\contentsline {subsection}{\numberline {4.1.2}The Realizability Assumption}{36}{subsection.4.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.1}No Free Lunch!}{22}{subsection.4.2.1}% 
+\contentsline {subsection}{\numberline {4.1.3}Learning As A Game - First Attempt}{36}{subsection.4.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.2}Restricting for Hypothesis Classes}{22}{subsection.4.2.2}% 
+\contentsline {subsection}{\numberline {4.1.4}Probably- and Approximately Correct Learners}{36}{subsection.4.1.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.3}Learning As A Game - Final Attempt}{22}{subsection.4.2.3}% 
+\contentsline {section}{\numberline {4.2}No Free Lunch and Hypothesis Classes}{36}{section.4.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.4}Example: Threshold Functions}{22}{subsection.4.2.4}% 
+\contentsline {subsection}{\numberline {4.2.1}No Free Lunch!}{36}{subsection.4.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}PAC Learnability of Finite Hypothesis Classes}{22}{section.4.3}% 
+\contentsline {subsection}{\numberline {4.2.2}Restricting for Hypothesis Classes}{36}{subsection.4.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}VC-Dimension}{22}{section.4.4}% 
+\contentsline {subsection}{\numberline {4.2.3}Learning As A Game - Final Attempt}{36}{subsection.4.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4.1}Formal Definition}{22}{subsection.4.4.1}% 
+\contentsline {subsection}{\numberline {4.2.4}Example: Threshold Functions}{36}{subsection.4.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4.2}VC-Dimension of Finite Hypothesis Classes}{22}{subsection.4.4.2}% 
+\contentsline {section}{\numberline {4.3}PAC Learnability of Finite Hypothesis Classes}{36}{section.4.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4.3}Example: Axis Aligned Rectangles}{22}{subsection.4.4.3}% 
+\contentsline {section}{\numberline {4.4}VC-Dimension}{36}{section.4.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4.4}Example: Half-Spaces}{22}{subsection.4.4.4}% 
+\contentsline {subsection}{\numberline {4.4.1}Formal Definition}{36}{subsection.4.4.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.5}Agnostic PAC: Extending Framework}{22}{section.4.5}% 
+\contentsline {subsection}{\numberline {4.4.2}VC-Dimension of Finite Hypothesis Classes}{36}{subsection.4.4.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5.1}Data-Generation Model Over $\ensuremath {\mathcal {X}}\times \ensuremath {\mathcal {Y}}$}{22}{subsection.4.5.1}% 
+\contentsline {subsection}{\numberline {4.4.3}Example: Axis Aligned Rectangles}{36}{subsection.4.4.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5.2}Relaxing Realizability Assumption}{22}{subsection.4.5.2}% 
+\contentsline {subsection}{\numberline {4.4.4}Example: Half-Spaces}{36}{subsection.4.4.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5.3}Introducing General Loss Functions}{22}{subsection.4.5.3}% 
+\contentsline {section}{\numberline {4.5}Agnostic PAC: Extending Framework}{36}{section.4.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5.4}Agnostic PAC Learnability}{22}{subsection.4.5.4}% 
+\contentsline {subsection}{\numberline {4.5.1}Data-Generation Model Over $\ensuremath {\mathcal {X}}\times \ensuremath {\mathcal {Y}}$}{36}{subsection.4.5.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.6}Uniform Convergence Property}{22}{section.4.6}% 
+\contentsline {subsection}{\numberline {4.5.2}Relaxing Realizability Assumption}{36}{subsection.4.5.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.6.1}$\varepsilon $-Representative Datasets}{22}{subsection.4.6.1}% 
+\contentsline {subsection}{\numberline {4.5.3}Introducing General Loss Functions}{36}{subsection.4.5.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.6.2}Achieving Uniformity In $\ensuremath {\mathcal {H}}$ and $\ensuremath {\mathcal {D}}$}{22}{subsection.4.6.2}% 
+\contentsline {subsection}{\numberline {4.5.4}Agnostic PAC Learnability}{36}{subsection.4.5.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.6.2.1}The Case Of Finite $\ensuremath {\mathcal {H}}$}{22}{subsubsection.4.6.2.1}% 
+\contentsline {section}{\numberline {4.6}Uniform Convergence Property}{36}{section.4.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.6.2.2}The General Case - Infinite $\ensuremath {\mathcal {H}}$}{22}{subsubsection.4.6.2.2}% 
+\contentsline {subsection}{\numberline {4.6.1}$\varepsilon $-Representative Datasets}{36}{subsection.4.6.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.7}The Fundamental Theorem of Statistical Learning}{22}{section.4.7}% 
+\contentsline {subsection}{\numberline {4.6.2}Achieving Uniformity In $\ensuremath {\mathcal {H}}$ and $\ensuremath {\mathcal {D}}$}{36}{subsection.4.6.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Ensemble Methods}{23}{chapter.5}% 
+\contentsline {subsubsection}{\numberline {4.6.2.1}The Case Of Finite $\ensuremath {\mathcal {H}}$}{36}{subsubsection.4.6.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Bias-Variance Trade-off}{23}{section.5.1}% 
+\contentsline {subsubsection}{\numberline {4.6.2.2}The General Case - Infinite $\ensuremath {\mathcal {H}}$}{36}{subsubsection.4.6.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.1}Generalization Error Decomposition}{23}{subsection.5.1.1}% 
+\contentsline {section}{\numberline {4.7}The Fundamental Theorem of Statistical Learning}{36}{section.4.7}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.2}Lab: Bias-Variance Via Decision Trees}{23}{subsection.5.1.2}% 
+\contentsline {chapter}{\numberline {5}Ensemble Methods}{37}{chapter.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.3}Lab: Bias-Variance Via Polynomial Fitting}{23}{subsection.5.1.3}% 
+\contentsline {section}{\numberline {5.1}Bias-Variance Trade-off}{37}{section.5.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Ensemble/Committee Methods}{23}{section.5.2}% 
+\contentsline {subsection}{\numberline {5.1.1}Generalization Error Decomposition}{37}{subsection.5.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.1}Weak-Learnability}{23}{subsection.5.2.1}% 
+\contentsline {subsection}{\numberline {5.1.2}Lab: Bias-Variance Via Decision Trees}{37}{subsection.5.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.2}Uncorrelated Predictors}{23}{subsection.5.2.2}% 
+\contentsline {subsection}{\numberline {5.1.3}Lab: Bias-Variance Via Polynomial Fitting}{37}{subsection.5.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.3}Correlated Predictors}{23}{subsection.5.2.3}% 
+\contentsline {section}{\numberline {5.2}Ensemble/Committee Methods}{37}{section.5.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.4}Committee Methods In Machine Learning}{23}{subsection.5.2.4}% 
+\contentsline {subsection}{\numberline {5.2.1}Weak-Learnability}{37}{subsection.5.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Boosting Weak-Learners}{23}{section.5.3}% 
+\contentsline {subsection}{\numberline {5.2.2}Uncorrelated Predictors}{37}{subsection.5.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3.1}AdaBoost Algorithm}{23}{subsection.5.3.1}% 
+\contentsline {subsection}{\numberline {5.2.3}Correlated Predictors}{37}{subsection.5.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3.2}Gradient Boosting Algorithm}{23}{subsection.5.3.2}% 
+\contentsline {subsection}{\numberline {5.2.4}Committee Methods In Machine Learning}{37}{subsection.5.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3.3}Lab: Boosting - Image Classification}{23}{subsection.5.3.3}% 
+\contentsline {section}{\numberline {5.3}Boosting Weak-Learners}{37}{section.5.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.4}Bagging}{23}{section.5.4}% 
+\contentsline {subsection}{\numberline {5.3.1}AdaBoost Algorithm}{37}{subsection.5.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.4.1}Bootstrapping}{23}{subsection.5.4.1}% 
+\contentsline {subsection}{\numberline {5.3.2}Gradient Boosting Algorithm}{37}{subsection.5.3.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.4.1.1}}{23}{subsubsection.5.4.1.1}% 
+\contentsline {subsection}{\numberline {5.3.3}Lab: Boosting - Image Classification}{37}{subsection.5.3.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.4.2}Bagging Reduces Variance}{23}{subsection.5.4.2}% 
+\contentsline {section}{\numberline {5.4}Bagging}{37}{section.5.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.4.3}Random Forests Bagging and De-correlating Decision Trees}{23}{subsection.5.4.3}% 
+\contentsline {subsection}{\numberline {5.4.1}Bootstrapping}{37}{subsection.5.4.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Regularization, Model Selection and Model Evaluation}{25}{chapter.6}% 
+\contentsline {subsubsection}{\numberline {5.4.1.1}}{37}{subsubsection.5.4.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Regularization}{25}{section.6.1}% 
+\contentsline {subsection}{\numberline {5.4.2}Bagging Reduces Variance}{37}{subsection.5.4.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1.1}Best Subset Selection}{25}{subsection.6.1.1}% 
+\contentsline {subsection}{\numberline {5.4.3}Random Forests Bagging and De-correlating Decision Trees}{37}{subsection.5.4.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1.2}$L_q$ Nrom Regularizes}{25}{subsection.6.1.2}% 
+\contentsline {chapter}{\numberline {6}Regularization, Model Selection and Model Evaluation}{39}{chapter.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1.3}Ridge Regularization}{25}{subsection.6.1.3}% 
+\contentsline {section}{\numberline {6.1}Regularization}{39}{section.6.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1.4}Convexity vs. Sparsity}{25}{subsection.6.1.4}% 
+\contentsline {subsection}{\numberline {6.1.1}Best Subset Selection}{39}{subsection.6.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1.5}Lasso Regularization}{25}{subsection.6.1.5}% 
+\contentsline {subsection}{\numberline {6.1.2}$L_q$ Nrom Regularizes}{39}{subsection.6.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1.6}Lab: Regularized Logistic Regression}{25}{subsection.6.1.6}% 
+\contentsline {subsection}{\numberline {6.1.3}Ridge Regularization}{39}{subsection.6.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Model Selection and -Evaluation}{25}{section.6.2}% 
+\contentsline {subsection}{\numberline {6.1.4}Convexity vs. Sparsity}{39}{subsection.6.1.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2.1}Cross Validation}{25}{subsection.6.2.1}% 
+\contentsline {subsection}{\numberline {6.1.5}Lasso Regularization}{39}{subsection.6.1.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2.2}Bootstrap}{25}{subsection.6.2.2}% 
+\contentsline {subsection}{\numberline {6.1.6}Lab: Regularized Logistic Regression}{39}{subsection.6.1.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2.3}Common Model Selection Mistakes}{25}{subsection.6.2.3}% 
+\contentsline {section}{\numberline {6.2}Model Selection and -Evaluation}{39}{section.6.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {6.2.3.1}Over-estimating Generalization Error}{25}{subsubsection.6.2.3.1}% 
+\contentsline {subsection}{\numberline {6.2.1}Cross Validation}{39}{subsection.6.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {6.2.3.2}Under-estimating Generalization Error}{25}{subsubsection.6.2.3.2}% 
+\contentsline {subsection}{\numberline {6.2.2}Bootstrap}{39}{subsection.6.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2.4}Lab: Selecting Regularized Model}{25}{subsection.6.2.4}% 
+\contentsline {subsection}{\numberline {6.2.3}Common Model Selection Mistakes}{39}{subsection.6.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Unsupervised Learning}{27}{chapter.7}% 
+\contentsline {subsubsection}{\numberline {6.2.3.1}Over-estimating Generalization Error}{39}{subsubsection.6.2.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.1}Dimensionality Reduction}{27}{section.7.1}% 
+\contentsline {subsubsection}{\numberline {6.2.3.2}Under-estimating Generalization Error}{39}{subsubsection.6.2.3.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1.1}Preserved Data Properties}{27}{subsection.7.1.1}% 
+\contentsline {subsection}{\numberline {6.2.4}Lab: Selecting Regularized Model}{39}{subsection.6.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1.2}Principal Component Analysis}{27}{subsection.7.1.2}% 
+\contentsline {chapter}{\numberline {7}Unsupervised Learning}{41}{chapter.7}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.1.2.1}Closest Subspace Interpretation}{27}{subsubsection.7.1.2.1}% 
+\contentsline {section}{\numberline {7.1}Dimensionality Reduction}{41}{section.7.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.1.2.2}Generalized Linear Regression Interpretation}{27}{subsubsection.7.1.2.2}% 
+\contentsline {subsection}{\numberline {7.1.1}Preserved Data Properties}{41}{subsection.7.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.1.2.3}Maximum Retained Variance Interpretation}{27}{subsubsection.7.1.2.3}% 
+\contentsline {subsection}{\numberline {7.1.2}Principal Component Analysis}{41}{subsection.7.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.1.2.4}Projection- vs. Coordinates of Data-Points}{27}{subsubsection.7.1.2.4}% 
+\contentsline {subsubsection}{\numberline {7.1.2.1}Closest Subspace Interpretation}{41}{subsubsection.7.1.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.1.2.5}Variants of PCA}{27}{subsubsection.7.1.2.5}% 
+\contentsline {subsubsection}{\numberline {7.1.2.2}Generalized Linear Regression Interpretation}{41}{subsubsection.7.1.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.1.2.6}Euclidean Embedding}{27}{subsubsection.7.1.2.6}% 
+\contentsline {subsubsection}{\numberline {7.1.2.3}Maximum Retained Variance Interpretation}{41}{subsubsection.7.1.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1.3}Lab: PCA}{27}{subsection.7.1.3}% 
+\contentsline {subsubsection}{\numberline {7.1.2.4}Projection- vs. Coordinates of Data-Points}{41}{subsubsection.7.1.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.2}Clustering}{27}{section.7.2}% 
+\contentsline {subsubsection}{\numberline {7.1.2.5}Variants of PCA}{41}{subsubsection.7.1.2.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2.1}K-Means}{27}{subsection.7.2.1}% 
+\contentsline {subsubsection}{\numberline {7.1.2.6}Euclidean Embedding}{41}{subsubsection.7.1.2.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.2.1.1}}{27}{subsubsection.7.2.1.1}% 
+\contentsline {subsection}{\numberline {7.1.3}Lab: PCA}{41}{subsection.7.1.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.2.1.2}K-Means++}{27}{subsubsection.7.2.1.2}% 
+\contentsline {section}{\numberline {7.2}Clustering}{41}{section.7.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2.2}Mixture of Gaussians}{27}{subsection.7.2.2}% 
+\contentsline {subsection}{\numberline {7.2.1}K-Means}{41}{subsection.7.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.2.2.1}Expectation Minimization Learning Principal}{27}{subsubsection.7.2.2.1}% 
+\contentsline {subsubsection}{\numberline {7.2.1.1}}{41}{subsubsection.7.2.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.2.2.2}Estimating Model Parameters}{27}{subsubsection.7.2.2.2}% 
+\contentsline {subsubsection}{\numberline {7.2.1.2}K-Means++}{41}{subsubsection.7.2.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2.3}Spectral Clustering}{27}{subsection.7.2.3}% 
+\contentsline {subsection}{\numberline {7.2.2}Mixture of Gaussians}{41}{subsection.7.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2.4}Lab: K-Means++}{27}{subsection.7.2.4}% 
+\contentsline {subsubsection}{\numberline {7.2.2.1}Expectation Minimization Learning Principal}{41}{subsubsection.7.2.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2.5}Lab: Parameters Estimation In MoG}{27}{subsection.7.2.5}% 
+\contentsline {subsubsection}{\numberline {7.2.2.2}Estimating Model Parameters}{41}{subsubsection.7.2.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {8}Convex Optimization and Gradient Descent}{29}{chapter.8}% 
+\contentsline {subsection}{\numberline {7.2.3}Spectral Clustering}{41}{subsection.7.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.0.1}Gradient Descent Learning Principal}{29}{subsection.8.0.1}% 
+\contentsline {subsection}{\numberline {7.2.4}Lab: K-Means++}{41}{subsection.7.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.0.2}Utilizing Sub-gradients For GD}{29}{subsection.8.0.2}% 
+\contentsline {subsection}{\numberline {7.2.5}Lab: Parameters Estimation In MoG}{41}{subsection.7.2.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.0.3}Stochastic Gradient Descent}{29}{subsection.8.0.3}% 
+\contentsline {chapter}{\numberline {8}Convex Optimization and Gradient Descent}{43}{chapter.8}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.0.4}Variants Of Gradient Descent}{29}{subsection.8.0.4}% 
+\contentsline {subsection}{\numberline {8.0.1}Gradient Descent Learning Principal}{43}{subsection.8.0.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.0.5}Initialization Conditions}{29}{subsection.8.0.5}% 
+\contentsline {subsection}{\numberline {8.0.2}Utilizing Sub-gradients For GD}{43}{subsection.8.0.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.0.6}Tuning Learning Rates}{29}{subsection.8.0.6}% 
+\contentsline {subsection}{\numberline {8.0.3}Stochastic Gradient Descent}{43}{subsection.8.0.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {9}Online- and Reinforcement Learning}{31}{chapter.9}% 
+\contentsline {subsection}{\numberline {8.0.4}Variants Of Gradient Descent}{43}{subsection.8.0.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {10}Deep Learning}{33}{chapter.10}% 
+\contentsline {subsection}{\numberline {8.0.5}Initialization Conditions}{43}{subsection.8.0.5}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.0.6}Tuning Learning Rates}{43}{subsection.8.0.6}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {9}Online- and Reinforcement Learning}{45}{chapter.9}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {10}Deep Learning}{47}{chapter.10}% 
 \contentsfinish 

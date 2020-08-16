@@ -1,46 +1,340 @@
 \chapter{Classification}
-    \section{Classification Overview}
-        \subsection{Loss Function}
-        \subsection{Type-I and Type-II Errors}
-        \subsection{Statistical Measures of Performance}
-        
-    \section{Logistic Regression}
-        \subsection{A Probabilistic Model For Noisy Labels}
-            \subsubsection{The Hypothesis Class}
-            \subsubsection{Learning Via Maximum Likelihood}
-        \subsection{Computational Implementation}
-        \subsection{Interpretability}
-        \subsection{ROC Curve}
-        \subsection{Lab: Logistic Regression}
-    
-    \section{Half-Space Classifier}
-        \subsection{Learning Linearly Separable Data Via ERM}
-        \subsection{Computational Implementation}
-        \subsection{The Perceptron Algorithm}
-        
-    \section{Support Vector Machines}
-        \subsection{Maximum Margin Learning Principal}
-        \subsection{Hard-SVM}
-        \subsection{Soft-SVM}
-            \subsubsection{The Kernel Trick}
-        
-    \section{Nearest Neighbors}
-        \subsection{Graph-Based Approach For Learning}
-        \subsection{Classification \& Regression Using $k$-NN}
-        \subsection{Computational Implementation}
-        \subsection{Selecting Value of $k$ Hyper-Parameter}
-        \subsection{Variants of Nearest Neighbors}
-        
-    \section{Decision Trees}
-        \subsection{Axis-Parallel Partitioning of $\R^d$}
-        \subsection{Classification \& Regression Trees}
-        \subsection{Growing a Classification Tree}
-        \subsection{NP-Hardness and CART Heuristic}
-        \subsection{Pruning a Decision Tree}
-    
-    \section{Bayes Classifiers}
-        \subsection{Bayes Optimal Classifier}
-        \subsection{Naive Bayes}
-        \subsection{Linear Discriminant Analysis}
-        \subsection{Quadratic Discriminant Analysis}
-        \subsection{Lab: Maximum Likelihood Estimation}
+\section{Classification Overview}
+In the previous chapter we discussed learning a regression problem where the response was a continues value $\Yc=\R$. When the response set $\Yc$ is a finite set, this is a \textbf{classification} problem. We distinguish between classification problems where $\left|\Yc\right|=2$ (such as $\Yc=\left\{\pm 1\right\}$ or $\Yc=\left\{0,1\right\}$) and multi-classification problems where $\Yc=\left\{1,\ldots,k\right\}$. In the binary classification problem (or just "classification"), we provide a "yes"/"no" prediction. In a multi-class classification, we predict one of $k>2$ classes. For most, we restrict out discussion only to binary classification problems, though all methods below can be generalized to $k$ classes. Also, we will only deal with the Euclidean sample space $\Xc=\R^d$, namely, each sample has $d$ \textbf{features}. Therefore out setup is as follows: $ \Xc=\R^d,\Yc=\left\{\pm 1\right\} $
+
+\paragraph{Classification Problems Examples}
+\begin{itemize}
+	\item Determine if a given network traffic pattern is one of a cyber attack or not.
+	\item Detect fraud on credit card transactions.
+	\item (Multi-class) What are the objects seen in a given picture.
+\end{itemize}
+
+\begin{example}
+	Seen below are some samples of the "South Africa Heart Disease" dataset (See "Elements of Statistical Learning", section 4.4.2). Given the parameters of blood pressure, smoking, family history, etc., could we predict who has/will have coronary heart disease (chd)?
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{chapters/classification/figures/SAheart_data.png}
+		\caption{South African Heart Data from ESL}
+	\end{figure}
+\end{example}
+
+\subsection{Loss Function}
+When we discussed regression problems we decided to measure the performance of a given hypothesis using the square loss (and mentioned that we could also use the absolute loss). For classification problems let us consider other loss functions. A very straight forward way to evaluate the performance of a classification predictor is to simply count the number of correctly classified samples. That is, given a prediction rule $h:\Xc\rightarrow \left\{\pm 1\right\}$ and a labeled sample \trainset, the \textbf{mis-classification} loss of $h$ on this sample is:
+
+\begin{equation}
+$$L_S\left(h\right)\coloneqq\sum^{m}_{i=1}\mathbbm{1}\left[y_i\neq h\left(\x_i\right)\right]=\left|\left\{i|y_i\neq h\left(\x_i\right)\right\}\right|$$
+\label{eqn:misclass_loss}
+\end{equation}
+
+\subsection{Type-I and Type-II Errors}
+Though many times the mis-classification loss is indeed what we are looking for, when looking closer we recognize two kinds of errors.
+
+\begin{example}[Credit Decisions]
+	Suppose we are building a classifier that predicts whether a bank customer seeking a loan is credit-worthy and will return a given loan or not. We choose the labels such that $-1$ means "not credit worth - deny loan", and $1$ means "credit worthy - approve loan". Denote $y_i$ the true label and $\widehat{y}_i$ the classifier-predicted label of sample $i$. So the two kinds of errors are:
+	\begin{itemize}
+		\item If $y_i=-1$ and $\widehat{y}_i=1$, the classifier predicted that a non-credit-worthy customer will return the loan. If we act on this prediction, and the customer defaults on the loan, the bank loses all the loan sum.
+		\item On the other hand, if $y_i=1$ and $\widehat{y}_i=-1$, the classifier predicted that a credit-worthy customer, which would have paid the interest and returned the loan in full, is not credit-worthy and should be denied the loan. If we act on this recommendation, the bank loses the interest it would have earned on the loan.
+	\end{itemize}
+	Which of the two errors is more serious? Which of the two errors costs more for the bank? If we could choose which error should we avoid "at all costs" and which error could we "allow to happen", what would we choose?
+\end{example}
+
+\begin{example}[Drug safety]
+	Let us look at a more extreme example to help illustrate this point. We are creating a classifier to predicts whether a certain drug \textbf{is safe} to use for a particular person, or \textbf{unsafe}/ deadly/ dangerous to use. We choose the labels such that $-1$ means "unsafe drug - do not use" and $1$ means "safe drug - ok to
+	use". Similar to before our errors are:
+	\begin{itemize}
+		\item If $y_i=-1$ and $\widehat{y}_i$, the classifier recommends to give a drug which is actually potentially deadly.
+		\item If $y_i=1$ and $\widehat{y}_i$, the classifier recommends that the patient should avoid a drug which is actually save to use.
+	\end{itemize}
+\end{example}
+
+Therefore, we see that depending on the context of the classification problem, the two kinds of errors can have very different costs. We name the first error, the one we would like to avoid at all costs, the \textit{Type-I error} and the second error as \textit{Type-II error}. By choosing what label is "negative" and what label is "positive" we essentially defined what error is the Type-I error. As such, given a classification problem we try to choose the "negative" and "positive" labels such that the error we are more concern of (and therefore would like to avoid more) is the Type-I Error. That is, the error of misclassifying a negative sample by predicting it as a positive sample.
+
+\begin{table}[h!] %TODO - align text center horizontally and vertically
+\begin{center}
+	\caption{Classification Error Types}
+	\label{tab:error_types}
+	\begin{tabular}{|c|c|c|} \hline
+		\diagbox[width=3.5cm]{\textbf{Prediction}}{\textbf{Actual}} & \textbf{Negative} & \textbf{Positive} \\ \hline \hline
+		\textbf{Negative}  & TN  & \vtop{\hbox{\strut\textbf{FN}} \hbox{\strut{\color{blue} Type-II Error}}} \\ \hline
+		\textbf{Positive}  & \vtop{\hbox{\strut\textbf{FP}} \hbox{\strut{\color{red} Type-I Error}}} & TP \\ \hline
+	\end{tabular}	
+\end{center}
+\end{table}
+
+\subsection{Measurements of performance}
+Once we decided what are the "positive" and "negative" labels we can device an array of performance measurements for the binary classifier. Let us consider the following template, which will help us define the four basic terms seen in table \ref{tab:error_types}:
+\begin{center}
+	\textit{The classifier \{truthfully/falsely\} stated \{positive/negative\}}
+\end{center}
+
+So when the classifier \textbf{truthfully} states either "positive" or "negative" we understand that this statement (i.e prediction) was correct. In this case we are looking at the \textbf{True Positives (TP)} - positive samples that were classified as positives, and the \textbf{True Negatives (TN)} - negative samples that were classified as negatives. In the case the classifier \textbf{falsely} stated either "positive" or "negative" we understand that this statement (i.e prediction) was incorrect.
+\begin{itemize}
+	\item If "the classifier \textit{falsely} stated \textit{positive}" we understand that the prediction was that the sample is positive, but in reality this is incorrect and therefore the true label is negative: $\widehat{y}=-1,\, y=1$. These are the \textbf{False Positives (FP)}, which by convention we decided to define as the Type-I error.
+	\item If "the classifier \textit{falsely} stated \textit{negative}" we understand that the prediction was that the sample is negative, but in reality this is incorrect and therefore the true label is positive: $\widehat{y}=1,\, y=-1$. These are the \textbf{False Negatives (FN)}, which by convention we decided to define as the Type-II error.
+\end{itemize}
+
+~\\
+Using these four basic groups we can devise more domain-specific measurements. Denote by $P$ the number of positive samples and $N$ the number of negative samples then:
+\begin{itemize}
+	\item The \textit{Error Rate} is the number of mis-classification out of all predictions: $\left(FP+FN\right)/\left(P+N\right)$.
+	\item The \textit{Accuracy} is the number of correct classification out of all predictions: $\left(TP+TN\right)/\left(P+N\right)=1-Error\,Rate$.
+	\item The \textit{Recall/ Sensitivity/ True-Positive-Rate (TPR)} is the number of truthfully positive predictions out of all positive samples: $TP/P$.
+	\item The \textit{False-Positive-Rate (FPR)} is the number of of falsely positive predictions out of all negative samples: $FP/N$.
+\end{itemize}
+
+There are many more measurements that can be defined from the four basic ones presented with different fields using different measurements. In Computer Science we often encounter the TPR and FPR for reasons described below.
+
+\subsection{ROC Curve}
+As we will encounter later in this chapter, in many classification scenarios we face the following question: Suppose we trained some classifier $h\in \Hc$ and derive classifications by the following rule: for some cutoff value $\alpha \in \left[0,1\right]$ $$\widehat{y}\coloneqq\begin{cases}
+1 & h\left(\x\right)>\alpha\\
+0 & h\left(\x\right)\leq\alpha
+\end{cases}$$
+How do we choose $\alpha$? There is an important \textbf{tradeoff} in the selection of $\alpha$. If we set $\alpha$ to be very high we are mainly going to predict $0$. By doing so we are \textbf{less} likely to have false-positives (which is the error we try to avoid at all cost), for which we are pleased. However, at the same time, we are \text{bf} more likely to gave false-negatives. So by setting $\alpha$ too high we might have low a FPR but "miss" (misclassify) most of the positive samples. On the other extreme, if we set $\alpha$ to be very low we are mainly going to predict $1$. So we will be \textbf{more} likely to have false-positives, but at the same time will be \textbf{less} likely to have false-negatives. So if we set $\alpha$ too low, we might have a high FPR but "catch" (correctly classify) most of the positive samples.Therefore, we see that changing $\alpha\in\left[0,1\right]$ governs some trade-off between the chances of making a Type-I error (false-positives) and correctly classifying positive samples.
+
+\todo{Radar example for ROC}\\ \todo{Finish ROC section}
+
+
+\section{Half-Space Classifier}
+The first classifier we consider is the linear classifier of finding a half-space such that samples on opposite sides of the half-space are classified differently. So the domain set is $\Xc=\R^d$ and labels are $\Yc=\left\{\pm 1\right\}$.
+
+\begin{figure}[h!] %TODO - caption should not be centered
+	\centering
+	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/halfspace_illustration.png}
+	\caption{Half-space Classification Illustration:} Over $\R^3$ we see the half-space of all blue labeled data-points below the purple plane. All points above the half-space are red labeled.
+\end{figure}
+
+The hypothesis class of half-space classifiers in $\R^d$ is the set of functions with the form
+\begin{equation}
+$$\Hc_{half} \coloneqq \left\{h_{\w,b}\left(\x\right)=sign\left(\inprod{\x}{\w} + b\right)|\w\in\R^d,b\in\R\right\} = \left\{\x\mapsto sign\left(\inprod{\x}{\w}+b\right)\right\}$$
+\label{eqn:h_half}
+\end{equation}
+Notice the similarity to the linear regression hypothesis class. So why are functions of the form seen in \ref{eqn:h_half} are half-space classifiers? Let us assume at first that $b=0$. We can express the domain set as a disjoint union of the following:
+$$ \R^d=\left\{\x\in\R^d | \inprod{\x}{\w}>0\right\} \biguplus \left\{\x\in\R^d | \inprod{\x}{\w}=0\right\} \biguplus \left\{\x\in\R^d | \inprod{\x}{\w}<0\right\} $$
+these sets correspond to the open half spaces on either side of the hyperplane $\w^\perp=\left\{\x\in\R^d|\inprod{\x}{\w}=0\right\}$ and points on the hyper-plane itself. As such. each vector $\w\in\R^d$ defines a hyper-plane $\w^\perp$ that divides $\R^d$ into two half-spaces.
+
+\begin{figure}[h!] %TODO - caption should not be centered
+	\centering
+	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/defining_hyperplane.png}
+	\caption{Corresponding Hyperplane to $\w^\perp$}
+\end{figure}
+
+The case where $b=0$ is called the \textbf{homogeneous} case, as the hyperplane $\w^\perp$ is a linear subspace going through the origin. When $b\neq 0$ the hyperplane does not go through the origin and is called the non-homogeneous case. Recall that we have seen how we could transition from the non-homogeneous to the homogeneous case in the linear regression chapter.
+
+Given a sample \trainset, we would like to find an hypothesis $h_{\w,b}\in\Hc_{half}$ such that all data points in $S$ that are labeled $1$ are on the one side of the hyper-plane and all those labeled $-1$ are on the other side. To find such an hypothesis we must first make the assumption that the dataset is \textbf{linearly separable}. That is, there exists a hyper-plane such that samples of opposing labels are on opposite sides. Mathematically we assume that $$ \exists \w\in\R^d,b\in\R\quad s.t\quad \forall i\in\left[m\right] \quad y_i\cdot sign \left(\inprod{\x}{\w} + b\right)=1$$
+
+or equivalently since the inner product will be negative for all samples with $y_i<0$ and positive for all samples with $y_i>0$:
+$$ \exists \w\in\R^d,b\in\R\quad s.t\quad \forall i\in\left[m\right] \quad y_i\cdot \left(\inprod{\x}{\w} + b\right)>0$$
+
+Note, that assuming that a given training set is linearly separable is a \textbf{realizability assumption}. Namely, the labels are generated by a function in our hypothesis class $\Hc_{half}$.
+
+\subsection{Learning Linearly Separable Data Via ERM}
+To train a model over the defined hypothesis class of homogenous half-spaces($\w\in\R^d, b=0$) observe the following: For any hypothesis $h_\w\in \Hc_{half}$, the misclassified training samples are exactly those where $y_i\cdot sign\left(\inprod{\x}{\w}\right)=-1$ or equivalently $y_i\inprod{\x}{\w}<0$. As such we define the loss of a given hypothesis over $S$ as: $$ L_S\left(h_\w\right)\coloneqq\sum^m_{i=1}\mathbbm{1}\left[y_i\inprod{\x}{\w}<0\right] $$
+
+Since we assumed that $S$ is linearly separable, we would like to find $h_\w\in\Hc_{half}$ that perfectly separates the training set. Such an hypothesis will be one that achieves $L_S\left(h_\w\right)=0$. In other words, we are applying the ERM principle and seeking for any separating hyperplane $\w^\perp$, corresponding to an hypothesis $h_\w$ that minimizes the empirical risk $L_S\left(h_\w\right)$.
+
+\subsection{Computational Implementation}
+Once we realize what learning principle we want to apply, we need to find a compulationally efficient algorithm to find the desired hypothesis. As we are applying the ERM principle we would like to efficiently compute $$ argmin_{\w\in\R^d}L_S\left(h_\w\right) $$
+
+As we are assuming the given sample is linearly separable (realazibility), there exists a vector $\w_0\in\R^d$ such that $ y_i\cdot\inprod{\x}{\w_0}>0\quad i=1,\ldots,m $. This implies that there also exists a (different) vector $\w_1\in\R^d$ such that $ y_i\cdot\inprod{\x}{\w_01}\geq 1 \quad i=1,\ldots,m $ as we can simply normalize $\w_0$ by the smallest product: $$ \w_1 \coloneqq \frac{1}{min_i\left\{y_i\cdot \inprod{\x}{\w_0}\right\}}\cdot \w_0 $$
+
+Thus, it is enough to search for a vector $\w$ that satisfies $\forall\, i\in\left[m\right]\quad y_i\cdot sign\left(\inprod{\x}{\w}\right)\geq 1$. This is a problem of finding a vector that satisfies $m$ linear constraints, and can be solved using generic linear programming solvers.
+
+We are interested in solving:
+\begin{equation}
+$$
+\begin{array}{ccc}
+minimize & L_S\left(h_{\w}\right) & \\
+subject \, to & y_i\inprod{\x_i}{\w}\geq 1 & i=1,\ldots,m\\
+\end{array}
+$$
+\label{eqn:half_space_opt}
+\end{equation}
+which, as stated above for any ERM solution $L_S\left(h_\w\right)=0$. Therefore, as this optimization problem has a trivial objective, it is a \textbf{feasibility} problem - we are looking for any vector which satisfies the constraints.
+
+\subsection{The Perceptron Algorithm}
+Another way for solving ERM for half-spaces is by using the Perceptron algorithm.
+\todo{Add content for Perceptron}
+
+\section{Support Vector Machines}
+When using the half-space classifier seen above we encounter two problems:
+\begin{itemize}
+	\item When we are searching for a separating half-space the solution is not unique. That is, there could be more than a single vector satisfying the constraints of \ref{eqn:half_space_opt} and achieving the minimal empirical loss (of zero when assuming realizibility or any other positive number if not). As such we are faced with the problem of which one to choose.
+	\item A more severe problem rises when we chose to work with the ERM learning principle for selecting the hypothesis, but the data is not linearly separable (non-realizible case). In this case the optimization problem described in \ref{eqn:half_space_opt} is computationally hard.
+\end{itemize}
+
+Returning to the same hypothesis class of non-homogeneous separating half-spaces $\Hc_{half}$ (\ref{eqn:h_half}), let us \textbf{not} assume the data is linearly separable. We would like to describe a different learning principle that will be able to cope with both problems above: finds a unique hypoerplane and that can be implemented computationally efficiently even when data is not linearly separable (i.e with polynomial running time given the input).
+
+\subsection{Maximum Margin Learning Principle}
+
+\begin{definition}
+	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $u\in\R^d$. Define the distance between $\left(\w,b\right)$ and $u$ by: $$ d\left(\left(\w,b\right),u\right)\coloneqq \underset{v:\inprod{v}{w}+b=0}{min}\left|\left|u-v\right|\right| $$ (namely, the Euclidean distance between $u$ and the closest point on the hyperplane)
+\end{definition}
+
+\begin{definition}[Margin]
+	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $S=u_1,\ldots,u_m\in\R^d$ a set of points. The \textbf{margin} of $\left(\w,b\right)$ and $S$ is the smallest distance between the hyperplane and any point: $$ M\left(\left(\w,b\right),S\right) \coloneqq \underset{i\in\left[m\right]}{min}\,\, d\left(\left(\w,b\right),u_i\right) $$
+\end{definition}
+
+So, the new learning principle is: choose $h_{\w,b}\in\Hc_{SVM}$ that has the \textbf{largest margin} with respect to our training data $S$. The vectors closest to the hyperplane determine the margin. They are called \textbf{support vectors} and hence this learner's name.
+
+\subsection{Hard-SVM}
+Let's start with the \textbf{realizable case}. To implement our learning principle of maximal margin, we need to search, among all the hyperplane separating $S$, for the hyperplane with maximum margin. Namely, the hypothesis $h_{\w,b} \in \Hc_{SVM}$ our learner will choose is the solution to the following optimization problem:
+\begin{eqnarray*}
+	& \text{maximize}   &  M( (\w,b) , S) \\
+	& \text{subject to} &  y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1  \qquad
+	i=1,\ldots,m
+\end{eqnarray*}
+The optimization variables are $\w\in\R^d,b\in\R$. Comparing with the linear program of half-spaces (\ref{eqn:half_space_opt}) we see that the constraints are kept, which ensure the hyperplane chosen separates the training sample, but instead of a trivial objective, we seek to minimize the margin (We don't worry about ``maximize'' instead of ``minimize'' as we can just multiply the objective by $-1$).
+
+\todo{Add introduction to convex optimization}
+
+\begin{exercise}
+	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane where $\left|\left|w\right|\right|=1$ and $\x\in\R^d$ then $ d\left(\left(\w,b\right),\x\right)=\left|\inprod{\w}{\x}+b\right| $
+\end{exercise}
+\begin{proof}
+	\todo{UML page 203, claim 15.1}
+\end{proof}
+
+\subsection{Soft-SVM}
+\subsubsection{The Kernel Trick}
+
+\section{Nearest Neighbors}
+\subsection{Graph-Based Approach For Learning}
+\subsection{Classification \& Regression Using $k$-NN}
+\subsection{Computational Implementation}
+\subsection{Selecting Value of $k$ Hyper-Parameter}
+\subsection{Variants of Nearest Neighbors}
+
+\section{Decision Trees}
+Decision Trees are classification and regression methods by which we partition the sample space into disjoint parts. Then, given such a partition, the response of our classification (or regression) is computed based on the training samples in the partition of the observation in question. These methods are very intuitive and yet capture many interesting aspects of learning. We will discuss some of these aspects in details in the following chapter.
+
+\begin{remark}
+To this day, one of the more powerful classification and regression algorithms is what is called: Classification And Regression Trees (CART) Random Forest. It uses the power of committee decisions over the basic decision trees to achieve very good performances. Some of the aspects of this algorithm will be discussed in later chapters.
+\end{remark}
+
+\subsection{Axis-Parallel Partitioning of $\R^d$}
+Earlier in this chapter we have discussed two classifiers that use piecewise-constant prediction rules: half-spaces and SVM. For noth, the hypothesis class consisted of half-spaces where prediction was determined by position of sample with respect to the hyper-plane. For decision trees we will describe a more complicated piecewise-constant prediction rule (more complex hypotheses). Let us consider a rule that partitions the sample space $\R^d$ into \textbf{axis-parallel boxes, or "hyper-rectangles"} where each box is associated with labels $1$ or $-1$. The learner's task would be to use the training sample to "chop" the samples space $\Xc$ int a disjoint union of axis-parallel boxes, and to assign a class prediction to each box.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{chapters/classification/figures/decision_tree.png}
+	\caption{Decision tree and induced partitioning of $\R^2$ sample space}
+\end{figure}
+
+To make out hypothesis $\Hc_{CT}$ class smaller and simpler, we will focus on disjoint unions of boxes that are obtained by iteratively splitting an existing box into two smaller boxes along one of the axes:
+\begin{itemize}
+  \item We start with the whole sample space $\R^d$.
+  \item By selecting some coordinate $i_1\in \left[d\right]$ and some value $t_1\in\R$ we split $R^d$ into two axis-parallel "boxes" (half-spaces). We obtain: $$ B_1^+=\left\{\x\in\R^d|\x_{i_1}>t_1\right\},\quad B_1^{-}=\left\{\x\in\R^d|\x_{i_1}\leq t_i\right\} $$ 
+  \item Next, by focusing of some previously split "box" $B_j^s$ for $s\in\left\{-,+\right\}$, we can again select some coordinate $i_{j+1}\in\left[d\right]$ and some splitting value $t_{j+1}\in\R^d$ to obtain $B_{j+1}^{-}, B_{j+1}^{+}$. Notice that $B_{j+1}^{-}$ and $B_{j+1}^{+}$ are disjoint, and if following this procedure then by induction they are also disjoint from any other obtained box.
+\end{itemize}
+  
+Note that the partitions obtained this way are special - most partitions of $\R^d$ into axis-aligned boxes are not Tree Partitions. Namely, cannot be constructed by such a top-down iterative chopping procedure.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/axis_parallel_partition.png}
+	\caption{Partitioning $\R^2$ into axis-aligned boxes not describing a tree partition}
+\end{figure}
+
+\subsection{Classification \& Regression Trees}
+The hypothesis class $\Hc_{CT}$  we will consider consists of piecewise-constant functions, that assign a class prediction (1 or 0) to each box in a Tree Partition. Unless we restrict it somehow, the class contains all piecewise-constant functions supported on all Tree Partitions of $\R^d$ (to any number of boxes). Formally, for a Tree Partition $\R^d=\biguplus_{j=1}^N B_j$ of $\R^d$ into $N$ boxes, and label assignments $c_j \in \left\{ 0,1\right\}$ ($j=1,\ldots, N$) assigning label $c_j$ to box $B_j$, the hypothesis $h\in\Hc_{CT}$ is a function $h:\R^d\to\left\{ 0,1 \right\}$ defined by $$ h(\x) = \sum_{j=1}^N c_j \mathbbm{1}_{B_j}(\x) $$ where $\mathbbm{1}_{B_j}$ is the indicator function of $B_j$. 
+
+\begin{example}
+Consider the following scenario: suppose someone comes into a hispital emergency room. The first step of triage is to determine - fast - whether they are in a life-threatening medical emergency, or else they can wait in line and receive treatment in a little while. The triage uses a sequence of yes/no questions, such as: Is the patient conscious yes/no?
+\begin{itemize}
+	\item If not conscious: classify as \textbf{emergency}
+	\item If patient is conscious: is the patient's pulse $<40$ beats per minute?
+	\begin{itemize}
+		\item If yes (pulse $<40$): classify as textbf{emergency}
+		\item If no, (pulse $\geq 40$): is the patient's pulse $>130$ beats per minute?
+		\begin{itemize}
+			\item If yes (pulse $>130$): is the patient's systolic blood pressure $<80$ mmHg?
+			\begin{itemize} %TODO - allow deeper levels
+				\item If yes classify as \textbf{emergency}
+				\item If not, is the patient's systolic blood pressure $>140$ mmHg?
+				\begin{itemize} 
+					\item If yes, classify as \textbf{emergency}
+					\item If not classify as \textbf{no emergency}
+				\end{itemize}
+			\end{itemize}
+			\item If not classify as \textbf{no emergency}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+~\\This is a decision tree that uses three features: conscious (a binary categorical feature), pulse (a numerical feature) and blood pressure (also a numerical feature). See if you can we write a diagram for this decision tree in the shape of a tree, where every node is a question, and every leaf is a decision / classification. The root of the tree is the first question ("conscious yes/no?").Now observe that every function in our Classification Trees hypothesis class $\Hc_{CT}$ is equivalent to a decision tree. In the notations of the generic example above, the first question is: "$x_{i_1}>t_1$-yes/no?".  If yes, we ask the second question "$x_{i_{2,1}}>t_{2,1}$ - yes/no?". If not, we ask the second question: "$x_{i_{2,2}}>t_{2,2}$ - yes/no?". And so on, until there are no more splits and we have reached a box over which the function in $\Hc_{CT}$ is constant. If the constant value is $1$, we classify / predict class $1$. If the constant value is $0$, we predict class $0$. This is why our hypothesis class is called - classification trees
+\end{example}
+
+\subsection{Growing a Classification Tree}
+Having defined our hypothesis class, the next question is of course what learning principle shall we use. That is, how shall be select $h_s\in\Hc_{CT}$ based on the training sample $S$. Suppose we have already obtained a Tree Partition of $\R^d$ is some manner, that consists of $N$ disjoint boxes $\R^d=\biguplus_{j=1}^{N}B_j$. Let $\trainset$ be our taining set and denote the predicted label assigned to box $B_j$ by $\widehat{y}\left(B_j\right)\in\left\{0,1\right\}$. As such, the number of mis-classification errors that are incurred by the training sample that fall inside $B_j$ is $\sum_{\x_i\in B_j}\mathbbm{1}\left[y_i\neq\widehat{y}\left(B_j\right)\right]$.
+
+Let us begin learning by applying the ERM principle. Denote the fraction of correctly classified samples with label $y\in\left\{0,1\right\}$ in some box $B$ by:
+$$ P^S_y\left(B\right)\coloneqq \frac{1}{n_S\left(B\right)}\sum_{\x_i\in B}\mathbbm{1}\left[y_i=y\right]  $$ where $n_S\left(B\right)$ is the number of training samples that fall inside the box $B$. The label that will minimize the empirical risk for those training samples in box $B$ is the \textbf{majority vote} over the labels. So, for any sample falling in box $B$ we would predict $$ \widehat{y}_S\left(B\right)=\underset{y\in\left\{0,1\right\}}{argmax}P^S_y\left(B\right) $$
+Applying over the entire Tree Partition, minimizing the empirical risk is achieved by labeling box $B_j$ with $\widehat{y}_S\left(B_j\right),\quad  j\in\left[N\right]$. Therefore, for a given training set $S$, every Tree Partition corresponds with a unique label assignment, and as such, a unique classification tree $h\in\Hc_{CT}$ that minimizes the empirical risk. It seems therefore, that finding the desired ERM tree is done by solving $$ \underset{h\in\Hc_{CT}}{argmin}L_S\left(h\right) $$ where $L_S\left(h\right)$ is the misclassification error of $h$ over $S$.
+
+~\\Looking back at the described procedure could you describe which tree would minimize the empirical risk and therefore be selected (for any training set $S$)? Consider the tree where the number of leaves is $\left|S\right|$ and each sample is in a box containing only itself. Following the prediction rule we devised, such a tree would achieve $L_S\left(h\right)=0$. Though we achieved the lowest possible empirical risk, this tree will fail to generalize to new samples. To cope with this problem we should limit the number of levels in the classification tree (equivalent for limiting number of leaves). Denote $\Hc_{CT}^k$ the hypothesis class of all tree partitions with at most $k$ levels. Now, we will choose $k$ and then using the ERM principle return $$ \underset{h\in\Hc_{CT}^k}{argmin} L_S\left(h\right)$$
+
+\paragraph{Selecting A Value For $k$:} Note that by adding the hyper-parameter $k$ we now have \textbf{a family of hypothesis classes}, one for each value of $k$. The value of $k$ controls the size of the hypothesis class and therefore controls the bias-variance tradeoff:
+\begin{itemize}
+	\item For small values of $k$, the hypothesis class is smaller, containing trees of smaller sizes. Therefore the ERM learner will have a \textbf{higher} bias as it can only select simple Tree Partitions. It will also have a \textbf{lower} variance: as the boxes are very large, the labels assigned to each box are based on a majority vote of typically many training samples. Therefore changing a few training samples will barely change the selected hypothesis.
+	\item For large values of $k$, the hypothesis class is much more complex, with more "specialized" trees in it. Therefore the ERM learner will have a \textbf{lower} bias and \textbf{higher} variance.
+\end{itemize}
+Later in the course we will introduce a few methods for selecting the value of $k$.
+
+\subsection{CART Heuristic For Growing Trees}
+The next challenge is how to find the minimizer of $argmin_{h\in\Hc_{CT}^k} L_S\left(h\right)$ computationally? So far, all the ERM learners we encountered were \textbf{computationally tractable}: 
+\begin{itemize}
+	\item The linear regression optimization problem was based on ERM. We were able to find aclosed form expression for the minimizer.
+	\item The Half-space classifier was based on ERM and lead to a simple convex optimization problem.
+\end{itemize}
+
+In contrast to those examples the search space over $\Hc_{CT}^k$ is exponentially large and has no Euclidean or other structure to be used. Finding an ERM solution would mean to use brute-force search, which is infeasible. In fact, it has been proven that implementing ERM on $\Hc_{CT}^k$ is an NP-Hard problem with respect to the training sample size\footnote{By reduction from "three dimensional matching", see Hyafil and Rovest, "Constructing Optimal Binary Decision Trees is NP-Complete", Information Processing Letters 5(1), 1976} .
+
+~\\This is our first encounter with the bitter truth that though the ERM principle is nice, it is often impossible to implement efficiently, especially when the hypothesis class has no Euclidean structure. Therefore, we must resort to defining and using \textbf{heuristics}: an approach to solving the optimization problem that does not guaranteed to be optimal, but is still sufficient for finding a solution. While the definition of decision trees, the hypothesis class and prediction assignment to boxes in a tree partition are all canonical, there are several different heuristic approaches to the way we "grow a decision tree', namely to the way we choose an hypothesis in practice.
+
+~\\One common approach, coming out of the statistical learning community, is called \textbf{Classification and Regression Trees} (CART). This heuristic cinsists of two stages: \textbf{growing} the tree, resulting in a tree that is a little too large, and then \textbf{pruning} it to bring it down to the most effective size.
+
+Suppose we have chosen $k$ to be the maximal tree depth. The heuristic of growing a full decision tree with at most $k$ levels will proceed top-down, starting from $\R^d$ and progressively chopping each box into two boxes. A given box is \textbf{not chopped} if either:
+\begin{itemize}
+	\item The maximum number of levels $k$ has been reached.
+	\item The box has reached a pre-determined minimal number of training samples. At the very least we would not split a box if it consists of only a single training sample.
+\end{itemize}
+
+Chopping is done by finding the \textbf{best} coordinate, at the \textbf{best} value to chop, and whenever you chop given each half-box the \textbf{best} class assignment, in the sense of minimizing misclassification error over the training sample.
+
+~\\Formally, let $B$ be some box in an existing disjoint partitioning of $\R^d$ (at the very beginning this box is the entire sample space). Splitting $B$ is done as follows:
+\begin{itemize}
+	\item For each coordinate $i\in \left[d\right]$ and each potential chopping value $t\in\R$ we define $g_i\left(t\right)$ by:
+	\begin{itemize}
+		\item For each $t\in\R$ let us define the two boxes obtained from $B$ by splitting along coordinate $i$ at value $t$: $$ B^+_t\coloneqq \left\{\x\in\R^d|\x_i>t\right\},\quad B^-_t \coloneqq \left\{\x\in\R^d|\x_i\leq t\right\} $$
+		\item Denote $\widehat{y}_S\left(B^{\pm}_t\right)$ be  the class assignment for boxes $B^{\pm}_t$ as defined above, minimizing the empirical misclassification risk in that box.
+		\item Denote $P^S_{\widehat{y}_S\left(B^{\pm}_t\right)}\left(B^{\pm}_{t}\right)$ be the optimal empirical misclassification risk incurred by these class assignments.
+		\item Now, let $g_i\left(t\right)$ be the best empirical risk incurred by chopping box $B$ at value $t$ along coordinate $i$: $$ g_i\left(t\right) \coloneqq  P^S_{\widehat{y}_S\left(B^{-}_t\right)}\left(B^{-}_{t}\right) + P^S_{\widehat{y}_S\left(B^{+}_t\right)}\left(B^{+}_{t}\right) $$ 
+	\end{itemize}
+	\item Denote $t_i$ to be the \textbf{best} chopping point along coordinate $i$ and calculate it for every coordinate: $$ t_i\coloneqq \underset{t\in\R}{argmin}g_i\left(t\right)\quad i=1,\ldots,d $$
+	\item Let $i^{*}$ denote the \textbf{best} coordinate along which to chop $B$: $$ i^{*}\coloneqq \underset{i\in\left[d\right]}{argmin}g_i\left(t_i\right) $$
+	\item Chop $B$ along coordinate $i^{*}$  at value $t_{i^{*}}$.
+\end{itemize}
+
+\paragraph{Time Complexity Analysis}
+Before we introduced the CART heuristic we described that solving the ERM principle over this hypothesis class is NP-Complete and therefore cannot be done in polynomial time. Let us see that the CAR heuristic can indeed be computed efficiently. 
+
+~\\The algorithm iteratively splits boxes into two by finding a coordinate $i\in\left[d\right]$ and a value $t\in\R$. It scans all $d$ coordinates and for each scans all possible values of $t$. Notice, that even though $t\in\R$ we do not need to try all values and it suffices to check only the values in the $i$'th coordinate of the training sample: $\left\{\x_i | \x\in S\right\}$. As we have $m$ samples we only need to evaluate for at most $m$ values, giving each step a time complexity of $\mathcal{O}\left(md\right)$.
+
+~\\The next question is how many steps will the algorithm perform? We know that the algorithm will terminate after growing a tree with at most $k$ levels. Such a tree will have at most $2^k-1$ nodes and leaves. Though this seems exponentinal in the given input (notice that the hyper-parameter $k$ is also part of the input) we can upper bound this value. As we do not allow empty boxes (and in fact any box with less than some minimal number of samples) the number of nodes (including leaves) in the tree is at most $m$. We therefore conclude that the time complexity of the CART heuristic is $\mathcal{O}\left(m^2 d\right)$
+\subsection{Pruning a Decision Tree}
+\todo{Add explanation about pruning}
+
+\section{Bayes Classifiers}
+\subsection{Bayes Optimal Classifier}
+\subsection{Naive Bayes}
+\subsection{Linear Discriminant Analysis}
+\subsection{Quadratic Discriminant Analysis}
+\subsection{Lab: Maximum Likelihood Estimation}
+
+\section{Logistic Regression}
+\subsection{A Probabilistic Model For Noisy Labels}
+\subsubsection{The Hypothesis Class}
+\subsubsection{Learning Via Maximum Likelihood}
+\subsection{Computational Implementation}
+\subsection{Interpretability}
+
+\subsection{Lab: Logistic Regression} 

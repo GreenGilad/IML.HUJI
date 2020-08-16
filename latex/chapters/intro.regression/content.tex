@@ -4,15 +4,15 @@
 \subsubsection{Estimators}
 \subsection{Risk \& Loss Functions}
 \begin{equation}
-R\left(\theta,\widehat{\theta}\right)=\E_\theta\left|\theta-\widehat{\theta}\right|
+R\left(\theta,\widehat{\theta}\right)\coloneqq\E_\theta\left|\theta-\widehat{\theta}\right|
 \label{eqn:abs}
 \end{equation}
 
 \begin{equation}
-R\left(\theta,\widehat{\theta}\right)=\E_\theta\left(\theta-\widehat{\theta}\right)^2
+R\left(\theta,\widehat{\theta}\right)\coloneqq\E_\theta\left(\theta-\widehat{\theta}\right)^2
 \label{eqn:mse}
 \end{equation}
-\subsection{Learning Principals}
+\subsection{Learning Principles}
 \subsubsection{Empirical Risk Minimization}
 \subsubsection{Maximum Likelihood}
 \subsection{Lab: Python Data Analysis - First Steps}
@@ -28,10 +28,11 @@ Regression is a statistical method to model the relation between a set of explan
 	\caption{\textbf{Linear Regression Illustration:} Illustration of a regression problem with a single explanatory variable. Samples represented with red dots.}
 \end{figure}
 
-In the case of linear regression we aim to model this relation by $f$ being a linear predictor function. Formally, the hypothesis class of linear regressors is the set of linear functions from the domain set to the response set: $$ \Hreg=\left\{h: h\left(x_1,\ldots,x_d\right)=w_0+\sum^d_{i=1}x_iw_i,\,\, w_0,w_1,\ldots,w_d\in\R\right\} $$
-Each function $h$ in the class is characterized by the \textbf{weights} (or regression coefficients) $w_1,\ldots,w_d$ representing the $d$ features and an \textbf{intercept} $w_0$. To simplify notation, for a given sample $\x=\left(x_1,\ldots,x_d\right)^\top \in \R^d$ we add a zero-th coordinate with the value of one, and define $\x=\left(1,x_1,\ldots,x_d\right)^\top \in \R^{d+1}$. Using this notation each function in the hypothesis class can be written in the form $h\left(\x\right)=\left<w,\x\right>=\x^\top w$. From this point onward we will assume that the intercept is already incorporated into the weights vector and samples.
-
-Thus, given a set of samples $S=\left\{\left(\x_i,y_i\right)\right\}^m_{i=1}$ also referred to as a \textit{training set}, we are looking for some vector $\w\in\R^{d}$ such that $\forall i\in\left[m\right]\quad y_i=\x^\top_i w$. Let us arrange the data in a matrix form. We define a response \textit{column vector} $\y\in\R^m$ and a samples \textit{matrix} $X\in\R^{m\times d}$ as follows (where rows represent samples and columns represent features):
+In the case of linear regression we aim to model the relation using a linear predictor function $f$. Formally, the hypothesis class of linear regressors is the set of linear functions from the domain set to the response set: $$ \Hreg\coloneqq\left\{h: h\left(x_1,\ldots,x_d\right)=w_0+\sum^d_{i=1}x_iw_i,\,\, w_0,w_1,\ldots,w_d\in\R\right\} $$
+Each function $h$ in the class is characterized by the \textbf{weights} (or regression coefficients) $w_1,\ldots,w_d$ representing the $d$ features and an \textbf{intercept} $w_0$. To simplify notation, for a given sample $\x=\left(x_1,\ldots,x_d\right)^\top \in \R^d$ we add a zero-th coordinate with the value of one, and define $\x=\left(1,x_1,\ldots,x_d\right)^\top \in \R^{d+1}$. Using this notation each function in the hypothesis class can be written in the form $h\left(\x\right)=\left<\x,w\right>=\x^\top w$. From this point onward we will assume that the intercept is already incorporated into the weights vector and samples.
+\\
+\\
+Thus, given a set of samples \trainset also referred to as a \textit{training set}, we are looking for some vector $\w\in\R^{d}$ such that $\forall i\in\left[m\right]\quad y_i=\x^\top_i w$. Let us arrange the data in a matrix form. We define a response \textit{column vector} $\y\in\R^m$ and a samples \textit{matrix} $\X\in\R^{m\times d}$ as follows (where rows represent samples and columns represent features):
 
 $$
 \X =
@@ -45,24 +46,35 @@ $$
 \right]\quad\quad
 \y=\left[\begin{array}{c} y_1 \\ y_2 \\ \vdots \\ y_m \end{array}\right]
 $$
-Now we can write it as a system of $m$ independent linear equations, which we want to solve for $\w$ (a set of $d$ variables): 
+The samples matrix $\X$ is referred to as the \textit{design matrix}. Now we can write it as a system of $m$ independent linear equations, which we want to solve for $\w$ (a set of $d$ variables): 
 \begin{equation}
 $$ \y=\X\w $$ 
 \label{eqn:lin_reg_model}
 \end{equation}
 
-If there exists (at least one) solution, it means that $f$ that created our data is indeed in $\Hreg$. This is called \textbf{The Realizable Case} or \textbf{The Realizability Assumption}. Later in this chapter we will discuss why the assumption that the responses $\y$ are \textit{exactly} linear in the samples $X$ is not realistic. Many times, even when the relation is indeed linear, the given data may be almost linear. In such cases $f$ is \textit{not} in $\Hreg$. This is called \textbf{The Non-Realizable Case} in which we must settle for finding $\widehat{f}\in\Hreg$ which is "good enough" for our purposes.
+If there exists (at least one) solution, it means that $f$ that created our data is indeed in $\Hreg$. This is called \textbf{The Realizable Case} or \textbf{The Realizability Assumption}. Later in this chapter we will discuss why the assumption that the responses $\y$ are \textit{exactly} linear in the samples $\X$ is not realistic. Many times, even when the relation is indeed linear, the given data may be almost linear. In such cases $f$ is \textit{not} in $\Hreg$. This is called \textbf{The Non-Realizable Case} in which we must settle for finding $\widehat{f}\in\Hreg$ which is "good enough" for our purposes.
 \\
 \\
-In the realizable case, the system of equations has either a unique solution or an infinite number of solutions, depending on the kernel of $X$ being trivial or non-trivial (i.e $dim\left(Ker\left(X\right)\right)$ equals or not-equals to zero). As there exists a solution, we know that $\y\in Im\left(X\right)$. In the case of a trival kernel we conclude that the columns of $X$, meaning the features of our data, are linearly independent. In the non-realizable case, the system has no solution and therefore $\y\not\in Im\left(X\right)$.
+In the realizable case, the system of equations has either a unique solution or an infinite number of solutions, depending on the kernel of $\X$ being trivial or non-trivial (i.e $dim\left(Ker\left(\X\right)\right)$ equals or not-equals to zero). As there exists a solution, we know that $\y\in Im\left(\X\right)$. In the case of a trival kernel we conclude that the columns of $X$, meaning the features of our data, are linearly independent. In the non-realizable case, the system has no solution and therefore $\y\not\in Im\left(\X\right)$.
 
 
 
 \subsection{Ordinary Least Squares}
-\subsubsection{Least Squares Loss Function}
-To design a learning algorithm that will learn (predict) $f$, we would like to first quantify the \textit{risk} of choosing any predictor $\widehat{f}\in\Hreg$. We derive different algorithms, each with different properties, by the choice of the risk function. In the case of Ordinary Least Squares, OLS, we choose to work with the mean squared risk \eqref{eqn:mse}. 
+\subsubsection{Least Squares Loss Function} %TODO - better explanation of risk vs. loss and the empirical risk..
+To design a learning algorithm that will learn (predict) $f$, we would like to be able to quantify the \textit{risk} of choosing any predictor $\widehat{f}\in\Hreg$. We derive different algorithms, each with different properties, by the choice of the risk function. In the case of Ordinary Least Squares, OLS, we choose to work with the mean squared risk \eqref{eqn:mse}: 
 
-As we assess our chosen hypotheses using the squared risk $R\left(\theta,\widehat{\theta}\right)\coloneqq\E_{\widehat{f}}\left(y-\widehat{f}\left(x\right)\right)^2$ it makes sense to choose $\widehat{f}$ that minimizes the same loss \textit{on the training data we already have}. Given a training set $S=\left\{\left(x_i,y_i\right)\right\}^m_{i=1}$ and some prediction rule $\widehat{f}\in\Hreg$ the quantity of the squared risk over the training data is called the \textbf{empirical risk}. In our case the empirical risk of the linear function is given by: $$ R\left(y,\widehat{f}\left(\x\right)\right)=\sum^m_{i=1}\left(y_i-\x_i^\top\w\right)^2 = \norm{\y-\X\w}^2_2=\left(\y-\X\w\right)^\top \left(\y-\X\w\right)$$
+$$
+\left.\begin{array}{c}
+\theta \coloneqq \y\\
+\widehat{\theta} \coloneqq \widehat{\y}
+\end{array}\right\} \Rightarrow R\left(\y,\widehat{\y}\right)=\E_{\widehat{\y}}\left[\left(\y-\widehat{\y}\right)^2\right]
+$$
+
+where $\widehat{\y}$ is the linear prediction of $\y$ when selecting some predictor from our hypothesis class: 
+$$ \widehat{\y}=\widehat{f}\left(\x\right)=\x^\top\widehat{\w}\quad s.t \quad \widehat{\w}\in \Hreg $$
+As we assess our chosen hypotheses using the squared risk it makes sense to choose $\widehat{f}$ that minimizes the same loss \textit{on the training data we already have}. The function chosen to calculate the risk over a given dataset is called a \textbf{Loss Function} and is denoted by $L_S\left(\widehat{f}\right)$ where $S$ is the set of samples $\widehat{f}$ is evaluated over.
+
+Putting it all together, given a training set \trainset and some prediction rule $\widehat{f}\in\Hreg$ the quantity of the squared risk over the training data is called the \textbf{empirical risk}. In our case the empirical risk of the linear function is given by: $$ R\left(y,\widehat{f}\left(\x\right)\right)=\sum^m_{i=1}\left(y_i-\x_i^\top\widehat{\w}\right)^2 = \norm{\y-\X\widehat{\w}}^2_2=\left(\y-\X\widehat{\w}\right)^\top \left(\y-\X\widehat{\w}\right)$$
 
 \subsubsection{Residual Sum of Squares}
 Therefore, under the selection of the squared risk function, minimizing the empirical risk means minimizing the sum of squares of the deviations of the responses from a linear function. In other words, we choose the linear function in $\Hreg$ that is closest to the responses in terms of the Euclidean distance. The deviation $y_i-\x_i^\top\w$ is called the $i$-th \textbf{residual}. The total empirical risk is therefore called \textbf{Residual Sum of Squares} (or \textbf{RSS}), denoted by:
@@ -96,13 +108,62 @@ $$
 
 
 \subsubsection{The Normal Equations}
-So a necessary condition for $\w$ to be a minimizer of the objective is to be a solution for the following linear system, known as the \textbf{Normal Equations}.
+So a necessary condition for $\w$ to be a minimizer of the objective is to be a solution for the following linear system, known as the \textbf{Normal Equations}:
 \begin{equation}
 $$ \X^\top\left(y-\X\w\right)=0 \quad \iff \quad \X^\top\y=\X^\top X\w $$
 \label{eqn:normal_eq}
 \end{equation}
 
-%TODO - Non-singular + singular cases. Stating claims needed (which will be proven as homework)
+Let us show that $\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is the desired minimizer. Before proving so we will first make an assumption over our data $\X,\y$. We will assume that the different features (i.e columns of $\X$) are linearly independent. We will make this assumption in all of the models we will discuss in the course. %TODO - explain why it is okay to assume so?
+
+\begin{theorem}[The Non-Singular Case]
+	Let $\X$ be a design matrix with $m$ observations and $d$ explanatory variables, and $\y$ a response vector. If $d \leq m$ then $\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is a unique minimizer of \eqref{eqn:opt_rss}. That is, for any $\w\neq\widehat{\w}\quad \norm{\y-\X\w}> \norm{\y-\X\widehat{\w}}$
+\end{theorem}
+\begin{proof}
+As we would like to find a minimizer of the objective, we begin with equating the objective's derivative to zero:
+$$
+\frac{\partial RSS\left(\w,\X,\y\right)}{\partial \w_{k}}=\frac{\partial\left(\sum_{i=1}^{m}\left(\y_{i}-\x_{i}^{\top}\w\right)^{2}\right)}{\partial \w_{k}}=-2\sum_{i=1}^{m}\left(\y_{i}-\sum_{j=1}^{d}\x_{ij}\w_{j}\right)\x_{k}=0
+$$
+Equivalently, in matrix notation we get that:
+$$
+\forall k\in\left[d\right]\quad\left[\X^{\top}\y\right]_{k}-\left[\X^{\top}\X\w\right]_{k}=0\quad\Longrightarrow\quad \X^{\top}\y=\X^{\top}\X\w
+$$
+	
+As $d\leq m$ the design matrix $\X$ is of full column rank $rank\left(\X\right)=d$ and therefore has a trivial kenel. As such, $\X^\top\X$ too is of full rank. This means that the matrix $\X^\top\X$ is non-singular (i.e invertible) and $\left[\X^\top\X\right]^{-1}$ exists:
+$$
+\begin{array}{c}
+\X^{\top}\y=\X^{\top}\X\w\\
+\Downarrow\\
+\left[\X^{\top}\X\right]^{-1}\X^{\top}\y=\left[\X^{\top}\X\right]^{-1}\X^{\top}\X\w\\
+\Downarrow\\
+\widehat{\w}=\left[\X^{\top}\X\right]^{-1}\X^{\top}\y
+\end{array}
+$$
+
+Lastly, we would like to show that $\w$, which we have found to be an extramum of the objective, is a minimum. Taking the second derivative with respect to the parameters:
+$$
+\frac{\partial^{2}RSS\left(\w,\X,\y\right)}{\partial \w_{k}\partial \w_{l}}	=\frac{\partial-2\sum_{i=1}^{m}\left(\y_{i}-\sum_{j=1}^{d}\x_{ij}\w_{j}\right)\x_{k}}{\partial \w_{l}}
+=2\sum_{i=1}^{m}\x_{k}\x_{l}
+=2\left[\X^{\top}\X\right]_{kl}\quad\forall k,l\in\left[d\right]
+$$
+
+Notice that the matrix $\X^\top\X$ is a positive semi-definite matrix. Now, as we assumed that the columns of $\X$ are independent then for any $v\neq 0$ it holds that $v^\top \left[\X^\top \X\right]v=\left(\X v \right)^{\top} \X v = \norm{\X v}^2>0$ and $\X^\top\X$ is a positive definite matrix. Thus, $\widehat{\w}$  is indeed a minima of the RSS as requested.
+\end{proof}
+
+In the case where $d>m$ the null space of $\X^\top\X$ is not trivial. Therefore the matrix is not invertible and there is an inifinite number of solutions. 
+
+\begin{theorem}[The Singular Case]
+	Let $\X$ be a design matrix with $m$ observations and $d$ explanatory variables, and $\y$ a response vector. If $d>m$ then $\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is a unique minimizer of \eqref{eqn:opt_rss}
+\end{theorem}
+\begin{proof}
+	%TODO - Non-singular + singular cases. Stating claims needed (which will be proven as homework)
+	%TODO - SVD, neumerical stability
+\end{proof}
+
+
+\begin{corollary}$\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is always a solution of the Normal Equations\end{corollary}
+
+The estimator we found $\widehat{\w}$ is also referred to as the OLS estimator and is often noted as $\widehat{\w}^{OLS}$.
 
 \subsubsection{A Statistical Model - Existence of Noise}
 So far we assumed that there exists some deterministic function $f:\Xc\rightarrow\Yc$ that is underlying the relation between the domain- and response- sets. We would like to describe a more general probabilistic model, which better fits reality. Let us assume, as before, that the relation is linear in $\Xc$. In addition we add an additional element $\eps$ capturing random noise in the relation. This noise element is referred to as \textit{error} and is a random variable. We make the assumptions that all errors are: (1) Centered (2) Uncorrelated (3) Have equal variance and (4) with a Gaussian distribution:
@@ -124,8 +185,6 @@ To derive a learning algorithm let us use the squared loss as before, and learn 
 
 %TODO - Projection matrices
 
-\subsubsection{Goodness Of Fit} 
-% TODO - R^2 vs. r^2
 
 \subsubsection{Maximum Likelihood Equivalence}
 As seen above, different assumptions on the noise in our data yields different traits we can use for our advantage. Let us assume Gaussian noise $\eps\iid\Nc\left(0,\sigma^2\right)$. This means that the $i$-th observation is independently distributed $y_i\sim\Nc\left(\x_i^\top\w,\sigma^2\right)$. Suppose we \textbf{knew} the weight vector $\w$, we could then ask the following question: Given a fixed design matrix $X$ and known coefficients vector $\w$, how likely is it to observe the response vector $\y$?
@@ -153,14 +212,55 @@ $$
 \end{array}
 $$
 
-we conclude that the MLE (assuming Gaussian noise) is just the OLS estimator we obtained using the ERM principal over the squared loss. %TODO - link to equation
+we conclude that the MLE (assuming Gaussian noise) is just the OLS estimator we obtained using the ERM principle over the squared loss. %TODO - link to equation
 \subsection{Weighted Least Squares}
 \subsection{Geometric Interpretation}
 \subsection{Categorical Variables}
-\subsection{Lab: Linear Regression}
+
 
 \section{Beyond Linearity}
-\subsection{Polynomial Fitting}
+\subsection{Polynomial Fitting} %TODO - fix psi font
+Using the tools of linear regression, we could also learn non-linear predictors. In fact, it can be used to find predictors that are a linear combination of some set of functions $\psi_0,\ldots,\psi_k$. Consider the following special case of polynomial fitting: Let $x_1,\ldots,x_m\in\R$ and $y_1,\ldots,y_m\in\R$. We would like to describe a polynomial relation between $\Xc$ and $\Yc$, of degree at most $k\in\N$. The hypothesis class is: 
+\begin{equation}
+$$ \Hc^k_{poly}=\left\{x\mapsto p_{\w}\left(x\right)| \w\in\R^{k+1}\right\} $$
+\label{eqn:poly_reg}
+\end{equation}
+where $p_{\w}\left(x\right)=\sum^{K}_{i=1}w_i x^i$. In this case, the set of functions is given by $\psi_i\left(x\right)=x^i$ for any $i\in\left\{0,\ldots,k\right\}$. Then denote $\psi\left(x\right)=\left(\psi_0\left(x\right),\ldots,\psi_k\left(x\right)\right)^\top$. Thus, a polynom of degree at most $k$ is given by:
+$$ p_{\w}\left(x\right)=\sum^k_{i=0}w_i\psi_i\left(x\right)=\psi\left(x\right)^{\top} \w=\left\langle\psi\left(x\right),\w\right\rangle $$
+
+As before we want to find a coefficients vector $\w$. Given a sample \trainset we transform it to a sample $\widetilde{S}=\left\{\left(\psi\left(x_i\right),y_i\right)\right\}^m_{i=1}$, and solve the following LS problem: $$ \widehat{w}=\underset{\w\in\R^{k+1}}{argmin}\frac{1}{m}\sum^m_{i=1}\left(\psi\left(x_i\right)^\top \w -y_i\right)^2 $$
+
+Let us notice that the design matrix $\X$ defined over the transformed data is the Vandermonde matrix:
+$$
+\X =
+\left[
+\begin{array}{ccc}
+\horzbar & \psi\left(x_1\right) & \horzbar \\
+\horzbar & \psi\left(x_2\right) & \horzbar \\
+& \vdots    & \\
+\horzbar & \psi\left(x_m\right) & \horzbar
+\end{array}
+\right] = 
+\left[
+\begin{array}{ccccc}
+1 & x_1 & x_1^2 & \cdots & x_1^k \\
+1 & x_2 & x_2^2 & \cdots & x_2^k \\
+\vdots & \vdots & \vdots & \vdots & \vdots \\
+1 & x_m & x_m^2 & \cdots & x_m^k
+\end{array}
+\right]
+$$
+
+Since we assume that the $x_i$'s are different from one another, the design matrix $\X$ is of full rank. This means that solving this linear (in $\w$) system of equations can be done as we have seen for the non-singular case above.
+
+%TODO - bias variance?
+
 \subsection{Poisson Regression}
 \section{Summary}
+\subsection{Exercises}
+\begin{enumerate}
+	\item Let $A$ be a real $n\times m$ matrix. Show that the null space of $A$ and $A^\top A$ is the same. That is: $Ker\left(A\right)=Ker\left(A^\top A\right)$.
+	\item Let $A$ be a real $n\times m$ matrix. If the columns of $A$ are independent then $A^\top A$ is a positive definite matrix.
+\end{enumerate}
+\subsection{Lab: Linear Regression}
 \subsection{Lab: Polynomial Fitting}
