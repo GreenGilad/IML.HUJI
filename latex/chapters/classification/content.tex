@@ -195,14 +195,46 @@ The optimization variables are $\w\in\R^d,b\in\R$. Comparing with the linear pro
 \end{proof}
 
 \subsection{Soft-SVM}
+\todo{Finish from lecture and recitation handouts}
 \subsubsection{The Kernel Trick}
 
+
 \section{Nearest Neighbors}
-\subsection{Graph-Based Approach For Learning}
-\subsection{Classification \& Regression Using $k$-NN}
+Nearest Neighbors learners predict the label of a new sample based on a set of "nearset" training samples. This means that it has no hypothesis class and no training stage per se. As prediction is based on some subset of training samples, that is determined by "closeness" to some newly given sample, the training step of the learner consists only of storing the training data so it is available for the learner when performing predictions.
+
+~\\This family of leaners are part of a wider \textbf{graph-based approach} for learning. In this approach we first define some graph structure over the samples - forming the nodes of the graph. Then, using the constructed graph we perform training and prediction. The different learners differ in how to define edges in the graph? are they weighted or not? how to transition between nodes? and how is this structure used for training and prediction?
+
+\subsection{Prediction Using $k$-NN}
+Let us begin with the simplest form of $k$-NN: given a training set \trainset and some distance function $\rho:\R^d\times\R^d\rightarrow\R_+$, prediction for a new sample $\x'$ is done by:
+\begin{itemize}
+	\item Compute distance from $\x'$ with respect to $\rho$: $\forall\, \x\in S\quad d_{\x}\coloneqq \rho\left(\x',\x\right)$.
+	\item Denote $\pi=\left(\pi_1,\ldots,\pi_m\right)$ the permutation of $\left(1,\ldots,m\right)$ such that $d_{\x_{\pi_{1}}}\leq \ldots \leq d_{\x_{\pi_{m}}}$
+	\item Select $k$ nearest samples $\x_{\pi_{1}},\ldots,\x_{\pi_k}$ and predict by majority vote: $$ \widehat{y}=\underset{y\in\left\{0,1\right\}}{argmax}\sum^k_{i=1}\mathbbm{1}\left[y_{\pi_i}=y\right] $$ 
+\end{itemize}
+
 \subsection{Computational Implementation}
+Implementing a $k$-nearest-neighbors classifier is very easy on small datasets, but becomes computationally challenging (either in terms of execution time or in terms of space) when $d$ and/or $m$ are large. There are generally three types of implementation approaches:
+~\\\begin{itemize}
+	\item \textbf{Brute force implementation:} We keep the entire training sample $S$ in storage during the entire prediction process. For each new test sample $\x\in\R^d$ we calculate $\rho\left(\x,\x_i\right)\,\,i\in\left[m\right]$ and partially sort to find the $k$ smallest distances.  
+	
+	Suppose $\rho$ is the Euclidean distance. What are the computational costs of prediction? As the sample space is $\R^d$ computing the distance between two points is $\mathcal{O}\left(d\right)$. Doing so for all points in the dataset is $\mathcal{O}\left(dm\right)$. Next we want to retrieve the $k$ nearest train samples. If $k\ll m$ we can retrieve $k$ times the sample of minimal distance (without repeating previously selected samples) in a time complexity of $\mathcal{O}\left(km\right)$. However, if $k\approx ....$ then it is more computationally efficient to sort all distances and then select the $k$ minimal. Lastly, summation over selected samples is done in $\mathcal{O}\left(k\right)$. All together the time complexity of such approach is $\mathcal{O}\left(dm+km\right)$. In terms of space complexity we must store distances of all training samples and thus $\mathcal{O}\left(m\right)$.
+	~\\\item \textbf{Exact nearest neighbors search with preprocessed data structure:} Depending on the selection of $\rho$, we could pre-process the training sample and construct a special data structure. After doing so in the training step, we can use this data structure to quickly locate the $k$ nearest neighbors of a given test sample. In the case of $\rho$ being the Euclidean distance we could you an algorithm such as \textit{kd-tree}.
+	~\\\item \textbf{Fast randomized nearest neighbors search:} Beyond the scope of this course. \todo{add a single explanation sentence - or remove bullet all together}
+\end{itemize}
+
 \subsection{Selecting Value of $k$ Hyper-Parameter}
-\subsection{Variants of Nearest Neighbors}
+A very important aspect in $k$-NN is the chosen value of $k$. Though methods for determining the "right" $k$ will be discussed in future chapters, let us dwell on a few cases:
+\begin{itemize}
+	\item \textbf{$k=1$:} The test point is given the label of the single nearest neighbor in the training set. Such classifier has a very low bias but very high variances.
+	\item \textbf{$k=m$:} The classifier predicts a single label for any given test sample, regardless to its values. It will predict the majority vote of the training set labels. In this case the bias is very high and the variance is zero.
+\end{itemize}
+
+\todo{Add 3 decision boundaries of 1,k,m-NN classifiers}
+
+As we change $k$ we change the bias-variance tradeoff. 
+
+\todo{KNN - misclassification as function of $k$}
+
 
 \section{Decision Trees}
 Decision Trees are classification and regression methods by which we partition the sample space into disjoint parts. Then, given such a partition, the response of our classification (or regression) is computed based on the training samples in the partition of the observation in question. These methods are very intuitive and yet capture many interesting aspects of learning. We will discuss some of these aspects in details in the following chapter.
@@ -260,7 +292,8 @@ Consider the following scenario: suppose someone comes into a hispital emergency
 	\end{itemize}
 \end{itemize}
 
-~\\This is a decision tree that uses three features: conscious (a binary categorical feature), pulse (a numerical feature) and blood pressure (also a numerical feature). See if you can we write a diagram for this decision tree in the shape of a tree, where every node is a question, and every leaf is a decision / classification. The root of the tree is the first question ("conscious yes/no?").Now observe that every function in our Classification Trees hypothesis class $\Hc_{CT}$ is equivalent to a decision tree. In the notations of the generic example above, the first question is: "$x_{i_1}>t_1$-yes/no?".  If yes, we ask the second question "$x_{i_{2,1}}>t_{2,1}$ - yes/no?". If not, we ask the second question: "$x_{i_{2,2}}>t_{2,2}$ - yes/no?". And so on, until there are no more splits and we have reached a box over which the function in $\Hc_{CT}$ is constant. If the constant value is $1$, we classify / predict class $1$. If the constant value is $0$, we predict class $0$. This is why our hypothesis class is called - classification trees
+~\\This is a decision tree that uses three features: conscious (a binary categorical feature), pulse (a numerical feature) and blood pressure (also a numerical feature). See if you can we write a diagram for this decision tree in the shape of a tree, where every node is a question, and every leaf is a decision / classification. The root of the tree is the first question ("conscious yes/no?").
+Now observe that every function in our Classification Trees hypothesis class $\Hc_{CT}$ is equivalent to a decision tree. In the notations of the generic example above, the first question is: "$x_{i_1}>t_1$-yes/no?".  If yes, we ask the second question "$x_{i_{2,1}}>t_{2,1}$ - yes/no?". If not, we ask the second question: "$x_{i_{2,2}}>t_{2,2}$ - yes/no?". And so on, until there are no more splits and we have reached a box over which the function in $\Hc_{CT}$ is constant. If the constant value is $1$, we classify / predict class $1$. If the constant value is $0$, we predict class $0$. This is why our hypothesis class is called - classification trees
 \end{example}
 
 \subsection{Growing a Classification Tree}
@@ -324,14 +357,22 @@ Before we introduced the CART heuristic we described that solving the ERM princi
 \todo{Add explanation about pruning}
 
 \section{Bayes Classifiers}
+\todo{need to be written - Begin with defining $\Dc$ over $\Xc\times\Yc$}
+\todo{Then add notions of posterior(likelihod), prior and joint distributions}
+
 \subsection{Bayes Optimal Classifier}
+\todo{From the above derive the Bayes optimal}
 \subsection{Naive Bayes}
 \subsection{Linear Discriminant Analysis}
 \subsection{Quadratic Discriminant Analysis}
 \subsection{Lab: Maximum Likelihood Estimation}
 
 \section{Logistic Regression}
+\todo{better motivation}
+\todo{Finish from lecture}
+
 \subsection{A Probabilistic Model For Noisy Labels}
+Let us revisit linear regression with Gaussian errors. We assumed the model $y=f\left(\x\right)+\eps$  where $f$ is a linear function and $\eps\sim\Nc\left(0,\sigma^2\right)$. Notice that as $\eps$ is a random variable, $y$ too is a random variable distributing as $y\sim\Nc\left(f\left(\x\right), \sigma^2\right)$. In other words, our prediction of $y$ is given by assigning the \textbf{expected value} given $\x$.
 \subsubsection{The Hypothesis Class}
 \subsubsection{Learning Via Maximum Likelihood}
 \subsection{Computational Implementation}

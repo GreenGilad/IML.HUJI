@@ -150,20 +150,84 @@ $$
 Notice that the matrix $\X^\top\X$ is a positive semi-definite matrix. Now, as we assumed that the columns of $\X$ are independent then for any $v\neq 0$ it holds that $v^\top \left[\X^\top \X\right]v=\left(\X v \right)^{\top} \X v = \norm{\X v}^2>0$ and $\X^\top\X$ is a positive definite matrix. Thus, $\widehat{\w}$  is indeed a minima of the RSS as requested.
 \end{proof}
 
-In the case where $d>m$ the null space of $\X^\top\X$ is not trivial. Therefore the matrix is not invertible and there is an inifinite number of solutions. 
+~\\In the case where $d>m$ the null space of $\X^\top\X$ is not trivial. Therefore the matrix is not invertible and there is an inifinite number of solutions. 
+~\\
+\begin{definition}
+	Let $\X\in\R^{m\times d}$ and let $U\Sigma V^\top$ be its SVD. The \textbf{Moore-Penrose pseudoinverse} of $\X$ is $\X^\dagger=V\Sigma^\dagger U^\top$ where $\Sigma^\dagger$ is a $d\times m$ diagonal matrix defined by: $$ \Sigma^\dagger_{i,i}=\begin{cases} 1/\Sigma_{i,i} & \Sigma_{i,i}\neq 0 \\ 0 & \Sigma_{i,i}=0 \end{cases} $$
+\end{definition}
 
 \begin{theorem}[The Singular Case]
 	Let $\X$ be a design matrix with $m$ observations and $d$ explanatory variables, and $\y$ a response vector. If $d>m$ then $\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is a unique minimizer of \eqref{eqn:opt_rss}
 \end{theorem}
 \begin{proof}
-	%TODO - Non-singular + singular cases. Stating claims needed (which will be proven as homework)
-	%TODO - SVD, neumerical stability
+	As there are an infinite number of solutions let us begin with finding at least one. Let $\X=U\Sigma V^\top$ be the SVD of matrix $\X$. Therefore, $U,V$ are orthogonal matrices and $\Sigma$ is a $d\times m$ diagonal matrix where the diagonal elements $\Sigma_{i,i}\equiv\sigma_i,\quad \sigma_1\geq\ldots\geq\sigma_d\geq 0$ are the singular values of $\X$.
+	
+	Let $\Sigma^\dagger$ be a $d\times m$ diagonal matrix such that: 
+	$$ \Sigma^\dagger_{i,i} = 
+	\begin{cases}
+	1/\sigma_i & \sigma_i > 0\\
+	0 & \sigma_i = 0\\
+	\end{cases} 
+	$$
+	
+	Notice that $\Sigma^\dagger \Sigma$ is too a diagonal matrix and if $\sigma_d>0$ then $\Sigma^\dagger \Sigma=I_d$. Using $\X$'s SVD:
+	$$\begin{array}{rcl}
+		\X^{\top}\X\w & = & \X^{\top}\y \\
+		\left(U\Sigma V^\top\right)^\top \left(U\Sigma V^\top \right)\w & = & \left(U\Sigma V^\top\right)^\top\y\\
+		V\Sigma^\top U^\top U\Sigma V^\top\w & = & V\Sigma^\top U^\top \y \\
+		\Sigma V^\top \w & = & U^\top\y \\
+		\Sigma^\dagger \Sigma V^\top\w & = & \Sigma^\dagger U^\top \y \\
+	\end{array}$$
+	
+	Therefore the solution is: $$ \widehat{\w} = \left(U\left(\Sigma^\dagger\right)^\top V^\top\right)^\top\y = U\Sigma^\dagger V^\top \y = {X^\dagger}^\top \y $$ 
 \end{proof}
 
 
 \begin{corollary}$\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is always a solution of the Normal Equations\end{corollary}
 
-The estimator we found $\widehat{\w}$ is also referred to as the OLS estimator and is often noted as $\widehat{\w}^{OLS}$.
+~\\The estimator we found $\widehat{\w}$ is also referred to as the OLS estimator and is often noted as $\widehat{\w}^{OLS}$.
+
+
+\paragraph{Neumerical Stability}
+Computers don’t calculate over $\R$, they use bits and more specifically they use floating-point arithmetics with very finite precision. A lot of non-trivial knowledge and care are required in order to understand how learning algorithms are actually implemented in software. \textit{Any} learning algorithm comes down to a lot of calculus (e.g gradients) and linear algebra (e.g. inverses) implemented in software. You should care \textit{deeply} about how algorithms are implemented and when they break numerically, as in the following example.
+
+~\\Sometimes $\X^\top\X$ is formally invertible but \textit{close to singular}. This happens if columns of $\X^\top$ are almost co-linear or if one column of $\X^\top$ is almost spanned by other columns. In this case some singular values of $\X$ will be nonzero, but very small. When this happens, Gauss elimination may yield wildly incorrect results. Also, because of double-precision arithmetics, $1/\sigma_i$ will not be precise. The practical solution in such cases is to choose a machine precision threshold, $\eps$ and let: $$ \Sigma^{\dagger,\eps}_{i,i}=\begin{cases} 1/\sigma_i & \sigma_i>\eps \\ 0 & \sigma_i \leq \eps \end{cases} $$
+
+~\\
+\begin{example}
+	Let us find the OLS estimator over some mock scenario. Suppose we are interested in regressing running times in a $100m$ on an athlete's height and weight. We gathered the details of the 4 top ranking athletes in the 2016 Rio Olympics:
+
+	\begin{center}\begin{tabular}{|c|c|c|c|}
+		\hline 
+		Athlete & Weight ($kg$) & Height ($cm$) & Running Time ($sec$)\tabularnewline
+		\hline 
+		\hline 
+		Usain Bolt & 94 & 195 & 9.81\tabularnewline
+		\hline 
+		Justin Gatlin & 79 & 185 & 9.89\tabularnewline
+		\hline 
+		Andre de Grasse & 70 & 176 & 9.91\tabularnewline
+		\hline 
+		Yohan Blake & 80 & 180 & 9.93\tabularnewline
+		\hline 
+	\end{tabular}\end{center}
+	
+	So the features are the \textit{weight, height} and the response is \textit{running time}. Let us fit an OLS model for this data. We begin with arranging it in a matrix and adding the intercept:
+	$$
+	\X=\left[\begin{array}{ccc}
+	1 & 94 & 195\\
+	1 & 79 & 185\\
+	1 & 70 & 176\\
+	1 & 80 & 180
+	\end{array}\right],\quad \y=\left[\begin{array}{c} 9.81 \\ 9.89 \\ 9.91 \\ 9.93 \end{array}\right]
+	$$
+	
+	As we have proven above, the OLS estimator is given by the closed form of $\widehat{\w}=\left(\X^\top\X\right)^{-1}\X^\top\y$. Over given data we obtain that $\widehat{\w}\approx\left(11.38, 0.003, -0.009\right)^\top$ (up to rounding up numbers).
+	
+	~\\Next, let us use this estimator to estimate the running times of a new sample $\x=\left(1, 74, 176\right)^\top$:
+	$$ \widehat{y} = \x^\top\widehat{\w} = \inprod{\left[\begin{array}{c} 1\\ 74 	\\ 176	\\
+	\end{array}\right]}{\left[\begin{array}{c} 11.38 \\ 0.003 \\ -0.009 \\ \end{array}\right]} = 10.018 $$
+\end{example}
 
 \subsubsection{A Statistical Model - Existence of Noise}
 So far we assumed that there exists some deterministic function $f:\Xc\rightarrow\Yc$ that is underlying the relation between the domain- and response- sets. We would like to describe a more general probabilistic model, which better fits reality. Let us assume, as before, that the relation is linear in $\Xc$. In addition we add an additional element $\eps$ capturing random noise in the relation. This noise element is referred to as \textit{error} and is a random variable. We make the assumptions that all errors are: (1) Centered (2) Uncorrelated (3) Have equal variance and (4) with a Gaussian distribution:
@@ -180,10 +244,8 @@ To derive a learning algorithm let us use the squared loss as before, and learn 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.3\textwidth]{chapters/intro.regression/figures/regression_noiseless_intuition.png}
-	\caption{\textbf{Probabilistic Model:} ..........} %TODO - image and caption
+	\caption{\textbf{Probabilistic Model:} \todo{add caption}} %TODO - image and caption
 \end{figure}
-
-%TODO - Projection matrices
 
 
 \subsubsection{Maximum Likelihood Equivalence}
@@ -213,9 +275,18 @@ $$
 $$
 
 we conclude that the MLE (assuming Gaussian noise) is just the OLS estimator we obtained using the ERM principle over the squared loss. %TODO - link to equation
+
+\subsubsection{Model Interpretation}
+\todo{Begin with simple OLS. change in x -> expected (!) change in y}
+\todo{Interpretation in multivariate OLS}
+\todo{What can we learn from sign and scale of coefficients - and in general that scale of data matters}
+
 \subsection{Weighted Least Squares}
+\todo{Write subsection}
 \subsection{Geometric Interpretation}
+\todo{Show geometric interpretation and solution via projection matrices}
 \subsection{Categorical Variables}
+\todo {Write sub-section about categorical variables}
 
 
 \section{Beyond Linearity}
@@ -253,14 +324,17 @@ $$
 
 Since we assume that the $x_i$'s are different from one another, the design matrix $\X$ is of full rank. This means that solving this linear (in $\w$) system of equations can be done as we have seen for the non-singular case above.
 
-%TODO - bias variance?
+\todo{bias variance?}
 
 \subsection{Poisson Regression}
+\todo{Add subsection - second round of writing}
 \section{Summary}
 \subsection{Exercises}
 \begin{enumerate}
 	\item Let $A$ be a real $n\times m$ matrix. Show that the null space of $A$ and $A^\top A$ is the same. That is: $Ker\left(A\right)=Ker\left(A^\top A\right)$.
 	\item Let $A$ be a real $n\times m$ matrix. If the columns of $A$ are independent then $A^\top A$ is a positive definite matrix.
+	\item Let $\X$ be a design matrix of a linear regression problem such that $\X^\top\X$ is invertible. Show that ${\X^\dagger}^\top=\left(\X^\top\X\right)^{-1}\X$.
 \end{enumerate}
+\todo{add questions from assignments}
 \subsection{Lab: Linear Regression}
 \subsection{Lab: Polynomial Fitting}
