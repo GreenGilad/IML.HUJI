@@ -1,4 +1,6 @@
 \chapter{Classification}
+\todo{add part of "how to read chapter" - where we say that for each classifier think: what is the learning principle, complexity, how to train and store, how to predict, is it interpretable?...}
+
 \section{Classification Overview}
 In the previous chapter we discussed learning a regression problem where the response was a continues value $\Yc=\R$. When the response set $\Yc$ is a finite set, this is a \textbf{classification} problem. We distinguish between classification problems where $\left|\Yc\right|=2$ (such as $\Yc=\left\{\pm 1\right\}$ or $\Yc=\left\{0,1\right\}$) and multi-classification problems where $\Yc=\left\{1,\ldots,k\right\}$. In the binary classification problem (or just "classification"), we provide a "yes"/"no" prediction. In a multi-class classification, we predict one of $k>2$ classes. For most, we restrict out discussion only to binary classification problems, though all methods below can be generalized to $k$ classes. Also, we will only deal with the Euclidean sample space $\Xc=\R^d$, namely, each sample has $d$ \textbf{features}. Therefore out setup is as follows: $ \Xc=\R^d,\Yc=\left\{\pm 1\right\} $
 
@@ -84,14 +86,54 @@ Using these four basic groups we can devise more domain-specific measurements. D
 
 There are many more measurements that can be defined from the four basic ones presented with different fields using different measurements. In Computer Science we often encounter the TPR and FPR for reasons described below.
 
+\subsection{Decision Boundaries}
+Let $h$ be a binary classification rule in $\R^d$. (Suppose, for example, that we used a training sample to select $h$ from some hypothesis class $\Hc$). We can feed any point $\x\in\R^d$ into $h$ and get one of two classes. This means that we can view $\R^d$ as disjoint union of two sets:
+$$
+\R^d = \left\{ \x|h(\x=1 \right\} \biguplus \left\{
+\x|h(\x=0 \right\}  
+$$
+These sets can be very simple (two half-spaces) or very complicated. The boundary between these two sets is called the \textbf{decision boundary}: a test sample on one side of the boundary will be classified to one class by $h$, and a test sample on the other side of the boundary will be classified to the other class. 
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=2in]{chapters/classification/figures/boundry1.png}
+	\includegraphics[width=2in]{chapters/classification/figures/boundry2.png}
+	\caption{\textbf{Decision Boundaries} of a $\left(A\right)$ linear classifier and a $\left(B\right)$ $k$-nearest neighbors classifier}
+\end{figure}
+
 \subsection{ROC Curve}
 As we will encounter later in this chapter, in many classification scenarios we face the following question: Suppose we trained some classifier $h\in \Hc$ and derive classifications by the following rule: for some cutoff value $\alpha \in \left[0,1\right]$ $$\widehat{y}\coloneqq\begin{cases}
 1 & h\left(\x\right)>\alpha\\
 0 & h\left(\x\right)\leq\alpha
 \end{cases}$$
-How do we choose $\alpha$? There is an important \textbf{tradeoff} in the selection of $\alpha$. If we set $\alpha$ to be very high we are mainly going to predict $0$. By doing so we are \textbf{less} likely to have false-positives (which is the error we try to avoid at all cost), for which we are pleased. However, at the same time, we are \text{bf} more likely to gave false-negatives. So by setting $\alpha$ too high we might have low a FPR but "miss" (misclassify) most of the positive samples. On the other extreme, if we set $\alpha$ to be very low we are mainly going to predict $1$. So we will be \textbf{more} likely to have false-positives, but at the same time will be \textbf{less} likely to have false-negatives. So if we set $\alpha$ too low, we might have a high FPR but "catch" (correctly classify) most of the positive samples.Therefore, we see that changing $\alpha\in\left[0,1\right]$ governs some trade-off between the chances of making a Type-I error (false-positives) and correctly classifying positive samples.
+How do we choose $\alpha$? There is an important \textbf{tradeoff} in the selection of $\alpha$. If we set $\alpha$ to be very high we are mainly going to predict $0$. By doing so we are \textbf{less} likely to have false-positives (which is the error we try to avoid at all cost), for which we are pleased. However, at the same time, we are \text{bf} more likely to gave false-negatives. So by setting $\alpha$ too high we might have low a FPR but "miss" (misclassify) most of the positive samples. On the other extreme, if we set $\alpha$ to be very low we are mainly going to predict $1$. So we will be \textbf{more} likely to have false-positives, but at the same time will be \textbf{less} likely to have false-negatives. So if we set $\alpha$ too low, we might have a high FPR but "catch" (correctly classify) most of the positive samples. Therefore, we see that changing $\alpha\in\left[0,1\right]$ governs some trade-off between the chances of making a Type-I error (false-positives) and correctly classifying positive samples.
+\\~\\
+This trade-off was first studied during World War II, when radar was invented. The designer of the radar had to choose when to put a green dot on the radar, indicating a target detected there. Sometime radar waves would bounce off back from clouds or birds, and the designer had to choose a \textbf{threshold} $\alpha$. If the radar pulse returning is stronger than $\alpha$, the radar screen would show a green dot. If weaker than $\alpha$, no dot. Now, if $\alpha$ is set too low (say $\alpha=0.1$), the screen would be full of a thousand green dots - since any bird or cloud (with, say, $h(\x=0.2$) would be classified as \textbf{positive}, a target. So that the radar will be full of false positives, false targets, and will be useless. On the other hand, if $\alpha$ is set too high (say $\alpha=0.9$) then enemy airplanes  (with, say, $h(\x=0.8$) will not appear on the screen, since they will be classified by mistake as birds, and the radar again would be useless. 
 
-\todo{Radar example for ROC}\\ \todo{Finish ROC section}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1.7in]{chapters/classification/figures/radar.jpg}
+	\caption{\todo{Change to caricature of planes dressed up as birds/clounds - and a confused radar}}
+\end{figure}
+
+The radar engineers developed a way to visualize this tradeoff, which is still used today in machine learning. After training some linear model (choosing some hypothesis $h\in\Hc$) we make a grid of values of $\alpha\in\left[0,1\right]$. For each value of $\alpha$ we create a classifier by thresholding  $h$ at $\alpha$, and calculate the number of  Type-I and Type-II errors the classifier makes over a test sample that was not used for training.  We plot a parametric curve of TPR (true positive rate) against FPR (false positive rate) when $\alpha$ is the parameter. This curve is called the \textbf{Receiver Operating Characteristic (ROC)} curve. It is continuous, increasing and goes from $(0,0)$ in the FPR-TPR plane (for $\alpha=0$ we classify everything as negative, so no false positives and not true positives) to $(1,1)$ (for $\alpha=1$ we classify everything as positive, so false positive rate is $1$ - we make every possible Type-I error - and also true positive rate is $1$ - we ``catch`` all the positive samples).
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=2in]{chapters/classification/figures/roc.png}
+	\caption{\todo{Create own graph + caption}}
+\end{figure}
+
+Convince yourself that if the ROC curve is a linear line from $(0,0)$ to $(1,1)$, the classifier is just a random guess. If a classifier has an ROC curve that is closed to this linear line, it's a poor classifier. Now convince yourself that if the ROC curve rises sharply from $(0,0)$, for example makes a ``jump'' to $(FPR=0.1, TPR=0.9)$, it's a good classifier - we are able to correctly detect $0.9$ of the positive samples at the price of $0.1$ false positive rate. 
+\\~\\
+Plotting the ROC curve of a classifier has a few different uses:
+\begin{itemize}
+\item \textbf{Tuning $\alpha$:} It allows us to see the tradeoff, provided by the classifier, between Type-I errors and correct detection of positive samples, so we can choose the tuning of $\alpha$ we would like to work with for the actual prediction.
+\item \textbf{AUC - Area Under Curve:} A performance measure for the tradeoff itself. This performance measure evaluates the prediction rule $h$ we chose without having to decide on $\alpha$ - it measures the quality of the \textbf{tradeoff} provided by $h$, a tradeoff from which we must choose a specific point in order to actually classify new samples. AUC is simply the \textbf{definite integral} of the ROC curve on the segment $[0,1]$ - the area under the AUC curve. As mentioned above, AUC around $1/2$ means that $h$ is poor - more specifically, that the \textbf{tradeoff} provided by $h$ is poor. AUC is bounded from above by $1$, so an AUC close to $1$ means $h$ offers an excellent trade-off, and in this case we expect to be able to find a cutoff $\alpha$ that gives a classifier with very few false-positives and very high detection rate (true positive rate).
+\item \textbf{Comparing candidate rules:} Suppose we have a couple of candidate rules $h_1,h_2$ (or more). For example, maybe we trained some classifier on the same training sample with different features, or maybe we trained two different types of classifiers over the same data, and we are wondering which one to use. Now we have a problem - we can't turn $h_i$ into an actual classification rule without choosing a cutoff $\alpha_i$, but would like to compare $h_1$ to $h_2$ without committing to a cutoff - to compare the tradeoff offered by $h_1$ to that offered by $h_2$. It is very useful here to plot the two ROC curves of $h_1$ and $h_2$ on a single axis - and visually compare the tradeoffs they offer. 
+\end{itemize}
+
 
 
 \section{Half-Space Classifier}
@@ -119,7 +161,7 @@ these sets correspond to the open half spaces on either side of the hyperplane $
 \end{figure}
 
 The case where $b=0$ is called the \textbf{homogeneous} case, as the hyperplane $\w^\perp$ is a linear subspace going through the origin. When $b\neq 0$ the hyperplane does not go through the origin and is called the non-homogeneous case. Recall that we have seen how we could transition from the non-homogeneous to the homogeneous case in the linear regression chapter.
-
+\\~\\
 Given a sample \trainset, we would like to find an hypothesis $h_{\w,b}\in\Hc_{half}$ such that all data points in $S$ that are labeled $1$ are on the one side of the hyper-plane and all those labeled $-1$ are on the other side. To find such an hypothesis we must first make the assumption that the dataset is \textbf{linearly separable}. That is, there exists a hyper-plane such that samples of opposing labels are on opposite sides. Mathematically we assume that $$ \exists \w\in\R^d,b\in\R\quad s.t\quad \forall i\in\left[m\right] \quad y_i\cdot sign \left(\inprod{\x}{\w} + b\right)=1$$
 
 or equivalently since the inner product will be negative for all samples with $y_i<0$ and positive for all samples with $y_i>0$:
@@ -137,9 +179,7 @@ Once we realize what learning principle we want to apply, we need to find a comp
 
 As we are assuming the given sample is linearly separable (realazibility), there exists a vector $\w_0\in\R^d$ such that $ y_i\cdot\inprod{\x}{\w_0}>0\quad i=1,\ldots,m $. This implies that there also exists a (different) vector $\w_1\in\R^d$ such that $ y_i\cdot\inprod{\x}{\w_01}\geq 1 \quad i=1,\ldots,m $ as we can simply normalize $\w_0$ by the smallest product: $$ \w_1 \coloneqq \frac{1}{min_i\left\{y_i\cdot \inprod{\x}{\w_0}\right\}}\cdot \w_0 $$
 
-Thus, it is enough to search for a vector $\w$ that satisfies $\forall\, i\in\left[m\right]\quad y_i\cdot sign\left(\inprod{\x}{\w}\right)\geq 1$. This is a problem of finding a vector that satisfies $m$ linear constraints, and can be solved using generic linear programming solvers.
-
-We are interested in solving:
+Thus, it is enough to search for a vector $\w$ that satisfies $\forall\, i\in\left[m\right]\quad y_i\cdot sign\left(\inprod{\x}{\w}\right)\geq 1$. This is a problem of finding a vector that satisfies $m$ linear constraints, and can be solved using generic linear programming solvers. We are interested in solving:
 \begin{equation}
 $$
 \begin{array}{ccc}
@@ -170,7 +210,7 @@ Returning to the same hypothesis class of non-homogeneous separating half-spaces
 	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $u\in\R^d$. Define the distance between $\left(\w,b\right)$ and $u$ by: $$ d\left(\left(\w,b\right),u\right)\coloneqq \underset{v:\inprod{v}{w}+b=0}{min}\left|\left|u-v\right|\right| $$ (namely, the Euclidean distance between $u$ and the closest point on the hyperplane)
 \end{definition}
 
-\begin{definition}[Margin]
+\begin{definition}[Margin]\label{def:margin}
 	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $S=u_1,\ldots,u_m\in\R^d$ a set of points. The \textbf{margin} of $\left(\w,b\right)$ and $S$ is the smallest distance between the hyperplane and any point: $$ M\left(\left(\w,b\right),S\right) \coloneqq \underset{i\in\left[m\right]}{min}\,\, d\left(\left(\w,b\right),u_i\right) $$
 \end{definition}
 
@@ -178,21 +218,155 @@ So, the new learning principle is: choose $h_{\w,b}\in\Hc_{SVM}$ that has the \t
 
 \subsection{Hard-SVM}
 Let's start with the \textbf{realizable case}. To implement our learning principle of maximal margin, we need to search, among all the hyperplane separating $S$, for the hyperplane with maximum margin. Namely, the hypothesis $h_{\w,b} \in \Hc_{SVM}$ our learner will choose is the solution to the following optimization problem:
-\begin{eqnarray*}
-	& \text{maximize}   &  M( (\w,b) , S) \\
-	& \text{subject to} &  y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1  \qquad
-	i=1,\ldots,m
-\end{eqnarray*}
-The optimization variables are $\w\in\R^d,b\in\R$. Comparing with the linear program of half-spaces (\ref{eqn:half_space_opt}) we see that the constraints are kept, which ensure the hyperplane chosen separates the training sample, but instead of a trivial objective, we seek to minimize the margin (We don't worry about ``maximize'' instead of ``minimize'' as we can just multiply the objective by $-1$).
+\begin{equation}
+$$
+\begin{array}{ccc}
+maximize & M( (\w,b) , S) & \\
+subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
+\end{array}
+$$
+\label{eqn:hard_svm_opt}
+\end{equation}
+The optimization variables are $\w\in\R^d,b\in\R$. Comparing with the linear program of half-spaces (\ref{eqn:half_space_opt}) we see that the constraints are kept, which ensure the hyperplane chosen separates the training sample, but instead of a trivial objective, we seek to minimize the margin (We don't worry about ``maximize`` instead of ``minimize`` as we can just multiply the objective by $-1$). 
 
-\todo{Add introduction to convex optimization}
+\subsubsection{Convex Optimization}
+The Hard-SVM optimization problem \ref{eqn:hard_svm_opt} (and many other problems we will encounter throughout the course) is part of a wide family of \textbf{convex optimization problems}.
+
+\begin{definition}[Optimization Problem]
+An optimization problem over $\R^d$ has the general form:
+\begin{equation*}
+$$
+\begin{array}{ccc}
+minimize & f_0\left(\x\right) & \\
+subject \, to & f_i\left(\x\right)\leq b_i & i=1,\ldots,n\\
+\end{array}
+$$
+\end{equation*}
+where $\x$ is the optimization variable, $f_0:\R^d\rightarrow\R$ is the objective function and $f_i:\R^d\rightarrow\R$ are the constraint functions. It is implicitly implied that the optimization problem happens over $dom\left(f_0\right)\subset\R^d$, the domain of $f_0$.
+\end{definition}
+
+\begin{definition}[Convex Set]
+Let $S$ be a vector space over the field of $\R$. A subset of $S$, $C\subseteq S$ is convex if and only if $\forall \vv{v},\vv{u}\in C $ the line connecting $\vv{v}$ and $\vv{u}$ is included in $C$. Equivenantly it means that $\forall \alpha\in\left[0,1\right]$ it holds that the convex combination $\left(1-\alpha\right)\vv{v}+ \alpha\vv{u}$ is included in $C$.
+\end{definition}
+
+\begin{definition}[Convex Function]
+A function $f:\R^d\rightarrow\R$ is a convex function of $dom\left(f\right)$ is a convext set in $\R^d$, namely: $$ \forall\alpha,\beta\in\R\,\,\forall\vv{v},\vv{u}\in dom\left(f\right)\quad f\left(\alpha\vv{v}+\beta\vv{u}\right) \leq \alpha f\left(\vv{v}\right) + \beta f\left(\vv{u}\right)$$
+\end{definition}
+
+Then, naturally, a convex optimization problem is an optimization problem as above in which $f_0,f_1,\ldots,f_n$ are all convex functions. When these functions are all linear, this is a linear programming problem (as for example in \ref{eqn:half_space_opt}).
+
+\begin{definition}[Quadratic Program]
+An optimization problem is called a Quadratic Program (QP) if it can be written in the following form:
+$$
+\begin{array}{ccc}
+\underset{\w\in\R^n}{min} & \frac{1}{2}\w^\perp Q\w + \vv{a}^\perp\w & \\
+such\,that & A\w \leq \vv{d} \\
+\end{array}
+$$
+where $Q\in\R^{n\times n}, A\in\R^{m\times n},\vv{a}\in\R^n,\vv{d}\in\R^m$ are fixed vectors and matrices.
+\end{definition}
+
+In general, optimization problems are hard to solve computationally. We take special interest in \textbf{convex optimization} problems since there have a unique solution, and that solution can be found in  computationally tractable ways. A great deal is known about \textbf{convex optimization algorithms}, which are iterative numerical algorithms that converge to the solution of a convex optimization problem. There are general solvers, which will solve a convex problem in the general form above, and there are specialized solvers for specific types, or families, of convex optimization problems. A specialized solver is typically preferred, as it leverages some particular structure of the problem to solve it more efficiently, using less space, etc. One example for specialized solvers you've seen in Algorithms course are specialized solvers for linear programs.
+\\~\\
+Why is convex optimization interesting for machine learning? In supervised learning, we would like to choose a hypothesis $h\in\Hc$ from our selected hypothesis class, based on some learning principle (such as ERM). Many learning principles are formulated as optimization problems, namely, the $h$ our learning algorithm chooses is given as the minimizer of some quantity (such as empirical risk). So implementation of the learning algorithm needs to solve an optimization problem. 
+\\~\\
+Sometimes, our hypothesis class is equivalent to a Euclidean space (for example, in linear regression we saw that linear functions are determined by the weight vector and an intercept, so the hypothesis class of linear functions was equivalent to the Euclidean space $\R^{d+1}$, and we've just seen the same happens for the hypothesis class of half-space classifiers). When this happens, our learning principle reduces to solving an optimization problem, namely, the hypothesis we choose $h\in\Hc$ is found as a minimum over $\R^d$ or a subset of $\R^d$ of some objective function, usually a loss function. When this objective is convex, we can use convex optimization algorithms to implement our learning algorithm efficiently. In \autoref{chap:conv_opt} we dive deeper into theory and algorithms of convex optimization.
+
+\subsubsection{Solving Hard-SVM}
+So is the Hard-SVM a convex optimization problem? Recall, that by our optimization problem \ref{eqn:hard_svm_opt}, we are searching of a separating hyperplane that maximizes the margin from all points. As for any $c>0$ it holds that $\left(\w,b\right)=\left(c\w,cb\right)$ we can w.l.o.g constraint ourselfs to $\norm{\w}=1$. This way, each hyperlane has a unique vector $\w$ that corresponds to it.
+
+\begin{definition}
+Let $\x\in\R^d$ and $B\subseteq\R^d$. The distance from $\x$ to $B$ is: $$\underset{\vv{v}\in B}{inf} \norm{\x-\vv{v}}^2 $$
+\end{definition}
 
 \begin{exercise}
-	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane where $\left|\left|w\right|\right|=1$ and $\x\in\R^d$ then $ d\left(\left(\w,b\right),\x\right)=\left|\inprod{\w}{\x}+b\right| $
+Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane where $\left|\left|w\right|\right|=1$ and $\x\in\R^d$ then the distance between $\x$ and the hyperplane $\left(\w,b\right)$ is $\left|\inprod{\w}{\x}+b\right|$.
 \end{exercise}
 \begin{proof}
-	\todo{UML page 203, claim 15.1}
+To solve this we begin with defining some point in the hyperplane, calculate it's distance from $\x$ and then showing minimality. Let $\vv{v}\coloneqq\x-\left(\inprod{\w}{\x}+b\right)\cdot\w$. This point $\vv{v}$ is indeed in the hyperplane: 
+$$
+\begin{array}{ccl}
+\inprod{\w}{\vv{v}}+b & = & \inprod{\w}{\x-\left(\inprod{\w}{\x}+b\right)\cdot\w}+b\\
+& = & \inprod{\w}{\x}-\left(\inprod{\w}{\x}+b\right)\norm{\w}^{2}+b\\
+& = & \inprod{\w}{\x}-\inprod{\w}{\x}-b+b=0
+\end{array}
+$$
+with a distance from $x$  of: $$ \norm{\x-\vv{v}}=\left|\inprod{\w}{\x}+b\right|\cdot\norm{\w} = \left|\inprod{\w}{\x}+b\right|$$ 
+Lastly, let us conclude that such $\vv{v}$ is the closest point in the hyperplane to $\x$. Let $\vv{u}$ be some point in the hyperplane, then:
+$$
+\begin{array}{ccl}
+\norm{\x-\vv{u}}^{2} & = & \norm{\x-\vv{v}+\vv{v}-\vv{u}}^{2}\\
+& = & \norm{\x-\vv{v}}^{2}+\norm{\vv{v}-\vv{u}}^{2}+2\inprod{\x-\vv{v}}{\vv{v}-\vv{u}}\\
+& \geq & \norm{\x-\vv{v}}^{2}+2\inprod{\x-\vv{v}}{\vv{v}-\vv{u}}\\
+& = & \norm{\x-\vv{v}}^{2}+2\inprod{\left(\inprod{\w}{\x}+b\right)\w}{\vv{v}-\vv{u}}\\
+& = & \norm{\x-\vv{v}}^{2}+2\left(\inprod{\w}{\x}+b\right)\inprod{\w}{\vv{v}-\vv{u}}\\
+& = & \norm{\x-\vv{v}}^{2}+2\left(\inprod{\w}{\x}+b\right)\left(\inprod{\w}{\vv{v}}-\inprod{\w}{\vv{u}}\right)\\
+& = & \norm{\x-\vv{v}}^{2}
+\end{array}
+$$
 \end{proof}
+
+
+So, as the margin \ref{def:margin} between a given hyperplane $\left(\w,b\right)$ and a set of points $S$ is the minimal distance between the hyperplane and any point in the set, we derive that our optimization problem is infact of the form:
+\begin{equation}
+$$
+\begin{array}{ccc}
+\underset{\norm{\w}=1,b}{argmax} & \underset{i\in\left[m\right]}{min}\,\left|\inprod{\w}{\x_i}+b\right| & \\
+subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
+\end{array}
+\label{eqn:hard_svm_opt2}
+$$
+\end{equation}
+
+While the constraints enforce $\w$ to define a separating hyperplane, the objective will make us choose a separating hyperplane with the maximal margin. To solve this problem numerically, we will need to perform a slight manipulation and write it in a different form.
+
+\begin{claim}
+Let $\left(\vv{v}^*,c^*\right)$ be an optimal solution of:
+\begin{equation}
+$$
+\begin{array}{ccc}
+\underset{\left(\w,b\right)}{argmin} & \norm{\w}^2 & \\
+subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
+\end{array}
+\label{eqn:hard_svm_opt3}
+$$
+\end{equation}
+Then, $\w^*\coloneqq\gamma\vv{v}^*,b^*\coloneqq\gamma c^*$ for $\gamma=\norm{\vv{v}^*}^{-1}$ is an optimal solution for \ref{eqn:hard_svm_opt2}.
+\end{claim}
+\begin{proof}
+Let us begin with simplifying Equation \ref{eqn:hard_svm_opt2}. Consider a \textit{feasible} solution $\w$ to the problem (that is, statisfies all constraints). It holds that $\left|\inprod{\w}{\x_i}+b\right|=y_i\left(\inprod{\w}{\x_i}+b\right)$. Hence, we can rewrite Equation \ref{eqn:hard_svm_opt2} as:
+$$
+\begin{array}{ccc}
+\underset{\norm{\w}=1,b}{argmax} & \underset{i\in\left[m\right]}{min}\,y_i\left(\inprod{\w}{\x_i}+b\right) & \\
+subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
+\end{array}
+\label{eqn:hard_svm_opt2}
+$$
+\end{proof}
+Now, it is clear that the constraints are redundant. If $\w$ is infeasible then $min_i\,y_i\left(\inprod{\w}{\x_i}+b\right)< 0$, achieving a lower objective than any feasible solution. Therefore, we can re-write the problem as:
+$$ \underset{\norm{\w}=1,b}{argmax} \quad \underset{i\in\left[m\right]}{min}\,y_i\left(\inprod{\w}{\x_i}+b\right)\quad\left(\mathbf{*}\right) $$
+Next, let us examine Equation \ref{eqn:hard_svm_opt3}. Notice that an optimal solution $\vv{v}^*,c^*$ will always satisfy: $$\underset{i\in\left[m\right]}{min}\,y_i\left(\inprod{\vv{v}^*}{\x_i}+c^*\right)=1$$
+Otherwise, we can divide $\vv{v}^*$ by a positive number and get a feasible solution with a lower objective. As scalar multiplication does not change the hyperplane denote $\gamma=\norm{\vv{v}^*}^{-1}$ and let $\w^*\coloneqq\gamma\vv{v}^*, b^*\coloneqq\gamma c^*$. Since $\left(\vv{v}^*,c^*\right)$ is a is the optimal solution of \ref{eqn:hard_svm_opt3} it must satisfy all constraints and is therefore a feasible solution for  $\left(\mathbf{*}\right)$ with an objective: $$\underset{i}{min}\, y_i\left(\inprod{\w^*}{\x_i}+b^*\right) = \underset{i}{min}\, y_i\left(\inprod{\gamma \vv{v}^*}{\x_i}+\gamma c^*\right) = \gamma$$
+
+Assume towards contradiction that there is a solution $\left(\w_2,b_2\right)\neq \left(\w^*,b^*\right)$ achieving a higher objective: $$\underset{i}{min}\, y_i\left(\inprod{\gamma \w_2^*}{\x_i}+\gamma b_2^*\right) = \delta > \gamma$$
+
+But then $\left(\w_2/\delta, b_2/\delta\right)$ is a feasible solution for \ref{eqn:hard_svm_opt3} which $\norm{\w_2/\delta}=\delta^{-1} < \gamma^{-1}$ contradicting optimality of $\left(\vv{v}^*,c^*\right)$.
+\\~\\
+This means in fact that maximizing the margin is equivalent to minimizing the size of the hyperplane. The optimization problem written in \ref{eqn:hard_svm_opt3} is a quadratic program for which there exist efficient solves. By using them to solve problem \ref{eqn:hard_svm_opt3} we can obtain an optimal solution for the Hard-SVM optimization problem.
+
+\begin{remark}
+	But so how is it that minimizing $\norm{\w}^2$ is equivalent to maximizing the margin? Let us denote the width of the total margin (i.e. the sum of margin from both sides) by $l$, and let $x_{+}$ and $x_{-}$ be the positive- and negative support vectors . To calculate the value of $l$ we will project the vector $x_{+} - x_{-}$ onto the normalized normal $\w$: 
+	$$
+	\begin{array}{ccl}
+	l& = & \inprod{x_{+} - x_{-}}{\frac{\w}{\norm{\w}}}\\
+		& = & \left(\inprod{x_{+}}{\w}-\inprod{x_{-}}{\w}\right)\frac{1}{\norm{\w}}\\
+		& = & \left(1-b-\left(1-b\right)\right)\frac{1}{\norm{\w}}\\
+		& = & \frac{2}{\norm{\w}}
+	\end{array}
+	$$
+	where support vectors satisfy $y_i\left(\inprod{\w}{\x_i}+b\right)$ and that for positive samples $y_i=1$ and negative samples $y_i=-1$. This shows how minimizing $\norm{\w}$ maximizes $l$.
+	\end{remark}
+
 
 \subsection{Soft-SVM}
 \todo{Finish from lecture and recitation handouts}
@@ -380,3 +554,10 @@ Let us revisit linear regression with Gaussian errors. We assumed the model $y=f
 \subsection{Interpretability}
 
 \subsection{Lab: Logistic Regression} 
+
+
+\section{Summary}
+\subsection{Exercises}
+\begin{enumerate}
+	\item Prove that optimization problem \ref{eqn:hard_svm_opt3} is a Quadratic Program.
+\end{enumerate}
