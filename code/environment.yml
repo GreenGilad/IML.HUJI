@@ -1,8 +1,10 @@
 name: iml.env
 channels:
   - plotly
+  - conda-forge
   - defaults
 dependencies:
+  - ansi2html=1.5.2=py37hc8dfbb8_1
   - argon2-cffi=20.1.0=py37he774522_1
   - async_generator=1.10=py37h28b3542_0
   - attrs=20.2.0=py_0
@@ -10,15 +12,23 @@ dependencies:
   - blas=1.0=mkl
   - bleach=3.2.1=py_0
   - brotlipy=0.7.0=py37he774522_1000
-  - ca-certificates=2020.7.22=0
-  - certifi=2020.6.20=py37_0
+  - ca-certificates=2020.6.20=hecda079_0
+  - certifi=2020.6.20=py37hc8dfbb8_0
   - cffi=1.14.3=py37h7a1dbc1_0
   - chardet=3.0.4=py37_1003
+  - click=7.1.2=py_0
   - colorama=0.4.3=py_0
   - cryptography=3.1.1=py37h7a1dbc1_0
+  - dash=1.16.2=py_0
+  - dash-core-components=1.3.1=py_0
+  - dash-html-components=1.0.1=py_0
+  - dash-renderer=1.1.2=py_0
   - decorator=4.4.2=py_0
   - defusedxml=0.6.0=py_0
   - entrypoints=0.3=py37_0
+  - flask=1.1.2=py_0
+  - flask-compress=1.5.0=py_0
+  - future=0.18.2=py37_1
   - icc_rt=2019.0.0=h0cc432a_1
   - icu=58.2=ha925a31_3
   - idna=2.10=py_0
@@ -29,12 +39,14 @@ dependencies:
   - ipython=7.18.1=py37h5ca1d4c_0
   - ipython_genutils=0.2.0=py37_0
   - ipywidgets=7.5.1=py_0
+  - itsdangerous=1.1.0=py37_0
   - jedi=0.17.2=py37_0
   - jinja2=2.11.2=py_0
   - joblib=0.16.0=py_0
   - jpeg=9b=hb83a4c4_2
   - jsonschema=3.2.0=py37_1
   - jupyter=1.0.0=py37_7
+  - jupyter-dash=0.3.0=py_0
   - jupyter_client=6.1.6=py_0
   - jupyter_console=6.2.0=py_0
   - jupyter_core=4.6.3=py37_0
@@ -83,9 +95,11 @@ dependencies:
   - pysocks=1.7.1=py37_1
   - python=3.7.9=h60c2a47_0
   - python-dateutil=2.8.1=py_0
+  - python_abi=3.7=1_cp37m
   - pytz=2020.1=py_0
   - pywin32=227=py37he774522_1
   - pywinpty=0.5.7=py37_0
+  - pyyaml=5.3.1=py37he774522_1
   - pyzmq=19.0.2=py37ha925a31_1
   - qt=5.9.7=vc14h73c81de_0
   - qtconsole=4.7.7=py_0
@@ -109,13 +123,33 @@ dependencies:
   - vs2015_runtime=14.16.27012=hf0eaf9b_3
   - wcwidth=0.2.5=py_0
   - webencodings=0.5.1=py37_1
+  - werkzeug=1.0.1=py_0
   - wheel=0.35.1=py_0
   - widgetsnbextension=3.5.1=py37_0
   - win_inet_pton=1.1.0=py37_0
   - wincertstore=0.2=py37_0
   - winpty=0.4.3=4
+  - yaml=0.2.5=he774522_0
   - zeromq=4.3.2=ha925a31_3
   - zipp=3.1.0=py_0
   - zlib=1.2.11=h62dcd97_4
+  - pip:
+    - aiohttp==3.6.2
+    - asgiref==3.2.10
+    - async-timeout==3.0.1
+    - beautifulsoup4==4.9.2
+    - brotli==1.0.9
+    - dash-table==4.10.1
+    - django==3.1.1
+    - django-bootstrap4==2.2.0
+    - django-plotly-dash==1.4.2
+    - dpd-components==0.1.0
+    - dpd-static-support==0.0.5
+    - multidict==4.7.6
+    - nbserverproxy==0.8.8
+    - soupsieve==2.0.1
+    - sqlparse==0.3.1
+    - typing-extensions==3.7.4.3
+    - yarl==1.6.0
 prefix: C:\Users\gilad\anaconda3\envs\iml.env
 
