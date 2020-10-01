@@ -1,16 +1,167 @@
 \chapter{Regularization, Model Selection and Model Evaluation}
-    \section{Regularization}
-        \subsection{Best Subset Selection}
-        \subsection{$L_q$ Nrom Regularizes}
-            \subsection{Ridge Regularization}
-            \subsection{Convexity vs. Sparsity}
-            \subsection{Lasso Regularization}
-        \subsection{Lab: Regularized Logistic Regression}
-    
-    \section{Model Selection and -Evaluation}
-        \subsection{Cross Validation}
-        \subsection{Bootstrap}
-        \subsection{Common Model Selection Mistakes}
-            \subsubsection{Over-estimating Generalization Error}
-            \subsubsection{Under-estimating Generalization Error}
-    \subsection{Lab: Selecting Regularized Model}
+\section{Regularization}\label{chap:regularization}
+
+Throughout the course we have discusses multiple hypothesis classes and learners for choosing an hypothesis $h_s\in\Hc$ from a given hypothesis class $\Hc$. In most of these cases choosing $h_S$ was based on minimizing some cost function $\Fc_S\left(h\right)$ over $h\in\Hc$. This means that $h_S\coloneqq\Ac_0\left(S\right)$ is given by: $$ h_S\coloneqq\underset{h\in\Hc}{argmin} \Fc_S\left(h\right) $$
+
+The function $\Fc$ measures how well $h$ fits the training sample $S$. We can call $\Fc_S\left(h\right)$ the \textbf{fidelity term}. We have seen a few examples for such learners already:
+\begin{itemize}
+	\item In linear regression, $\Fc_S\left(h\right)$ measures the \textbf{RSS}.
+	\item In logistic regression, $-\Fc_S\left(h\right)$ is the \textbf{likelihood} of the model (which we want to maximize).
+	\item In SVM, $-\Fc_S\left(h\right)$ is the \textbf{margin} of the hyperplane (which we want to maximize).
+\end{itemize}
+~\\
+With the simplest example for learners that minimize a cost function are of course the \textbf{ERM} learners. In any ERM based learner, we define some loss function $\ell\left(\cdot,\cdot\right)$ and define the empirical risk induced by $\ell$, with respect to the training sample $\trainset$ to be: $$ L_S\left(h\right)=\frac{1}{m}\sum^m_{i=1}\ell\left(h\left(\x_i\right),y_i\right) $$
+For all of these the fidelity term $\Fc_S\left(h\right)$ is the empirical risl $L_S\left(h\right)$. ~\\
+
+For the different hypothesis classes we have also discussed how their richness and expressiveness governs the bias-variance tradeoff. If the hypothesis class $\Hc$ is ``too large``, we are concerned that minimizing $\Fc$ over $\Hc$ may lead to over-fitting. Namely, we are concerned our learner will output an hypothesis $h_S$ which will not generalize well, as it is too well adapted to the particular training sample $S$.~\\
+
+One way to solve this problem would be to restrict $\Hc$. However, in such a case we are deliberately harming our performance. Instead, we would like to keep $\Hc$ large, but find a way to tell our learner $\Ac_0$ ``Prefer simpler hypotheses but if you find a complex one that is \textit{really} worth it - take it``. To achieve this, we change the optimization problem that $\Ac_0$ uses to choose $h_S$. We introduce an additional term to the problem. We choose $\lambda\geq 0$ and define the learner $\Ac_\lambda:S\mapsto\Hc$ by: $$ h_S\coloneqq \underset{h\in\Hc}{argmin}\, \Fc_S\left(h\right)+\lambda\Rc\left(h\right) $$
+The term $\Rc$ is called the \textbf{regularization term}. If choosing $\Rc$ wisely then $\Rc\left(h\right)$ will measure the ``complexity`` of the hypothesis $h$. The more complicated the hypothesis $h$, the larger $\Rc\left(h\right)$ will be.
+
+
+So we see that in minimizing $ \Fc_S\left(h\right)+ \lambda \Rc\left(h\right)$ we now have a \textbf{trade-off}:
+\begin{itemize}
+	\item On one hand, more complicated $h$, the better it can describe the training sample $S$, so the fidelity term $\Fc_S\left(h\right)$ will be smaller.
+	\item On the other hand, the more complicated $h$, the larger $\Rc\left(h\right)$ will	be. 
+\end{itemize}
+~\\
+And conversely, the simpler $h$, the larger the fidelity term $\Fc_S\left(h\right)$ (as it won't be able to describe the training sample very well) but the smaller
+$\Rc\left(h\right)$ will be. So $\lambda$ is a parameter the coverns the trade-off:
+
+\begin{itemize}
+	\item For $\lambda=0$, we have no regularization and are back to finding a minimizer of $\Fc_S\left(h\right)$.
+	\item For $\lambda \to\infty$, the minimization problem pays no attention to the fidelity term and just wants to find the simplest possible $h\in\Hc$.
+	\item Any finite value $\lambda\in(0,\infty)$ defines a specific trade-off between the need for fidelity (small $\Fc_S\left(h\right)$) and the need for simplicity
+	of $h$ (small $\Rc\left(h\right)$).
+\end{itemize}
+~\\
+So, when we add regularization to the learner $\Ac_0:S\mapsto\text{argmin}_{h\in\Hc} \Fc_S\left(h\right)$, we won't find a minimizer of $\Fc_S\left(h\right)$ over $\Hc$. We are hoping that a minimizer of the regularized objective function $\Fc_S\left(h\right)+ \lambda \Rc\left(h\right) $ (which does not minimize $\Fc_S\left(h\right)$) will generalize better. This is because, the larger the value of $\lambda$, the simpler this minimizer will be.
+\\~\\
+We therefore get a \textbf{family} of learners $\{\Ac_\lambda\}_{\lambda\in[0,\infty)}$. The regularization parameter $\lambda$ controls the bias-variance tradeoff: for
+$\lambda=0$ we get the most variance and least bias (most complicated $h$); for $\lambda\to\infty$ we get the least variance and most bias (simplest $h$).
+
+\begin{remark}
+We already saw one example for regularization - Soft SVM. Recall that the Soft-SVM classifier classifies using the half-space $\w^\perp$ where $\w$ is a solution to the optimization problem:
+\begin{eqnarray*}
+	& \text{minimize}   &  \lambda \norm{\w}^2 + \frac{1}{m}\sum_i \xi_i \\
+	& \text{subject to} & y_i \cdot \left( \inprod{\x_i}{\w} +b \right) \geq 1-\xi_i  \,\,\text{and}\,\, \xi_i\geq 0 
+\end{eqnarray*}
+Here, the fidelity term is $\norm{\w}^2$. The smaller $\norm{\w}^2$, the better we fit the training data (in the sense of larger margin). As the total margin is proportional to $1/\norm{\w}$, so that minimizing  $\norm{\w}^2$ means maximizing the margin. The regularization term is  $\frac{1}{m}\sum_i \xi_i$. The smaller this term is, the ``simpler`` the hypothesis since we allow less violations of the margin.
+~\\
+Note that here $\lambda$ is placed on the fidelity term and not on the regularization term.
+\end{remark}
+
+\todo{ Regression Trees - Add definitions to Decision Trees under classification. Add adaptation of algorithm as exercise }
+\todo { Add pruning of trees - Maybe add it under classification. Just refer to here for ideas (and teach when getting here)}
+
+\subsection{Subset Selection}
+Let us revisit linear regression and the OLS estimator. We defined the hypothesis class of linear regression \ref{eqn:lin_reg_h}: $$ \Hreg\coloneqq\left\{h: h\left(x_1,\ldots,x_d\right)=w_0+\sum^d_{i=1}x_iw_i,\,\, w_0,w_1,\ldots,w_d\in\R\right\} $$ and given a regression problem $\X, \y$, we select $h_S\in\Hreg$ by using the OLS estimator (which we have derived both as ERM for the square loss and using Maximum Likelihood assuming Gaussian noise). When doing so we assumed that the training sample size $m$ aws not smaller than the number of features $d$, and even preferred that $m\gg d$, since of $m\sim d$ the variance of the OLS estimator can be large.
+\\~\\
+However, in modern learning problems based on $d$ features, very often we are in a situation where $d$ can be quite large. Linear regression was invented when features were measured and recorded manually. In the last few decades it became very easy to collect features and record them automatically, and a typical regression problem can easily have $d\sim m$ or even $d\gg m$. 
+\\~\\
+When $d\sim m$ or, worse, $d\gg m$, we will have correlated features. The coefficients fitted by linear regression will be poorly determined. For example, a large positive coefficient for some feature can be canceled out by a large negative coefficient for an almost-parallel feature. So the linear regression learner we saw should not be used for $m\sim d$ and cannot be used for $d>m$.
+\\~\\
+Therefore, we would like to devise a method where we keep only a subset of the features. Let $k\leq d$ be the desired number of features, then we could solve the following optimization problem:
+
+\begin{equation}
+\begin{array}{cl}
+\text{minimize}   &  \norm{\y-\X\w}^2 \\
+\text{subject to} &  \sum_{i=1}^d \indc{\w_i \neq 0} = k
+\end{array}
+\label{eqn:best_subset}
+\end{equation}
+That is, find a coefficients vector $\w$ that minimizes the $RSS$ under the restriction of using exactly $k$ features. This is exactly what the Best-Subset Selection algorithm does (\todo{reference to pseudo}). It iterates all possible combinations of $k$ features, fits an OLS model for each, and returns the model (i.e. a vector $\w$) achieving the lowers loss. A related, but not equivalent, problem introduces a regularization term over the number of used features:
+
+\begin{equation}
+\underset{w_0\in\R, \w\in\R^d}{argmin} \norm{w_0\vv{1} + \X\w - \y}^2 + \lambda\norm{\w}_0
+\label{eqn:l0_reg}
+\end{equation}
+where $\norm{\w}_0\coloneqq \sum_i \indc{\w_i \neq 0}$. Notice how in both optimization problems we do not include the intercept ($w_0$) in the restriction on the number of features as the intercept is not one of the features per se.
+\\~\\\todo{Add pseudo of Best-subset-selection}
+
+As $k$, the number of features in the model, gives some measure of the complexity of the hypothesis, we can think of the family of learners $\left\{\Ac^{best-subset}_k | 0\leq k\leq d\right\}$. As we change $k$ we move on the bias-variance trade-off. Unfortunately, even for a single value of $k$, we must go over all ${d \choose k}$ subsets of $k$ features. This is an NP-Hard problem and as such cannot be solved efficiently. 
+
+\todo{ Add Forward/Backaward Selection algorithms? }
+
+
+\subsection{$\ell_2$ - Ridge Regularization}
+In addition to the computational challenges imposed by the best-subset regularization, it also often suffers from high variance as features are included or excluded based on the single specific training-set we have. To cope with both problems, we often used different shrinkage methods where we restrict the values of the coefficients, shrinking them towards zero. One such method is the Ridge regression, which imposes a $\norm{\cdot}_2$ penalty on the coefficients:
+\begin{equation}
+\ridge\coloneqq\underset{w_0\in\R, \w\in\R^d}{argmin} \norm{w_0\vv{1} + \X\w - \y}^2 + \lambda\norm{\w}_2^2\quad \lambda\geq 0
+\label{eqn:l2_reg}
+\end{equation}
+
+So $\lambda\geq 0$ is the complexity parameter that controls the amount of shrinkage. For $\lambda=0$ we get the OLS solution (the standard linear regression solution). As $\lambda \rightarrow \infty$ we penalize more and more on the size of the coefficients vector, driving the solution $\ridge\rightarrow 0$. As $\lambda$ increases the bias increases (we restrict ourselves to specific sets of solutions) and variance decreases (solution is not based solely on training-set).
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/ridge_coefs.jpeg}
+	\caption{\todo{Add caption}}
+\end{figure}
+
+\todo{better removal of penalty over intercept - ESL - page 64}
+Though the Ridge optimization problem is a convex problem, and specifically a case of quadratic programming, it has in-fact a neat closed form.
+
+\begin{theorem}
+Let $\X,\y$ be a regression problem and let $\lambda\geq 0$. The solution for the Ridge Regression problem \ref{eqn:l2_reg} is given by: $$ \ridge\coloneqq \left(\X^\top \X + \lambda I_d\right)^{-1}\X^\top\y $$
+\end{theorem}
+\begin{proof}
+For $\lambda=0$ then indeed $\ridge=\ols$. Let $\lambda>0$ then to find a minimizer of the objective function, we begin with equating it's derivative in each coordinate to zero: 
+$$ \frac{\partial \norm{w_0\vv{1} + \X\w - \y}^2 + \lambda\norm{\w}_2^2}{\partial \w_k}= -2\sum^m_{i=1} \left(y_i-\sum^d_{j=1}\x_{ij}\w_j\right)\x_k + 2\lambda \w_k = 0\quad i=1,\ldots,d $$
+which in matrix notation is:
+$$
+\begin{array}{c}
+\left[\X^{\top}\y\right]_{k}-\left[\X^{\top}\X\w\right]_{k}-\left[\lambda\w\right]_{k}=0\\
+\Downarrow\\
+\X^{\top}\y=\X^{\top}\X\w+\lambda I_{d}\w\\
+\Downarrow\\
+\X^{\top}\y=\left(\X^{\top}\X+\lambda I\right)\w
+\end{array}
+$$
+\end{proof}
+As $\X^\top \X+\lambda I$ is non-singular (even if $\X^\top \X$ is not of full rank) it has an inverse and hence the solution is given by: $$\ridge=\left(\X^{\top}\X+\lambda I\right)^{-1}\X^\top\y $$
+
+Ridge regression could also be solved using the SVD method for OLS weights, which can be generalized. 
+
+\begin{claim}
+Let $\X,\y$ be a regression problem and $\X=U\Sigma V^\top$ be the SVD of $\X$. The Ridge estimator is given by: $$ \ridge=U\Sigma_\lambda V^\top\y, \quad \left[\Sigma_\lambda\right]_{ii}=\frac{\sigma_i}{\sigma_i^2+\lambda} $$
+\end{claim}
+\begin{proof}
+Let us replace $\X$ with its SVD:
+$$
+\begin{array}{cclcl}
+\ridge & = & \left(\X^{\top}\X+\lambda I\right)^{-1}\X^{\top}\y & = & \left(\left(U\Sigma V^{\top}\right)^{\top}U\Sigma V^{\top}+\lambda I\right)^{-1}\left(U\Sigma V^{\top}\right)^{\top}\y\\
+& = & \left(V\Sigma U^{\top}U\Sigma V^{\top}+\lambda I\right)^{-1}V\Sigma U^{\top}\y & = & \left(V\Sigma^{2}V^{\top}+\lambda VV^{\top}\right)^{-1}V\Sigma U^{\top}\y\\
+& = & V\left(\Sigma^{2}+\lambda I\right)^{-1}V^{\top}V\Sigma U^{\top}\y & = & V\Sigma_{\lambda}U^{\top}\y
+\end{array}
+$$
+where we denote $\left[\Sigma_\lambda\right]_{ii}=\frac{\sigma_i}{\sigma_i^2 + \lambda}$ and $\sigma_i$ are the singular values of $\X$.
+\end{proof}
+
+\todo{Explain that is a biased estimator but reduces the variance} 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/ridge_bias_variance.jpeg}
+	\caption{\todo{Add caption}}
+\end{figure}
+
+\todo{Add regularization path explanation}
+
+
+\subsection{$\ell_1$ - Lasso Regularization}
+
+\subsection{$L_q$ Norm Regularizations}
+The use of the $\norm{\cdot}_0$ regularization (which we will also denote by $\ell_0$), in either best-subset optimization problems (\ref{eqn:best_subset} or \ref{eqn:l0_reg}), caused the problem to be non-convex and NP-Hard. 
+\subsection{Convexity vs. Sparsity}
+
+\subsection{The Orthogonal Design Case}
+
+\subsection{Lab: Regularized Logistic Regression}
+
+\section{Model Selection and -Evaluation}
+\subsection{Cross Validation}
+\subsection{Bootstrap}
+\subsection{Common Model Selection Mistakes}
+\subsubsection{Over-estimating Generalization Error}
+\subsubsection{Under-estimating Generalization Error}
+\subsection{Lab: Selecting Regularized Model}

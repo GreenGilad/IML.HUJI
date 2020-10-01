@@ -355,23 +355,58 @@ But then $\left(\w_2/\delta, b_2/\delta\right)$ is a feasible solution for \ref{
 This means in fact that maximizing the margin is equivalent to minimizing the size of the hyperplane. The optimization problem written in \ref{eqn:hard_svm_opt3} is a quadratic program for which there exist efficient solves. By using them to solve problem \ref{eqn:hard_svm_opt3} we can obtain an optimal solution for the Hard-SVM optimization problem.
 
 \begin{remark}
-	But so how is it that minimizing $\norm{\w}^2$ is equivalent to maximizing the margin? Let us denote the width of the total margin (i.e. the sum of margin from both sides) by $l$, and let $x_{+}$ and $x_{-}$ be the positive- and negative support vectors . To calculate the value of $l$ we will project the vector $x_{+} - x_{-}$ onto the normalized normal $\w$: 
-	$$
-	\begin{array}{ccl}
-	l& = & \inprod{x_{+} - x_{-}}{\frac{\w}{\norm{\w}}}\\
-		& = & \left(\inprod{x_{+}}{\w}-\inprod{x_{-}}{\w}\right)\frac{1}{\norm{\w}}\\
-		& = & \left(1-b-\left(1-b\right)\right)\frac{1}{\norm{\w}}\\
-		& = & \frac{2}{\norm{\w}}
-	\end{array}
-	$$
-	where support vectors satisfy $y_i\left(\inprod{\w}{\x_i}+b\right)$ and that for positive samples $y_i=1$ and negative samples $y_i=-1$. This shows how minimizing $\norm{\w}$ maximizes $l$.
-	\end{remark}
+But so how is it that minimizing $\norm{\w}^2$ is equivalent to maximizing the margin? Let us denote the width of the total margin (i.e. the sum of margin from both sides) by $l$, and let $x_{+}$ and $x_{-}$ be the positive- and negative support vectors . To calculate the value of $l$ we will project the vector $x_{+} - x_{-}$ onto the normalized normal $\w$: 
+$$\begin{array}{ccl}
+l& = & \inprod{x_{+} - x_{-}}{\frac{\w}{\norm{\w}}}\\
+	& = & \left(\inprod{x_{+}}{\w}-\inprod{x_{-}}{\w}\right)\norm{\w}\\
+	& = & \left(1-b-\left(1-b\right)\right)/\norm{\w}\\
+	& = & 2/\norm{\w}
+\end{array}$$
+where support vectors satisfy $y_i\left(\inprod{\w}{\x_i}+b\right)$ and that for positive samples $y_i=1$ and negative samples $y_i=-1$. This shows how minimizing $\norm{\w}$ maximizes $l$.
+\end{remark}
 
 
 \subsection{Soft-SVM}
-\todo{Finish from lecture and recitation handouts}
-\subsubsection{The Kernel Trick}
+The basic assumption of Hard-SVM is that the training sample is linearly separable. If that is not the case then the optimization problem has no solutions as for any candidate $\left(\w,b\right)$ at least one of the constraints $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)\geq 1$ cannot be satisfied.
+\\~\\
+But what if the training sample is almost linearly separable? That is, what if most of the samples are linearly separable with only a few violating the constraints by not too much? Recall that if $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)<0$ then sample $\x_i$ is on the ``wrong side`` of the hyperplane. This means that: $$\exists \,\xi_i> 0\quad s.t.\quad y_i\cdot\left(\inprod{\w}{\x_i}+b\right) \geq 1-\xi_i $$ Therefore, sample $\x_i$ is on the wrong side of the \textbf{margin} by an amount proportional to $\xi_i$. To allow training samples to violate the constraints ``a little``, we modify the optimization problem to:
 
+\begin{equation}
+$$
+\begin{array}{clc}
+minimize & \norm{\w}^2 & \\
+subject \, to & \begin{cases}
+y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i & i=1,\ldots,m\\
+\xi_i \geq 0\quad \land\quad \frac{1}{m}\sum_{i=1}^m \xi_i \leq C & \\
+\end{cases}
+\end{array}
+\label{eqn:sofv_svm_opt}
+$$
+\end{equation}
+where $C>0$ is a constant we specify. The variables $\xi_1,\ldots,\xi_m$ are new auxiliary variables we introduce (sometimes known as slack variables). Notice that the later we choose $C$, the more violations of margin we allow. On the one hand, we want to allow ``noisy`` samples to violate the margin, so the hyperplane will ignore them. On the other hand, if we allow too many violations, we lose touch with the training sample and its structure. This is exactly the bias-variane tradeoff: the larger $C$, the more freedom the learner has to ``chase after the training sample``.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{chapters/classification/figures/soft_svm.png}
+\end{figure}
+~\\
+A tricky question regarding the above optimization problem is how to choose $C$? Instead of specifying its value we prefer working with a slightly different optimization problem:
+\begin{equation}
+$$
+\begin{array}{cll}
+minimize & \lambda\norm{\w}^2 + \frac{1}{m}\sum_{i=1}^m \xi_i& \\
+subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i & i=1,\ldots,m\quad\land \quad \xi_i \geq 0\\
+\end{array}
+\label{eqn:sofv_svm_opt}
+$$
+\end{equation}
+Soft-SVM jointly minimizes the norm of $\w$ (related to the margin) and the average of $\xi_i$ (corresponding to constraints violoations). The tradeoff between the two terms is controlled by the hyper-parameter $\lambda$. The larger $\lambda$, the less sensitive the solution will be to the term $\frac{1}{m}\sum_{i=1}^m \xi_i$, and will allow more violations. The smaller $\lambda$, the more sensitive and will allow less violations. If we choose to work with this optimization problem to choose $h$, the constant $\lambda$ also moves us along different members of a family of learners, each with a different bias-variance tradeoff. $\lambda$ is known as a \textbf{regularization parameter}. This topic is covered in \autoref{chap:regularization}.
+
+\todo{Add explanation about representation using hinge loss}
+
+
+\subsubsection{The Kernel Trick}
+\todo{Explain about kernels and the kernel trick. Recitation 4 (which is not enough)}
 
 \section{Nearest Neighbors}
 Nearest Neighbors learners predict the label of a new sample based on a set of "nearset" training samples. This means that it has no hypothesis class and no training stage per se. As prediction is based on some subset of training samples, that is determined by "closeness" to some newly given sample, the training step of the learner consists only of storing the training data so it is available for the learner when performing predictions.

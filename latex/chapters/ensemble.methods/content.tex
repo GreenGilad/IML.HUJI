@@ -18,15 +18,18 @@ As such, the bias-variance \textbf{tradeoff} is that: the more complicated the m
 \end{figure}
 
 \subsection{Generalization Error Decomposition}
-We have already encountered the generalization error decomposition when discussing linear regression problems (\todo{add link-reference to decomposition in regression}). There we have shown how we can decompose the MSE into the bias and variance components. Next, let us revisit the decomosition but in it's general form. Let $h^{*}=argmin_{h\in\Hc} L_{\Dc}\left(h\right)$ and $h_S=A\left(S\right)$ be the outout of a learning algorithm, then: 
+We have already encountered the generalization error decomposition when discussing linear regression problems (\todo{add link-reference to decomposition in regression}). There we have shown how we can decompose the MSE into the bias and variance components. Next, let us revisit the decomosition but for a general loss function. Let $h^{*}=argmin_{h\in\Hc} L_{\Dc}\left(h\right)$ and $h_S=\Ac\left(S\right)$ be the outout of a learning algorithm, then we can decompose the generalization error of the hypothesis returned by the learner as follows: 
 \begin{equation} %TODO - center
 $$ L_{\Dc}\left(h_S\right) = \underset{\eps_{approximation}}{\underbrace{L_{\Dc}\left(h^{*}\right)}} + \underset{\eps_{estimation}} {\underbrace{L_{\Dc}\left(h_{S}\right)-L_{\Dc}\left(h^{*}\right)}} $$
 \label{eqn:error_decomposition}
 \end{equation}
-        
-\todo{Add motivations for approximation and estimation - which is influeced just by S where by H and so on + end of recitation 8 page 5}
 
-\todo{Add explanation of how to properly create bias-variance curves}
+\begin{itemize}
+	\item The \textbf{approximation error} is $L_\Dc\left(h^*\right)$. Namely, the error of the hypothesis $h\in\Hc$ achieving the lowest generalization error. This term does not depend at all on our training sample and its size $m$. It depends only on the selection of $\Hc$. As we expand the hypothesis class to become richer we might find a better hypothesis for explaining the data. This error is what we already know as the \textbf{bias} error, induced by restricting the hypothesis class.
+	\item The \textbf{estimation error} is $L_{\Dc}\left(h_{S}\right)-L_{\Dc}\left(h^{*}\right)$. Namely, it is the difference between the generalization error achieved by the selected hypothesis and the best hypothesis in $\Hc$. This term depends on the training set. \todo{Finish explaining why this is the variance term}
+\end{itemize}        
+
+\todo{Matan - Add explanation of how to properly create bias-variance curves}
 
 \subsection{Lab: Bias-Variance Via Decision Trees}
 \subsection{Lab: Bias-Variance Via Polynomial Fitting}
@@ -37,29 +40,100 @@ $$ L_{\Dc}\left(h_S\right) = \underset{\eps_{approximation}}{\underbrace{L_{\Dc}
 	Aristotle, in {\em Politics}, circa 300BC
 \end{quote}
 
-It's been known for a long time that committees typically make better decisions than individuals. Consider a committee of $T$ members, which has to make a yes/no decision. In hindsight we'll know whether the decision has been right or wrong. Each member casts a vote. Each one has probability $p$ of being correct and probability $1-p$ of being wrong. Let's assume for simplicity that all members are ``equally wise'', so that $p$ is the same for all members. After all members vote, the committee's decision is simply the majority vote.
+Before diving into specific ensemble methods, let us analyze some mathematical properties of a committee based decision. This will give us insights into how committee based methods manage to inprove generalization. Consider a committee of $T$ members, which has to make a ``yes``/``no`` decision. Each member casts a vote, which with probability $p$ being correct and probability $1-p$ being wrong. Let's assume for simplicity that all members are ``equally wise'', so that $p$ is the same for all members. After all members vote, the committee's decision is simply the majority vote. For this setup we can ask questions such as:
+\begin{itemize}
+	\item What is the probability of the committee deciding the right decision?
+	\item What would a typical decision be? and how consistent is it?
+	\item How does the number of members in the committee influence the measures above?
+	\item If committee members are not independent from one another, and influence each other's decisions, how does it influence the measures above?
+\end{itemize}
+~\\
 
 \begin{exercise}
-	Let $X_1,\ldots,X_T\overset{iid}{\sim}Ber\left(p\right)$ taking values of $\left\{\pm1\right\}$. What is the probability the committee will make the right decision?
+	Let $X_1,\ldots,X_T\overset{iid}{\sim}Ber\left(p\right)$ taking values of $\left\{\pm1\right\}$. What is the probability of the committee deciding right?
 \end{exercise}
 \begin{proof}
 As the committee decides by a majority vote then the probability of the committee deciding right is the same as the probability of having more members deciding right than members deciding wrong: $$ \Prob\left(\text{Committee decides right}\right)=\Prob\left(\left|\text{Decided right}\right|>\left|\text{Decided wrong}\right|\right) $$
-As each random variable takes a value in $\left\{\pm\right\}$ we could express the collective vote as $\overline{X}=sign\left(\sum_{i=1}^TX_i\right)$. If the committee decided right, then ther are more members that voted right and $\sum_{i=1}^TX_i>0$ which means that $\overline{X}=1$. On the otherhand, if the committee decided wrong, then more members voted wrong and $\sum_{i=1}^TX_i<=0$ which means that $\overline{X}=-1$.
+As each random variable takes a value in $\left\{\pm\right\}$ we could express the collective vote as $X=sign\left(\sum_{i=1}^TX_i\right)$. If the committee decided right, then ther are more members that voted right and $\sum_{i=1}^TX_i>0$ which means that $X=1$. On the otherhand, if the committee decided wrong, then more members voted wrong and $\sum_{i=1}^TX_i<=0$ which means that $X=-1$.
 
-So, we conclude that: $$ \Prob\left(\text{Committee decides right}\right)=\Prob\left(\overline{X}>0\right) $$
+So, we conclude that: $$ \Prob\left(\text{Committee decides right}\right)=\Prob\left(X>0\right) $$
 \end{proof}
 
 \begin{exercise}
-	Let $X_1,\ldots,X_T\overset{iid}{\sim}Ber\left(p\right)$ taking values of $\left\{\pm1\right\}$ with $p>0.5$. Bound the probability of the committee being correct
+Let $X_1,\ldots,X_T\overset{iid}{\sim}Ber\left(p\right)$ taking values of $\left\{\pm1\right\}$ with $p>0.5$. Bound below the probability of the committee being correct.
 \end{exercise}
 \begin{proof}
-	\todo{Recitation 08 - page 2}
+W.l.o.g let us assume that the correct answer is $+1$ and denote $X=\sum_{i=1}^T X_i$. We are therefore interested in bounding from below $\Prob\left(X>0\right)$, which we will achieve by bounding below $\Prob\left(X\leq0\right)$. Notice that for any $a>0$ it holds that: $$ \Prob\left(X\leq 0\right)=\Prob\left(-aX\geq 0\right)=\Prob\left(e^{-aX}\leq e^0\right) $$
+
+Now, using Markov's inequality $$ \Prob\left(X\leq 0\right) \leq \E\left[e^{-aX}\right]=\E\left[e^{-a\sum_i X_i}\right] \overset{iid}{=} \E\left[e^{-aX_1}\right]^T $$
+
+Notice that as $X_1\sim Ber\left(p\right)$ over $\left\{\pm 1\right\}$it holds that: $$ \E\left[e^{-aX_1}\right] = pe^{-a} + \left(1-p\right)e^a \leq e^{a-p+pe^{-2a}}$$ where the last inequality is because $1+x\leq e^x$. Next, we use the inequality $x\ln\left(x\right)\geq \frac{x^2}{2}-\frac{1}{2}\quad x\in\left(x\right)$. For a selection of $a=\frac{1}{2}ln\left(2p\right)$ which is positive for $p>0.5$ we get that: 
+$$
+\begin{array}{ccl}
+\Prob\left(X\leq0\right) & \leq & \E\left[e^{-aX_{1}}\right]^{T}\leq\exp\left(T\left(a-p+pe^{-2a}\right)\right)=e^{T\left(\frac{1}{2}ln\left(2p\right)-p+\frac{1}{2}\right)}=e^{Tp\left(-\frac{1}{2p}ln\left(\frac{1}{2p}\right)-1+\frac{1}{2p}\right)}\\
+& \leq & e^{Tp\left(\frac{1}{2}-\frac{1}{2\left(2p\right)^{2}}-1+\frac{1}{2p}\right)}=e^{-\frac{Tp}{2}\left(\frac{1}{4p^{2}}-\frac{1}{p}+1\right)}=e^{-\frac{Tp}{2}\left(\frac{1}{2p}-1\right)^{2}}=e^{-\frac{T}{2p}\left(p-\frac{1}{2}\right)^{2}}
+\end{array}
+$$ Finally, we conclude that: $$\Prob\left(X>0\right) = 1-\Prob\left(X\leq 0\right) \geq 1-e^{\left(-\frac{T}{2p}\left(p-\frac{1}{2}\right)^2\right)}$$
 \end{proof}
 
+
+The above bound teaches us that for a committee of ``non-dump`` members (i.e. $p>1/2$) the probability of being wrong decays with a rate of $\Oc\left(\frac{1}{e^T}\right)$.Relating this to our learning scheme, it means that the confidence, $1-\delta$,  in our prediction increases dramatically as $T$ increases. Next, let us calculate what is a typical decision ($E\left(X\right))$ and how consistent is it ($Var\left(X\right))$?
+
 \subsection{Uncorrelated Predictors}
-\todo{Do}
+
+\begin{exercise}
+Let $X_1,\ldots,X_T\overset{iid}{\sim}Ber\left(p\right)$ taking values of $\left\{\pm1\right\}$ with $p>0.5$. What is the expectation and variance of $X=\frac{1}{T}\sum^T_{i=1}X_i$?
+\end{exercise}
+\begin{proof}
+We begin with calculating the expectation and variance of each committee member:
+$$
+\begin{array}{rcl}
+\E\left[X_{i}\right] & = & 1\cdot\Prob\left(X_{i}=1\right)+\left(-1\right)\cdot\Prob\left(X_{i}=-1\right)\\
+& = & 2p-1\\
+\\
+Var\left(X_{i}\right) & = & \E\left[\left(X_{i}-\E\left[X_{i}\right]\right)^{2}\right]\\
+& = & p\left(1-\left(2p-1\right)\right)^{2}+\left(1-p\right)\left(-1-\left(2p-1\right)\right)^{2}\\
+& = & 4p\left(1-p\right)^{2}+4p^{2}\left(1-p\right)\\
+& = & 4p\left(1-p\right)
+\end{array}
+$$
+
+Then, for $X$:
+$$
+\begin{array}{rcl}
+\E\left[X\right] & = & \frac{1}{T}\sum_{i}\E\left[X_{i}\right]=2p-1\\
+Var\left(X\right) & = & \frac{1}{T^{2}}Var\left(\sum_{i}X_{i}\right)\overset{iid}{=}\frac{1}{T^{2}}\sum_{i}Var\left(X_{i}\right)=\frac{4}{T}p\left(1-p\right)
+\end{array}
+$$
+\end{proof}
+
+Therefore, when using a committee of independent members the expectation of decision remains the same while decreasing the variance at a rate of $\Oc\left(\frac{1}{T}\right)$. In other word, we are able to keep the same accuracy while increasing the confidence.
+
+\todo{Add results of simulations }
+
 \subsection{Correlated Predictors}
-\todo{Do}
+In practice, however, committee members rarely vote independently. So let us assume that each two members are correlated with equal correlation $\rho\in\left[0,1\right]$.
+
+\begin{exercise}
+Let $X_1,\ldots,X_T$ be a set of identically-distributed real-valued random variables such that: $Var\left(X_i\right)=\sigma^2$ and $corr\left(X_i,X_j\right)=\rho,\,\, i\neq j$. What is the variance of $X=\frac{1}{T}\sum_i X_i$?
+\end{exercise}
+\begin{proof}
+As $X$ is the average of $T$ identically distributed random variables:
+$$ Var\left(X\right)=Var\left(\frac{1}{T}\sum_i X_i\right)=\frac{1}{T^2}\left[\sum_i Var\left(X_i\right)+2\sum_{i<j}Cov\left(X_i,X_j\right)\right] $$
+Recall that the correlation between two random variables is defined as: $$ corr\left(A,B\right)\coloneqq\frac{Cov\left(A,B\right)}{\sqrt{Var\left(A\right)Var\left(B\right)}} $$
+and therefore for any $i\neq j$: $$ Cov\left(X_i,X_j\right)=corr\left(X_i,X_j\right)\sqrt{Var\left(X_i\right)Var\left(X_j\right)}=\rho\sigma^2 $$
+Plugging this back into the variance:
+$$ Var\left(X\right)= \frac{1}{T^2}\left[T\sigma^2+2{T \choose 2}\rho\sigma^2\right]=\frac{\sigma^2}{T}+\left(1-\frac{1}{T}\right)\rho\sigma^2=\rho\sigma^2+\frac{1}{T}\left(1-\rho\right)\sigma^2$$
+\end{proof}
+
+\todo{Add mathematical analysis of what does this mean}\\
+\todo{Add simulation results - graph of variance as function of correlation + headmap of dependence on $T$}
+
+All together, we have seen that given a committee of members that decides by majority vote, where decisions of members are correlated with correlation $\rho$ and each member is correct with probability $p$:
+\begin{itemize}
+	\item If $p>0.5$ the committee's decision improves with $T$ in two ways: higher probability of being right, and its decision will be more consistent.
+	\item If $\rho>0$ then increasing $T$ will increase the probability of the committee's decision being right up to a certain point,
+\end{itemize}
 
 \subsection{Committee Methods In Machine Learning}
 Going back to machine learning, suppose we have $T$ training samples $S_1,\ldots,S_T$ of size $m$ chosen independently from $\Xc$ according to some distribution $\Dc$. Let $\Ac$ be a learning algorithm and train it on each of the training samples, to obtain $h_{S_1},\ldots,h_{S_T}$. Let us consider $h_{S_t}\left(x\right)$ for some $x\in\Xc$. As $S_t\iid\Dc^m$ we can think of the training set as a random variable. This means that the also $h_{S_t}$ obtained by training $\Ac$ over $S_t$ is a random variable. Lastly, it means that we can think of the prediction $h_{S_t}\left(x\right)$ as a random variable, which has some distribution. In addition, notice that as the training samples are chosen independently, predictions of different $h_{S_t}$ over $x$ are also independent random variables. So, if we use $h_{S_1},\ldots,h_{S_T}$ in a committee we have the situation described above. The generalization loss will improve with $T$, tending to $0$ as $T\rightarrow\infty$. In addition, the variance of the prediction will decrease as $1/T$.

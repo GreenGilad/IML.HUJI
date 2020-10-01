@@ -28,7 +28,10 @@ Regression is a statistical method to model the relation between a set of explan
 	\caption{\textbf{Linear Regression Illustration:} Illustration of a regression problem with a single explanatory variable. Samples represented with red dots.}
 \end{figure}
 
-In the case of linear regression we aim to model the relation using a linear predictor function $f$. Formally, the hypothesis class of linear regressors is the set of linear functions from the domain set to the response set: $$ \Hreg\coloneqq\left\{h: h\left(x_1,\ldots,x_d\right)=w_0+\sum^d_{i=1}x_iw_i,\,\, w_0,w_1,\ldots,w_d\in\R\right\} $$
+In the case of linear regression we aim to model the relation using a linear predictor function $f$. Formally, the hypothesis class of linear regressors is the set of linear functions from the domain set to the response set: 
+\begin{equation}\label{eqn:lin_reg_h}
+\Hreg\coloneqq\left\{h: h\left(x_1,\ldots,x_d\right)=w_0+\underset{i=1}{\overset{d}{\sum}}x_iw_i,\,\, w_0,w_1,\ldots,w_d\in\R\right\}
+\end{equation}
 Each function $h$ in the class is characterized by the \textbf{weights} (or regression coefficients) $w_1,\ldots,w_d$ representing the $d$ features and an \textbf{intercept} $w_0$. To simplify notation, for a given sample $\x=\left(x_1,\ldots,x_d\right)^\top \in \R^d$ we add a zero-th coordinate with the value of one, and define $\x=\left(1,x_1,\ldots,x_d\right)^\top \in \R^{d+1}$. Using this notation each function in the hypothesis class can be written in the form $h\left(\x\right)=\left<\x,w\right>=\x^\top w$. From this point onward we will assume that the intercept is already incorporated into the weights vector and samples.
 \\
 \\
@@ -80,13 +83,13 @@ Putting it all together, given a training set \trainset and some prediction rule
 Therefore, under the selection of the squared risk function, minimizing the empirical risk means minimizing the sum of squares of the deviations of the responses from a linear function. In other words, we choose the linear function in $\Hreg$ that is closest to the responses in terms of the Euclidean distance. The deviation $y_i-\x_i^\top\w$ is called the $i$-th \textbf{residual}. The total empirical risk is therefore called \textbf{Residual Sum of Squares} (or \textbf{RSS}), denoted by:
 
 \begin{align} %TODO - center
-RSS\left(\w\right) = \norm{\y-\X\w}^2
+RSS\left(\w\right) \coloneqq \norm{\y-\X\w}^2
 \label{eqn:rss}
 \end{align}
 
 As such, learning the lienar function by ERM is solving the quadratic problem:
 \begin{align}
-\w^*=\underset{\w\in\R^d}{argmin}\,RSS\left(\w\right)=\underset{\w\in\R^d}{argmin}\,\norm{\y-\X\w}^2
+\w^*\coloneqq\underset{\w\in\R^d}{argmin}\,RSS\left(\w\right)=\underset{\w\in\R^d}{argmin}\,\norm{\y-\X\w}^2
 \label{eqn:opt_rss}
 \end{align}
 It is therefore a smooth function of $\w$ with a minimum (or minima) If $X$ is of full rank then $\norm{\y-\X\w}^2$ has a unique minimum. This minimum is the predictor $\widehat{f}$ we would like to find.
@@ -100,7 +103,7 @@ It is therefore a smooth function of $\w$ with a minimum (or minima) If $X$ is o
 For $\w$ to be a minimizer of the $RSS$ function all its partial derivatives should be zero. Recalling the definition of the inner product, this condition can be written as: 
 $$
 \begin{array}{c}
-\forall j\in\left[0,\ldots,d\right]\quad\frac{\partial}{\partial \, w_j}RSS\left(\w\right)=-2\sum^m_{i=1}\left(\x_i\right)_j\cdot\left(y_i-\x_i^\top\w\right)=0 	\\
+\frac{\partial}{\partial \, w_j}RSS\left(\w\right)=-2\sum^m_{i=1}\left(\x_i\right)_j\cdot\left(y_i-\x_i^\top\w\right)=0\quad j=0,\ldots,d 	\\
 \Downarrow	\\
 \nabla RSS\left(\w\right)=-2\X^\top\left(\y-\X\w\right)=0	\\
 \end{array}
@@ -229,17 +232,18 @@ Computers don’t calculate over $\R$, they use bits and more specifically they 
 	\end{array}\right]}{\left[\begin{array}{c} 11.38 \\ 0.003 \\ -0.009 \\ \end{array}\right]} = 10.018 $$
 \end{example}
 
-\subsubsection{A Statistical Model - Existence of Noise}
+\subsection{A Statistical Model - Existence of Noise}
 So far we assumed that there exists some deterministic function $f:\Xc\rightarrow\Yc$ that is underlying the relation between the domain- and response- sets. We would like to describe a more general probabilistic model, which better fits reality. Let us assume, as before, that the relation is linear in $\Xc$. In addition we add an additional element $\eps$ capturing random noise in the relation. This noise element is referred to as \textit{error} and is a random variable. We make the assumptions that all errors are: (1) Centered (2) Uncorrelated (3) Have equal variance and (4) with a Gaussian distribution:
 \begin{equation}
 $$ \forall\, i \in \left[m\right] \quad y_i=\x_i^\top\w + \eps_i, \quad\quad \eps_1,\ldots,\eps_m \iid \Nc\left(0,\sigma^2\right) $$
 \label{eqn:lin_reg_prob_model}
 \end{equation}
 
-As our model allows some uncertainty in the responses, even for identical $\x$s, we may end up with different $y$s. Let us adapt our learning algorithm from the deterministic case, and deal with the probabilistic (noisy) one. In the same manner as before, using the linear hypothesis class $\Hreg$,  we asusme there exists an unknown coefficients vector $\w$. Denoting the noise vector $\eps=\left(\eps_1,\ldots,\eps_m\right)^\top$ we have in matrix notation: $$ \y=\X\w+\eps, \quad\quad \eps\sim\Nc\left(0_d,\sigma^2I_d\right) $$
-
-Note, that the vector $\y$ is no longer necessarily in $Im\left(\X\right)$. Therefore, the linear system $\y=\X\w$ has no solution. 
-To derive a learning algorithm let us use the squared loss as before, and learn by empirical risk minimization as in \eqref{eqn:opt_rss}. This means learning the prediction rule by solving the normal equations, which we have seen is equivalent to projecting $\y$ onto $Im\left(\X\right)$ by finding the Least Squares approximation.
+As our model allows some uncertainty in the responses, even for identical $\x$s, we may end up with different $y$s. Let us adapt our learning algorithm from the deterministic case, and deal with the probabilistic (noisy) one. In the same manner as before, using the linear hypothesis class $\Hreg$,  we asusme there exists an unknown coefficients vector $\w$. Denoting the noise vector $\eps=\left(\eps_1,\ldots,\eps_m\right)^\top$ we have in matrix notation: 
+\begin{equation}
+$$ \y=\X\w+\eps, \quad\quad \eps\sim\Nc\left(0_d,\sigma^2I_d\right) $$
+\label{eqn:lin_reg_prob_model2}
+\end{equation}
 
 \begin{figure}[!h]
 	\centering
@@ -247,8 +251,14 @@ To derive a learning algorithm let us use the squared loss as before, and learn 
 	\caption{\textbf{Probabilistic Model:} \todo{add caption}} %TODO - image and caption
 \end{figure}
 
+\subsubsection{Geometric Interpretation}
 
-\subsubsection{Maximum Likelihood Equivalence}
+\todo{Matan - Regression via projections - with noise $\widehat{\y}$ no longer in image}
+
+
+
+
+\subsection{Maximum Likelihood Equivalence}
 As seen above, different assumptions on the noise in our data yields different traits we can use for our advantage. Let us assume Gaussian noise $\eps\iid\Nc\left(0,\sigma^2\right)$. This means that the $i$-th observation is independently distributed $y_i\sim\Nc\left(\x_i^\top\w,\sigma^2\right)$. Suppose we \textbf{knew} the weight vector $\w$, we could then ask the following question: Given a fixed design matrix $X$ and known coefficients vector $\w$, how likely is it to observe the response vector $\y$?
 
 As we assumed Gaussian noise, we could answer this question using the density function of the Gaussian distribution. %TODO - link to gaussian density
@@ -277,21 +287,27 @@ $$
 we conclude that the MLE (assuming Gaussian noise) is just the OLS estimator we obtained using the ERM principle over the squared loss. %TODO - link to equation
 
 \subsubsection{Model Interpretation}
+Suppose we fitted a model $\w$ to a regression problem $\X,\y$ with the noise assumptions seen in \ref{eqn:lin_reg_prob_model2}. So:
+$$
+\begin{array}{ll}
+\y=\X\w+\eps & \eps \sim\Nc\left(0,\sigma^2I_d\right)\\
+\widehat{\w} = \left[\X^\top\X\right]^{-1}\X^\top\y &
+\end{array}
+$$
+Let us think 
+
+
 \todo{Matan}
 \todo{Begin with simple OLS. change in x -> expected (!) change in y}
 \todo{Interpretation in multivariate OLS}
 \todo{What can we learn from sign and scale of coefficients - and in general that scale of data matters}
 
-\subsection{Weighted Least Squares}
-\todo{Write subsection}
-\subsection{Geometric Interpretation}
-\todo{Show geometric interpretation and solution via projection matrices}
+
 \subsection{Categorical Variables}
 \todo {Matan - Write sub-section about categorical variables}
 
 
-\section{Beyond Linearity}
-\subsection{Polynomial Fitting} %TODO - fix psi font
+\section{Polynomial Fitting} %TODO - fix psi font
 Using the tools of linear regression, we could also learn non-linear predictors. In fact, it can be used to find predictors that are a linear combination of some set of functions $\psi_0,\ldots,\psi_k$. Consider the following special case of polynomial fitting: Let $x_1,\ldots,x_m\in\R$ and $y_1,\ldots,y_m\in\R$. We would like to describe a polynomial relation between $\Xc$ and $\Yc$, of degree at most $k\in\N$. The hypothesis class is: 
 \begin{equation}
 $$ \Hc^k_{poly}=\left\{x\mapsto p_{\w}\left(x\right)| \w\in\R^{k+1}\right\} $$
@@ -325,10 +341,60 @@ $$
 
 Since we assume that the $x_i$'s are different from one another, the design matrix $\X$ is of full rank. This means that solving this linear (in $\w$) system of equations can be done as we have seen for the non-singular case above.
 
-\todo{bias variance?}
+\todo{Add graphs for polynomial fitting?}
 
-\subsection{Poisson Regression}
-\todo{Add subsection - second round of writing}
+\section{Bias and Variance of Estimators}
+Given a regression problem $\X,\y$ we have seen how to solve $\y=\X\w+\eps$. That is finding a vector $\w$ that satisfies: $\y\approx\X\w$. We showed that the vector minimizing the sum of square distances is given by $$ \ols = \left[\X^\top\X\right]^{-1}\X^\top\y $$
+The $\ols$ estimator is a random variable (as $\y$ is a random variable) and as such we are also interested in different properties of it.
+
+\todo{If the math chapter includes estimation theory -> move the definitions there}
+
+\begin{definition}\label{eqn:est_bias}
+Let $\widehat{\theta}$ be an estimator of $\theta$. The \textit{bias} of $\widehat{\theta}$ is the expected deviation between $\theta$ and the estimator: $B\left(\widehat{\theta}\right)\coloneqq\E\left[\widehat{\theta}\right]-\theta$. $\widehat{\theta}$ is said to be \textit{unbiased} if $B\left(\widehat{\theta}\right)=0$.
+\end{definition}
+
+\begin{definition}\label{eqn:est_var}
+Let $\widehat{\theta}$ be an estimator of $\theta$. The \text{variance} of $\widehat{\theta}$ is the expected value of the squared sampling deviations: $var\left(\widehat{\theta}\right)\coloneqq\E\left[\left(\widehat{\theta}-\E\left[\widehat{\theta}\right]\right)^2\right]$.
+\end{definition}
+
+What is the expectation in both the bias (\ref{eqn:est_bias}) and the variance (\ref{eqn:est_var}) been calculated over? An estimator is a function over a sample $S=x_1,\ldots,x_m\in\R^d$ used to estimate some parameter: $\widehat{\theta}\left(x_1,\ldots,x_m\right)\overset{?}{\approx}\theta$. As such, the expectation of $\widehat{\theta}$ is over the selection of the samples.
+\\~\\
+Going back to the $\ols$ estimator, we could ask what is it's bias and variance.
+
+\begin{exercise}
+Let $\X,\y$ be a regression problem such that $\y=\X\w+\eps,\,\,\eps\sim\Nc\left(0,\sigma^2I_d\right)$ and $\widehat{\w}$ being the OLS estimator. Show that $\widehat{\w}$ is an unbiased estimator.
+\end{exercise}
+\begin{proof}
+$$
+\begin{array}{ccl}
+\E\left[\widehat{\w}\right] & = &\E\left[\left[\X^\top\X\right]^{-1}\X^\top\y\right] \\
+& = & \E\left[\left[\X^\top\X\right]^{-1}\X^\top\left(\X\w +\eps\right)\right] \\
+& = & \E\left[\left[\X^\top\X\right]^{-1}\X^\top\X\w\right] + \E\left[\left[\X^\top\X\right]^{-1}\X^\top\eps\right]\\
+& = & \E\left[\w\right] + \left[\X^\top\X\right]^{-1}\X^\top\E\left[\eps\right]\\
+& = & \w
+\end{array}
+$$
+where the last equality is because $\E\left[\eps\right]=0$ and $\w\in\R^d$.
+\end{proof}
+
+\todo{Add proof of variance?}
+
+
+Interestingly, these two properties of bias and variance are linked. Let $\widehat{\y}=\widehat{\y}\left(S\right)$ denote the estimator of $\y$ when using $\ols$, and $\y^*$ the true $\y$ values. When solving the regression problem we wanted to minimize the mean square error between $\widehat{\y}$ and $\y^*$. What would be the expected MSE value?
+\\~\\
+Denote $\overline{\y}=\E\left[\widehat{\y}\right]$ so:
+$$
+\begin{array}{ccl}
+\E\left[\left(\widehat{\y}-\y^*\right)^2\right] & = & \E\left[\left(\widehat{\y} - \overline{\y} + \overline{\y} -\y^*\right)^2\right] \\
+& = & \E\left[\left(\widehat{\y}-\overline{\y}\right)^2\right] + 2\left(\widehat{\y}-\overline{\y}\right)+\left(\overline{\y}-\y^*\right)^2\\
+& = & \E\left[\left(\widehat{\y}-\overline{\y}\right)^2\right] + \left(\overline{\y}-\y^*\right)^2\\
+& = & var\left(\widehat{\y}\right) + B\left(\widehat{\y}\right)^2
+\end{array}
+$$
+Namely, we could \textbf{decompose} the generalization error (expected square loss between prediction and true value) into a variance component and a (squared) bias component. This means, that whenever we devise some estimator over our training data, the generalization error is influenced by both these factors. This is called the \textbf{Bias-Variance Trade-off} and we will encounter this concept multiple times throughout the course. 
+\\~\\
+\todo{Add illustration of bias-variance}
+
 \section{Summary}
 \subsection{Exercises}
 \begin{enumerate}
@@ -338,4 +404,6 @@ Since we assume that the $x_i$'s are different from one another, the design matr
 \end{enumerate}
 \todo{add questions from assignments}
 \subsection{Lab: Linear Regression}
+The aim of the linear regression lab is to explore the linear regression hypothesis class and specifically the OLS estimator. 
+
 \subsection{Lab: Polynomial Fitting}
