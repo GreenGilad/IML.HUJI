@@ -1,0 +1,29 @@
+\section{Recap: Probability and Statistics}
+
+\subsection{Probability Space}
+Our intuitive notion of probability is related to uncertainty we have about events in the world, for example - will it rain tomorrow? How much will I get in the final exam? Although we cannot predict with certainty the answers to these questions, we usually know what is the set of all possible outcomes. This set is the first ingredient in any \emph{probability space}.
+\begin{definition}
+A \emph{sample space} $\Omega$ is a set that contains all possible outcomes. $\omega\in\Omega$ denotes a single outcome.
+\end{definition}
+Examples:
+\begin{itemize}
+\item Coin toss: $\Omega=\left\{ H,T\right\} $
+\item Toss a coin until heads comes up: $\Omega=\left\{ T^{n-1}H:n\in\N_0\right\} $
+\item Rolling  a die (singular of dice): $\Omega=\left\{ 1,\dots,6\right\}$
+\item Rolling two dice: $\Omega=\left\{ 1,\dots,6\right\} ^{2}$
+\item Waiting time at the post office: $\Omega=[0,\infty)$
+\end{itemize}
+Suppose someone threw a die and told us that the result is an even number. This information does not define unique element in $\Omega$, but it tells us that the outcome is an element in the subset $\left\{ 2,4,6\right\} $.
+\begin{definition}
+An \emph{event} $A$ is any subset of possible outcomes, $A\subseteq\Omega$.
+\end{definition}
+Quick reminder:
+\begin{itemize}
+\item $A^{c}$ (or sometimes $\overline{A}$) denotes the \textit{complement} of $A$, $A^{c}=\Omega\backslash A$ . In other words, $A^{c}$ is the event "$A$ did not occur".
+\item We say that $A$ and $B$ are \textit{disjoint events} if $A\cap B=\emptyset$.
+\item $\Omega$ and $\emptyset$ are also events. If $A$ and $B$ are two events, then $A\cup B$ is also an event, and so is $A\cap B$.
+\end{itemize}
+
+Intuitively, a probability function assigns to an event a number which quantifies our knowledge or belief about the possibility of observing any outcome in that event.
+
+$\Dc$

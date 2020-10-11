@@ -2,184 +2,171 @@
 \BOOKMARK [2][-]{subsection.0.1.1}{Notation}{section.0.1}% 2
 \BOOKMARK [2][-]{subsection.0.1.2}{Data Sets Used in Book, Labs and Examples}{section.0.1}% 3
 \BOOKMARK [0][-]{chapter.1}{Mathematical Basis}{}% 4
-\BOOKMARK [1][-]{section.1.1}{Linear Algebra}{chapter.1}% 5
-\BOOKMARK [2][-]{subsection.1.1.1}{Hyperplanes}{section.1.1}% 6
-\BOOKMARK [2][-]{subsection.1.1.2}{Projecting Matrices}{section.1.1}% 7
-\BOOKMARK [2][-]{subsection.1.1.3}{Matrix Decomposition}{section.1.1}% 8
-\BOOKMARK [3][-]{subsubsection.1.1.3.1}{Eigenvalues Decomposition}{subsection.1.1.3}% 9
-\BOOKMARK [3][-]{subsubsection.1.1.3.2}{Singular Values Decomposition}{subsection.1.1.3}% 10
-\BOOKMARK [1][-]{section.1.2}{Calculus}{chapter.1}% 11
-\BOOKMARK [2][-]{subsection.1.2.1}{High Order Derivatives}{section.1.2}% 12
-\BOOKMARK [2][-]{subsection.1.2.2}{Convexity}{section.1.2}% 13
-\BOOKMARK [1][-]{section.1.3}{Probabilities Theory}{chapter.1}% 14
-\BOOKMARK [2][-]{subsection.1.3.1}{Distributions and Random Variables}{section.1.3}% 15
-\BOOKMARK [2][-]{subsection.1.3.2}{Multi-variate Distributions}{section.1.3}% 16
-\BOOKMARK [2][-]{subsection.1.3.3}{Joint- and Marginal Distributions}{section.1.3}% 17
-\BOOKMARK [2][-]{subsection.1.3.4}{PDF and CDF of Distributions}{section.1.3}% 18
-\BOOKMARK [2][-]{subsection.1.3.5}{Measurements Of Concentration}{section.1.3}% 19
-\BOOKMARK [0][-]{chapter.2}{Introduction \046 Linear Regression}{}% 20
-\BOOKMARK [1][-]{section.2.1}{Introduction to Statistical Learning}{chapter.2}% 21
-\BOOKMARK [2][-]{subsection.2.1.1}{Estimation Theory}{section.2.1}% 22
-\BOOKMARK [3][-]{subsubsection.2.1.1.1}{Estimators}{subsection.2.1.1}% 23
-\BOOKMARK [2][-]{subsection.2.1.2}{Risk \046 Loss Functions}{section.2.1}% 24
-\BOOKMARK [2][-]{subsection.2.1.3}{Learning Principles}{section.2.1}% 25
-\BOOKMARK [3][-]{subsubsection.2.1.3.1}{Empirical Risk Minimization}{subsection.2.1.3}% 26
-\BOOKMARK [3][-]{subsubsection.2.1.3.2}{Maximum Likelihood}{subsection.2.1.3}% 27
-\BOOKMARK [2][-]{subsection.2.1.4}{Lab: Python Data Analysis - First Steps}{section.2.1}% 28
-\BOOKMARK [2][-]{subsection.2.1.5}{Lab: Data Simulation and Sampling}{section.2.1}% 29
-\BOOKMARK [1][-]{section.2.2}{Linear Regression}{chapter.2}% 30
-\BOOKMARK [2][-]{subsection.2.2.1}{Ordinary Least Squares}{section.2.2}% 31
-\BOOKMARK [3][-]{subsubsection.2.2.1.1}{Least Squares Loss Function}{subsection.2.2.1}% 32
-\BOOKMARK [3][-]{subsubsection.2.2.1.2}{Residual Sum of Squares}{subsection.2.2.1}% 33
-\BOOKMARK [3][-]{subsubsection.2.2.1.3}{The Normal Equations}{subsection.2.2.1}% 34
-\BOOKMARK [2][-]{subsection.2.2.2}{A Statistical Model - Existence of Noise}{section.2.2}% 35
-\BOOKMARK [3][-]{subsubsection.2.2.2.1}{Geometric Interpretation}{subsection.2.2.2}% 36
-\BOOKMARK [2][-]{subsection.2.2.3}{Maximum Likelihood Equivalence}{section.2.2}% 37
-\BOOKMARK [3][-]{subsubsection.2.2.3.1}{Model Interpretation}{subsection.2.2.3}% 38
-\BOOKMARK [2][-]{subsection.2.2.4}{Categorical Variables}{section.2.2}% 39
-\BOOKMARK [1][-]{section.2.3}{Polynomial Fitting}{chapter.2}% 40
-\BOOKMARK [1][-]{section.2.4}{Bias and Variance of Estimators}{chapter.2}% 41
-\BOOKMARK [1][-]{section.2.5}{Summary}{chapter.2}% 42
-\BOOKMARK [2][-]{subsection.2.5.1}{Exercises}{section.2.5}% 43
-\BOOKMARK [2][-]{subsection.2.5.2}{Lab: Linear Regression}{section.2.5}% 44
-\BOOKMARK [2][-]{subsection.2.5.3}{Lab: Polynomial Fitting}{section.2.5}% 45
-\BOOKMARK [0][-]{chapter.3}{Classification}{}% 46
-\BOOKMARK [1][-]{section.3.1}{Classification Overview}{chapter.3}% 47
-\BOOKMARK [2][-]{subsection.3.1.1}{Loss Function}{section.3.1}% 48
-\BOOKMARK [2][-]{subsection.3.1.2}{Type-I and Type-II Errors}{section.3.1}% 49
-\BOOKMARK [2][-]{subsection.3.1.3}{Measurements of performance}{section.3.1}% 50
-\BOOKMARK [2][-]{subsection.3.1.4}{Decision Boundaries}{section.3.1}% 51
-\BOOKMARK [2][-]{subsection.3.1.5}{ROC Curve}{section.3.1}% 52
-\BOOKMARK [1][-]{section.3.2}{Half-Space Classifier}{chapter.3}% 53
-\BOOKMARK [2][-]{subsection.3.2.1}{Learning Linearly Separable Data Via ERM}{section.3.2}% 54
-\BOOKMARK [2][-]{subsection.3.2.2}{Computational Implementation}{section.3.2}% 55
-\BOOKMARK [2][-]{subsection.3.2.3}{The Perceptron Algorithm}{section.3.2}% 56
-\BOOKMARK [1][-]{section.3.3}{Support Vector Machines}{chapter.3}% 57
-\BOOKMARK [2][-]{subsection.3.3.1}{Maximum Margin Learning Principle}{section.3.3}% 58
-\BOOKMARK [2][-]{subsection.3.3.2}{Hard-SVM}{section.3.3}% 59
-\BOOKMARK [3][-]{subsubsection.3.3.2.1}{Convex Optimization}{subsection.3.3.2}% 60
-\BOOKMARK [3][-]{subsubsection.3.3.2.2}{Solving Hard-SVM}{subsection.3.3.2}% 61
-\BOOKMARK [2][-]{subsection.3.3.3}{Soft-SVM}{section.3.3}% 62
-\BOOKMARK [3][-]{subsubsection.3.3.3.1}{The Kernel Trick}{subsection.3.3.3}% 63
-\BOOKMARK [1][-]{section.3.4}{Nearest Neighbors}{chapter.3}% 64
-\BOOKMARK [2][-]{subsection.3.4.1}{Prediction Using k-NN}{section.3.4}% 65
-\BOOKMARK [2][-]{subsection.3.4.2}{Computational Implementation}{section.3.4}% 66
-\BOOKMARK [2][-]{subsection.3.4.3}{Selecting Value of k Hyper-Parameter}{section.3.4}% 67
-\BOOKMARK [1][-]{section.3.5}{Decision Trees}{chapter.3}% 68
-\BOOKMARK [2][-]{subsection.3.5.1}{Axis-Parallel Partitioning of Rd}{section.3.5}% 69
-\BOOKMARK [2][-]{subsection.3.5.2}{Classification \046 Regression Trees}{section.3.5}% 70
-\BOOKMARK [2][-]{subsection.3.5.3}{Growing a Classification Tree}{section.3.5}% 71
-\BOOKMARK [2][-]{subsection.3.5.4}{CART Heuristic For Growing Trees}{section.3.5}% 72
-\BOOKMARK [2][-]{subsection.3.5.5}{Pruning a Decision Tree}{section.3.5}% 73
-\BOOKMARK [1][-]{section.3.6}{Bayes Classifiers}{chapter.3}% 74
-\BOOKMARK [2][-]{subsection.3.6.1}{Bayes Optimal Classifier}{section.3.6}% 75
-\BOOKMARK [2][-]{subsection.3.6.2}{Naive Bayes}{section.3.6}% 76
-\BOOKMARK [2][-]{subsection.3.6.3}{Linear Discriminant Analysis}{section.3.6}% 77
-\BOOKMARK [2][-]{subsection.3.6.4}{Quadratic Discriminant Analysis}{section.3.6}% 78
-\BOOKMARK [2][-]{subsection.3.6.5}{Lab: Maximum Likelihood Estimation}{section.3.6}% 79
-\BOOKMARK [1][-]{section.3.7}{Logistic Regression}{chapter.3}% 80
-\BOOKMARK [2][-]{subsection.3.7.1}{A Probabilistic Model For Noisy Labels}{section.3.7}% 81
-\BOOKMARK [3][-]{subsubsection.3.7.1.1}{The Hypothesis Class}{subsection.3.7.1}% 82
-\BOOKMARK [3][-]{subsubsection.3.7.1.2}{Learning Via Maximum Likelihood}{subsection.3.7.1}% 83
-\BOOKMARK [2][-]{subsection.3.7.2}{Computational Implementation}{section.3.7}% 84
-\BOOKMARK [2][-]{subsection.3.7.3}{Interpretability}{section.3.7}% 85
-\BOOKMARK [2][-]{subsection.3.7.4}{Lab: Logistic Regression}{section.3.7}% 86
-\BOOKMARK [1][-]{section.3.8}{Summary}{chapter.3}% 87
-\BOOKMARK [2][-]{subsection.3.8.1}{Exercises}{section.3.8}% 88
-\BOOKMARK [0][-]{chapter.4}{PAC Theory of Statistical Learning}{}% 89
-\BOOKMARK [1][-]{section.4.1}{Theoretical Framework For Learning}{chapter.4}% 90
-\BOOKMARK [2][-]{subsection.4.1.1}{Data-Generation Model}{section.4.1}% 91
-\BOOKMARK [2][-]{subsection.4.1.2}{The Realizability Assumption}{section.4.1}% 92
-\BOOKMARK [2][-]{subsection.4.1.3}{Learning As A Game - First Attempt}{section.4.1}% 93
-\BOOKMARK [2][-]{subsection.4.1.4}{Probably- and Approximately Correct Learners}{section.4.1}% 94
-\BOOKMARK [1][-]{section.4.2}{No Free Lunch and Hypothesis Classes}{chapter.4}% 95
-\BOOKMARK [2][-]{subsection.4.2.1}{No Free Lunch!}{section.4.2}% 96
-\BOOKMARK [2][-]{subsection.4.2.2}{Restricting for Hypothesis Classes}{section.4.2}% 97
-\BOOKMARK [2][-]{subsection.4.2.3}{Learning As A Game - Final Attempt}{section.4.2}% 98
-\BOOKMARK [2][-]{subsection.4.2.4}{Example: Threshold Functions}{section.4.2}% 99
-\BOOKMARK [1][-]{section.4.3}{PAC Learnability of Finite Hypothesis Classes}{chapter.4}% 100
-\BOOKMARK [1][-]{section.4.4}{VC-Dimension}{chapter.4}% 101
-\BOOKMARK [2][-]{subsection.4.4.1}{Formal Definition}{section.4.4}% 102
-\BOOKMARK [2][-]{subsection.4.4.2}{VC-Dimension of Finite Hypothesis Classes}{section.4.4}% 103
-\BOOKMARK [2][-]{subsection.4.4.3}{Example: Axis Aligned Rectangles}{section.4.4}% 104
-\BOOKMARK [2][-]{subsection.4.4.4}{Example: Half-Spaces}{section.4.4}% 105
-\BOOKMARK [1][-]{section.4.5}{Agnostic PAC: Extending Framework}{chapter.4}% 106
-\BOOKMARK [2][-]{subsection.4.5.1}{Data-Generation Model Over XY}{section.4.5}% 107
-\BOOKMARK [2][-]{subsection.4.5.2}{Relaxing Realizability Assumption}{section.4.5}% 108
-\BOOKMARK [2][-]{subsection.4.5.3}{Introducing General Loss Functions}{section.4.5}% 109
-\BOOKMARK [2][-]{subsection.4.5.4}{Agnostic PAC Learnability}{section.4.5}% 110
-\BOOKMARK [1][-]{section.4.6}{Uniform Convergence Property}{chapter.4}% 111
-\BOOKMARK [2][-]{subsection.4.6.1}{-Representative Datasets}{section.4.6}% 112
-\BOOKMARK [2][-]{subsection.4.6.2}{Achieving Uniformity In H and D}{section.4.6}% 113
-\BOOKMARK [3][-]{subsubsection.4.6.2.1}{The Case Of Finite H}{subsection.4.6.2}% 114
-\BOOKMARK [3][-]{subsubsection.4.6.2.2}{The General Case - Infinite H}{subsection.4.6.2}% 115
-\BOOKMARK [1][-]{section.4.7}{The Fundamental Theorem of Statistical Learning}{chapter.4}% 116
-\BOOKMARK [0][-]{chapter.5}{Ensemble Methods}{}% 117
-\BOOKMARK [1][-]{section.5.1}{Bias-Variance Trade-off}{chapter.5}% 118
-\BOOKMARK [2][-]{subsection.5.1.1}{Generalization Error Decomposition}{section.5.1}% 119
-\BOOKMARK [2][-]{subsection.5.1.2}{Lab: Bias-Variance Via Decision Trees}{section.5.1}% 120
-\BOOKMARK [2][-]{subsection.5.1.3}{Lab: Bias-Variance Via Polynomial Fitting}{section.5.1}% 121
-\BOOKMARK [1][-]{section.5.2}{Ensemble/Committee Methods}{chapter.5}% 122
-\BOOKMARK [2][-]{subsection.5.2.1}{Uncorrelated Predictors}{section.5.2}% 123
-\BOOKMARK [2][-]{subsection.5.2.2}{Correlated Predictors}{section.5.2}% 124
-\BOOKMARK [2][-]{subsection.5.2.3}{Committee Methods In Machine Learning}{section.5.2}% 125
-\BOOKMARK [1][-]{section.5.3}{Bagging}{chapter.5}% 126
-\BOOKMARK [2][-]{subsection.5.3.1}{Bootstrapping}{section.5.3}% 127
-\BOOKMARK [2][-]{subsection.5.3.2}{Bootstrapping for Bagging}{section.5.3}% 128
-\BOOKMARK [2][-]{subsection.5.3.3}{Bagging Reduces Variance}{section.5.3}% 129
-\BOOKMARK [2][-]{subsection.5.3.4}{Random Forests Bagging and De-correlating Decision Trees}{section.5.3}% 130
-\BOOKMARK [3][-]{subsubsection.5.3.4.1}{Bagging - Discussion Points}{subsection.5.3.4}% 131
-\BOOKMARK [1][-]{section.5.4}{Boosting}{chapter.5}% 132
-\BOOKMARK [2][-]{subsection.5.4.1}{AdaBoost Algorithm}{section.5.4}% 133
-\BOOKMARK [2][-]{subsection.5.4.2}{PAC View of Boosting - Weak Learnability}{section.5.4}% 134
-\BOOKMARK [2][-]{subsection.5.4.3}{Bias-Variance in Boosting}{section.5.4}% 135
-\BOOKMARK [2][-]{subsection.5.4.4}{Gradient Boosting Algorithm}{section.5.4}% 136
-\BOOKMARK [2][-]{subsection.5.4.5}{Lab: Boosting - Image Classification}{section.5.4}% 137
-\BOOKMARK [1][-]{section.5.5}{Summary}{chapter.5}% 138
-\BOOKMARK [2][-]{subsection.5.5.1}{Exercises}{section.5.5}% 139
-\BOOKMARK [0][-]{chapter.6}{Regularization, Model Selection and Model Evaluation}{}% 140
-\BOOKMARK [1][-]{section.6.1}{Regularization}{chapter.6}% 141
-\BOOKMARK [2][-]{subsection.6.1.1}{Subset Selection}{section.6.1}% 142
-\BOOKMARK [2][-]{subsection.6.1.2}{2 - Ridge Regularization}{section.6.1}% 143
-\BOOKMARK [2][-]{subsection.6.1.3}{1 - Lasso Regularization}{section.6.1}% 144
-\BOOKMARK [2][-]{subsection.6.1.4}{Lq Norm Regularizations}{section.6.1}% 145
-\BOOKMARK [2][-]{subsection.6.1.5}{Convexity vs. Sparsity}{section.6.1}% 146
-\BOOKMARK [2][-]{subsection.6.1.6}{The Orthogonal Design Case}{section.6.1}% 147
-\BOOKMARK [2][-]{subsection.6.1.7}{Lab: Regularized Logistic Regression}{section.6.1}% 148
-\BOOKMARK [1][-]{section.6.2}{Model Selection and -Evaluation}{chapter.6}% 149
-\BOOKMARK [2][-]{subsection.6.2.1}{Cross Validation}{section.6.2}% 150
-\BOOKMARK [2][-]{subsection.6.2.2}{Bootstrap}{section.6.2}% 151
-\BOOKMARK [2][-]{subsection.6.2.3}{Common Model Selection Mistakes}{section.6.2}% 152
-\BOOKMARK [3][-]{subsubsection.6.2.3.1}{Over-estimating Generalization Error}{subsection.6.2.3}% 153
-\BOOKMARK [3][-]{subsubsection.6.2.3.2}{Under-estimating Generalization Error}{subsection.6.2.3}% 154
-\BOOKMARK [2][-]{subsection.6.2.4}{Lab: Selecting Regularized Model}{section.6.2}% 155
-\BOOKMARK [0][-]{chapter.7}{Unsupervised Learning}{}% 156
-\BOOKMARK [1][-]{section.7.1}{Dimensionality Reduction}{chapter.7}% 157
-\BOOKMARK [2][-]{subsection.7.1.1}{Preserved Data Properties}{section.7.1}% 158
-\BOOKMARK [2][-]{subsection.7.1.2}{Principal Component Analysis}{section.7.1}% 159
-\BOOKMARK [3][-]{subsubsection.7.1.2.1}{Closest Subspace Interpretation}{subsection.7.1.2}% 160
-\BOOKMARK [3][-]{subsubsection.7.1.2.2}{Generalized Linear Regression Interpretation}{subsection.7.1.2}% 161
-\BOOKMARK [3][-]{subsubsection.7.1.2.3}{Maximum Retained Variance Interpretation}{subsection.7.1.2}% 162
-\BOOKMARK [3][-]{subsubsection.7.1.2.4}{Projection- vs. Coordinates of Data-Points}{subsection.7.1.2}% 163
-\BOOKMARK [3][-]{subsubsection.7.1.2.5}{Variants of PCA}{subsection.7.1.2}% 164
-\BOOKMARK [3][-]{subsubsection.7.1.2.6}{Euclidean Embedding}{subsection.7.1.2}% 165
-\BOOKMARK [2][-]{subsection.7.1.3}{Lab: PCA}{section.7.1}% 166
-\BOOKMARK [1][-]{section.7.2}{Clustering}{chapter.7}% 167
-\BOOKMARK [2][-]{subsection.7.2.1}{K-Means}{section.7.2}% 168
-\BOOKMARK [3][-]{subsubsection.7.2.1.1}{}{subsection.7.2.1}% 169
-\BOOKMARK [3][-]{subsubsection.7.2.1.2}{K-Means++}{subsection.7.2.1}% 170
-\BOOKMARK [2][-]{subsection.7.2.2}{Mixture of Gaussians}{section.7.2}% 171
-\BOOKMARK [3][-]{subsubsection.7.2.2.1}{Expectation Minimization Learning Principal}{subsection.7.2.2}% 172
-\BOOKMARK [3][-]{subsubsection.7.2.2.2}{Estimating Model Parameters}{subsection.7.2.2}% 173
-\BOOKMARK [2][-]{subsection.7.2.3}{Spectral Clustering}{section.7.2}% 174
-\BOOKMARK [2][-]{subsection.7.2.4}{Lab: K-Means++}{section.7.2}% 175
-\BOOKMARK [2][-]{subsection.7.2.5}{Lab: Parameters Estimation In MoG}{section.7.2}% 176
-\BOOKMARK [0][-]{chapter.8}{Convex Optimization and Gradient Descent}{}% 177
-\BOOKMARK [1][-]{subsection.8.0.1}{Gradient Descent Learning Principal}{chapter.8}% 178
-\BOOKMARK [2][-]{subsection.8.0.2}{Utilizing Sub-gradients For GD}{subsection.8.0.1}% 179
-\BOOKMARK [2][-]{subsection.8.0.3}{Stochastic Gradient Descent}{subsection.8.0.1}% 180
-\BOOKMARK [2][-]{subsection.8.0.4}{Variants Of Gradient Descent}{subsection.8.0.1}% 181
-\BOOKMARK [2][-]{subsection.8.0.5}{Initialization Conditions}{subsection.8.0.1}% 182
-\BOOKMARK [2][-]{subsection.8.0.6}{Tuning Learning Rates}{subsection.8.0.1}% 183
-\BOOKMARK [0][-]{chapter.9}{Online- and Reinforcement Learning}{}% 184
-\BOOKMARK [0][-]{chapter.10}{Deep Learning}{}% 185
+\BOOKMARK [1][-]{section.1.1}{Recap: Probability and Statistics}{chapter.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.1}{Probability Space}{section.1.1}% 6
+\BOOKMARK [0][-]{chapter.2}{Introduction \046 Linear Regression}{}% 7
+\BOOKMARK [1][-]{section.2.1}{Introduction to Statistical Learning}{chapter.2}% 8
+\BOOKMARK [2][-]{subsection.2.1.1}{Estimation Theory}{section.2.1}% 9
+\BOOKMARK [3][-]{subsubsection.2.1.1.1}{Estimators}{subsection.2.1.1}% 10
+\BOOKMARK [2][-]{subsection.2.1.2}{Risk \046 Loss Functions}{section.2.1}% 11
+\BOOKMARK [2][-]{subsection.2.1.3}{Learning Principles}{section.2.1}% 12
+\BOOKMARK [3][-]{subsubsection.2.1.3.1}{Empirical Risk Minimization}{subsection.2.1.3}% 13
+\BOOKMARK [3][-]{subsubsection.2.1.3.2}{Maximum Likelihood}{subsection.2.1.3}% 14
+\BOOKMARK [2][-]{subsection.2.1.4}{Lab: Python Data Analysis - First Steps}{section.2.1}% 15
+\BOOKMARK [2][-]{subsection.2.1.5}{Lab: Data Simulation and Sampling}{section.2.1}% 16
+\BOOKMARK [1][-]{section.2.2}{Linear Regression}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.2.1}{Ordinary Least Squares}{section.2.2}% 18
+\BOOKMARK [3][-]{subsubsection.2.2.1.1}{Least Squares Loss Function}{subsection.2.2.1}% 19
+\BOOKMARK [3][-]{subsubsection.2.2.1.2}{Residual Sum of Squares}{subsection.2.2.1}% 20
+\BOOKMARK [3][-]{subsubsection.2.2.1.3}{The Normal Equations}{subsection.2.2.1}% 21
+\BOOKMARK [2][-]{subsection.2.2.2}{A Statistical Model - Existence of Noise}{section.2.2}% 22
+\BOOKMARK [3][-]{subsubsection.2.2.2.1}{Geometric Interpretation}{subsection.2.2.2}% 23
+\BOOKMARK [2][-]{subsection.2.2.3}{Maximum Likelihood Equivalence}{section.2.2}% 24
+\BOOKMARK [3][-]{subsubsection.2.2.3.1}{Model Interpretation}{subsection.2.2.3}% 25
+\BOOKMARK [2][-]{subsection.2.2.4}{Categorical Variables}{section.2.2}% 26
+\BOOKMARK [1][-]{section.2.3}{Polynomial Fitting}{chapter.2}% 27
+\BOOKMARK [1][-]{section.2.4}{Bias and Variance of Estimators}{chapter.2}% 28
+\BOOKMARK [1][-]{section.2.5}{Summary}{chapter.2}% 29
+\BOOKMARK [2][-]{subsection.2.5.1}{Exercises}{section.2.5}% 30
+\BOOKMARK [2][-]{subsection.2.5.2}{Lab: Linear Regression}{section.2.5}% 31
+\BOOKMARK [2][-]{subsection.2.5.3}{Lab: Polynomial Fitting}{section.2.5}% 32
+\BOOKMARK [0][-]{chapter.3}{Classification}{}% 33
+\BOOKMARK [1][-]{section.3.1}{Classification Overview}{chapter.3}% 34
+\BOOKMARK [2][-]{subsection.3.1.1}{Loss Function}{section.3.1}% 35
+\BOOKMARK [2][-]{subsection.3.1.2}{Type-I and Type-II Errors}{section.3.1}% 36
+\BOOKMARK [2][-]{subsection.3.1.3}{Measurements of performance}{section.3.1}% 37
+\BOOKMARK [2][-]{subsection.3.1.4}{Decision Boundaries}{section.3.1}% 38
+\BOOKMARK [2][-]{subsection.3.1.5}{ROC Curve}{section.3.1}% 39
+\BOOKMARK [1][-]{section.3.2}{Half-Space Classifier}{chapter.3}% 40
+\BOOKMARK [2][-]{subsection.3.2.1}{Learning Linearly Separable Data Via ERM}{section.3.2}% 41
+\BOOKMARK [2][-]{subsection.3.2.2}{Computational Implementation}{section.3.2}% 42
+\BOOKMARK [2][-]{subsection.3.2.3}{The Perceptron Algorithm}{section.3.2}% 43
+\BOOKMARK [1][-]{section.3.3}{Support Vector Machines}{chapter.3}% 44
+\BOOKMARK [2][-]{subsection.3.3.1}{Maximum Margin Learning Principle}{section.3.3}% 45
+\BOOKMARK [2][-]{subsection.3.3.2}{Hard-SVM}{section.3.3}% 46
+\BOOKMARK [3][-]{subsubsection.3.3.2.1}{Convex Optimization}{subsection.3.3.2}% 47
+\BOOKMARK [3][-]{subsubsection.3.3.2.2}{Solving Hard-SVM}{subsection.3.3.2}% 48
+\BOOKMARK [2][-]{subsection.3.3.3}{Soft-SVM}{section.3.3}% 49
+\BOOKMARK [3][-]{subsubsection.3.3.3.1}{The Kernel Trick}{subsection.3.3.3}% 50
+\BOOKMARK [1][-]{section.3.4}{Nearest Neighbors}{chapter.3}% 51
+\BOOKMARK [2][-]{subsection.3.4.1}{Prediction Using k-NN}{section.3.4}% 52
+\BOOKMARK [2][-]{subsection.3.4.2}{Computational Implementation}{section.3.4}% 53
+\BOOKMARK [2][-]{subsection.3.4.3}{Selecting Value of k Hyper-Parameter}{section.3.4}% 54
+\BOOKMARK [1][-]{section.3.5}{Decision Trees}{chapter.3}% 55
+\BOOKMARK [2][-]{subsection.3.5.1}{Axis-Parallel Partitioning of Rd}{section.3.5}% 56
+\BOOKMARK [2][-]{subsection.3.5.2}{Classification \046 Regression Trees}{section.3.5}% 57
+\BOOKMARK [2][-]{subsection.3.5.3}{Growing a Classification Tree}{section.3.5}% 58
+\BOOKMARK [2][-]{subsection.3.5.4}{CART Heuristic For Growing Trees}{section.3.5}% 59
+\BOOKMARK [2][-]{subsection.3.5.5}{Pruning a Decision Tree}{section.3.5}% 60
+\BOOKMARK [1][-]{section.3.6}{Bayes Classifiers}{chapter.3}% 61
+\BOOKMARK [2][-]{subsection.3.6.1}{Bayes Optimal Classifier}{section.3.6}% 62
+\BOOKMARK [2][-]{subsection.3.6.2}{Naive Bayes}{section.3.6}% 63
+\BOOKMARK [2][-]{subsection.3.6.3}{Linear Discriminant Analysis}{section.3.6}% 64
+\BOOKMARK [2][-]{subsection.3.6.4}{Quadratic Discriminant Analysis}{section.3.6}% 65
+\BOOKMARK [2][-]{subsection.3.6.5}{Lab: Maximum Likelihood Estimation}{section.3.6}% 66
+\BOOKMARK [1][-]{section.3.7}{Logistic Regression}{chapter.3}% 67
+\BOOKMARK [2][-]{subsection.3.7.1}{A Probabilistic Model For Noisy Labels}{section.3.7}% 68
+\BOOKMARK [3][-]{subsubsection.3.7.1.1}{The Hypothesis Class}{subsection.3.7.1}% 69
+\BOOKMARK [3][-]{subsubsection.3.7.1.2}{Learning Via Maximum Likelihood}{subsection.3.7.1}% 70
+\BOOKMARK [2][-]{subsection.3.7.2}{Computational Implementation}{section.3.7}% 71
+\BOOKMARK [2][-]{subsection.3.7.3}{Interpretability}{section.3.7}% 72
+\BOOKMARK [2][-]{subsection.3.7.4}{Lab: Logistic Regression}{section.3.7}% 73
+\BOOKMARK [1][-]{section.3.8}{Summary}{chapter.3}% 74
+\BOOKMARK [2][-]{subsection.3.8.1}{Exercises}{section.3.8}% 75
+\BOOKMARK [0][-]{chapter.4}{PAC Theory of Statistical Learning}{}% 76
+\BOOKMARK [1][-]{section.4.1}{Theoretical Framework For Learning}{chapter.4}% 77
+\BOOKMARK [2][-]{subsection.4.1.1}{Data-Generation Model}{section.4.1}% 78
+\BOOKMARK [2][-]{subsection.4.1.2}{The Realizability Assumption}{section.4.1}% 79
+\BOOKMARK [2][-]{subsection.4.1.3}{Learning As A Game - First Attempt}{section.4.1}% 80
+\BOOKMARK [2][-]{subsection.4.1.4}{Probably- and Approximately Correct Learners}{section.4.1}% 81
+\BOOKMARK [1][-]{section.4.2}{No Free Lunch and Hypothesis Classes}{chapter.4}% 82
+\BOOKMARK [2][-]{subsection.4.2.1}{No Free Lunch!}{section.4.2}% 83
+\BOOKMARK [2][-]{subsection.4.2.2}{Restricting for Hypothesis Classes}{section.4.2}% 84
+\BOOKMARK [2][-]{subsection.4.2.3}{Learning As A Game - Final Attempt}{section.4.2}% 85
+\BOOKMARK [2][-]{subsection.4.2.4}{Example: Threshold Functions}{section.4.2}% 86
+\BOOKMARK [1][-]{section.4.3}{PAC Learnability of Finite Hypothesis Classes}{chapter.4}% 87
+\BOOKMARK [1][-]{section.4.4}{VC-Dimension}{chapter.4}% 88
+\BOOKMARK [2][-]{subsection.4.4.1}{Formal Definition}{section.4.4}% 89
+\BOOKMARK [2][-]{subsection.4.4.2}{VC-Dimension of Finite Hypothesis Classes}{section.4.4}% 90
+\BOOKMARK [2][-]{subsection.4.4.3}{Example: Axis Aligned Rectangles}{section.4.4}% 91
+\BOOKMARK [2][-]{subsection.4.4.4}{Example: Half-Spaces}{section.4.4}% 92
+\BOOKMARK [1][-]{section.4.5}{Agnostic PAC: Extending Framework}{chapter.4}% 93
+\BOOKMARK [2][-]{subsection.4.5.1}{Data-Generation Model Over XY}{section.4.5}% 94
+\BOOKMARK [2][-]{subsection.4.5.2}{Relaxing Realizability Assumption}{section.4.5}% 95
+\BOOKMARK [2][-]{subsection.4.5.3}{Introducing General Loss Functions}{section.4.5}% 96
+\BOOKMARK [2][-]{subsection.4.5.4}{Agnostic PAC Learnability}{section.4.5}% 97
+\BOOKMARK [1][-]{section.4.6}{Uniform Convergence Property}{chapter.4}% 98
+\BOOKMARK [2][-]{subsection.4.6.1}{-Representative Datasets}{section.4.6}% 99
+\BOOKMARK [2][-]{subsection.4.6.2}{Achieving Uniformity In H and D}{section.4.6}% 100
+\BOOKMARK [3][-]{subsubsection.4.6.2.1}{The Case Of Finite H}{subsection.4.6.2}% 101
+\BOOKMARK [3][-]{subsubsection.4.6.2.2}{The General Case - Infinite H}{subsection.4.6.2}% 102
+\BOOKMARK [1][-]{section.4.7}{The Fundamental Theorem of Statistical Learning}{chapter.4}% 103
+\BOOKMARK [0][-]{chapter.5}{Ensemble Methods}{}% 104
+\BOOKMARK [1][-]{section.5.1}{Bias-Variance Trade-off}{chapter.5}% 105
+\BOOKMARK [2][-]{subsection.5.1.1}{Generalization Error Decomposition}{section.5.1}% 106
+\BOOKMARK [2][-]{subsection.5.1.2}{Lab: Bias-Variance Via Decision Trees}{section.5.1}% 107
+\BOOKMARK [2][-]{subsection.5.1.3}{Lab: Bias-Variance Via Polynomial Fitting}{section.5.1}% 108
+\BOOKMARK [1][-]{section.5.2}{Ensemble/Committee Methods}{chapter.5}% 109
+\BOOKMARK [2][-]{subsection.5.2.1}{Uncorrelated Predictors}{section.5.2}% 110
+\BOOKMARK [2][-]{subsection.5.2.2}{Correlated Predictors}{section.5.2}% 111
+\BOOKMARK [2][-]{subsection.5.2.3}{Committee Methods In Machine Learning}{section.5.2}% 112
+\BOOKMARK [1][-]{section.5.3}{Bagging}{chapter.5}% 113
+\BOOKMARK [2][-]{subsection.5.3.1}{Bootstrapping}{section.5.3}% 114
+\BOOKMARK [2][-]{subsection.5.3.2}{Bootstrapping for Bagging}{section.5.3}% 115
+\BOOKMARK [2][-]{subsection.5.3.3}{Bagging Reduces Variance}{section.5.3}% 116
+\BOOKMARK [2][-]{subsection.5.3.4}{Random Forests Bagging and De-correlating Decision Trees}{section.5.3}% 117
+\BOOKMARK [3][-]{subsubsection.5.3.4.1}{Bagging - Discussion Points}{subsection.5.3.4}% 118
+\BOOKMARK [1][-]{section.5.4}{Boosting}{chapter.5}% 119
+\BOOKMARK [2][-]{subsection.5.4.1}{AdaBoost Algorithm}{section.5.4}% 120
+\BOOKMARK [2][-]{subsection.5.4.2}{PAC View of Boosting - Weak Learnability}{section.5.4}% 121
+\BOOKMARK [2][-]{subsection.5.4.3}{Bias-Variance in Boosting}{section.5.4}% 122
+\BOOKMARK [2][-]{subsection.5.4.4}{Gradient Boosting Algorithm}{section.5.4}% 123
+\BOOKMARK [2][-]{subsection.5.4.5}{Lab: Boosting - Image Classification}{section.5.4}% 124
+\BOOKMARK [1][-]{section.5.5}{Summary}{chapter.5}% 125
+\BOOKMARK [2][-]{subsection.5.5.1}{Exercises}{section.5.5}% 126
+\BOOKMARK [0][-]{chapter.6}{Regularization, Model Selection and Model Evaluation}{}% 127
+\BOOKMARK [1][-]{section.6.1}{Regularization}{chapter.6}% 128
+\BOOKMARK [2][-]{subsection.6.1.1}{Subset Selection}{section.6.1}% 129
+\BOOKMARK [2][-]{subsection.6.1.2}{2 - Ridge Regularization}{section.6.1}% 130
+\BOOKMARK [2][-]{subsection.6.1.3}{1 - Lasso Regularization}{section.6.1}% 131
+\BOOKMARK [2][-]{subsection.6.1.4}{Lq Norm Regularizations}{section.6.1}% 132
+\BOOKMARK [2][-]{subsection.6.1.5}{Convexity vs. Sparsity}{section.6.1}% 133
+\BOOKMARK [2][-]{subsection.6.1.6}{The Orthogonal Design Case}{section.6.1}% 134
+\BOOKMARK [2][-]{subsection.6.1.7}{Lab: Regularized Logistic Regression}{section.6.1}% 135
+\BOOKMARK [1][-]{section.6.2}{Model Selection and -Evaluation}{chapter.6}% 136
+\BOOKMARK [2][-]{subsection.6.2.1}{Cross Validation}{section.6.2}% 137
+\BOOKMARK [2][-]{subsection.6.2.2}{Bootstrap}{section.6.2}% 138
+\BOOKMARK [2][-]{subsection.6.2.3}{Common Model Selection Mistakes}{section.6.2}% 139
+\BOOKMARK [3][-]{subsubsection.6.2.3.1}{Over-estimating Generalization Error}{subsection.6.2.3}% 140
+\BOOKMARK [3][-]{subsubsection.6.2.3.2}{Under-estimating Generalization Error}{subsection.6.2.3}% 141
+\BOOKMARK [2][-]{subsection.6.2.4}{Lab: Selecting Regularized Model}{section.6.2}% 142
+\BOOKMARK [0][-]{chapter.7}{Unsupervised Learning}{}% 143
+\BOOKMARK [1][-]{section.7.1}{Dimensionality Reduction}{chapter.7}% 144
+\BOOKMARK [2][-]{subsection.7.1.1}{Preserved Data Properties}{section.7.1}% 145
+\BOOKMARK [2][-]{subsection.7.1.2}{Principal Component Analysis}{section.7.1}% 146
+\BOOKMARK [3][-]{subsubsection.7.1.2.1}{Closest Subspace Interpretation}{subsection.7.1.2}% 147
+\BOOKMARK [3][-]{subsubsection.7.1.2.2}{Generalized Linear Regression Interpretation}{subsection.7.1.2}% 148
+\BOOKMARK [3][-]{subsubsection.7.1.2.3}{Maximum Retained Variance Interpretation}{subsection.7.1.2}% 149
+\BOOKMARK [3][-]{subsubsection.7.1.2.4}{Projection- vs. Coordinates of Data-Points}{subsection.7.1.2}% 150
+\BOOKMARK [3][-]{subsubsection.7.1.2.5}{Variants of PCA}{subsection.7.1.2}% 151
+\BOOKMARK [3][-]{subsubsection.7.1.2.6}{Euclidean Embedding}{subsection.7.1.2}% 152
+\BOOKMARK [2][-]{subsection.7.1.3}{Lab: PCA}{section.7.1}% 153
+\BOOKMARK [1][-]{section.7.2}{Clustering}{chapter.7}% 154
+\BOOKMARK [2][-]{subsection.7.2.1}{K-Means}{section.7.2}% 155
+\BOOKMARK [3][-]{subsubsection.7.2.1.1}{}{subsection.7.2.1}% 156
+\BOOKMARK [3][-]{subsubsection.7.2.1.2}{K-Means++}{subsection.7.2.1}% 157
+\BOOKMARK [2][-]{subsection.7.2.2}{Mixture of Gaussians}{section.7.2}% 158
+\BOOKMARK [3][-]{subsubsection.7.2.2.1}{Expectation Minimization Learning Principal}{subsection.7.2.2}% 159
+\BOOKMARK [3][-]{subsubsection.7.2.2.2}{Estimating Model Parameters}{subsection.7.2.2}% 160
+\BOOKMARK [2][-]{subsection.7.2.3}{Spectral Clustering}{section.7.2}% 161
+\BOOKMARK [2][-]{subsection.7.2.4}{Lab: K-Means++}{section.7.2}% 162
+\BOOKMARK [2][-]{subsection.7.2.5}{Lab: Parameters Estimation In MoG}{section.7.2}% 163
+\BOOKMARK [0][-]{chapter.8}{Convex Optimization and Gradient Descent}{}% 164
+\BOOKMARK [1][-]{subsection.8.0.1}{Gradient Descent Learning Principal}{chapter.8}% 165
+\BOOKMARK [2][-]{subsection.8.0.2}{Utilizing Sub-gradients For GD}{subsection.8.0.1}% 166
+\BOOKMARK [2][-]{subsection.8.0.3}{Stochastic Gradient Descent}{subsection.8.0.1}% 167
+\BOOKMARK [2][-]{subsection.8.0.4}{Variants Of Gradient Descent}{subsection.8.0.1}% 168
+\BOOKMARK [2][-]{subsection.8.0.5}{Initialization Conditions}{subsection.8.0.1}% 169
+\BOOKMARK [2][-]{subsection.8.0.6}{Tuning Learning Rates}{subsection.8.0.1}% 170
+\BOOKMARK [0][-]{chapter.9}{Online- and Reinforcement Learning}{}% 171
+\BOOKMARK [0][-]{chapter.10}{Deep Learning}{}% 172
