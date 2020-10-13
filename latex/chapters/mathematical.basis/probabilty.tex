@@ -1,4 +1,4 @@
-\section{Recap: Probability and Statistics}
+\section{Probability and Statistics}
 
 \subsection{Probability Space}
 Our intuitive notion of probability is related to uncertainty we have about events in the world, for example - will it rain tomorrow? How much will I get in the final exam? Although we cannot predict with certainty the answers to these questions, we usually know what is the set of all possible outcomes. This set is the first ingredient in any \emph{probability space}.
@@ -8,7 +8,7 @@ A \emph{sample space} $\Omega$ is a set that contains all possible outcomes. $\o
 Examples:
 \begin{itemize}
 \item Coin toss: $\Omega=\left\{ H,T\right\} $
-\item Toss a coin until heads comes up: $\Omega=\left\{ T^{n-1}H:n\in\N_0\right\} $
+\item Toss a coin until heads comes up: $\Omega=\left\{ T^{n-1}H:n\in\N\right\} $
 \item Rolling  a die (singular of dice): $\Omega=\left\{ 1,\dots,6\right\}$
 \item Rolling two dice: $\Omega=\left\{ 1,\dots,6\right\} ^{2}$
 \item Waiting time at the post office: $\Omega=[0,\infty)$
@@ -26,4 +26,123 @@ Quick reminder:
 
 Intuitively, a probability function assigns to an event a number which quantifies our knowledge or belief about the possibility of observing any outcome in that event.
 
-$\Dc$
+\subsection{Random Variables, discrete and continuous}
+
+So far we have asked questions like: does an event happen or not and what is the probability of the event. But what about different questions, such as, "how much." For example, if we get a dollar if a coin flip turns head, we can ask how many dollars would we get after 3 rounds?  In order to answer this question, we should identify the sample space, which is
+$\Omega=\{HHH,HHT,HTH,THH,HTT,THT,TTH,TTT\}$. Then we would need to define a reward function that will quantify ones's profit for each outcome of the experiment ($\omega\in \Omega$):
+$X(HHH)=3,X(HHT)=2,$ and so on. This quantifying function $X$ is called a \emph{random variable} (RV).
+\begin{definition}
+	Given a probability space $\left(\Omega,\Dc\right)$, a real-valued \emph{random variable (RV)} is a function $X:\Omega\rightarrow\mathbb{R}$.
+\end{definition}
+\begin{remark}
+	Any function $g\left(X\right)$ of a random variable is also a random
+	variable (for instance $X^{2}$, $sgn \left(X\right)$, etc.).
+\end{remark}
+For a discrete $\Omega$ we define the \textbf{\textit{probability
+		mass function (PMF)}} of $X$ (a \textit{discrete RV}) as
+\[
+\Dc\left(\left\{ X=x\right\} \right)=\sum_{\omega:X\left(\omega\right)=x}\Dc\left(\omega\right)
+\]
+
+
+Instead of writing $\Dc\left(\left\{ X=x\right\} \right)$  one sometimes writes $\Dc_X\left(\left\{ x\right\} \right)$ but more often,  simply $\Dc\left(x\right)$. This simplified notation, omitting any reference to the RV, is useful when the context is clear and we shall use it often. This omission is similar  to saying, for example,  "the probability of $(2,3)$ is 1/6" instead of  "the probability of getting $(2,3)$ by throwing the dice is 1/36".
+
+\begin{example}
+	A fair coin is tossed twice. The probability space is given by $\Omega=\left\{ T,H\right\} ^{2}$
+	and  $\Dc\left(\omega\right)=\frac{1}{4}$ for any $\omega\in \Omega$. Let $X$ denote the number of heads obtained in each outcome ($\omega$). The possible values of $X$ are 0, 1, and 2,
+	and
+	\[
+	\Dc\left(x\right)=\begin{cases}
+		\frac{1}{4} & x=0,2\\
+		\frac{1}{2} & x=1\\
+		0 & \mbox{else}
+	\end{cases}
+	\]
+	
+\end{example}
+
+For a continuous $\Omega$, we say that $X$ is a \textit{continuous
+	RV} if there exists $f(x)\ge 0$ so that we can write, for every $D\subset\mathbb{R}$
+\[
+\Dc\left(X\in D\right)=\int_{D}f\left(x\right)dx
+\]
+
+
+In particular, this means that for any $a,b\in \mathbb{R}$, where $a\leq b$:
+\[
+\Dc\left(X\in\left[a,b\right]\right)=\int_{a}^{b}f\left(x\right)dx
+\]
+
+Again,  $f$ should actually be denoted by $f_X\left(x\right)$ to emphasize that it characterizes the RV $X$ but often the subscript $X$ is omitted.  In this course we assume that $f(x)$ is a regular function and therefore the probability mass function for a single point is 0: $\Dc\left(X=a\right)=\int_{a}^{a}f\left(x\right)dx=0$ for any $a\in\mathbb{R}$.
+
+The function $f$ is called the \textbf{\textit{probability density
+		function }}\textbf{(PDF)} of $X$. Note that -
+\begin{itemize}
+	\item $f\left(x\right)\ge0$
+	\item $\int_{-\infty}^{\infty}f\left(x\right)dx=1$
+	\item $f\left(x\right)$ is a probability \emph{density}, not a probability. For example, it could be that $f\left(x\right)>1$.\\
+\end{itemize}
+
+\subsection{Mean and Variance}
+\begin{definition}
+	The \textbf{\textit{expected value}} of a random variable
+	$X$ is
+	\[
+	\bE\left[X\right]=\sum_{x\in\mathcal{X}}x\Dc\left(x\right)\qquad\mbox{or}\qquad \bE\left[X\right]=\int_{-\infty}^{\infty}xf\left(x\right)dx
+	\]
+	
+\end{definition}
+Properties:
+\begin{itemize}
+	\item $\bE\left[g\left(X\right)\right]=\sum g\left(x\right)\Dc\left(x\right)$,
+	\item $\bE\left[c\right]=c$
+	\item Linear: $\bE\left[aX+Y\right]=a\bE\left[X\right]+\bE\left[Y\right]$
+	\item If $X$ and $Y$ are independent then $\bE\left[XY\right]=\bE\left[X\right]\bE\left[Y\right]$
+	since $\bE[XY]=\sum\Dc(X=x,Y=y)x\cdot y = \sum_{x,y}\Dc(x)\Dc(y)xy=\bE[X]\bE[Y]$.
+\end{itemize}
+
+\begin{definition}
+	Let $X$ be a RV with $\bE\left[X\right]=\mu$, then the \textbf{\textit{variance}}
+	of $X$ is
+	\[
+	V\left(X\right)=\bE\left[\left(X-\mu\right)^{2}\right]
+	\]
+	The \textbf{\textit{standard deviation}} is defined as $\sigma=\sqrt{V\left(X\right)}$.
+\end{definition}
+Properties of the variance:
+\begin{itemize}
+	\item $V(X)\geq0$ , ~$V(X)=0\,\iff\,X$ is a constant.
+	\item $V\left(X\right)=\bE\left[X^{2}\right] - (\bE\left[X\right])^{2}$
+	\item $V(aX+b)=a^{2}V(X)$
+	\item $V(X+Y)=\bE\left[\left(X+Y-\bE(X)-\bE(Y)\right)^{2}\right]=V(X)+V(Y)+2\overbrace{\bE\left[\left(X-\bE[X]\right)\left(Y-\bE[Y]\right)\right]}^{\sigma \left(X,Y \right)}$
+	\item If $X_{1},\dots,X_{n}$ are independent then $V\left(\sum X_{i}\right)=\sum V\left(X_{i}\right)$\end{itemize}
+
+\begin{definition}
+	The \textbf{\textit{covariance}} of $X$ and $Y$ is denoted by $\sigma \left(X,Y \right)$ or $\sigma_{XY}$ and is defined as
+\end{definition}
+$$
+\sigma(X,Y)\equiv \sigma_{XY}\equiv=\bE\left[\left(X-\bE[X]\right)\left(Y-\bE[Y]\right)\right]=\bE\left[XY\right]-\bE[X]\bE[Y]
+$$
+
+Properties:
+\begin{itemize}
+	\item $\sigma (X,Y)=\sigma \left(Y,X \right)$
+	\item $\sigma \left(aX+b,cY+d \right) = a \cdot c \cdot \sigma \left(X,Y \right)$
+	\item $\sigma(X,X)=V(X)$
+\end{itemize}
+
+
+\begin{example}
+	Let $Z$ be a Bernoulli random variable. Calculate $Var[Z].$
+\end{example}
+Solution: $Var[Z] = \bE[Z^2] - (\bE[Z])^2 = p-p^2=p(1-p).$
+
+
+\begin{example}
+	Find the mean and variance of $X\sim U\left(\left[a,b\right]\right),$ where $U[a,b]$ is the  uniform distribution on $[a,b].$
+	\begin{eqnarray*}
+		\bE\left[X\right] & = & \frac{1}{b-a}\int_{a}^{b}xdx=\frac{b+a}{2}\\
+		\bE\left[X^{2}\right] & = & =\frac{b^{2}+ab+a^{2}}{3}\\
+		V\left(X\right) & = & \frac{b^{2}+ab+a^{2}}{3}-\frac{\left(b+a\right)^{2}}{4}=\frac{\left(b-a\right)^{2}}{12}
+	\end{eqnarray*}
+\end{example}
