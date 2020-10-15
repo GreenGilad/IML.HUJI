@@ -87,41 +87,41 @@ The function $f$ is called the \textbf{\textit{probability density
 \begin{definition}
 	The \textbf{\textit{expected value}} of a random variable
 	$X$ is
-	\[
-	\bE\left[X\right]=\sum_{x\in\mathcal{X}}x\Dc\left(x\right)\qquad\mbox{or}\qquad \bE\left[X\right]=\int_{-\infty}^{\infty}xf\left(x\right)dx
-	\]
+	$$
+	\E  \left[X\right]=\sum_{x\in\mathcal{X}}x\Dc\left(x\right)\qquad\mbox{or}\qquad \E \left[X\right]=\int_{-\infty}^{\infty}xf\left(x\right)dx
+	$$
 	
 \end{definition}
 Properties:
 \begin{itemize}
-	\item $\bE\left[g\left(X\right)\right]=\sum g\left(x\right)\Dc\left(x\right)$,
-	\item $\bE\left[c\right]=c$
-	\item Linear: $\bE\left[aX+Y\right]=a\bE\left[X\right]+\bE\left[Y\right]$
-	\item If $X$ and $Y$ are independent then $\bE\left[XY\right]=\bE\left[X\right]\bE\left[Y\right]$
-	since $\bE[XY]=\sum\Dc(X=x,Y=y)x\cdot y = \sum_{x,y}\Dc(x)\Dc(y)xy=\bE[X]\bE[Y]$.
+	\item $\E \left[g\left(X\right)\right]=\sum g\left(x\right)\Dc\left(x\right)$,
+	\item $\E \left[c\right]=c$
+	\item Linear: $\E \left[aX+Y\right]=a\E \left[X\right]+\E \left[Y\right]$
+	\item If $X$ and $Y$ are independent then $\E \left[XY\right]=\E \left[X\right]\E \left[Y\right]$
+	since $\E [XY]=\sum\Dc(X=x,Y=y)x\cdot y = \sum_{x,y}\Dc(x)\Dc(y)xy=\E [X]\E [Y]$.
 \end{itemize}
 
 \begin{definition}
-	Let $X$ be a RV with $\bE\left[X\right]=\mu$, then the \textbf{\textit{variance}}
+	Let $X$ be a RV with $\E \left[X\right]=\mu$, then the \textbf{\textit{variance}}
 	of $X$ is
 	\[
-	V\left(X\right)=\bE\left[\left(X-\mu\right)^{2}\right]
+	V\left(X\right)=\E \left[\left(X-\mu\right)^{2}\right]
 	\]
 	The \textbf{\textit{standard deviation}} is defined as $\sigma=\sqrt{V\left(X\right)}$.
 \end{definition}
 Properties of the variance:
 \begin{itemize}
 	\item $V(X)\geq0$ , ~$V(X)=0\,\iff\,X$ is a constant.
-	\item $V\left(X\right)=\bE\left[X^{2}\right] - (\bE\left[X\right])^{2}$
+	\item $V\left(X\right)=\E \left[X^{2}\right] - (\E \left[X\right])^{2}$
 	\item $V(aX+b)=a^{2}V(X)$
-	\item $V(X+Y)=\bE\left[\left(X+Y-\bE(X)-\bE(Y)\right)^{2}\right]=V(X)+V(Y)+2\overbrace{\bE\left[\left(X-\bE[X]\right)\left(Y-\bE[Y]\right)\right]}^{\sigma \left(X,Y \right)}$
+	\item $V(X+Y)=\E \left[\left(X+Y-\E (X)-\E (Y)\right)^{2}\right]=V(X)+V(Y)+2\overbrace{\E \left[\left(X-\E [X]\right)\left(Y-\E [Y]\right)\right]}^{\sigma \left(X,Y \right)}$
 	\item If $X_{1},\dots,X_{n}$ are independent then $V\left(\sum X_{i}\right)=\sum V\left(X_{i}\right)$\end{itemize}
 
 \begin{definition}
 	The \textbf{\textit{covariance}} of $X$ and $Y$ is denoted by $\sigma \left(X,Y \right)$ or $\sigma_{XY}$ and is defined as
 \end{definition}
 $$
-\sigma(X,Y)\equiv \sigma_{XY}\equiv=\bE\left[\left(X-\bE[X]\right)\left(Y-\bE[Y]\right)\right]=\bE\left[XY\right]-\bE[X]\bE[Y]
+\sigma(X,Y)\equiv \sigma_{XY}\equiv=\E \left[\left(X-\E [X]\right)\left(Y-\E [Y]\right)\right]=\E \left[XY\right]-\E [X]\E [Y]
 $$
 
 Properties:
@@ -135,14 +135,45 @@ Properties:
 \begin{example}
 	Let $Z$ be a Bernoulli random variable. Calculate $Var[Z].$
 \end{example}
-Solution: $Var[Z] = \bE[Z^2] - (\bE[Z])^2 = p-p^2=p(1-p).$
+Solution: $Var[Z] = \E [Z^2] - (\E [Z])^2 = p-p^2=p(1-p).$
 
 
 \begin{example}
 	Find the mean and variance of $X\sim U\left(\left[a,b\right]\right),$ where $U[a,b]$ is the  uniform distribution on $[a,b].$
 	\begin{eqnarray*}
-		\bE\left[X\right] & = & \frac{1}{b-a}\int_{a}^{b}xdx=\frac{b+a}{2}\\
-		\bE\left[X^{2}\right] & = & =\frac{b^{2}+ab+a^{2}}{3}\\
+		\E \left[X\right] & = & \frac{1}{b-a}\int_{a}^{b}xdx=\frac{b+a}{2}\\
+		\E \left[X^{2}\right] & = & =\frac{b^{2}+ab+a^{2}}{3}\\
 		V\left(X\right) & = & \frac{b^{2}+ab+a^{2}}{3}-\frac{\left(b+a\right)^{2}}{4}=\frac{\left(b-a\right)^{2}}{12}
 	\end{eqnarray*}
 \end{example}
+
+\subsection{A little Statistics: Mean and variance estimation}
+
+This is a course in {\em Statistical} Machine Learning. So let's start with a little bit of statistics. When we study {\em Probability} we assume a known distribution and calculate probability of events of interest. When we study {\em Statistics} we turn the question on its head: using samples from an unknown probability distribution, we try to {\em estimate} or {\em test} properties of the unknown distribution.
+
+Consider, for example, the mean and the variance.
+The mean gives us a taste of around which point the data is distributed. The variance on the other hand gives us a taste of the concentration of the spread of the distribution around its mean.
+Low variance usually means that the distribution is highly concentrated around the mean. High variance usually means the opposite.
+
+In a probability course, given that we know the distribution, we learned how to calculate its mean and variance.
+Now we would like to ask a different question. We are given {\em samples} that were drawn from an unknown distribution.
+Can we {\em estimate}  the distribution's mean and variance using only those samples?
+
+
+Formally, let $X$ be a random variable, let $\Dc \left(x\right)$ be its (unknown) distribution, and let $X_1,\ldots,X_n\overset{i.i.d}{\sim} D(x)$, where i.i.d  denotes \emph{independent and identically distributed} random variables. We are given \emph{data}
+samples: $x_1,\ldots,x_n$, where $x_i$ is a {\em number} - the sample obtained by sampling $X_i$.
+%The data has its own mean and variance which are likely to be, at least, slightly different than those of $\Dc \left(x\right),$ and therefore it is customary, in statistics, to use different names for these.
+In statistics, $\ensuremath{\mathbb{E}}[X]$ is called the {\em population} mean - "population" added to emphasize that it is the mean of the unknown distribution, not the mean of the observed data.
+Similarly, $V(X)$ is called the \textit{population variance}.
+
+There are many ways to estimate $\ensuremath{\mathbb{E}}[X]$ and $V(X)$ based on those $n$ samples, and each one is called an \textit{estimator}. Throughout the course we are going to use the following estimators (commonly denoted with the "hat" symbol $\hat{\circ}$ to emphasize the fact that they are based on experimental observations and are not the real, namely, the population, mean and variance):
+\begin{itemize}
+	\item Sample mean (an estimator for the population mean)
+	$$		\hat{\mu}_X = \frac{1}{n} \sum_{i=1}^n x_i$$
+	\item Sample variance (an estimator for the population variance)
+    $$		\hat{\sigma}_X^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i-\hat{\mu}_X)^2$$
+\end{itemize}
+
+Whenever the context is clear, we will omit the subscript $X$ and write $\hat{\mu}$ and $\hat{\sigma}^2$ instead of $\hat{\mu}_X$ and $\hat{\sigma}_X^2$.
+Note the $\frac{1}{n-1}$ factor. Why not use the observed variance of the samples,  $\frac{1}{n} \sum_{i=1}^n (x_i-\hat{\mu}_X)^2$, as the population variance estimator? \emph{Answer}: calculate the expected value of these estimators and you will find (perhaps surprisingly) that $\ensuremath{\mathbb{E}}[\hat{\sigma}_X^2]=V(X)$ while $\ensuremath{\mathbb{E}}[\frac{1}{n} \sum_{i=1}^n (x_i-\hat{\mu}_X)^2] = \frac{n-1}{n}V(X)$. So, in expectation, $\hat{\sigma}_X^2$ gets the population variance exactly. If the expected value of an estimator is equal to the parameter it is designed to estimate,  that estimator is said to be {\em unbiased}. Therefore, although $\hat{C}_X^2$ could have been considered, because of its form, a more natural way to estimate  $V(X)$, it is a \textit{biased} estimator. Biased estimators can be useful in certain cases, but for the mean and variance, we will stick with the unbiased ones.
+
