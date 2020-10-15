@@ -84,8 +84,9 @@ As $k$, the number of features in the model, gives some measure of the complexit
 \todo{ Add Forward/Backaward Selection algorithms? }
 
 
-\subsection{$\ell_2$ - Ridge Regularization}
-In addition to the computational challenges imposed by the best-subset regularization, it also often suffers from high variance as features are included or excluded based on the single specific training-set we have. To cope with both problems, we often used different shrinkage methods where we restrict the values of the coefficients, shrinking them towards zero. One such method is the Ridge regression, which imposes a $\norm{\cdot}_2$ penalty on the coefficients:
+\subsection{Ridge ($\ell_2$) Regularization}
+In addition to the computational challenges imposed by the best-subset regularization, it also often suffers from high variance as features are included or excluded based on the single specific training-set we have. To cope with both problems, we often use different \textit{shrinkage methods} where we restrict the values of the coefficients, shrinking them towards zero. One such method is the Ridge regression, which imposes a $\norm{\cdot}_2$ penalty on the coefficients:
+
 \begin{equation}
 \ridge\coloneqq\underset{w_0\in\R, \w\in\R^d}{argmin} \norm{w_0\vv{1} + \X\w - \y}^2 + \lambda\norm{\w}_2^2\quad \lambda\geq 0
 \label{eqn:l2_reg}
@@ -138,7 +139,7 @@ $$
 where we denote $\left[\Sigma_\lambda\right]_{ii}=\frac{\sigma_i}{\sigma_i^2 + \lambda}$ and $\sigma_i$ are the singular values of $\X$.
 \end{proof}
 
-\todo{Explain that is a biased estimator but reduces the variance} 
+\todo{Explain that is a biased estimator but reduces the variance. Maybe take question from homework and put here instead. Might be beneficial to show this in recitation instead } 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/ridge_bias_variance.jpeg}
@@ -148,15 +149,161 @@ where we denote $\left[\Sigma_\lambda\right]_{ii}=\frac{\sigma_i}{\sigma_i^2 + \
 \todo{Add regularization path explanation}
 
 
-\subsection{$\ell_1$ - Lasso Regularization}
+\subsection{Lasso ($\ell_1$) Regularization}
+By introducing the ridge regularizer we were able to apply linear regression when $d>m$ or when $\X^\top\X$. In addition, we saw that even though the ridge estimator is a biased estimator it achieves a lower variance compared to the OLS estimator. However, as evident from the regularization path, the ridge estimator does not do what best-subset does. That is, it cannot \textbf{select} a specific subset of features to use for regression.
+\\~\\
+The \textit{Least Absolute Shrinkage and Selection Operaotr} (Lasso) attempts to achieve exactly that. This regularization method uses the $\ell_1$ norm rather than the $\ell_2$ norm:
+\begin{equation}
+\lasso\coloneqq\underset{w_0\in\R, \w\in\R^d}{argmin} \norm{w_0\vv{1} + \X\w - \y}^2 + \lambda\norm{\w}_1\quad \lambda\geq 0
+\label{eqn:l1_reg}
+\end{equation}
+This optimization problem is still convex and therefore can be solved efficiently. Similar to Ridge setting $\lambda=0$ we get the OLS solution and setting $\lambda\rightarrow\infty$ will shrink the coefficients $\lasso\rightarrow 0$. However the manner of shrinkage is very different between the two problems. The lasso solution, \lasso, is \textbf{sparse}. That is, it has zero entries in the vector. Therefore, the larger $\lambda$, typically the more zeros \lasso will have, effectively defining a subset of features that are used by the model (a feature corresponding a coefficient of zero is not used by the model). We often refer to this subset of features as the "active set". As we are considering problems where $d$ can be very large, it is hard to interpret the model. Thus, the Lasso has an important advantage in interpretability over Ridge, as it selects for us a subset of variables.
 
-\subsection{$L_q$ Norm Regularizations}
-The use of the $\norm{\cdot}_0$ regularization (which we will also denote by $\ell_0$), in either best-subset optimization problems (\ref{eqn:best_subset} or \ref{eqn:l0_reg}), caused the problem to be non-convex and NP-Hard. 
-\subsection{Convexity vs. Sparsity}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/coef_ridge_lasso.png}
+	\caption{\todo{Add caption}}
+\end{figure}
+
+\todo{Add comparison of regularization path between ridge and lasso}
+
+
+\subsubsection{Convexity vs. Sparsity}
+We have discussed three regularization methods for regression problems using the terms: $\norm{\cdot}_0,\norm{\cdot}_1,\norm{\cdot}_2$ (which we will also denote by $\ell_0,\ell_1,\ell_2$). We saw that for both $\ell_1,\ell_2$ we still have a convex optimization problem whereas for the $\ell_0$ term the problem is non-convex. In addition, we stated that unlike $\ell_2$, when using $\ell_1$ we typically introduce sparsity to the solution. Let us expand this discussion for the $L_q$ familty of norms:
+\begin{equation}
+\text{For } 0<q\in\R,\,x\in\R^d\quad \norm{x}_q\coloneqq \left(\sum_{i=1}^d \left(x_i\right)^q\right)^{\frac{1}{q}}
+\label{eqn:lq_norm}
+\end{equation}
+If applying any norm in this family as the regression regularization term then:
+\begin{itemize}
+	\item Sparsity - For any $q\leq 1$ we typically obtain sparse solutions and therefore our active set of features is smaller than $d$.
+	\item Convexity - For any $q\geq 1$ the optimization problem (when we use the RSS loss as the fidelity term) is convex. Therefore the problem can be solved efficiently.
+\end{itemize}
+
+The \textit{Lasso} regression uses $q=1$ and as such achieves \textbf{both} sparsity and convexity. But why are $L_{q\leq 1}$ norms obtain their sparsity? This is in fact based on the shapes of their unit balls.
+\begin{definition}
+For a norm $\norm{\cdot}$ on $\R^d$, a ball of radius $\rho$ (around the origin) is the set: $B_{\rho}\coloneqq\left\{\w\in\R^d|\norm{\w}\leq\rho\right\}$. The unit ball of a norm is the ball of radious $\rho=1$.
+\end{definition}
+
+For $L_{q>1}$, such as in the case of the Euclidean norm, the unit ball has no corners. In contrast, the unit balls of $L_{q\leq 1}$ have corners. Specifically, the unit ball of the $\ell_1$ norm over $\R^d$ has $2d$ corners.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/unit_balls.png}
+	\caption{\todo{Add caption}}
+\end{figure}
+
+Now, let us revisit the Ridge and Lasso optimization problems. Instead of the unconstrained forms seen in \ref{eqn:l1_reg} and \ref{eqn:l2_reg} consider the equivalent constraint versions:
+$$
+\begin{array}{ll|lll}
+\text{minimize }w_0\in\R,\w\in\R^d & \norm{w_0\vv{1}+\X\w-y}^2 & \quad & \text{minimize }\w_0\in\R,\w\in\R^d & \norm{w_0\vv{1}+\X\w-y}^2 \\
+\text{subject to} & \norm{\w}_2^2\leq \rho & &\text{subject to} & \norm{\w}_1\leq \rho\\
+\end{array}
+$$
+
+Now, let us fix some $\rho\in\R$ and ask where will we find the $\widehat{\w}_\rho^{ridge}$ and $\widehat{\w}_t^{lasso}$ solutions. As the fidelity term is a quadratic form in $\w$, its level sets are ellipsoids. Suppose $\rho$ is very large, so there is effectively no constrain, the solution of the minimization problem will be the OLS solution. As we restrict the solution more and more, by making $\rho$ smaller and smaller, we are limiting the solution to be inside the norm ball. By definition, the solution will be found where one of the level sets of the fidelity term intersects with the ball of radius $\rho$. When we consider the $L_{q\leq 1}$ norms (such as the $\ell_1$ in Lasso) this intersection typically happens at one of the corners of the norm ball. As these corners take place on the axes they correspond to \textbf{sparse} solutions.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/sparsity.png}
+	\caption{\todo{Add caption}}
+\end{figure}
+
 
 \subsection{The Orthogonal Design Case}
+Here is another way to understand why Lasso solutions are sparse. Consider the case where all features are orthogonal to each other, namely $\X^\top\X=I_d$. In some sense, this is the simplest setup for regression problems, where we can write $\y$ as a linear combination of \textbf{orthonormal} vectors. This is also known as an orthogonal design. In such setup, we have a closed form solution for $\bestsubset,\ridge,\lasso$ based on the $\ols$ solution.
+\\~\\
+Let us define two \textit{thresholding} functions.
+\begin{definition}
+Let the hard- and soft-threshold (at $\lambda$) be the functions $\eta_\lambda^{hard},\eta_\lambda^{soft}:\R\rightarrow\R$ defined by:$$
+\begin{array}{cc|cc}
+\eta^{hard}_\lambda\coloneqq\indc{\left|x\right|-\lambda}\cdot x & \quad & \quad &
+\begin{array}{ccc}
+\eta_\lambda^{soft}\coloneqq sign\left(x\right)\left[\left|x\right|-\lambda\right]_+=
+\begin{cases}
+	x-\lambda & x\geq \lambda	\\
+	0 & \left|x\right|<\lambda\\
+	x+\lambda & x\leq \lambda\\
+\end{cases}
+\end{array}
+\end{array}
+$$
+\end{definition}
+These functions define a manner of shrinking an input value $x$ towards $0$, depending on $\lambda$. The hard-thresholding zeros inputs in the range of $\left(-\lambda,+\lambda\right)$ and leaves inputs outside of this range unchanged. The shoft-thresholding shrinks inputs out of the $\left(-\lambda,+\lambda\right)$ range, and zeros inputs that are within the range.
 
-\subsection{Lab: Regularized Logistic Regression}
+\begin{claim}
+	Let $X,y$ be an orthogonal design matrix and a response vector. Denote $\widehat{w}$ the OLS solution. The lasso regularization optimization problem takes the form of $\widehat{w}^{lasso}\left(\lambda\right) = \eta_{\lambda}^{soft}\left(\widehat{w}\right)$ 
+\end{claim}
+\begin{proof}
+	Recall that the OLS solution is $\hat{\w} = (\X^\top\X)^{-1}\X\y = \X\y$. 
+	Write the objective function:
+	$$
+	\begin{array}{ccl}
+	f_{\ell_{1}}\left(\w\right)=\frac{1}{2}\left|\left|\y-\X\w\right|\right|_{2}^{2}+\lambda\left|\left|\w\right|\right|_{1} & = & \frac{1}{2}\left( \left|\left|\y\right|\right|^2 - 2\y^\top \X\w + \w^\top \X^\top\X\w \right) + \lambda\left|\left|\w\right|\right|_{1} \\
+	& = & \frac{1}{2}\left(\left|\left|\y\right|\right|^2 + \left(\w^{\top}-2\widehat{\w}^{\top}\right)\w \right) + \lambda\left|\left|\w\right|\right|_{1} \\
+	& = & \frac{1}{2}\left|\left|\y\right|\right|^{2}+\sum_{j=1}^{d}\left(\frac{1}{2}\w_{j}^{2}-\widehat{\w}_{j}\w_{j}+\lambda\left|\w_{j}\right|\right)\\
+	& = & \frac{1}{2}\left|\left|\y\right|\right|^{2}+\sum_{j=1}^{d}\left(\frac{1}{2}\w_{j}-\widehat{\w}_{j}+\lambda sign\left(\w_{j}\right)\right)\w_{j}
+	\end{array}
+	$$
+	Let us minimize the expression for each $\w_{j}$ taking into account the value of $\lambda$. So: 
+	$$
+	\begin{array}{c}
+	\frac{\partial\frac{1}{2}\left|\left|\y-\X\w\right|\right|+\lambda\left|\left|\w\right|\right|_{1}}{\partial \w_{j}}=\frac{\partial\left(\frac{1}{2}\w_{j}-\widehat{\w}_{j}+\lambda sign\left(\w_{j}\right)\right)\w_{j}}{\partial \w_{j}}=\w_{j}-\widehat{\w}_{j}+\lambda sign\left(\w_{j}\right)=0\\
+	\Downarrow\\
+	\w_{j}=\widehat{\w}_{j}-\lambda sign\left(\w_{j}\right)
+	\end{array}
+	$$
+	
+	
+	Let us divide into cases:
+	\begin{itemize}
+		\item If $\left|\widehat{\w}_{j}\right|<\lambda$ then $\w_{j}=0$. That it because:
+		\begin{itemize}
+			\item If $\w_{j}<0$ then $0>\w_{j}=\widehat{\w}_{j}+\lambda$, which $\forall\left|\widehat{\w}_{j}\right|<\lambda$ the right-hand side is positive in contradiction.
+			\item If $\w_{j}>0$ then $0<\w_{j}=\widehat{\w}_{j}-\lambda$, which $\forall\left|\widehat{\w}_{j}\right|<\lambda$ the right-hand side is negative in contradiction.
+		\end{itemize}
+		\item If $\widehat{\w}_{j}\geq\lambda$ then $\w_{j}=\widehat{\w}_{j}-\lambda sign\left(\w_{j}\right)$ which is valid only for $\w_{j}\geq0$ which means that $\w_{j}=\widehat{\w}_{j}-\lambda$.
+		\item If $\widehat{\w}_{j}\leq-\lambda$ then $\w_{j}=\widehat{\w}_{j}-\lambda sign\left(\w_{j}\right)$ which is valid only for $\w_{j}\leq0$ which means that $\w_{j}=\widehat{\w}_{j}+\lambda$.
+	\end{itemize}
+	Putting it all together we got that:
+	$$
+	\w_{j}\left(\widehat{\w}_{j},\lambda\right)=\begin{cases}
+	\widehat{\w} - \lambda & \widehat{\w}\geq\lambda\\
+	0 & \left|\widehat{\w}\right|<\lambda\\
+	\widehat{\w}+\lambda & \widehat{\w}\leq\lambda
+	\end{cases}
+	\quad\Longrightarrow\quad\widehat{\w}_{j}^{lasso}\left(\lambda\right)=\eta^{soft}_\lambda\left(\widehat{\w}_{j}^{ols}\right)
+	$$
+\end{proof}
+
+Similarly, we can obtain the Best-Subset and Ridge solutions:
+$$
+\begin{array}{ccc}
+\bestsubset & \coloneqq & \eta_{\sqrt{\lambda}}^{hard}\left(\ols\right)\\
+\ridge & \coloneqq & \ols / \left(1+\lambda\right)
+\end{array} $$
+Namely, in the orthogonal design setup we can obtain the different solutions by applying a \textbf{univariate shrinkage function} to each coordinate of $\ols$ separately. Observe that in this case:
+\begin{itemize}
+	\item The Best-Subset sets some coefficients to zero and leaves the rest untouched.
+	\item The Lasso solution sets some coefficients to zero and shrinks the rest by $\lambda$.
+	\item The Ridge solution simply multiplies by a scalar.
+\end{itemize}
+Therefore, for the Best-Subset and Lasso solutions, the solutions' sparsity grows  as $\lambda$ grows.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\textwidth]{chapters/regularization.model.selection/figures/shrinkage.png}
+	\caption{\todo{Add caption}}
+\end{figure}
+
+\subsection{Regularized Logistic Regression}
+We have seen a few different (linear) regression methods using regularization. We can also apply these regularization terms to other regression models such as the logistic regression. Similarly to linear regression, if $m\sim d$ or $d>m$, also for logistic regression optimization will be numerically unstable, might have parallel feature vectors with large coefficients of opposite signs and hard for interpretation. All these problems are alleviated by adding a regularization term.
+\\~\\
+Recall that the logistic regression classifier find the coefficients vector by solving:
+$$ \widehat{\w} \coloneqq \underset{w_0\in\R,\w\in\R^d}{argmax}\sum^m_{i=1}\left[y_i\left(\inprod{\x_i}{\w}+w_0\right)-log\left(1+e^{w_0+\inprod{\w}{\x_i}}\right)\right]$$
+We can add the $\ell_1$ regularization term to the above fidelity term to obtain the $\ell_1$-regularized logistic regression classifier:
+$$ \widehat{\w} \coloneqq \underset{w_0\in\R,\w\in\R^d}{argmax}\sum^m_{i=1}\left[y_i\left(\inprod{\x_i}{\w}+w_0\right)-log\left(1+e^{w_0+\inprod{\w}{\x_i}}\right) + \lambda \norm{\w}_1\right]$$
+This is still a convex optimizatoin problem, and fast specialized solvers are available. The $\ell_1$-regularized logistic regression classifier is a very powerful classifier over $\Xc=\R^d$. It has low variance, we are able to control the bias-variance tradeoff (by choosing $\lambda$) and is it very interpretable.
 
 \section{Model Selection and -Evaluation}
 \subsection{Cross Validation}
@@ -164,4 +311,6 @@ The use of the $\norm{\cdot}_0$ regularization (which we will also denote by $\e
 \subsection{Common Model Selection Mistakes}
 \subsubsection{Over-estimating Generalization Error}
 \subsubsection{Under-estimating Generalization Error}
+\section{Summary}
 \subsection{Lab: Selecting Regularized Model}
+\subsection{Lab: Regularized Logistic Regression}
