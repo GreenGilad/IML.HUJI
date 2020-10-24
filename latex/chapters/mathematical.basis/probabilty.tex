@@ -3,45 +3,45 @@
 \subsection{Introduction (Optional section)}
 
 We are preparing a tea party for $N$ guests.
-Let us denote the average number of tea cups each participant would like to drink by $\mu_{tea}$. 
-In statistics, this average is called the \textit{population mean}, meaning simply that it refers to an average over the whole group which is under consideration -  
- all the $N$ guests in our case. 
+Let us denote the average number of tea cups each participant would like to drink by $\mu_{tea}$.
+In statistics, this average is called the \textit{population mean}, meaning simply that it refers to an average over the whole group which is under consideration -
+ all the $N$ guests in our case.
  \vspace{3mm}
 
-The total number of tea cups we should prepare is $T=N \times\mu_{tea}$. We do not know $\mu_{tea}$ and 
+The total number of tea cups we should prepare is $T=N \times\mu_{tea}$. We do not know $\mu_{tea}$ and
 it would take too long to ask each of the guests how many tea cups they would like to have.
 So instead, we \textit{sample independently} people in the guest list: we randomly choose one, call and ask how many tea cups they would like to drink and write down the answer as $x_1$. We then randomly call another one (could accidentally be the same one) and write the second answer as $x_2$. We continue $m$ times.
 To estimate the population mean, $\mu_{tea}$, we use  the average of the answers which in statistics is called the \textit{sample mean} and is given by
 $$\hat{\mu}_{tea} \equiv \frac{1}{m}\sum_{k=1}^{m}x_k.$$
 Finally, we \textit{predict} that we will need $T= N \times \hat{\mu}_{tea}$ cups.
- 
+
 The little "hat" symbol, $\hat{}$ , is there to point out that the right hand side of the above definition is what we \textit{choose} as an \textit{estimator} for the population mean $\mu_{tea}$.  The linearity of the expectation value ensures that the expectation value of the estimator $\hat{\mu}_{tea}$ is indeed equal to   $\mu_{tea}$. An estimator whose expectation value is equal to the quantity it is designed to estimate, is called an \textit{unbiased} estimator.
 $\hat{\mu}_{tea}$ may seem an obvious choice since it has a form similar to that of $\mu_{tea}=\frac{1}{N}\sum_{k=1}^{N}x_k$.
 However, if we tried to estimate the \textit{variance}, $V(x)$, of the personal tea consumption among the guests using the same logic, that is, by choosing $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ as an estimator, we would find, perhaps surprisingly, that we are consistently off target:
-the expectation value of $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ is \textit{different} than the variance $V(x)$ and therefore $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ is a \textit{biased} estimator.  
-We will return to this point in the next sections. 
+the expectation value of $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ is \textit{different} than the variance $V(x)$ and therefore $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ is a \textit{biased} estimator.
+We will return to this point in the next sections.
 \vspace{3mm}
 
 The above way in which we predicted $T$ can be formulated as the following \textit{learning algorithm}:
 \begin{itemize}
-	\item Enter an integer $m<N$ 
+	\item Enter an integer $m<N$
 	\item Set $k=1$ and $\hat{\mu}_{tea}=0$
 	\item For $k\le m$, set $x_k = \text{answer from guest number \textit{k}}$
 	\item Set $\hat{\mu}_{tea}=\frac{x_k+(k-1)\hat{\mu}_{tea}}{k}$ and $k=k+1$
 	\item Once $k=m$, return $T=N\times \hat{\mu}_{tea}$
 \end{itemize}
 
-We call this algorithm a learning algorithm because we learn from our experience: each time we ask another person $\hat{\mu}_{tea}$ changes - \textit{probably} getting closer to $\mu_{tea}$ - and therefore also our prediction of $T$ improve. Note that we might get unlucky and ask a non-representative set of $m$ people that particularly drink much more or much less than the average guest, so  $\hat{\mu}_{tea}$ might be a bad approximation of $\mu_{tea}$. 
+We call this algorithm a learning algorithm because we learn from our experience: each time we ask another person $\hat{\mu}_{tea}$ changes - \textit{probably} getting closer to $\mu_{tea}$ - and therefore also our prediction of $T$ improve. Note that we might get unlucky and ask a non-representative set of $m$ people that particularly drink much more or much less than the average guest, so  $\hat{\mu}_{tea}$ might be a bad approximation of $\mu_{tea}$.
 To not disappoint many of the guests on one hand and to not prepare too much tea cups on the other hand, we can require that our algorithm will keep running until, for example, it becomes \textit{probable} that $\hat{\mu}_{tea}$ is accurate enough. For example, we can choose an accuracy parameter $\epsilon>0$ and require that $|\hat{\mu}_{tea}-\mu_{tea}|<\epsilon$.
 The question is how many people we should ask to ensure this requirement holds?
 
-If we knew  the \textit{probability distribution} (or more precisely, since we are dealing with discrete numbers here, the \textit{probability mass function}) of tea cup consumption among our guests, we could calculate the answer to that question. However, even without knowing the exact \textit{probability distribution} we can still adapt  very general assumptions about its properties, such as its variance, in order to get an upper bounds for the probability that our error will be bigger than $\epsilon$.   
+If we knew  the \textit{probability distribution} (or more precisely, since we are dealing with discrete numbers here, the \textit{probability mass function}) of tea cup consumption among our guests, we could calculate the answer to that question. However, even without knowing the exact \textit{probability distribution} we can still adapt  very general assumptions about its properties, such as its variance, in order to get an upper bounds for the probability that our error will be bigger than $\epsilon$.
 
 \vspace{3mm}
-The above algorithm is a learning algorithms that can obviously be implemented by a traditional computer program. 
+The above algorithm is a learning algorithms that can obviously be implemented by a traditional computer program.
 In many cases, the amount of data generated by the modern abundance of computerized sensors and memory is vast as well as too multi-dimensional, involving \textit{random vectors} with thousands of components and not only a single random variable such as the number of tea cups. Such data must be processed by specially designed algorithms, called machine learning algorithms, but the main principles demonstrated in above still remain: Choose estimators (that can be very complicated and may depend on many variables) in order to make predictions and take enough samples to be sure that, with high probability, the errors are within a required range. As seen from the above example,  probabilistic and statisticlal concepts take important part in such algorithm design and therefore we will now make a short review of those.
 
-  
+
 \subsection{Probability Space}
 The basic object in probability theory is that of a \emph{probability space} which consists of two ingredients: the \textit{sample space} and the \textit{probability function}.
 \begin{definition}
@@ -52,7 +52,7 @@ Examples:
 \item Coin toss: $\Omega=\left\{ H,T\right\} $
 \item Three coin tosses $\Omega=\left\{ H,T\right\}^3 $
 \item Toss a coin until heads comes up: $\Omega=\left\{ T^{n-1}H:n\in\N\right\} $
-\item The number of times each of the 1000 product web-pages in an online store is viewed by an online customer 
+\item The number of times each of the 1000 product web-pages in an online store is viewed by an online customer
 and the number of each product that eventually is bought: $\Omega=\{ n_1, n_2,....,n_{1000}\} \times \{ N_1, N_2,...N_{1000} \}$ with $n_i, N_i \in \N$
 \item Height, weight, blood pressure, sex of patients of a certain disease, and the success or failure of an experimental medical treatment  : $\Omega=[0,\infty)\times [0,\infty) \times[0,\infty) \times \{0,1\}\times \{0,1\} $
 \end{itemize}
@@ -110,9 +110,9 @@ Solution: $\Dc(A)=\Dc(A\cap B)+\Dc(A\cap B^c)\Rightarrow\Dc(A\cap B^c)=\Dc(A)(1-
 \begin{proof}
 	Let $B_1=A_1$. For each $k \in \{2,3,\ldots\}$, let $B_k = A_k
 	\setminus \cup_{i=1}^{k-1} A_i$. Note that the $B_1...B_k$ are disjoint, and
-	$\cup_{i=1}^k A_i=\cup_{i=1}^k B_i$. 
-	Also, since $B_k\subseteq A_k$, 
-	$\Dc(B_k) \le \Dc(A_k)$ 
+	$\cup_{i=1}^k A_i=\cup_{i=1}^k B_i$.
+	Also, since $B_k\subseteq A_k$,
+	$\Dc(B_k) \le \Dc(A_k)$
 	for every $k \in \N$. It follows that
 	\[
 	\Dc(\cup_{k=1}^\infty A_k) = \Dc(\cup_{k=1}^\infty B_k) = \sum_{k=1}
@@ -237,7 +237,7 @@ Solution: $Var[Z] = \E [Z^2] - (\E [Z])^2 = p-p^2=p(1-p).$
 \end{example}
 
 \begin{example}
-	Find the mean and variance of $X\sim U\left(\left[a,b\right]\right),$ where $U[a,b]$ is the  uniform distribution on $[a,b].$ 
+	Find the mean and variance of $X\sim U\left(\left[a,b\right]\right),$ where $U[a,b]$ is the  uniform distribution on $[a,b].$
 	solution:
 	
 	$$
@@ -279,12 +279,12 @@ There are many ways to estimate $\ensuremath{\mathbb{E}}[X]$ and $V(X)$ based on
 
 Whenever the context is clear, we will omit the subscript $X$ and write $\hat{\mu}$ and $\hat{\sigma}^2$ instead of $\hat{\mu}_X$ and $\hat{\sigma}_X^2$.
 Note the $\frac{1}{m-1}$ factor. Why not use the observed variance of the samples,  $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$, as the population variance estimator? The answer is that if you calculate the expected value of these estimators  you will find (perhaps surprisingly) that $\ensuremath{\mathbb{E}}[\hat{\sigma}_X^2]=V(X)$ while $\ensuremath{\mathbb{E}}[\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2] = \frac{m-1}{m}V(X)$. The reason for that is that in general $\E(g(x))\neq g(\E(x))$ when $g(x)$ is not linear.
-So, in expectation, $\hat{\sigma}_X^2$ is the one that gets the population variance exactly. If the expected value of an estimator is equal to the parameter it is designed to estimate,  that estimator is said to be {\em unbiased}. Therefore, although $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$ could have been considered, because of its form, a more natural way to estimate  $V(X)$, it is a \textit{biased} estimator. Biased estimators can be useful in certain cases, but for the mean and variance, we will stick with the unbiased ones. 
+So, in expectation, $\hat{\sigma}_X^2$ is the one that gets the population variance exactly. If the expected value of an estimator is equal to the parameter it is designed to estimate,  that estimator is said to be {\em unbiased}. Therefore, although $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$ could have been considered, because of its form, a more natural way to estimate  $V(X)$, it is a \textit{biased} estimator. Biased estimators can be useful in certain cases, but for the mean and variance, we will stick with the unbiased ones.
 
-\section{High dimensional distributions}
+\subsection{High dimensional distributions}
 Going back to probability, we now consider random variables that instead of taking one real value take vector values in $\R ^d$, where $d\in \N $.
 
-\subsection{Basic definitions}
+\subsubsection{Basic definitions}
 
 \begin{definition}[Random vector]
 	A  (column) 	\textbf{\textit{random vector}}: $\boldsymbol{X} = (X_1, \dots, X_n)^T$, is a finite collection of random variables, denoted $X_1, \dots, X_n$, defined on a common probability space $(\Omega, \Dc)$.
@@ -299,21 +299,21 @@ On the other hand, this makes inline writing less convenient, which is why we la
 
 
 \begin{definition}[Joint PDF of a random vector]
-	Two random variables $X_1$ and $X_2$ are 	\textbf{\textit{jointly continuous} if there exists a nonnegative function $f_{X_1,X_2}: \R ^2 \to \R $, such that, for any set $A \in \R ^2$, we have
-	$$
-	\Dc\left( (X,Y) \in A \right) = \int_A f_{X_1,X_2}(x_1, x_2) dx_1 dx_2
-	$$
-	The function $f_{X_1,X_2}$ is called the 	\textbf{\textit{joint probability density function (JPDF)}} of $X_1$ and $X_2$. Often, if the context is clear, one omits the subscripts of $f$ and simply writes  $ f(x_1, x_2).$
-	This definition can be generalized to any dimension.
-	
+Two random variables $X_1$ and $X_2$ are \textbf{\textit{jointly continuous}} if there exists a non-negative function $f_{X_1,X_2}: \R ^2 \to \R $, such that, for any set $A \in \R ^2$, we have	
+		$$
+		\Dc\left( (X,Y) \in A \right) = \int_A f_{X_1,X_2}(x_1, x_2) dx_1 dx_2
+		$$
+		The function $f_{X_1,X_2}$ is called the 	\textbf{\textit{joint probability density function (JPDF)}} of $X_1$ and $X_2$. Often, if the context is clear, one omits the subscripts of $f$ and simply writes  $ f(x_1, x_2).$
+		This definition can be generalized to any dimension.
+		
 \end{definition}
 
+
+	
 \begin{remark}[PDF for a random vector]
-	Given $\boldsymbol{X} = (X_1, \dots, X_n)^T$, each of the scalar random variables $X_1, \dots, X_n$ can be characterized by its PDF. However, unless the scalar RV's are mutually independent, the PDF of each coordinate of a random vector does not completely describe the probabilistic behaviour of the whole vector. For instance, the behavior of the random vectors $\boldsymbol{X} = (X_1, X_2)$ and $\boldsymbol{\tilde{X}} = (X_1, X_1)$ is drastically different even if $X_1$ and $X_2$  have an identical PDF. To confirm this fact, take for example, $X_1, X_2 \sim U([-a, a])$ and $X_2 = - X_1$ and compare the probability to find $\boldsymbol{X}$ in the square $[0,1]\times [0,1]$ to that of finding $\boldsymbol{\tilde{X}}$  in the same square.
+		Given $\boldsymbol{X} = (X_1, \dots, X_n)^T$, each of the scalar random variables $X_1, \dots, X_n$ can be characterized by its PDF. However, unless the scalar RV's are mutually independent, the PDF of each coordinate of a random vector does not completely describe the probabilistic behaviour of the whole vector. For instance, the behavior of the random vectors $\boldsymbol{X} = (X_1, X_2)$ and $\boldsymbol{\tilde{X}} = (X_1, X_1)$ is drastically different even if $X_1$ and $X_2$  have an identical PDF. To confirm this fact, take for example, $X_1, X_2 \sim U([-a, a])$ and $X_2 = - X_1$ and compare the probability to find $\boldsymbol{X}$ in the square $[0,1]\times [0,1]$ to that of finding $\boldsymbol{\tilde{X}}$  in the same square.
 \end{remark}
-
-
-
+	
 \subsection{Normal Distribution}
 As an example of random vectors, we now consider specific family of distributions - the Multivariate Normal (also called Multivariate Gaussian) Distributions.
 %The normal distribution is very useful for many reasons. One reason is the Central Limit Theorem (CLT). You have likely seen the one-dimensional ("univariate") version of the CLT in probability course. In one of its forms, under some conditions, the CLT states that sample mean of random i.i.d variables (when properly scaled) converges in distribution to the normal distribution. There is a multivariate version of the CLT, which is one reason why you want to be familiar with the multivariate normal distribution.
@@ -396,4 +396,17 @@ Now, since: $\int_{-\infty}^\infty\frac{1}{\sqrt{2\pi\sigma_{2}^{2}}}\exp\left\{
 
 and by definition \ref{def: UVN} we get:
 $x_1\sim\mathcal{N}({\mu_1},{\sigma_1^2})$
-\\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
