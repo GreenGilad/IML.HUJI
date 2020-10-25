@@ -1,3 +1,12 @@
+latex\main.bbl
+latex\main.aux
+latex\main.bcf
+latex\main.log
+latex\main.out
+latex\main.pdf
+latex\main.ptc
+latex\main.toc
+
 *.aux
 *.bbl
 *.blg
