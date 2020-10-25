@@ -53,8 +53,10 @@ Examples:
 \item Three coin tosses $\Omega=\left\{ H,T\right\}^3 $
 \item Toss a coin until heads comes up: $\Omega=\left\{ T^{n-1}H:n\in\N\right\} $
 \item The number of times each of the 1000 product web-pages in an online store is viewed by an online customer
+ $\Omega=\{ n_1, n_2,....,n_{1000}\} $ with $n_i \in \N$
+\item The number of times each of the 1000 product web-pages in an online store is viewed by an online customer
 and the number of each product that eventually is bought: $\Omega=\{ n_1, n_2,....,n_{1000}\} \times \{ N_1, N_2,...N_{1000} \}$ with $n_i, N_i \in \N$
-\item Height, weight, blood pressure, sex of patients of a certain disease, and the success or failure of an experimental medical treatment  : $\Omega=[0,\infty)\times [0,\infty) \times[0,\infty) \times \{0,1\}\times \{0,1\} $
+\item Height, weight, blood pressure, sex of patients with a medical condition and the success or failure of an experimental drug  : $\Omega=[0,\infty)\times [0,\infty) \times[0,\infty) \times \{M,F\}\times \{Yes,No\} $
 \end{itemize}
 \vspace{3mm}
 
@@ -229,6 +231,7 @@ Properties:
 	\item $\sigma(X,X)=V(X)$
 \end{itemize}
 
+Note the different meaning implied by the above definitions: The variance measures the variation of a single random variable (like the height of a person in a population), whereas covariance is a measure of how much two random variables  (like the height and weight) vary together.
 
 \begin{example}
 	Let $Z$ be a Bernoulli random variable. Calculate $Var[Z].$
@@ -397,6 +400,112 @@ Now, since: $\int_{-\infty}^\infty\frac{1}{\sqrt{2\pi\sigma_{2}^{2}}}\exp\left\{
 and by definition \ref{def: UVN} we get:
 $x_1\sim\mathcal{N}({\mu_1},{\sigma_1^2})$
 
+\subsection{Covariance Matrix}
+
+Recall the population variance $V(X)$ of a scalar (one dimensional) random variable $X$. What is the proper generalization for the case of a random vector?
+\begin{definition}[Covariance Matrix]
+	Consider a $d$-dimensional random vector $ \mathbf{X} =(X_{1},X_{2},...,X_d)^T$.
+	We define the  {\em Covariance Matrix} $C$ as the $d \times d$ matrix whose $ (i,j)$ entry is the covariance $C_{ij}=\sigma (X_i,X_j)$
+	\begin{itemize}
+		\item In other words:
+		\begingroup
+		\footnotesize % \small in 11pt base font is 10pt
+		$$C=\left(\begin{array}{ccc}
+			\mathbb{E}\left[\left(X_{1}-\mathbb{E}\left[X_{1}\right]\right)\left(X_{1}-\mathbb{E}\left[X_{1}\right]\right)\right] & ... & \mathbb{E}\left[\left(X_{1}-\mathbb{E}\left[X_{1}\right]\right)\left(X_{d}-\mathbb{E}\left[X_{d}\right]\right)\right]\\
+			\vdots & \ddots & \vdots\\
+			\mathbb{E}\left[\left(X_{d}-\mathbb{E}\left[X_{d}\right]\right)\left(X_{1}-\mathbb{E}\left[X_{1}\right]\right)\right] & ... & \mathbb{E}\left[\left(X_{d}-\mathbb{E}\left[X_{d}\right]\right)\left(X_{d}-\mathbb{E}\left[X_{d}\right]\right)\right]
+		\end{array}\right)$$
+		\endgroup
+		
+		\item Recall that we can use  matrix notations for random vectors. In matrix notation,
+		$$C=\mathbb{E}[({X} - {\mathbb{E}\left[X\right]} )({X} -{\mathbb{E}\left[X\right]} )^{T}]$$
+		
+		\item The diagonal elements of $C$ are $\sigma (X_i, X_i) \equiv \sigma^2 _{X_i} \equiv  V(X_i)$. $C$ is symmetric positive semidefinite.
+		
+	\end{itemize}
+	
+\end{definition}
+
+\subsection{Estimating the Covariance Matrix}
+
+Back to statistics, let us consider how to estimate the covariance matrix based on random sampling. In this context, $C$ is called the {\em population covariance matrix}.
+Let's start with the case $d=2$. Consider a two-dimensional random vector $\mathbf{X}=(X_1,X_2)$, where, for example, $X_1$ is the height of a person and $X_2$ is the weight.
+
+Taking a sample of $m$ people from the population, we equip the data elements with two indices, the first stands for the feature (1 for height, 2 for weight) and the second for the person's designated number. 
+So the height samples are denoted by  $x_{1,1},..,x_{1,m}$ and the corresponding weight samples are $x_{2,1},..,x_{2,m}$.
+Note that we can write the data as a  matrix $\mathbf{X}\in\mathbb{R}^{d\times m}$ where $m$ is the {\em sample size} and $d$ is the dimension (number of random variables).
+In our case, $d=2$ and
+$$\mathbf{X} = 
+\left(\begin{array}{ccc}
+	x_{1,1} & ... & x_{1,m}\\
+		x_{2,1} & ... & x_{2,m}
+\end{array}\right)
+$$
+
+Generalizing the estimators we chose for a one-dimensional RV we now define the \textbf{\textit{sample covariance}} by
+$$\hat{\sigma}(X_i, X_j) = \frac{1}{m-1} \sum^{m}_{k=1}{(x_{i,k}-\hat{\mu}_i)(x_{j,k}-\hat{\mu}_j)}, ~ ~ i,j=1,2 $$
+where $\hat{\mu}_i$ is the sample mean of the random variable $X_i$.
+In particular, the  variance estimators, that is, the sample variances of the heights and weights are:
+$$ \hat{\sigma}\left(X_i,X_i\right)  = \frac{1}{m-1} \sum^{m}_{k=1}(x_{i,k} - \hat{\mu}_i)^2, i=1,2 \\$$
+
+
+
+where $\hat{\sigma}\left(X_i,X_i\right)\equiv \hat{\sigma}^2_{X_i} \equiv  \hat{\sigma}^2_i \equiv \hat{\sigma}_{i,i}$ are all equivalent notations. We can now define the sample covariance matrix $\hat{C}$. Again, as customary in statistics, we use the "hat notation" which reminds that $\hat{C}$ is our prescription for estimating the population covariance matrix $C$, based on the data we have.
+\vspace{3mm}
+
+\begin{definition}[Sample Covariance Matrix]
+Consider a $d$-dimensional random vector $\textbf{X}=(X_1,\ldots,X_d)$. Suppose that we have $m$ i.i.d samples $\mathbf{x}_1,\ldots,\mathbf{x}_m$ of $\mathbf{X}$. Here, the sample $\mathbf{x}_i$ is a vector in $\R^d$, and the boldface notation reminds us that $\mathbf{x}_i$ is a vector, not a scalar.
+
+The sample covariance matrix of $\mathbf{x}_1,\ldots,\mathbf{x}_d$ is defined to be the square $d$-by-$d$ matrix whose elements are given by $\hat{C}_{i,j}=\hat{\sigma}\left(X_{i},X_{j}\right)$. 
+\end{definition}
+
+The sample covariance matrix is symmetric since $\hat{\sigma}\left(X_{j},X_{i}\right)=\hat{\sigma}\left(X_{i},X_{j}\right)$. The diagonal entries of the sample covariance matrix are the sample variances and the other entries are the sample covariances.
+In matrix notation, the sample covariance matrix is given by
+$$\hat{C} = \frac{1}{m-1} \sum^{m}_{i=1}(\mathbf{x}_i-\hat{\boldsymbol{\mu}})(\mathbf{x}_i-\hat{\boldsymbol{\mu}}^T)$$
+
+
+where $\boldsymbol{\mu} \in\mathbb{R}^{d\times 1}$ is a column vector of the sample means (in the $d=2$ case, $\hat{\boldsymbol{\mu}}^T = (\hat{\mu}_1, \hat{\mu}_2)$).
+% Depending on the context, $\bar{X}$ may also denote the means matrix: $\bar{X} \in\mathbb{R}^{d\times m}$ with elements $\bar{X}_{i,j}=\hat{\mu}_i$.
+If $\hat{\boldsymbol{\mu}}=0$, that is, if the data is shifted to have zero mean, the covariance matrix is easily computed from the symmetric matrix $XX^T$, using the relation $\hat{C} = \frac{XX^T}{m-1}$.
+
+\begin{exercise}
+	let $X^T=\left(\begin{array}{cc}
+		150 & 45\\
+		170 & 74\\
+		184 & 79
+	\end{array}\right)$ be samples of height and weight of 3 different people where $X_{1, i}$ is the height and $X_{2, i}$ is the weight of the i'th person. Calculate the covariance matrix of the sample.
+\end{exercise}
+\textbf{Solution:} First of all we will make the data centered by subtracting the corresponding sample mean from each entry of $X^T$.
+%matrix $(1,1,1)^T\hat{\boldsymbol{\mu}}^T$:
+We have: $\hat{\mu}_1=168, \hat{\mu}_2=66$, so
+$$X_{centered}^{T}=X^T  - \left(\begin{array}{cc}
+	168 & 66\\
+	168 & 66\\
+	168 & 66
+\end{array}
+\right)
+=\left(\begin{array}{cc}
+	150 & 45\\
+	170 & 74\\
+	184 & 79
+\end{array}\right) - \left(\begin{array}{cc}
+	168 & 66\\
+	168 & 66\\
+	168 & 66
+\end{array}
+\right)
+=\left(\begin{array}{cc}
+	-18 & -21\\
+	2 & 8\\
+	16 & 13
+\end{array}\right)$$
+Now,
+$$
+\hat{C} = \frac{X_{centered}X_{centered}^{T}}{3-1}=\left(\begin{array}{cc}
+	292 & 301\\
+	301 & 337
+\end{array}\right)
+$$
 
 
 
