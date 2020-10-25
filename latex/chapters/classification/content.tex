@@ -28,7 +28,7 @@ $$L_S\left(h\right)\coloneqq\sum^{m}_{i=1}\mathbbm{1}\left[y_i\neq h\left(\x_i\r
 \label{eqn:misclass_loss}
 \end{equation}
 
-\subsection{Type-I and Type-II Errors}
+\subsection{Type-I and Type-II Errors}\label{error_types}
 Though many times the mis-classification loss is indeed what we are looking for, when looking closer we recognize two kinds of errors.
 
 \begin{example}[Credit Decisions]
@@ -102,7 +102,7 @@ These sets can be very simple (two half-spaces) or very complicated. The boundar
 	\caption{\textbf{Decision Boundaries} of a $\left(A\right)$ linear classifier and a $\left(B\right)$ $k$-nearest neighbors classifier}
 \end{figure}
 
-\subsection{ROC Curve}
+\subsection{ROC Curve}\label{roc}
 As we will encounter later in this chapter, in many classification scenarios we face the following question: Suppose we trained some classifier $h\in \Hc$ and derive classifications by the following rule: for some cutoff value $\alpha \in \left[0,1\right]$ $$\widehat{y}\coloneqq\begin{cases}
 1 & h\left(\x\right)>\alpha\\
 0 & h\left(\x\right)\leq\alpha
@@ -490,11 +490,7 @@ Consider the following scenario: suppose someone comes into a hispital emergency
 			\item If yes (pulse $>130$): is the patient's systolic blood pressure $<80$ mmHg?
 			\begin{itemize} %TODO - allow deeper levels
 				\item If yes classify as \textbf{emergency}
-				\item If not, is the patient's systolic blood pressure $>140$ mmHg?
-				\begin{itemize} 
-					\item If yes, classify as \textbf{emergency}
-					\item If not classify as \textbf{no emergency}
-				\end{itemize}
+				\item If not, is the patient's systolic blood pressure $>140$ mmHg? If yes, classify as \textbf{emergency}. Otherwise, classify as \textbf{no emergency}
 			\end{itemize}
 			\item If not classify as \textbf{no emergency}
 		\end{itemize}
@@ -574,19 +570,90 @@ Before we introduced the CART heuristic we described that solving the ERM princi
 \subsection{Naive Bayes}
 \subsection{Linear Discriminant Analysis}
 \subsection{Quadratic Discriminant Analysis}
-\subsection{Lab: Maximum Likelihood Estimation}
 
 \section{Logistic Regression}
-\todo{Matan - I had difficulty putting this part in. Felt needs better motivation}
-
-\todo{Finish from lecture}
-
 \subsection{A Probabilistic Model For Noisy Labels}
-Let us revisit linear regression with Gaussian errors. We assumed the model $y=f\left(\x\right)+\eps$  where $f$ is a linear function and $\eps\sim\Nc\left(0,\sigma^2\right)$. Notice that as $\eps$ is a random variable, $y$ too is a random variable distributing as $y\sim\Nc\left(f\left(\x\right), \sigma^2\right)$. In other words, our prediction of $y$ is given by assigning the \textbf{expected value} given $\x$.
+Recall the statistical model for linear regression when assuming Gaussian errors (\ref{lin_reg_stat_model}), $\y=\X\w+\eps$ where $\eps\sim\Nc\left(0,\sigma^2I_d\right) $. Notice that as $\eps$ is a random variable, $\y$ too is a random variable distributing as a multi-variate Gaussian:
+$$ \y\sim\Nc\left(\X\w,\sigma^2I_d\right) $$
+
+Focusing on a pair $\left(\x_i,y_i\right)$, we can think of the above as the \textbf{conditional probability} of $y_i$ given $\x_i$: $$ p\left(y_i|\x_i,\w\right) =\Nc\left(y_i|\phi_{\w}\left(\x_i\right),\sigma^2\right)\quad \text{where}\quad \phi_{\w}\left(\x\right)=\w^\top\x$$
+where we also condition on $\w$ to explicitly state the dependence on the model parameters. In other words, we assumed that each sample $\left(\x,y\right)$ is such that the \textbf{expected value} of the label $y$ is linear in $\x$. As we are dealing with a regression model and $y_i\in\R$, the support of the random variable $y_i|\x_i,\w$ is $\R$. 
+\\~\\
+Let us adapt the model above to fit for classification problems. We would like to assume that $y_i$ distributes \textbf{Bernoulli} with a probability $p\left(\x_i\right)$ that somehow relates with $\x_i$, and captures how likely is $y_i$ being $1$: $$ p\left(y_i|\x_i\right)=Ber\left(y_i|p\left(\x_i\right)\right) $$
+How shall $p\left(\x_i\right)$ relate with $\x_i$? Unlike the linear regression model, we cannot assume a linear function $\phi_{\w}\left(\x\right)=\w^\top\x$ as $\phi_{\w}\in\R$ while $p\left(\x_i\right)$ is restricted to $\left[0,1\right]$. Instead, we would like to choose some \textbf{link} function $\phi_{\w}:\R\rightarrow\left[0,1\right]$ that is monotone increasing and maps $\left(-\infty,\infty\right)$ bijectively to $\left(0,1\right)$. Define the relation to be
+\begin{equation}
+$$ p\left(y_i|\x_i,\w\right) = Ber\left(y_i|\phi_{\w}\left(\x_i\right)\right), \quad \phi_{\w}\coloneqq sigm\left(\w^\top\x\right)$$
+\label{eqn:logistic_model}
+\end{equation}
+where $sigm$ is the \textbf{sigmoid} function, also known as the \textbf{logit} function: $$ sigm\left(\vv{a}\right)\coloneqq\frac{e^{\vv{a}}}{e^{\vv{a}} + 1} $$
+This function is indeed monotone increasing and maps $\left(-\infty,\infty\right)$ bijectively to $\left(0,1\right)$.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/classification/figures/logistic.png}
+	\caption{\todo{todo}}
+\end{figure}
+
+
+\begin{itemize}
+	\item As $\w^\top\x\rightarrow -\infty$ then $sigm\left(\w^\top\x\right)\rightarrow 0$. This means that it is ``very unlikely`` that the label is $1$:  $p\left(y_i=1|\x_i,\w\right)\rightarrow 0$. 
+	\item As $\w^\top\x\rightarrow \infty$ then $sigm\left(\w^\top\x\right)\rightarrow 1$. This means that it is ``very likely`` that the label is $1$: $p\left(y_i=1|\x_i,\w\right)\rightarrow 1$. 
+\end{itemize}
+
+
+\begin{remark}
+In \ref{eqn:logistic_model} we modeled the logistic regression model for binary classification problems. Notice that the Bernoulli distribution can be seen as a private case of the Multinomial distribution $Multinomial\left(p_1,\ldots,p_K\right),\,\,\sum_pi=1, 0\leq p_i\leq 1$. We can expand the above logistic regression model to fit multi-classification problems by extending the sigmoidal function to what is known as the softmax function $\sigma\left(\vv{a}\right)=e^{\vv{a}_i}/\sum^K_{j=1}e^{\vv{a}_j}$
+\end{remark}
+
 \subsubsection{The Hypothesis Class}
+So we would like to define the hypothesis class of logistic regression as: 
+\begin{equation}
+$$\Hc_{logistic}\coloneqq\left\{h_{\w}\left(\x\right)=sigm\left(\w^\top\x\right)|\w\in\R^{d+1}\right\} $$ 
+\label{eqn:logisitc_hypothesis_class}
+\end{equation}
+However, notice that defining the hypotheses in such manner means that $h_{\w}:\R^{d+1}\rightarrow\left[0,1\right]$ and not $h_{\w}:\R^{d+1}\rightarrow\left\{0,1\right\}$ as required for classification problems. Since $\left\{0,1\right\}\subset\left[0,1\right]$, we can use the training sample to select a function in $\Hc_{logistic}$. This means we will be able to train a model, but how will we predict over new samples? Suppose our learner chose some $h_{\w}\in\Hc_{logistic}$. As we think about $h_{\w}\left(\x\right)$ as an estimate of the probability that the label corresponding to $\x$ is $1$, we can use it for classification. If $h_{\w}\left(\x\right)$ is low the label is likely to be $0$. If $h_{\w}\left(\x\right)$ is high, the label is likely to be $1$. Choosing some \textbf{cutoff} value $\alpha\in\left[0,1\right]$, our class prediction will be: $\widehat{y}\coloneqq \indc{h_{\w}\left(\x\right)>\alpha} $. To choose a fitting value for $\alpha$ we can calculate the Type-I and Type-II errors of the classifier and plot its ROC curve (\autoref{error_types} and \autoref{roc})
+
+
 \subsubsection{Learning Via Maximum Likelihood}
+Once we have defined the logistic regression model (\ref{eqn:logistic_model}) and hypothesis class (\ref{eqn:logisitc_hypothesis_class}), we would like to come up with a learner. To do so we will use the maximum likelihood principle. Recall, that by the maximum likelihood principle, we estimate the parameters (the desired hypothesis) as those that have the highest probability, given the data.
+\\~\\
+Let $\trainset$ be our sample of independent observations, assuming that $\y_i\sim Ber\left(\phi_{\w}\left(\x\right)\right)$ where $\phi$ is the logistic function. The likelihood of $\w\in\R^{d+1}$ is: 
+$$
+\begin{array}{ccl}
+\Lc\left(\w\right|\X,\y) & = & \Prob\left(y_1,\ldots,y_m|\X,\w\right) \,\, = \,\, \prod \Prob\left(y_i|\x_i,\w\right)\\
+& = & \underset{i:y_i=1}{\prod}\Prob\left(y_i|\x_i,\w\right)\cdot \underset{i:y_i=0}{\prod}\Prob\left(y_i|\x_i,\w\right)\\
+& = & \underset{i:y_i=1}{\prod} p_i\left(\w\right) \cdot \underset{i:y_i=0}{\prod} \left( 1-p_i\left(\w\right)\right)\\
+& = & \prod p_i\left(\w\right)^{y_i} \left(1-p_i\left(\w\right)\right)^{1-y_i}
+\end{array}
+$$
+where $p_i\left(\w\right)=\phi_{\w}\left(\x_i\right)$. Since the log function is monotone increasing we can maximize the log-likelihood $\ell\left(\w\right)\coloneqq \log\Lc\left(\w\right)$ instead: $$
+\begin{array}{ccl}
+\ell\left(\w|\X,\y\right) & = & \overset{m}{\underset{i=1}{\sum}}\left[y_i\log\left(p_i\left(\w\right)\right)+\left(1-y_i\right)\log\left(1-p_i\left(\w\right)\right)\right]\\
+& = & \overset{m}{\underset{i=1}{\sum}}\left[ y_i\log\left(\frac{e^{\w^\top \x_i}}{1+e^{\w^\top \x_i}}\right) + \left(1-y_i\right)\log\left(\frac{1}{1+e^{\w^\top\x_i}}\right) \right]\\
+& = & \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]
+\end{array}
+$$
+And therefore, choosing the function $h\in\Hc_{logistic}$ by applying the maximum likelihood principle means that: 
+\begin{equation}
+$$ \widehat{\w}\coloneqq \underset{\w\in\R^{d+1}}{argmax} \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]  $$
+\label{eqn:logistic_opt}
+\end{equation}
+
+
+\begin{remark}
+Instead of deriving the learner using the maximum likelihood principle, we could derive it using the ERM principle with the following loss function: $\ell\left(h_{\w}\right)\coloneqq \log\left(1+\exp\left(-y\inprod{\w}{\x}\right)\right)$. We would have reached the same optimization expression.
+\end{remark}
+
 \subsection{Computational Implementation}
+Now that we have defined the hypothesis class and an optimization problem to find the desired hypothesis, the next step is finding an efficient algorithm to solve it. By working with the logistic function, the resulting log-likelihood expression is \textbf{concave} function of the optimization variable $\w$. This means, that instead of solving the maximization problem \ref{eqn:logistic_opt} we can solve the minimization of minus the log-likelihood, which is convex. As such, there are general algorithms for finding the minima of such functions.
+\\~\\
+While there is no closed form for the maximizer $\widehat{\w}$, as logistic regression is a very useful learner, there is a custom iterative algorithm that usually converges quickly to $\widehat{\w}$. This algorithm is based on \textbf{Newton-Raphson} iterations.
+
+\todo{Do we want to add explanations about the Newton-Raphson iterations?}
 \subsection{Interpretability}
+One important properly of the logistic regression learner is interpretability both in the sense of which features were important for the model and why was a certain prediction given. When working with $\Xc=\R^d$, we gather many feature, and might think that some of them are important for prediction while others less. Similar to linear regression, we are able to ask "which features were important" for the model by simply investigating the entries of the fitted coefficients vector $\w$. Feature corresponding to coefficients of values close to zero have a small impact on prediction and therefore these features are less important for the model. Features corresponding to coefficients of values far from zero have a large impact on prediction and are therefore important for the model.
+\\~\\
+Then, for a given sample $\x$, by looking at entries corresponding to important features we can understand why the model predicted $\widehat{y}$. If in entries of $\x$ corresponding important features there are large (positive or negative) values, they will have much influence the outcome. If these values are of same sign as of the coefficients then the expression $\w^\top\x$ will be larger, increasing the likelihood of the prediction being $1$. If these values are of opposite signs to the coefficients then the expression $\w^\top\x$ will become smaller, decreasing the likelihood of the prediction being $1$.
 
 \subsection{Lab: Logistic Regression} 
 
