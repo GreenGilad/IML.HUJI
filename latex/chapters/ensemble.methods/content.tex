@@ -77,7 +77,13 @@ $$ Finally, we conclude that: $$\Prob\left(X>0\right) = 1-\Prob\left(X\leq 0\rig
 \end{proof}
 
 
-The above bound teaches us that for a committee of ``non-dump`` members (i.e. $p>1/2$) the probability of being wrong decays with a rate of $\Oc\left(\frac{1}{e^T}\right)$.Relating this to our learning scheme, it means that the confidence, $1-\delta$,  in our prediction increases dramatically as $T$ increases. Next, let us calculate what is a typical decision ($E\left(X\right))$ and how consistent is it ($Var\left(X\right))$?
+The above bound teaches us that for a committee of ``non-dump`` members (i.e. $p>1/2$) the probability of being wrong decays with a rate of $\Oc\left(\frac{1}{e^T}\right)$.Relating this to our learning scheme, it means that the confidence, $1-\delta$,  in our prediction increases dramatically as $T$ increases. Next, let us calculate what is a typical decision ($\E\left(X\right))$ and how consistent is it ($Var\left(X\right))$?
+
+\begin{figure}[h!]
+	\centering
+	\animategraphics[loop,autoplay,width=0.8\textwidth]{1}{chapters/ensemble.methods/figures/bound_prob-}{0}{10}
+	\caption{\textbf{Committee Decision - Correctness Probability:} Theoretical bounds and empirical results as function of $T,p$}
+\end{figure}
 
 \subsection{Uncorrelated Predictors}
 

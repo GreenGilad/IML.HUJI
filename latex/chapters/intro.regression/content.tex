@@ -232,7 +232,7 @@ Computers don’t calculate over $\R$, they use bits and more specifically they 
 	\end{array}\right]}{\left[\begin{array}{c} 11.38 \\ 0.003 \\ -0.009 \\ \end{array}\right]} = 10.018 $$
 \end{example}
 
-\subsection{A Statistical Model - Existence of Noise}
+\subsection{A Statistical Model - Existence of Noise}\label{lin_reg_stat_model}
 So far we assumed that there exists some deterministic function $f:\Xc\rightarrow\Yc$ that is underlying the relation between the domain- and response- sets. We would like to describe a more general probabilistic model, which better fits reality. Let us assume, as before, that the relation is linear in $\Xc$. In addition we add an additional element $\eps$ capturing random noise in the relation. This noise element is referred to as \textit{error} and is a random variable. We make the assumptions that all errors are: (1) Centered (2) Uncorrelated (3) Have equal variance and (4) with a Gaussian distribution:
 \begin{equation}
 $$ \forall\, i \in \left[m\right] \quad y_i=\x_i^\top\w + \eps_i, \quad\quad \eps_1,\ldots,\eps_m \iid \Nc\left(0,\sigma^2\right) $$
