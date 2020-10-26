@@ -23,13 +23,13 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.1.6}High dimensional distributions}{17}{subsection.1.1.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.1.6.1}Basic definitions}{17}{subsubsection.1.1.6.1}% 
+\contentsline {subsubsection}{\numberline {1.1.6.1}Basic definitions}{18}{subsubsection.1.1.6.1}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.1.7}Normal Distribution}{18}{subsection.1.1.7}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.1.8}Covariance Matrix}{20}{subsection.1.1.8}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.1.9}Estimating the Covariance Matrix}{20}{subsection.1.1.9}% 
+\contentsline {subsection}{\numberline {1.1.9}Estimating the Covariance Matrix}{21}{subsection.1.1.9}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {2}Introduction \& Linear Regression}{23}{chapter.2}% 
 \defcounter {refsection}{0}\relax 

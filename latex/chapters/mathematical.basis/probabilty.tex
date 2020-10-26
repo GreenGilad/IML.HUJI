@@ -266,23 +266,48 @@ Now we would like to ask a different question. We are given {\em samples} that w
 Can we {\em estimate}  the distribution's mean and variance using only those samples?
 
 
-Formally, let $X$ be a random variable, let $\Dc \left(x\right)$ be its (unknown) distribution, and let $X_1,\ldots,X_m\overset{i.i.d}{\sim} D(x)$, where i.i.d  denotes \emph{independent and identically distributed} random variables. We are given \emph{data}
-samples: $x_1,\ldots,x_m$, where $x_i$ is a {\em number} - the sample obtained by sampling $X_i$.
+Formally, let $X$ be a random variable, let $\Dc \left(x\right)$ be its (unknown) distribution, and let $X_1,\ldots,X_m\overset{i.i.d}{\sim} D(x)$, where i.i.d  denotes \emph{independent and identically distributed} random variables. We are given \emph{data samples}: $x_1,\ldots,x_m$, where each $x_i$ is a {\em number} obtained by sampling $X_i$.
 %The data has its own mean and variance which are likely to be, at least, slightly different than those of $\Dc \left(x\right),$ and therefore it is customary, in statistics, to use different names for these.
 In statistics, $\ensuremath{\mathbb{E}}[X]$ is called the {\em population} mean - "population" added to emphasize that it is the mean of the unknown distribution, not the mean of the observed data.
 Similarly, $V(X)$ is called the \textit{population variance}.
 
-There are many ways to estimate $\ensuremath{\mathbb{E}}[X]$ and $V(X)$ based on those $n$ samples, and each one is called an \textit{estimator}. Throughout the course we are going to use the following estimators (commonly denoted with the "hat" symbol to emphasize the fact that they are the way we choose to use the experimental observations in order to estimate the real, namely, the population, mean and variance):
+There are many ways to estimate $\ensuremath{\mathbb{E}}[X]$ and $V(X)$ based on those $n$ samples, and each one is called an \textit{estimator}. Throughout this book we are going to use the following estimators (commonly denoted with the "hat" symbol to emphasize the fact that they are the way we choose to use the experimental observations in order to estimate the real, namely, the population, mean and variance):
 \begin{itemize}
-	\item Sample mean (an estimator for the population mean)
+	\item \textbf{\textit{Sample mean}} (an estimator for the population mean)
 	$$		\hat{\mu}_X = \frac{1}{m} \sum_{i=1}^m x_i$$
-	\item Sample variance (an estimator for the population variance)
+	\item \textbf{\textit{Sample variance}} (an estimator for the population variance)
     $$		\hat{\sigma}_X^2 = \frac{1}{m-1} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$$
 \end{itemize}
 
 Whenever the context is clear, we will omit the subscript $X$ and write $\hat{\mu}$ and $\hat{\sigma}^2$ instead of $\hat{\mu}_X$ and $\hat{\sigma}_X^2$.
-Note the $\frac{1}{m-1}$ factor. Why not use the observed variance of the samples,  $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$, as the population variance estimator? The answer is that if you calculate the expected value of these estimators  you will find (perhaps surprisingly) that $\ensuremath{\mathbb{E}}[\hat{\sigma}_X^2]=V(X)$ while $\ensuremath{\mathbb{E}}[\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2] = \frac{m-1}{m}V(X)$. The reason for that is that in general $\E(g(x))\neq g(\E(x))$ when $g(x)$ is not linear.
-So, in expectation, $\hat{\sigma}_X^2$ is the one that gets the population variance exactly. If the expected value of an estimator is equal to the parameter it is designed to estimate,  that estimator is said to be {\em unbiased}. Therefore, although $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$ could have been considered, because of its form, a more natural way to estimate  $V(X)$, it is a \textit{biased} estimator. Biased estimators can be useful in certain cases, but for the mean and variance, we will stick with the unbiased ones.
+Note that the sample variance is somewhat different from the variance of the $x_i$'s because of the division by $m-1$ instead of $m$. 
+
+\begin{exercise}
+Show that the expectation values of the above estimators equal the parameters there are designed to estimate, namely the population mean and the population variance.
+
+\textbf{Solution}. Taking the expectation value of the sample mean one gets
+$$
+\E\left(\hat{\mu}_X\right) = \frac{1}{m} \sum_{i=1}^m \E(x_i) = \E(X) \frac{1}{m} \sum_{i=1}^m =  \E(X)= \mu_X
+$$ 
+where we used the linearity property of the expectation value. Taking the expectation value of the sample variance one gets
+$$
+\E\left(\hat{\sigma}_X^2\right) =\frac{1}{m-1} \sum_{i=1}^m \E\left((x_i-\hat{\mu}_X)^2\right)=\frac{1}{m-1} \sum_{i=1}^m \E\left(x_i^2-2x_i\frac{1}{m} \sum_{i'=1}^m x_{i'}+\frac{1}{m^2} \sum_{i,i'=1}^m x_ix_{i'}\right)
+$$
+The $X_i$'s are i.i.d which implies that  $\E(x_i)=\E(X)$ and $\E(x_i^2)=\E(X^2)$ for every $i$, as well as that   $\E(x_ix_{i'})=\E^2(X)=\mu^2_X$ for every  $i\neq i'$. Substituting into the above sums one obtains  
+$$
+\E\left(\hat{\sigma}_X^2\right) =\E(X^2) -\E^2(X)=V(X)= \sigma^2_X
+$$
+\end{exercise}
+
+\begin{definition}
+	If the expected value of an estimator is equal to the parameter it is designed to estimate,  that estimator is said to be \textbf{\textit{ unbiased}}. Otherwise, it is said to be \textbf{\textit{biased}}.
+\end{definition}
+
+As seen from the above exercise,  $\hat{\mu}_X$ is an unbiased estimator of the population mean, $\mu_X$, and $\hat{\sigma}_X^2$ is an unbiased estimator of the population variance $\sigma^2_X$.  
+We also see that the expected value of  the variance of the $x_i$'s, $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$, is $\frac{m-1}{m}\sigma^2_X\neq \sigma^2_X$, that is, although the variance of the sample looks, in form, more similar to that of $\sigma^2_X$ the sample variance, it is a \textit{biased} estimator of $\sigma^2_X$. The reason for that is that in general $\E(g(x))\neq g(\E(x))$ when $g(x)$ is not linear, which is exactly the case here.
+\vspace{3mm} 
+
+We should however note that biased estimators can be useful in certain cases, but for the mean and variance, we will stick with the unbiased ones.
 
 \subsection{High dimensional distributions}
 Going back to probability, we now consider random variables that instead of taking one real value take vector values in $\R ^d$, where $d\in \N $.
@@ -469,12 +494,12 @@ where $\boldsymbol{\mu} \in\mathbb{R}^{d\times 1}$ is a column vector of the sam
 If $\hat{\boldsymbol{\mu}}=0$, that is, if the data is shifted to have zero mean, the covariance matrix is easily computed from the symmetric matrix $XX^T$, using the relation $\hat{C} = \frac{XX^T}{m-1}$.
 
 \begin{exercise}
-	let $X^T=\left(\begin{array}{cc}
+	Let $X^T=\left(\begin{array}{cc}
 		150 & 45\\
 		170 & 74\\
 		184 & 79
 	\end{array}\right)$ be samples of height and weight of 3 different people where $X_{1, i}$ is the height and $X_{2, i}$ is the weight of the i'th person. Calculate the covariance matrix of the sample.
-\end{exercise}
+
 \textbf{Solution:} First of all we will make the data centered by subtracting the corresponding sample mean from each entry of $X^T$.
 %matrix $(1,1,1)^T\hat{\boldsymbol{\mu}}^T$:
 We have: $\hat{\mu}_1=168, \hat{\mu}_2=66$, so
@@ -507,7 +532,7 @@ $$
 \end{array}\right)
 $$
 
-
+\end{exercise}
 
 
 
