@@ -454,42 +454,44 @@ Recall the population variance $V(X)$ of a scalar (one dimensional) random varia
 \subsection{Estimating the Covariance Matrix}
 
 Back to statistics, let us consider how to estimate the covariance matrix based on random sampling. In this context, $C$ is called the {\em population covariance matrix}.
-Let's start with the case $d=2$. Consider a two-dimensional random vector $\mathbf{X}=(X_1,X_2)$, where, for example, $X_1$ is the height of a person and $X_2$ is the weight.
+Let's start with the case $d=2$. Consider a two-dimensional random vector $\mathbf{X}=(X_1,X_2)^T$, where, for example, $X_1$ is the height of a person and $X_2$ is the weight.
 
 Taking a sample of $m$ people from the population, we equip the data elements with two indices, the first stands for the feature (1 for height, 2 for weight) and the second for the person's designated number. 
-So the height samples are denoted by  $x_{1,1},..,x_{1,m}$ and the corresponding weight samples are $x_{2,1},..,x_{2,m}$.
-Note that we can write the data as a  matrix $\mathbf{X}\in\mathbb{R}^{d\times m}$ where $m$ is the {\em sample size} and $d$ is the dimension (number of random variables).
-In our case, $d=2$ and
-$$\mathbf{X} = 
+So the height samples are denoted by  $x_{1,1},..,x_{1,m}$ and the corresponding weight samples are $x_{2,1},..,x_{2,m}$. Note that we can write the data as a  matrix $X\in\mathbb{R}^{d\times m}$ where $m$ is the {\em sample size} and $d$ is the dimension (number of random variables). In our case, $d=2$ and
+$$X = 
 \left(\begin{array}{ccc}
 	x_{1,1} & ... & x_{1,m}\\
 		x_{2,1} & ... & x_{2,m}
+\end{array}\right)=
+\left(\begin{array}{ccc}
+	\mathbf{x}_1 & ... &\mathbf{x}_m
 \end{array}\right)
 $$
+where we denoted the column vectors of the data matrix $X$ by $\mathbf{x}_i=(x_{1,k}, x_{2,k})^T$, $k=1..m$. The boldface notation is used to remind us that the $\mathbf{x}_i$'s are vectors, not  scalars.
 
+\begin{definition}[Sample Covariance]
 Generalizing the estimators we chose for a one-dimensional RV we now define the \textbf{\textit{sample covariance}} by
-$$\hat{\sigma}(X_i, X_j) = \frac{1}{m-1} \sum^{m}_{k=1}{(x_{i,k}-\hat{\mu}_i)(x_{j,k}-\hat{\mu}_j)}, ~ ~ i,j=1,2 $$
+$$\hat{\sigma}(X_i, X_j) = \frac{1}{m-1} \sum^{m}_{k=1}{(x_{i,k}-\hat{\mu}_i)(x_{j,k}-\hat{\mu}_j)}$$
 where $\hat{\mu}_i$ is the sample mean of the random variable $X_i$.
+\end{definition}
+Here, $d=2$ so i,j=1,2, but the above definition holds for general $d$.
+ 
 In particular, the  variance estimators, that is, the sample variances of the heights and weights are:
 $$ \hat{\sigma}\left(X_i,X_i\right)  = \frac{1}{m-1} \sum^{m}_{k=1}(x_{i,k} - \hat{\mu}_i)^2, i=1,2 \\$$
-
-
-
-where $\hat{\sigma}\left(X_i,X_i\right)\equiv \hat{\sigma}^2_{X_i} \equiv  \hat{\sigma}^2_i \equiv \hat{\sigma}_{i,i}$ are all equivalent notations. We can now define the sample covariance matrix $\hat{C}$. Again, as customary in statistics, we use the "hat notation" which reminds that $\hat{C}$ is our prescription for estimating the population covariance matrix $C$, based on the data we have.
+where $\hat{\sigma}\left(X_i,X_i\right)\equiv \hat{\sigma}^2_{X_i} \equiv  \hat{\sigma}^2_i \equiv \hat{\sigma}_{i,i}$ are all equivalent notations.
+We can now define the sample covariance matrix $\hat{C}$. Again, as customary in statistics, we use the "hat notation" which reminds that $\hat{C}$ is our prescription for estimating the population covariance matrix $C$, based on the data we have.
 \vspace{3mm}
 
 \begin{definition}[Sample Covariance Matrix]
-Consider a $d$-dimensional random vector $\textbf{X}=(X_1,\ldots,X_d)$. Suppose that we have $m$ i.i.d samples $\mathbf{x}_1,\ldots,\mathbf{x}_m$ of $\mathbf{X}$. Here, the sample $\mathbf{x}_i$ is a vector in $\R^d$, and the boldface notation reminds us that $\mathbf{x}_i$ is a vector, not a scalar.
-
-The sample covariance matrix of $\mathbf{x}_1,\ldots,\mathbf{x}_d$ is defined to be the square $d$-by-$d$ matrix whose elements are given by $\hat{C}_{i,j}=\hat{\sigma}\left(X_{i},X_{j}\right)$. 
+Let $\textbf{X}=(X_1,\ldots,X_d)^T$ be a $d$-dimensional random vector. Let $\mathbf{x}_1,\ldots,\mathbf{x}_m$ be $m$ i.i.d samples of $\mathbf{X}$. Here, each sample $\mathbf{x}_i$ (note again the boldface notation) is a column vector in $\R^d$ corresponding to the columns of the data matrix $X$. The sample covariance matrix of $\mathbf{x}_1,\ldots,\mathbf{x}_m$ is a square $d$-by-$d$ matrix $\hat{C}$ with  $\hat{C}_{i,j}=\hat{\sigma}\left(X_{i},X_{j}\right)$ , $i,j=1..d$. 
 \end{definition}
 
 The sample covariance matrix is symmetric since $\hat{\sigma}\left(X_{j},X_{i}\right)=\hat{\sigma}\left(X_{i},X_{j}\right)$. The diagonal entries of the sample covariance matrix are the sample variances and the other entries are the sample covariances.
-In matrix notation, the sample covariance matrix is given by
-$$\hat{C} = \frac{1}{m-1} \sum^{m}_{i=1}(\mathbf{x}_i-\hat{\boldsymbol{\mu}})(\mathbf{x}_i-\hat{\boldsymbol{\mu}}^T)$$
+In matrix notation, the sample covariance matrix is given by \textcolor{blue}{Check}
+$$\hat{C} = \frac{1}{m-1} \sum^{m}_{i=1}(\mathbf{x}_i-\hat{\boldsymbol{\mu}})(\mathbf{x}^T_i-\hat{\boldsymbol{\mu}}^T)$$
 
 
-where $\boldsymbol{\mu} \in\mathbb{R}^{d\times 1}$ is a column vector of the sample means (in the $d=2$ case, $\hat{\boldsymbol{\mu}}^T = (\hat{\mu}_1, \hat{\mu}_2)$).
+where $\boldsymbol{\hat{\mu}} \in\mathbb{R}^{d\times 1}$ is a column vector of the sample means (in the $d=2$ case, $\hat{\boldsymbol{\mu}}^T = (\hat{\mu}_1, \hat{\mu}_2)$).
 % Depending on the context, $\bar{X}$ may also denote the means matrix: $\bar{X} \in\mathbb{R}^{d\times m}$ with elements $\bar{X}_{i,j}=\hat{\mu}_i$.
 If $\hat{\boldsymbol{\mu}}=0$, that is, if the data is shifted to have zero mean, the covariance matrix is easily computed from the symmetric matrix $XX^T$, using the relation $\hat{C} = \frac{XX^T}{m-1}$.
 
