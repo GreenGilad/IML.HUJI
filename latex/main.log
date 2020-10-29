@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.12.22)  28 OCT 2020 02:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.12.22)  29 OCT 2020 03:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1615,7 +1615,7 @@ LaTeX Font Info:    Font shape `T1/pag/bx/n' in size <35> not available
 (Font)              Font shape `T1/pag/b/n' tried instead on input line 60.
 LaTeX Font Info:    Font shape `T1/pag/b/n' in size <35> not available
 (Font)              Font shape `T1/pag/db/n' tried instead on input line 60.
-<cover.png, id=738, 614.295pt x 794.97pt>
+<cover.png, id=742, 614.295pt x 794.97pt>
 File: cover.png Graphic file (type png)
 <use cover.png>
 Package pdftex.def Info: cover.png  used on input line 70.
@@ -1638,7 +1638,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--78
  []
 
 [2]
-<toc_header.png, id=752, 1027.6794pt x 514.0806pt>
+<toc_header.png, id=756, 1027.6794pt x 514.0806pt>
 File: toc_header.png Graphic file (type png)
 <use toc_header.png>
 Package pdftex.def Info: toc_header.png  used on input line 85.
@@ -1663,8 +1663,8 @@ LaTeX Font Info:    Font shape `T1/pag/b/n' in size <14.4> not available
  [3
 
  <./toc_header.png>]
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 12
-8.
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 13
+0.
 
 (c:/texlive/2019/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
@@ -1673,36 +1673,36 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `ztmcm' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 12
-8.
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 13
+0.
 
 (c:/texlive/2019/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 12
-8.
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 13
+0.
 
 (c:/texlive/2019/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 12
-8.
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 13
+0.
 
 (c:/texlive/2019/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 128.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 130.
 
 
 (c:/texlive/2019/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 128.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 128.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 128.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
 
 (c:/texlive/2019/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
@@ -1711,9 +1711,9 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 128.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 128.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
  [4] [5] [6])
 \tf@toc=\write6
 \openout6 = `main.toc'.
@@ -1853,13 +1853,13 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 356.
  [18]
-<chapters/mathematical.basis/figures/1D.png, id=1227, 1284.8pt x 963.6pt>
+<chapters/mathematical.basis/figures/1D.png, id=1233, 1284.8pt x 963.6pt>
 File: chapters/mathematical.basis/figures/1D.png Graphic file (type png)
 <use chapters/mathematical.basis/figures/1D.png>
 Package pdftex.def Info: chapters/mathematical.basis/figures/1D.png  used on in
 put line 366.
 (pdftex.def)             Requested size: 128.48752pt x 96.36565pt.
-<chapters/mathematical.basis/figures/2D.png, id=1229, 1284.8pt x 803.0pt>
+<chapters/mathematical.basis/figures/2D.png, id=1235, 1284.8pt x 803.0pt>
 File: chapters/mathematical.basis/figures/2D.png Graphic file (type png)
 <use chapters/mathematical.basis/figures/2D.png>
 Package pdftex.def Info: chapters/mathematical.basis/figures/2D.png  used on in
@@ -1910,16 +1910,174 @@ Package mdframed Info: mdframed works in twoside mode on input line 498.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 498.
-)) (./chapters/intro.regression/content.tex [22]
+<chapters/mathematical.basis/figures/uncorrelated.png, id=1260, 711.65875pt x 4
+84.81125pt>
+File: chapters/mathematical.basis/figures/uncorrelated.png Graphic file (type p
+ng)
+<use chapters/mathematical.basis/figures/uncorrelated.png>
+Package pdftex.def Info: chapters/mathematical.basis/figures/uncorrelated.png  
+used on input line 551.
+(pdftex.def)             Requested size: 213.49927pt x 145.44449pt.
+ [22 <./chapters/mathematical.basis/figures/uncorrelated.png>]
+<chapters/mathematical.basis/figures/uncorrelated_scaled.png, id=1268, 720.6925
+pt x 484.81125pt>
+File: chapters/mathematical.basis/figures/uncorrelated_scaled.png Graphic file 
+(type png)
+<use chapters/mathematical.basis/figures/uncorrelated_scaled.png>
+Package pdftex.def Info: chapters/mathematical.basis/figures/uncorrelated_scale
+d.png  used on input line 575.
+(pdftex.def)             Requested size: 216.20941pt x 145.44449pt.
+<chapters/mathematical.basis/figures/correlated.png, id=1269, 711.65875pt x 484
+.81125pt>
+File: chapters/mathematical.basis/figures/correlated.png Graphic file (type png
+)
+<use chapters/mathematical.basis/figures/correlated.png>
+Package pdftex.def Info: chapters/mathematical.basis/figures/correlated.png  us
+ed on input line 591.
+(pdftex.def)             Requested size: 213.49927pt x 145.44449pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[23 <./chapters/mathematical.basis/figures/uncorrelated_scaled.png>] [24 <./cha
+pters/mathematical.basis/figures/correlated.png>]
+Package mdframed Info: mdframed works in twoside mode on input line 628.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 628.
+Package mdframed Info: mdframed works in twoside mode on input line 646.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 646.
+
+! Undefined control sequence.
+<recently read> \cD 
+                    
+l.647 ...ite mean. Denote its distribution by $\cD
+                                                  $. Let $X_1,\ldots,X_m$ be...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \cD 
+                    
+l.647 ...s which are distributed according to $\cD
+                                                  $. Denote their average by...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \overbar 
+                         
+l.647 ... $\cD$. Denote their average by $\overbar
+                                                  {X}=\frac{1}{m} \sum_{i=1}...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.649 	\mathbb{P} [\overbar
+                           {X} \geq t] \leq \frac{\mathbb{E}[X]}{t}~.
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[25]
+Package mdframed Info: mdframed works in twoside mode on input line 664.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 664.
+
+! Undefined control sequence.
+<argument>  \label {eq:varAve} \rV 
+                                   \left [\frac {1}{m} \sum _{i=1} ^m X_i \r...
+l.679 \end{align}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> ... X_i \right ] &= \frac {1}{m^2} \rV 
+                                                  \left [\sum _{i=1} ^m X_i ...
+l.679 \end{align}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument>  \label {eq:varAve} \rV 
+                                   \left [\frac {1}{m} \sum _{i=1} ^m X_i \r...
+l.679 \end{align}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> ... X_i \right ] &= \frac {1}{m^2} \rV 
+                                                  \left [\sum _{i=1} ^m X_i ...
+l.679 \end{align}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Package mdframed Info: mdframed works in twoside mode on input line 681.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 681.
+Package mdframed Info: Not enough space on this page on input line 686.
+[26]
+Package mdframed Info: Not enough space on this page on input line 686.
+
+! Undefined control sequence.
+l.688 ... moments. Comparing the bounds in \corref
+                                                  {cor:markovAve} and \corre...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.688 ...nds in \corref{cor:markovAve} and \corref
+                                                  {cor:chebysevAve}, we see ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+)) (./chapters/intro.regression/content.tex [27] [28
+
+]
 Chapter 2.
 File: toc_header.png Graphic file (type png)
 <use toc_header.png>
 Package pdftex.def Info: toc_header.png  used on input line 1.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-[23
-
-]
-<chapters/intro.regression/figures/regression_noiseless_intuition.png, id=1265,
+[29]
+<chapters/intro.regression/figures/regression_noiseless_intuition.png, id=1314,
  498.96413pt x 381.8265pt>
 File: chapters/intro.regression/figures/regression_noiseless_intuition.png Grap
 hic file (type png)
@@ -1937,9 +2095,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--62
 
  []
 
-[24 <./chapters/intro.regression/figures/regression_noiseless_intuition.png>]
-[25]
-<chapters/intro.regression/figures/rss_shape.png, id=1281, 505.89pt x 383.93437
+[30 <./chapters/intro.regression/figures/regression_noiseless_intuition.png>]
+[31]
+<chapters/intro.regression/figures/rss_shape.png, id=1330, 505.89pt x 383.93437
 pt>
 File: chapters/intro.regression/figures/rss_shape.png Graphic file (type png)
 <use chapters/intro.regression/figures/rss_shape.png>
@@ -1950,7 +2108,7 @@ Package mdframed Info: mdframed works in twoside mode on input line 122.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 122.
- [26 <./chapters/intro.regression/figures/rss_shape.png (PNG copy)>]
+ [32 <./chapters/intro.regression/figures/rss_shape.png (PNG copy)>]
 Underfull \hbox (badness 10000) in paragraph at lines 156--158
 
  []
@@ -1963,7 +2121,7 @@ Package mdframed Info: mdframed works in twoside mode on input line 162.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 162.
-[27]
+[33]
 Package mdframed Info: mdframed works in twoside mode on input line 189.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -1973,7 +2131,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 199--200
 
  []
 
-[28]
+[34]
 File: chapters/intro.regression/figures/regression_noiseless_intuition.png Grap
 hic file (type png)
 <use chapters/intro.regression/figures/regression_noiseless_intuition.png>
@@ -1984,7 +2142,7 @@ _intuition.png  used on input line 250.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[29] [30]
+[35] [36]
 Package mdframed Info: mdframed works in twoside mode on input line 352.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -1994,7 +2152,7 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 356.
 Package mdframed Info: Not enough space on this page on input line 358.
- [31]
+ [37]
 Package mdframed Info: Not enough space on this page on input line 358.
 
 Underfull \hbox (badness 10000) in paragraph at lines 360--363
@@ -2015,7 +2173,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 393--397
 
  []
 
-[32]) (./chapters/classification/content.tex [33] [34
+[38]) (./chapters/classification/content.tex [39] [40
 
 ]
 Chapter 3.
@@ -2023,7 +2181,7 @@ File: toc_header.png Graphic file (type png)
 <use toc_header.png>
 Package pdftex.def Info: toc_header.png  used on input line 1.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-<chapters/classification/figures/SAheart_data.png, id=1344, 595.22375pt x 366.3
+<chapters/classification/figures/SAheart_data.png, id=1392, 595.22375pt x 366.3
 6874pt>
 File: chapters/classification/figures/SAheart_data.png Graphic file (type png)
 <use chapters/classification/figures/SAheart_data.png>
@@ -2033,26 +2191,26 @@ Package pdftex.def Info: chapters/classification/figures/SAheart_data.png  used
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[35]
+[41]
 LaTeX Font Info:    Try loading font information for U+bbm on input line 27.
  (c:/texlive/2019/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-) [36 <./chapters/classification/figures/SAheart_data.png>]
+) [42 <./chapters/classification/figures/SAheart_data.png>]
 Overfull \hbox (12.63698pt too wide) in paragraph at lines 82--83
 []\T1/ptm/m/n/10.95 (-20) The \T1/ptm/m/it/10.95 (-20) Ac-cu-racy \T1/ptm/m/n/1
 0.95 (-20) is the num-ber of cor-rect clas-si-fi-ca-tion out of all pre-dic-tio
 ns: $[] \OML/ztmcm/m/it/10.95 = [] \OT1/ztmcm/m/n/10.95 =
  []
 
-[37]
-<chapters/classification/figures/boundry1.png, id=1368, 276.13162pt x 256.5585p
+[43]
+<chapters/classification/figures/boundry1.png, id=1417, 276.13162pt x 256.5585p
 t>
 File: chapters/classification/figures/boundry1.png Graphic file (type png)
 <use chapters/classification/figures/boundry1.png>
 Package pdftex.def Info: chapters/classification/figures/boundry1.png  used on 
 input line 100.
 (pdftex.def)             Requested size: 144.54pt x 134.29591pt.
-<chapters/classification/figures/boundry2.png, id=1369, 286.06876pt x 266.1945p
+<chapters/classification/figures/boundry2.png, id=1418, 286.06876pt x 266.1945p
 t>
 File: chapters/classification/figures/boundry2.png Graphic file (type png)
 <use chapters/classification/figures/boundry2.png>
@@ -2064,15 +2222,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 109--113
 
  []
 
-[38 <./chapters/classification/figures/boundry1.PNG> <./chapters/classification
+[44 <./chapters/classification/figures/boundry1.PNG> <./chapters/classification
 /figures/boundry2.PNG>]
-<chapters/classification/figures/radar.jpg, id=1377, 481.8pt x 481.8pt>
+<chapters/classification/figures/radar.jpg, id=1426, 481.8pt x 481.8pt>
 File: chapters/classification/figures/radar.jpg Graphic file (type jpg)
 <use chapters/classification/figures/radar.jpg>
 Package pdftex.def Info: chapters/classification/figures/radar.jpg  used on inp
 ut line 116.
 (pdftex.def)             Requested size: 122.85876pt x 122.85368pt.
-<chapters/classification/figures/roc.png, id=1378, 346.29375pt x 319.1925pt>
+<chapters/classification/figures/roc.png, id=1427, 346.29375pt x 319.1925pt>
 File: chapters/classification/figures/roc.png Graphic file (type png)
 <use chapters/classification/figures/roc.png>
 Package pdftex.def Info: chapters/classification/figures/roc.png  used on input
@@ -2086,9 +2244,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 128--132
 
 Underfull \vbox (badness 1062) has occurred while \output is active []
 
- [39 <./chapters/classification/figures/radar.jpg> <./chapters/classification/f
+ [45 <./chapters/classification/figures/radar.jpg> <./chapters/classification/f
 igures/roc.png>]
-<chapters/classification/figures/halfspace_illustration.png, id=1386, 488.72588
+<chapters/classification/figures/halfspace_illustration.png, id=1435, 488.72588
 pt x 386.94562pt>
 File: chapters/classification/figures/halfspace_illustration.png Graphic file (
 type png)
@@ -2107,7 +2265,7 @@ her side of the hy-per-plane $\OT1/ptm/b/n/10.95 w[] \OT1/ztmcm/m/n/10.95 = []$
 
  []
 
-<chapters/classification/figures/defining_hyperplane.png, id=1388, 422.17725pt 
+<chapters/classification/figures/defining_hyperplane.png, id=1437, 422.17725pt 
 x 350.5095pt>
 File: chapters/classification/figures/defining_hyperplane.png Graphic file (typ
 e png)
@@ -2123,8 +2281,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 163--165
 
  []
 
-[40] [41 <./chapters/classification/figures/halfspace_illustration.PNG> <./chap
-ters/classification/figures/defining_hyperplane.PNG>] [42]
+[46] [47 <./chapters/classification/figures/halfspace_illustration.PNG> <./chap
+ters/classification/figures/defining_hyperplane.PNG>] [48]
 Package mdframed Info: mdframed works in twoside mode on input line 209.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -2137,7 +2295,7 @@ Package mdframed Info: mdframed works in twoside mode on input line 235.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 235.
- [43]
+ [49]
 Package mdframed Info: mdframed works in twoside mode on input line 248.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -2163,7 +2321,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 269--274
 
 Underfull \vbox (badness 6316) has occurred while \output is active []
 
- [44]
+ [50]
 Package mdframed Info: mdframed works in twoside mode on input line 278.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -2173,7 +2331,7 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 282.
 
-[45]
+[51]
 Package mdframed Info: mdframed works in twoside mode on input line 323.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -2183,12 +2341,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 353--356
 
  []
 
-[46]
+[52]
 Underfull \hbox (badness 10000) in paragraph at lines 370--372
 
  []
 
-<chapters/classification/figures/soft_svm.png, id=1454, 85.21837pt x 78.89474pt
+<chapters/classification/figures/soft_svm.png, id=1502, 85.21837pt x 78.89474pt
 >
 File: chapters/classification/figures/soft_svm.png Graphic file (type png)
 <use chapters/classification/figures/soft_svm.png>
@@ -2198,7 +2356,7 @@ input line 390.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[47]
+[53]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 416.
@@ -2212,7 +2370,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 425--427
 
  []
 
-[48 <./chapters/classification/figures/soft_svm.PNG>]
+[54 <./chapters/classification/figures/soft_svm.PNG>]
 Underfull \hbox (badness 10000) in paragraph at lines 429--430
 
  []
@@ -2230,7 +2388,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 434.
 
-[49]
+[55]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 455.
@@ -2243,7 +2401,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 455.
 
-<chapters/classification/figures/decision_tree.png, id=1473, 228.25275pt x 118.
+<chapters/classification/figures/decision_tree.png, id=1522, 228.25275pt x 118.
 34213pt>
 File: chapters/classification/figures/decision_tree.png Graphic file (type png)
 
@@ -2251,7 +2409,7 @@ File: chapters/classification/figures/decision_tree.png Graphic file (type png)
 Package pdftex.def Info: chapters/classification/figures/decision_tree.png  use
 d on input line 460.
 (pdftex.def)             Requested size: 302.53696pt x 156.85675pt.
-<chapters/classification/figures/axis_parallel_partition.png, id=1474, 140.3242
+<chapters/classification/figures/axis_parallel_partition.png, id=1523, 140.3242
 5pt x 137.61412pt>
 File: chapters/classification/figures/axis_parallel_partition.png Graphic file 
 (type png)
@@ -2262,13 +2420,13 @@ n.png  used on input line 474.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[50 <./chapters/classification/figures/decision_tree.png>] [51 <./chapters/clas
-sification/figures/axis_parallel_partition.PNG>] [52] [53] [54]
+[56 <./chapters/classification/figures/decision_tree.png>] [57 <./chapters/clas
+sification/figures/axis_parallel_partition.PNG>] [58] [59] [60]
 Underfull \hbox (badness 10000) in paragraph at lines 579--582
 
  []
 
-<chapters/classification/figures/logistic.png, id=1506, 617.00513pt x 277.63725
+<chapters/classification/figures/logistic.png, id=1554, 617.00513pt x 277.63725
 pt>
 File: chapters/classification/figures/logistic.png Graphic file (type png)
 <use chapters/classification/figures/logistic.png>
@@ -2278,12 +2436,12 @@ input line 593.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[55]
+[61]
 Underfull \hbox (badness 10000) in paragraph at lines 618--621
 
  []
 
-[56 <./chapters/classification/figures/logistic.PNG>]
+[62 <./chapters/classification/figures/logistic.PNG>]
 Underfull \hbox (badness 10000) in paragraph at lines 648--651
 
  []
@@ -2293,7 +2451,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 654--657
 
  []
 
-) (./chapters/pac/content.tex [57] [58
+) (./chapters/pac/content.tex [63] [64
 
 ]
 Chapter 4.
@@ -2360,17 +2518,17 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 ) (./chapters/ensemble.methods/content.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [59]
+ [65]
 Overfull \vbox (64.35744pt too high) has occurred while \output is active []
 
 
-[60]
+[66]
 Chapter 5.
 File: toc_header.png Graphic file (type png)
 <use toc_header.png>
 Package pdftex.def Info: toc_header.png  used on input line 1.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-<chapters/ensemble.methods/figures/ESL_bias_variance.png, id=1545, 268.30237pt 
+<chapters/ensemble.methods/figures/ESL_bias_variance.png, id=1594, 268.30237pt 
 x 190.00987pt>
 File: chapters/ensemble.methods/figures/ESL_bias_variance.png Graphic file (typ
 e png)
@@ -2381,9 +2539,9 @@ g  used on input line 16.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[61
+[67
 
-] [62 <./chapters/ensemble.methods/figures/ESL_bias_variance.PNG>]
+] [68 <./chapters/ensemble.methods/figures/ESL_bias_variance.PNG>]
 Underfull \hbox (badness 10000) in paragraph at lines 50--51
 
  []
@@ -2396,8 +2554,8 @@ Package mdframed Info: mdframed works in twoside mode on input line 62.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 62.
-[63]
-<chapters/ensemble.methods/figures/bound_prob-0.png, id=1564, 702.625pt x 501.8
+[69]
+<chapters/ensemble.methods/figures/bound_prob-0.png, id=1613, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-0.png Graphic file (type png
 )
@@ -2406,7 +2564,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-0.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-0.png> <a0,fr0>
-<chapters/ensemble.methods/figures/bound_prob-1.png, id=1576, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-1.png, id=1624, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-1.png Graphic file (type png
 )
@@ -2415,7 +2573,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-1.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-1.png> <a0,fr1>
-<chapters/ensemble.methods/figures/bound_prob-2.png, id=1587, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-2.png, id=1635, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-2.png Graphic file (type png
 )
@@ -2424,7 +2582,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-2.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-2.png> <a0,fr2>
-<chapters/ensemble.methods/figures/bound_prob-3.png, id=1598, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-3.png, id=1646, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-3.png Graphic file (type png
 )
@@ -2433,7 +2591,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-3.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-3.png> <a0,fr3>
-<chapters/ensemble.methods/figures/bound_prob-4.png, id=1609, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-4.png, id=1657, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-4.png Graphic file (type png
 )
@@ -2443,7 +2601,7 @@ ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-4.png>
 <a0,fr4>
-<chapters/ensemble.methods/figures/bound_prob-5.png, id=1620, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-5.png, id=1668, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-5.png Graphic file (type png
 )
@@ -2452,7 +2610,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-5.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-5.png> <a0,fr5>
-<chapters/ensemble.methods/figures/bound_prob-6.png, id=1631, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-6.png, id=1679, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-6.png Graphic file (type png
 )
@@ -2461,7 +2619,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-6.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-6.png> <a0,fr6>
-<chapters/ensemble.methods/figures/bound_prob-7.png, id=1642, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-7.png, id=1690, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-7.png Graphic file (type png
 )
@@ -2470,7 +2628,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-7.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-7.png> <a0,fr7>
-<chapters/ensemble.methods/figures/bound_prob-8.png, id=1653, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-8.png, id=1701, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-8.png Graphic file (type png
 )
@@ -2479,7 +2637,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-8.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-8.png> <a0,fr8>
-<chapters/ensemble.methods/figures/bound_prob-9.png, id=1664, 702.625pt x 501.8
+<chapters/ensemble.methods/figures/bound_prob-9.png, id=1712, 702.625pt x 501.8
 75pt>
 File: chapters/ensemble.methods/figures/bound_prob-9.png Graphic file (type png
 )
@@ -2488,7 +2646,7 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bound_prob-9.png  us
 ed on input line 84.
 (pdftex.def)             Requested size: 702.62328pt x 501.87376pt.
  <./chapters/ensemble.methods/figures/bound_prob-9.png> <a0,fr9>
-<chapters/ensemble.methods/figures/bound_prob-10.png, id=1675, 702.625pt x 501.
+<chapters/ensemble.methods/figures/bound_prob-10.png, id=1723, 702.625pt x 501.
 875pt>
 File: chapters/ensemble.methods/figures/bound_prob-10.png Graphic file (type pn
 g)
@@ -2502,7 +2660,7 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 90.
 
-[64]
+[70]
 Package mdframed Info: mdframed works in twoside mode on input line 123.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -2513,7 +2671,7 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 132.
 
-[65]
+[71]
 Underfull \hbox (badness 10000) in paragraph at lines 145--148
 
  []
@@ -2522,12 +2680,12 @@ Package mdframed Info: mdframed works in twoside mode on input line 149.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 149.
-[66]
+[72]
 Package mdframed Info: mdframed works in twoside mode on input line 181.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 181.
-<chapters/ensemble.methods/figures/ecdf.png, id=1706, 221.02576pt x 180.37387pt
+<chapters/ensemble.methods/figures/ecdf.png, id=1755, 221.02576pt x 180.37387pt
 >
 File: chapters/ensemble.methods/figures/ecdf.png Graphic file (type png)
 <use chapters/ensemble.methods/figures/ecdf.png>
@@ -2538,15 +2696,15 @@ put line 187.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[67]
-<chapters/ensemble.methods/figures/many_trees.png, id=1713, 156.585pt x 227.349
+[73]
+<chapters/ensemble.methods/figures/many_trees.png, id=1762, 156.585pt x 227.349
 38pt>
 File: chapters/ensemble.methods/figures/many_trees.png Graphic file (type png)
 <use chapters/ensemble.methods/figures/many_trees.png>
 Package pdftex.def Info: chapters/ensemble.methods/figures/many_trees.png  used
  on input line 203.
 (pdftex.def)             Requested size: 130.08621pt x 188.88031pt.
-<chapters/ensemble.methods/figures/bagging.png, id=1714, 149.05687pt x 125.5691
+<chapters/ensemble.methods/figures/bagging.png, id=1763, 149.05687pt x 125.5691
 2pt>
 File: chapters/ensemble.methods/figures/bagging.png Graphic file (type png)
 <use chapters/ensemble.methods/figures/bagging.png>
@@ -2557,8 +2715,8 @@ Package pdftex.def Info: chapters/ensemble.methods/figures/bagging.png  used on
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[68 <./chapters/ensemble.methods/figures/ecdf.PNG>]
-<chapters/ensemble.methods/figures/bagging_vs_rf.png, id=1722, 133.6995pt x 107
+[74 <./chapters/ensemble.methods/figures/ecdf.PNG>]
+<chapters/ensemble.methods/figures/bagging_vs_rf.png, id=1771, 133.6995pt x 107
 .50162pt>
 File: chapters/ensemble.methods/figures/bagging_vs_rf.png Graphic file (type pn
 g)
@@ -2570,13 +2728,13 @@ sed on input line 230.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[69 <./chapters/ensemble.methods/figures/many_trees.PNG> <./chapters/ensemble.m
+[75 <./chapters/ensemble.methods/figures/many_trees.PNG> <./chapters/ensemble.m
 ethods/figures/bagging.PNG>]
 Underfull \hbox (badness 10000) in paragraph at lines 243--246
 
  []
 
-[70 <./chapters/ensemble.methods/figures/bagging_vs_rf.PNG>]
+[76 <./chapters/ensemble.methods/figures/bagging_vs_rf.PNG>]
 Underfull \hbox (badness 10000) in paragraph at lines 254--260
 
  []
@@ -2590,7 +2748,7 @@ Package mdframed Info: mdframed works in twoside mode on input line 262.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 262.
-<chapters/ensemble.methods/figures/adaboost_pseudo.png, id=1736, 241.20113pt x 
+<chapters/ensemble.methods/figures/adaboost_pseudo.png, id=1785, 241.20113pt x 
 105.39375pt>
 File: chapters/ensemble.methods/figures/adaboost_pseudo.png Graphic file (type 
 png)
@@ -2606,7 +2764,7 @@ Overfull \hbox (1.42244pt too wide) in paragraph at lines 283--284
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[71]
+[77]
 Package mdframed Info: mdframed works in twoside mode on input line 289.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -2620,7 +2778,7 @@ Package mdframed Info: mdframed works in twoside mode on input line 310.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 310.
-[72 <./chapters/ensemble.methods/figures/adaboost_pseudo.PNG>]
+[78 <./chapters/ensemble.methods/figures/adaboost_pseudo.PNG>]
 Package mdframed Info: mdframed works in twoside mode on input line 314.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
@@ -2634,7 +2792,7 @@ Package mdframed Info: mdframed works in twoside mode on input line 329.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 329.
-[73]
+[79]
 Underfull \hbox (badness 10000) in paragraph at lines 338--344
 
  []
@@ -2644,7 +2802,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 338--344
 
  []
 
-) (./chapters/regularization.model.selection/content.tex [74]
+) (./chapters/regularization.model.selection/content.tex [80]
 Chapter 6.
 File: toc_header.png Graphic file (type png)
 <use toc_header.png>
@@ -2660,14 +2818,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
-[75
+[81
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 37--42
 
  []
 
-[76]
+[82]
 Underfull \hbox (badness 10000) in paragraph at lines 58--65
 
  []
@@ -2703,8 +2861,8 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 87.
 
-[77]
-<chapters/regularization.model.selection/figures/ridge_coefs.jpeg, id=1782, 129
+[83]
+<chapters/regularization.model.selection/figures/ridge_coefs.jpeg, id=1830, 129
 0.8225pt x 1138.2525pt>
 File: chapters/regularization.model.selection/figures/ridge_coefs.jpeg Graphic 
 file (type jpg)
@@ -2716,13 +2874,13 @@ Package mdframed Info: mdframed works in twoside mode on input line 106.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 106.
- [78 <./chapters/regularization.model.selection/figures/ridge_coefs.jpeg>]
+ [84 <./chapters/regularization.model.selection/figures/ridge_coefs.jpeg>]
 Package mdframed Info: mdframed works in twoside mode on input line 127.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 127.
 <chapters/regularization.model.selection/figures/ridge_bias_variance.jpeg, id=1
-791, 1248.665pt x 1294.8375pt>
+839, 1248.665pt x 1294.8375pt>
 File: chapters/regularization.model.selection/figures/ridge_bias_variance.jpeg 
 Graphic file (type jpg)
 <use chapters/regularization.model.selection/figures/ridge_bias_variance.jpeg>
@@ -2754,8 +2912,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 153--156
 
  []
 
-[79]
-<chapters/regularization.model.selection/figures/coef_ridge_lasso.png, id=1799,
+[85]
+<chapters/regularization.model.selection/figures/coef_ridge_lasso.png, id=1847,
  223.43475pt x 93.64987pt>
 File: chapters/regularization.model.selection/figures/coef_ridge_lasso.png Grap
 hic file (type png)
@@ -2773,13 +2931,18 @@ r re-gres-sion prob-lems us-ing the terms: $[][] \OML/ztmcm/m/it/10.95 ; [][] ;
 
 Underfull \vbox (badness 5008) has occurred while \output is active []
 
- [80 <./chapters/regularization.model.selection/figures/ridge_bias_variance.jpe
+ [86 <./chapters/regularization.model.selection/figures/ridge_bias_variance.jpe
 g> <./chapters/regularization.model.selection/figures/coef_ridge_lasso.PNG>]
 Package mdframed Info: mdframed works in twoside mode on input line 184.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 184.
-<chapters/regularization.model.selection/figures/unit_balls.png, id=1807, 190.9
+
+
+LaTeX Warning: Reference `mdf@pagelabel-64' on page 87 undefined on input line 
+186.
+
+<chapters/regularization.model.selection/figures/unit_balls.png, id=1855, 190.9
 1325pt x 48.78226pt>
 File: chapters/regularization.model.selection/figures/unit_balls.png Graphic fi
 le (type png)
@@ -2792,7 +2955,7 @@ Overfull \hbox (0.40332pt too wide) detected at line 202
 []
  []
 
-<chapters/regularization.model.selection/figures/sparsity.png, id=1810, 195.731
+<chapters/regularization.model.selection/figures/sparsity.png, id=1858, 195.731
 25pt x 131.59163pt>
 File: chapters/regularization.model.selection/figures/sparsity.png Graphic file
  (type png)
@@ -2808,18 +2971,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 214--217
 
  []
 
-[81 <./chapters/regularization.model.selection/figures/unit_balls.PNG>]
+[87 <./chapters/regularization.model.selection/figures/unit_balls.PNG>]
 Package mdframed Info: mdframed works in twoside mode on input line 217.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 217.
+
+
+LaTeX Warning: Reference `mdf@pagelabel-65' on page 88 undefined on input line 
+231.
+
 Package mdframed Info: mdframed works in twoside mode on input line 234.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 234.
 
-[82 <./chapters/regularization.model.selection/figures/sparsity.PNG>]
-<chapters/regularization.model.selection/figures/shrinkage.png, id=1827, 201.75
+LaTeX Warning: Reference `mdf@pagelabel-66' on page 88 undefined on input line 
+236.
+
+[88 <./chapters/regularization.model.selection/figures/sparsity.PNG>]
+<chapters/regularization.model.selection/figures/shrinkage.png, id=1876, 201.75
 375pt x 61.73062pt>
 File: chapters/regularization.model.selection/figures/shrinkage.png Graphic fil
 e (type png)
@@ -2832,7 +3003,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 300--303
 
  []
 
-[83 <./chapters/regularization.model.selection/figures/shrinkage.PNG>]
+[89 <./chapters/regularization.model.selection/figures/shrinkage.PNG>]
 Underfull \hbox (badness 10000) in paragraph at lines 309--311
 
  []
@@ -2852,16 +3023,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 311--314
 
  []
 
-[84] [85]
+[90] [91]
 Package mdframed Info: mdframed works in twoside mode on input line 344.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 344.
+
+
+LaTeX Warning: Reference `mdf@pagelabel-67' on page 92 undefined on input line 
+346.
+
 Package mdframed Info: mdframed works in twoside mode on input line 358.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 358.
-<chapters/regularization.model.selection/figures/cv_result.png, id=1843, 146.04
+
+LaTeX Warning: Reference `mdf@pagelabel-68' on page 92 undefined on input line 
+360.
+
+<chapters/regularization.model.selection/figures/cv_result.png, id=1892, 146.04
 562pt x 137.313pt>
 File: chapters/regularization.model.selection/figures/cv_result.png Graphic fil
 e (type png)
@@ -2869,7 +3049,7 @@ e (type png)
 Package pdftex.def Info: chapters/regularization.model.selection/figures/cv_res
 ult.png  used on input line 376.
 (pdftex.def)             Requested size: 216.09877pt x 203.1949pt.
-<chapters/regularization.model.selection/figures/cv_estimator.png, id=1844, 153
+<chapters/regularization.model.selection/figures/cv_estimator.png, id=1893, 153
 .87488pt x 104.7915pt>
 File: chapters/regularization.model.selection/figures/cv_estimator.png Graphic 
 file (type png)
@@ -2902,11 +3082,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 369--388
 
  []
 
-[86]
+[92]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[87 <./chapters/regularization.model.selection/figures/cv_result.PNG>]
+[93 <./chapters/regularization.model.selection/figures/cv_result.PNG>]
 Underfull \hbox (badness 10000) in paragraph at lines 405--410
 
  []
@@ -2916,8 +3096,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 405--410
 
  []
 
-[88 <./chapters/regularization.model.selection/figures/cv_estimator.PNG>]
-<chapters/regularization.model.selection/figures/learning_curve.png, id=1867, 1
+[94 <./chapters/regularization.model.selection/figures/cv_estimator.PNG>]
+<chapters/regularization.model.selection/figures/learning_curve.png, id=1915, 1
 64.11313pt x 122.55788pt>
 File: chapters/regularization.model.selection/figures/learning_curve.png Graphi
 c file (type png)
@@ -2930,16 +3110,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 420--424
 
  []
 
-[89 <./chapters/regularization.model.selection/figures/learning_curve.PNG>])
-(./chapters/unsupervised.learning/content.tex [90]
+[95 <./chapters/regularization.model.selection/figures/learning_curve.PNG>])
+(./chapters/unsupervised.learning/content.tex [96]
 Chapter 7.
 File: toc_header.png Graphic file (type png)
 <use toc_header.png>
 Package pdftex.def Info: toc_header.png  used on input line 1.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-) (./chapters/gradient.descent/content.tex [91
+) (./chapters/gradient.descent/content.tex [97
 
-] [92
+] [98
 
 ]
 Chapter 8.
@@ -2951,7 +3131,7 @@ Package pdftex.def Info: toc_header.png  used on input line 1.
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 3.
 
-) [93] [94
+) [99] [100
 
 ]
 Chapter 9.
@@ -2959,7 +3139,7 @@ File: toc_header.png Graphic file (type png)
 <use toc_header.png>
 Package pdftex.def Info: toc_header.png  used on input line 100.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-[95] [96
+[101] [102
 
 ]
 Chapter 10.
@@ -2967,17 +3147,30 @@ File: toc_header.png Graphic file (type png)
 <use toc_header.png>
 Package pdftex.def Info: toc_header.png  used on input line 101.
 (pdftex.def)             Requested size: 614.295pt x 307.30548pt.
-[97]
+[103]
 \tf@ptc=\write7
 \openout7 = `main.ptc'.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 104.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 104.
- (./main.aux)
+ (./main.aux
+
+Package pdfbase Warning: Rerun to get internal references right!
+
+)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 104.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 104.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 793DEE7AA196D4F5081B4A61046ED0E6;14363.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 6F289E2B18603B366E1CBA89427D2CDB;14457
+(rerunfilecheck)             After:  56545DDB7C515D47E865C17C6439D22E;14669.
+
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2987,11 +3180,11 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 41969 strings out of 492623
- 779031 string characters out of 6133289
+ 42012 strings out of 492623
+ 780163 string characters out of 6133289
  1357086 words of memory out of 5000000
- 44354 multiletter control sequences out of 15000+600000
- 689167 words of font info for 419 fonts, out of 8000000 for 9000
+ 44379 multiletter control sequences out of 15000+600000
+ 689037 words of font info for 417 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,18n,92p,1174b,2104s stack positions out of 5000i,500n,10000p,200000b,80000s
  <c:/Users/Host/.texlive2019/texmf-var/fonts/pk/ljfour/public/bbm/bbm8.600pk>
@@ -3011,10 +3204,10 @@ syr.pfb><c:/texlive/2019/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texliv
 e/2019/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2019/texmf-dist
 /fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2019/texmf-dist/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on main.pdf (97 pages, 12418569 bytes).
+Output written on main.pdf (103 pages, 12487027 bytes).
 PDF statistics:
- 2064 PDF objects out of 2073 (max. 8388607)
- 1622 compressed objects within 17 object streams
- 423 named destinations out of 1000 (max. 500000)
- 66984 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 2117 PDF objects out of 2487 (max. 8388607)
+ 1662 compressed objects within 17 object streams
+ 441 named destinations out of 1000 (max. 500000)
+ 67007 words of extra memory for PDF output out of 74296 (max. 10000000)
 
