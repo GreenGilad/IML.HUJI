@@ -598,7 +598,7 @@ Note the form that we got on the right hand side of the first line of the above 
 
 
 \section{Probability Inequalities}
-\subsection{Motivation and Background}
+\subsection{Background}
 Probability inequalities are estimations  for  probabilities which are less accurate than exact values  but generally much easier to calculate since they are given in terms of simple properties of a distribution such as the mean and the variance. Such inequalities are used in many machine learning tasks, to obtain bounds on errors of the learning algorithm.
 \vspace{3mm}
 
@@ -644,9 +644,9 @@ We next recall Markov's and Chebyshev's inequalities and then apply both inequal
 	The desired inequality is obtained by dividing both sides by $t$.
 \end{proof}
 \begin{corollary} \label{cor:markovAve}
-	Let $X$ be a nonnegative random variable with finite mean. Denote its distribution by $\cD$. Let $X_1,\ldots,X_m$ be $m$ i.i.d. copies of $X$, i.e., $X_1,\ldots,X_m$ are i.i.d. random variables which are distributed according to $\cD$. Denote their average by $\overbar{X}=\frac{1}{m} \sum_{i=1} ^m X_i$. Finally, let $t>0$. Then
+	Let $X$ be a nonnegative random variable with finite mean. Denote its distribution by $\Dc $. Let $X_1,\ldots,X_m$ be $m$ i.i.d. copies of $X$, i.e., $X_1,\ldots,X_m$ are i.i.d. random variables which are distributed according to $\Dc $. Denote their average by $\bar{X}=\frac{1}{m} \sum_{i=1} ^m X_i$. Finally, let $t>0$. Then
 	\[
-	\mathbb{P} [\overbar{X} \geq t] \leq \frac{\mathbb{E}[X]}{t}~.
+	\mathbb{P} [\bar{X} \geq t] \leq \frac{\mathbb{E}[X]}{t}~.
 	\]
 \end{corollary}
 \begin{proof}
@@ -672,7 +672,7 @@ Applying Markov inequality to the random variable $(X-\E[X])^2$, we obtain Cheby
 \end{proof}
 Unlike the expectation, the variance of the average of i.i.d. random variables is not equal to the variance of the original random variable. Concretely, for a random variable $X$ and $m$ i.i.d. copies of $X$, denoted $X_1,\ldots, X_m$, we have
 \begin{align} \label{eq:varAve}
-	\rV \left[\frac{1}{m} \sum_{i=1} ^m X_i \right] &= \frac{1}{m^2} \rV \left[\sum_{i=1} ^m X_i \right] \notag \\&
+	V \left[\frac{1}{m} \sum_{i=1} ^m X_i \right] &= \frac{1}{m^2} V \left[\sum_{i=1} ^m X_i \right] \notag \\&
 	= \frac{1}{m^2} \sum_{i=1} ^m V [X_i] \notag \\&
 	= \frac{1}{m^2} \sum_{i=1} ^m V [X] \notag \\&
 	= \frac{1}{m} V[X]~.
@@ -685,7 +685,7 @@ In particular, the variance of the average tends to zero when $m$ tends to infin
 	\]
 \end{corollary}
 
-For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is defined by $\ensuremath{\mathbb{E}}[X^k]$. As we just saw, Markov's inequality exploits only information about the first moment, while Chebyshev's inequality exploits both the first and the second moments. Comparing the bounds in \corref{cor:markovAve} and \corref{cor:chebysevAve}, we see that using both the first and the second moments, we obtain better concentration inequalities than using only the first. We shall see soon that more generally, the more moments we use, the better the bounds we get.
+For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is defined by $\ensuremath{\mathbb{E}}[X^k]$. As we just saw, Markov's inequality exploits only information about the first moment, while Chebyshev's inequality exploits both the first and the second moments. Comparing the bounds in \ref{cor:markovAve} and \ref{cor:chebysevAve}, we see that using both the first and the second moments, we obtain better concentration inequalities than using only the first. We shall see soon that more generally, the more moments we use, the better the bounds we get.
 
 
 
