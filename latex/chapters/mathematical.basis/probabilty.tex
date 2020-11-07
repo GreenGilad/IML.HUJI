@@ -599,19 +599,20 @@ Note the form that we got on the right hand side of the first line of the above 
 
 \section{Probability Inequalities}
 \subsection{Background}
-Probability inequalities are estimations  for  probabilities which are less accurate than exact values  but generally much easier to calculate since they are given in terms of simple properties of a distribution such as the mean and the variance. Such inequalities are used in many machine learning tasks, to obtain bounds on errors of the learning algorithm.
+Probability inequalities are estimations of  probabilities which are less accurate than exact values  but generally much easier to calculate since they are given in terms of simple properties of a distribution such as the mean and the variance. Such inequalities are used in many machine learning tasks, to obtain bounds on errors of the learning algorithm.
 \vspace{3mm}
 
-More specifically, the law of large numbers states that  if we take the empirical average (the sample mean) of enough i.i.d. random variables, it will be, most likely, very close to the expected value.
-Probability inequalities provide us a means to estimate how many samples are "enough".
+For example, the law of large numbers states that if we take the empirical average (the sample mean) of enough i.i.d. random variables, it will be, most likely, very close to the expected value.
+Probability inequalities provide us a way to estimate how many samples are "enough".
 \vspace{3mm}
 
-For example, suppose that there is a bag containing red and blue balls. We would like to estimate the fraction $p$ of red balls in the bag by randomly picking one ball at a time and then putting it back in. The straightforward strategy is to draw $m$ samples and then using the following estimation  ("prediction")
+Suppose that we have a bag containing red and blue balls and we would like to estimate the fraction $p$ of red balls in the bag by randomly picking one ball at a time and then putting it back in. The straightforward strategy is to draw $m$ samples and then using the following estimation  ("prediction")
 \[
-\hat{p} = \frac{ ~\text{Number of red balls}}{m}~.
+\hat{p} =  \frac{1}{m}\sum_{i=1}^{m}x_i =\frac{ ~\text{Number of red balls}}{m}~.
 \]
-It is clear that $\E [\hat{p}] = p$. However, we might err due to the
-fact that we get only limited information, both because we are only sampling $m$ times and because each time we return the ball to the bag.
+where $x_i$ equals 1 if the $i$'th ball came out red and 0 otherwise. 
+It is clear that $\E [\hat{p}] = p$. However, we might err due to the fact that we get only limited information. We are only sampling $m$ times so we might get unlucky and end up with a non-representative sample. Although unlikely, this can happen even if $m$ is very large, even larger than the total number of balls, because each time we returned the ball to the bag.
+
 Thus, typically, we must settle for a certain accuracy - an additive error - that is, we will be happy to know that if we sample more than $m$ times, our estimation  $\hat{p}$ is not going
 to be more within a distance $\epsilon>0$ from $p$. However, no matter how large $m$ is, there is no absolute guarantee that  $\hat{p}$ will have that required accuracy.
 Since $m$ is finite, there is always a finite chance we sample the same color again and again.  So, at most we can require to have enough confidence, say, with probability of $1-\delta$ where $delta>0$ is small, that $\hat{p}$ is accurate enough ("accurate enough" defined as within  $\epsilon$ from our target, $p$). And now that we posed a realistic requirement, we can ask how large $m$ should be in order  to satisfy it.
@@ -685,9 +686,136 @@ In particular, the variance of the average tends to zero when $m$ tends to infin
 	\]
 \end{corollary}
 
-For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is defined by $\ensuremath{\mathbb{E}}[X^k]$. As we just saw, Markov's inequality exploits only information about the first moment, while Chebyshev's inequality exploits both the first and the second moments. Comparing the bounds in \ref{cor:markovAve} and \ref{cor:chebysevAve}, we see that using both the first and the second moments, we obtain better concentration inequalities than using only the first. We shall see soon that more generally, the more moments we use, the better the bounds we get.
+For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is defined by $\ensuremath{\mathbb{E}}[X^k]$. As we just saw, Markov's inequality exploits only information about the first moment, while Chebyshev's inequality  exploits both the first and the second moments. Comparing the bounds in \ref{cor:markovAve} and \ref{cor:chebysevAve}, we see that using both the first and the second moments, we obtain better concentration inequalities than using only the first. We shall see soon that more generally, the more moments we use, the better the bounds we get.
+
+\subsection{Coin Prediction}  \label{sec:basicConcentration}
+Let us formulate the problem of estimating the bias of a
+coin (in short, coin prediction)\footnote{We take this opportunity to recall some basic notions from probability theory}. Formally, a coin is a Bernoulli random variable $Z$ with a bias $p - 1/2$ ('bias' is defined here as the \textit{deviation} from $p=1/2$, where $p$ is the probability to obtain ``heads'').
+%The probability space which is associated with $Z$ is the triplet $(\Omega ,\mathbb{P}  )$, where the sample space $\Omega$ equals $\{H,T\}$,  $$\prod\{1\}]=p~,~\Dc [\{0\}]=1-p~. $$Once we defined $\Dc (\{1\})$ and $\Dc (\{0\})$, the values of $\Dc $ on other events are determined by combining the fact that $\Dc $ is additive (for disjoints subsets $E,F \in \cF$, we have $\Dc (E \cup F)=\Dc (E) + \Dc (F)$) with the fact that $\Dc (\Omega)=1$.
+The random variable $Z$ is simply a function from $\Omega$ to $\{0,1\}$. Let $Z_1,
+\ldots, Z_m$ be a sequence of independent and identically distributed
+(i.i.d.) random variables according to the distribution $\Dc _Z$ (that
+is, each of the $Z_i$ has the same distribution as $Z$, and all of the
+$Z_i$ are mutually independent). Denote the random sequence  (a.k.a. sample)
+$(Z_1,\ldots, Z_m)$ by $S$, where $|S|=m$. The distribution which is associated with $S$ is denoted by $\Dc _Z ^m$ (or simply by $\Dc ^m$).
+
+The input of a \emph{learning algorithm} $A$ for the task of coin prediction consists of a random sequence $S$ which is drawn according to
+$\Dc ^m$. Based on this input, the algorithm has to predict the value of $p$. We denote this prediction, (that is, the output of the algorithm) by $A(S)$ or simply by $\hat{p}$. Clearly, the drawn sequence can not fully describe the distribution. Hence, we introduce an \emph{accuracy} parameter $\epsilon>0$, and allow $\hat{p}$ to deviate from $p$ by at most $\epsilon$. Furthermore, there is always a chance that the drawn sequence would be highly non-representative, so it is impossible to obtain a guarantee that holds with absolute certainty. Hence, we introduce a \emph{confidence} parameter $\delta>0$, and allow that the event $B:=\{s : |\hat{p}-p|>\epsilon\}$ occur with probability at
+most $\delta$. More formally:
+
+\begin{definition}  \label{def:sampleCoin}
+	A mistake-bound learning algorithm $A$ for the task of (batch) coin prediction is a function $\hat{p}(S)$
+	where $S\in \bigcup_{m=1} ^\infty \{0,1\}^m$ and $\hat{p}(S)\in [0,1]$ which satisfies the following condition:
+	
+	For any $0\le \epsilon,\delta\le 1$, there exists a non-negative integer $m_A(\epsilon,\delta)$ such that,
+	if a sequence $S$ of $m$ numbers, where $m\ge m_A$, is generated according to $\Dc ^m_p$, (that is, $\Dc ^m$ with parameter $p$, which is added temporarily here as a subscript but omitted later on) then the probability that the algorithm's output $\hat{p}(S)$ will not be in $[p-\epsilon,p+\epsilon]$ is bounded by:
+	$$ \Dc ^{m}_p \left[ |\hat{p}-p| > \epsilon\right] <  \delta,$$
+	\textbf{for any $0\le p\le 1$,} and if a sequence $S$ of $m$ numbers, where $m < m_A$, is generated, \textbf{there exist a $p$}, with $0\le p\le 1$ such that:
+	$$ \Dc ^{m}_p \left[ |\hat{p}-p| >  \epsilon \right] > \delta$$
+	
+	The function $m_A(\epsilon,\delta)$: $\left[0,1\right]\times \left[0,1\right]\rightarrow \mathbb{N}$ is called the \emph{sample complexity} of the learning algorithm $A$.
+	
+	% More generally: the sample complexity of a machine learning algorithm represents the number of training-samples that it needs in order to successfully learn a target function.
+\end{definition}
+
+The first condition means that, no matter what $p$ is, it is enough to draw $m_A$ samples (i.e., to flip the coin $m_A$ times) in order to know $p$, with a certainty of $1-\delta$ and an accuracy of $\pm \epsilon$. The second conditions means that, at least for some values of $p$, drawing $m_A(\epsilon,\delta)-1$ samples would \textit{not} be enough for that.
+
+\textbf{Note about the confidence requirement}: In the above definition the confidence requirement must hold \emph{independently of the procedure by which the coins are provided}, that is, independently of the way $p$ is chosen. It does not matter if, for example, the coin is randomly drawn from a pile of coins where most coins are approximately fair (most of their $p$'s are close to $1/2$) or where most are faked in a specific way, (their $p$'s are concentrated around, say, $\frac{1}{4}$ ),  or where all $p$'s are equally probable.
+
+Another way to think of the sample complexity is the following. Consider all possible sequences, $S$, of $m$ 0's and 1's. For each value of $p$, each of these sequences has a different probability to occur. Each $S$ can be labeled as 'good' ('typical') or 'bad'('atypical'), 'good' means that $m \cdot \hat{p}(S)$ is between $m(p-\epsilon)$ and $m(p+\epsilon)$ and 'bad' otherwise (Note that,  even for the same coin,  if  $S$ is good with respect to algorithm $A_1(S)$ it may still be bad with respect to another algorithm $A_2(S),$  if $\hat{p}_1(S)\ne \hat{p}_2(S)$.) Given a coin, let us denote the smallest $m$ for which the  total sum of the probabilities of all the good sequences is at least $1-\delta$, by $m_A^{(p)}(\epsilon,\delta)$. We can think of $m_A^{(p)}$ as the \emph{coin-specific} sample complexity. The algorithm sample complexity $m_A(\epsilon,\delta)$ is the maximal number among the coin-specific sample complexities, that is: $m_A(\epsilon,\delta) = \max_{p}(m_A^{(p)}(\epsilon,\delta))$.
+
+%The term `approximately' in PAC stems from the fact that we only require that $\hat{p}$ approximates $p$ to an accuracy $\epsilon$. The term `probably' in PAC comes from the fact that we are satisfied whenever $\hat{p}$ satisfies the accuracy requirements with probability at least$1-\delta$.
+
+Given an i.i.d. random sample $S=(z_1, \ldots, z_m)$, a reasonable
+estimate of $p$ is the empirical proportion of heads (ones), namely
+$\hat{p}=\frac{1}{m} \sum_{i=1} ^m z_m$. The first basic property of
+this average is that its expected value equals $p$. This follows by
+the linearity of expectation as follows:
+\[
+\ensuremath{\mathbb{E}} \left [\frac{1}{m} \sum_{i=1} ^m Z_i \right] = \frac{1}{m} \sum_{i=1} ^m
+\ensuremath{\mathbb{E}}[Z_i] = \frac{1}{m} \cdot m \cdot p = p~.
+\]
+We say in this case that $\hat{p}$ forms an \emph{unbiased estimate}
+of $p$. What can we say about the quality of $\hat{p}$ as an estimate
+of $p$? In other words, how tightly $\hat{p}$ is concentrated around
+its expectation? To answer this question, we can use concentration inequalities.\\
+
+\noindent \textbf{First attempt: Markov's inequality: }
+
+For a direct application of Markov's inequality we take  $|\hat{p}-p|$ as our RV  (note that $\hat{p}-p$ is not a positive RV and therefore cannot be used in Markov's inequality). We then need to calculate $\frac{1}{\epsilon}\ensuremath{\mathbb{E}}[|\hat{p}-p|]$ and extract its dependence on the sample size $m$.
+Since we are going to get much better bounds below, here we only state the result (and leave the calculation as a challange exercise):
+$$
+\Dc ^m \left[|\hat{p}-p| \geq \epsilon \right]  \le \frac{1}{\sqrt{4m\epsilon^2}}
+$$
+This implies that the sample complexity of coin prediction is bounded above by
+$m(\epsilon,\delta) \le \left \lceil \frac{1}{4\epsilon^2} \cdot
+\frac{1}{\delta^2} \right \rceil$.
+(You can verify by substituting $m=\frac{1}{4\epsilon^2}\cdot
+\frac{1}{\delta^2}$ in the bound)
+
+\vspace{5mm}
+
+\begin{exercise}[Markov's inequality]
+	Prove that:  $\Dc ^m \left[|\hat{p}-p| \geq \epsilon \right]  \le \frac{1}{\sqrt{4m\epsilon^2}}.$
+\end{exercise}
+
+\begin{itemize}
+	\item Hint: Show that for any RV $h$ with $\ensuremath{\mathbb{E}}(h)=0$ :
+	$$\ensuremath{\mathbb{E}}(|h|) \le \sqrt{ Var(h)}$$
+	and then apply this result to the RHS of Markov's inequality.
+	
+	\item Use the above to obtain a bound over the sample complexity and compare it to the one obtained from the Chebyshev's inequality.
+\end{itemize}
+\color{black}
+
+\noindent \textbf{Second attempt: Chebyshev's inequality: }
+The variance of a Bernoulli random variable is $p(1-p) \le 1/4$. Applying \ref{cor:chebysevAve}, we obtain that
+$$ \Dc ^m [|\hat{p}-p| \ge \epsilon] = \Dc ^m[|\hat{p}-\mathbb{E} [\hat{p}]| \ge \epsilon] \le \frac{Var[Z]}{m\epsilon^2} \le \frac{1}{4m \epsilon ^2}$$
+
+The bound obtained using Chebyshev's inequality tends to zero as $\frac{1}{m}$ while the one obtained from Markov's inequality tends to zero as $\frac{1}{\sqrt{m}}$.
+This fact enables us to obtain a better bound for the sample complexity:
+
+\begin{corollary}  \label{cor:basicConcentration}
+	The sample complexity of coin prediction is bounded above by
+	$m(\epsilon,\delta) \le \left \lceil \frac{1}{4\epsilon^2} \cdot
+	\frac{1}{\delta} \right \rceil$.
+	(You can verify by substituting $m=\frac{1}{4\epsilon^2} \cdot
+	\frac{1}{\delta}$ in the bound)
+\end{corollary}
 
 
+\color{black}
+
+
+A natural question which arises is whether the obtained bound is optimal (tight). There is a good reason to suspect that this bound is not optimal; When we applied Markov's or Chebyshev's inequality, we did not exploit the fact that our RV's are bounded (between $0$ and $1$).  Indeed, in the next section we prove a much better bound \footnote{Which is tight, although we will not prove that}. For this end, we will introduce Hoeffding's inequality for the average of independent and bounded random variables. This inequality will give us exponential (instead of polynomial!) convergence in terms of the sample size $m$.
+
+\subsubsection{Hoeffding's Inequality}
+\begin{theorem}[Hoeffding's inequality]
+	Let $X_1, \ldots X_m$ be independent and bounded random variables with $a_i \leq X_i \leq b_i$. Let $\bar{X} = \frac{1}{m} \sum_{i=1} ^m X_i$. Then,
+	\[
+	\mathbb{P}  [ |\bar{X} - \E[\bar{X}]| \geq \epsilon ] \leq 2 \exp \left( \frac{-2m^2 \epsilon^2}{\sum _{i =1} ^m (b_i-a_i)^2} \right)
+	\]
+\end{theorem}
+\begin{corollary}
+	Let $X_1, \ldots X_m$ be a sequence of i.i.d. (independent \textbf{and} identically distributed) and bounded with $a \leq X_i \leq b$ (same $a, b$ for all $X_i$'s). Let $\bar{X} = \frac{1}{m} \sum_{i=1} ^m X_i$ and let $\mu = \E[X_i]$. Then,
+	\[
+	\mathbb{P}  [|\bar{X} - \mu| \geq \epsilon] \leq 2 \exp \left( \frac{-2 m \epsilon^2}{(b-a)^2} \right)
+	\]
+\end{corollary}
+
+\subsubsection{Coin Prediction Revisited}
+Lets apply Hoeffding's inequality for the case of coin prediction which was discussed above. For a sample of size $m$, we obtain
+\[
+\Dc ^m [|\hat{p}-p| \ge \epsilon ]\leq  2 \exp(-2 m \epsilon ^2)~.
+\]
+Indeed, we achieve an exponential improvement (in terms of $\delta$).
+\begin{corollary}  \label{cor:basicConcentration}
+	The sample complexity of coin prediction is bounded above by
+	$m(\epsilon,\delta) \le \left \lceil \frac{1}{2\epsilon^2} \cdot
+	\log(\frac{2}{\delta}) \right \rceil$.
+	(You can verify by substituting $m=\frac{1}{2\epsilon^2} \cdot
+	\log(\frac{2}{\delta})$ in the bound)
+\end{corollary}
 
 
 
