@@ -266,23 +266,48 @@ Now we would like to ask a different question. We are given {\em samples} that w
 Can we {\em estimate}  the distribution's mean and variance using only those samples?
 
 
-Formally, let $X$ be a random variable, let $\Dc \left(x\right)$ be its (unknown) distribution, and let $X_1,\ldots,X_m\overset{i.i.d}{\sim} D(x)$, where i.i.d  denotes \emph{independent and identically distributed} random variables. We are given \emph{data}
-samples: $x_1,\ldots,x_m$, where $x_i$ is a {\em number} - the sample obtained by sampling $X_i$.
+Formally, let $X$ be a random variable, let $\Dc \left(x\right)$ be its (unknown) distribution, and let $X_1,\ldots,X_m\overset{i.i.d}{\sim} D(x)$, where i.i.d  denotes \emph{independent and identically distributed} random variables. We are given \emph{data samples}: $x_1,\ldots,x_m$, where each $x_i$ is a {\em number} obtained by sampling $X_i$.
 %The data has its own mean and variance which are likely to be, at least, slightly different than those of $\Dc \left(x\right),$ and therefore it is customary, in statistics, to use different names for these.
 In statistics, $\ensuremath{\mathbb{E}}[X]$ is called the {\em population} mean - "population" added to emphasize that it is the mean of the unknown distribution, not the mean of the observed data.
 Similarly, $V(X)$ is called the \textit{population variance}.
 
-There are many ways to estimate $\ensuremath{\mathbb{E}}[X]$ and $V(X)$ based on those $n$ samples, and each one is called an \textit{estimator}. Throughout the course we are going to use the following estimators (commonly denoted with the "hat" symbol to emphasize the fact that they are the way we choose to use the experimental observations in order to estimate the real, namely, the population, mean and variance):
+There are many ways to estimate $\ensuremath{\mathbb{E}}[X]$ and $V(X)$ based on those $n$ samples, and each one is called an \textit{estimator}. Throughout this book we are going to use the following estimators (commonly denoted with the "hat" symbol to emphasize the fact that they are the way we choose to use the experimental observations in order to estimate the real, namely, the population, mean and variance):
 \begin{itemize}
-	\item Sample mean (an estimator for the population mean)
+	\item \textbf{\textit{Sample mean}} (an estimator for the population mean)
 	$$		\hat{\mu}_X = \frac{1}{m} \sum_{i=1}^m x_i$$
-	\item Sample variance (an estimator for the population variance)
+	\item \textbf{\textit{Sample variance}} (an estimator for the population variance)
     $$		\hat{\sigma}_X^2 = \frac{1}{m-1} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$$
 \end{itemize}
 
 Whenever the context is clear, we will omit the subscript $X$ and write $\hat{\mu}$ and $\hat{\sigma}^2$ instead of $\hat{\mu}_X$ and $\hat{\sigma}_X^2$.
-Note the $\frac{1}{m-1}$ factor. Why not use the observed variance of the samples,  $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$, as the population variance estimator? The answer is that if you calculate the expected value of these estimators  you will find (perhaps surprisingly) that $\ensuremath{\mathbb{E}}[\hat{\sigma}_X^2]=V(X)$ while $\ensuremath{\mathbb{E}}[\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2] = \frac{m-1}{m}V(X)$. The reason for that is that in general $\E(g(x))\neq g(\E(x))$ when $g(x)$ is not linear.
-So, in expectation, $\hat{\sigma}_X^2$ is the one that gets the population variance exactly. If the expected value of an estimator is equal to the parameter it is designed to estimate,  that estimator is said to be {\em unbiased}. Therefore, although $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$ could have been considered, because of its form, a more natural way to estimate  $V(X)$, it is a \textit{biased} estimator. Biased estimators can be useful in certain cases, but for the mean and variance, we will stick with the unbiased ones.
+Note that the sample variance is somewhat different from the variance of the $x_i$'s because of the division by $m-1$ instead of $m$. 
+
+\begin{exercise}
+Show that the expectation values of the above estimators equal the parameters there are designed to estimate, namely the population mean and the population variance.
+
+\textbf{Solution}. Taking the expectation value of the sample mean one gets
+$$
+\E\left(\hat{\mu}_X\right) = \frac{1}{m} \sum_{i=1}^m \E(x_i) = \E(X) \frac{1}{m} \sum_{i=1}^m =  \E(X)= \mu_X
+$$ 
+where we used the linearity property of the expectation value. Taking the expectation value of the sample variance one gets
+$$
+\E\left(\hat{\sigma}_X^2\right) =\frac{1}{m-1} \sum_{i=1}^m \E\left((x_i-\hat{\mu}_X)^2\right)=\frac{1}{m-1} \sum_{i=1}^m \E\left(x_i^2-2x_i\frac{1}{m} \sum_{i'=1}^m x_{i'}+\frac{1}{m^2} \sum_{i,i'=1}^m x_ix_{i'}\right)
+$$
+The $X_i$'s are i.i.d which implies that  $\E(x_i)=\E(X)$ and $\E(x_i^2)=\E(X^2)$ for every $i$, as well as that   $\E(x_ix_{i'})=\E^2(X)=\mu^2_X$ for every  $i\neq i'$. Substituting into the above sums one obtains  
+$$
+\E\left(\hat{\sigma}_X^2\right) =\E(X^2) -\E^2(X)=V(X)= \sigma^2_X
+$$
+\end{exercise}
+
+\begin{definition}
+	If the expected value of an estimator is equal to the parameter it is designed to estimate,  that estimator is said to be \textbf{\textit{ unbiased}}. Otherwise, it is said to be \textbf{\textit{biased}}.
+\end{definition}
+
+As seen from the above exercise,  $\hat{\mu}_X$ is an unbiased estimator of the population mean, $\mu_X$, and $\hat{\sigma}_X^2$ is an unbiased estimator of the population variance $\sigma^2_X$.  
+We also see that the expected value of  the variance of the $x_i$'s, $\frac{1}{m} \sum_{i=1}^m (x_i-\hat{\mu}_X)^2$, is $\frac{m-1}{m}\sigma^2_X\neq \sigma^2_X$, that is, although the variance of the sample looks, in form, more similar to that of $\sigma^2_X$ the sample variance, it is a \textit{biased} estimator of $\sigma^2_X$. The reason for that is that in general $\E(g(x))\neq g(\E(x))$ when $g(x)$ is not linear, which is exactly the case here.
+\vspace{3mm} 
+
+We should however note that biased estimators can be useful in certain cases, but for the mean and variance, we will stick with the unbiased ones.
 
 \subsection{High dimensional distributions}
 Going back to probability, we now consider random variables that instead of taking one real value take vector values in $\R ^d$, where $d\in \N $.
@@ -313,8 +338,8 @@ Two random variables $X_1$ and $X_2$ are \textbf{\textit{jointly continuous}} if
 
 
 	
-\begin{remark}[PDF for a random vector]
-		Given $\boldsymbol{X} = (X_1, \dots, X_n)^T$, each of the scalar random variables $X_1, \dots, X_n$ can be characterized by its PDF. However, unless the scalar RV's are mutually independent, the PDF of each coordinate of a random vector does not completely describe the probabilistic behaviour of the whole vector. For instance, the behavior of the random vectors $\boldsymbol{X} = (X_1, X_2)$ and $\boldsymbol{\tilde{X}} = (X_1, X_1)$ is drastically different even if $X_1$ and $X_2$  have an identical PDF. To confirm this fact, take for example, $X_1, X_2 \sim U([-a, a])$ and $X_2 = - X_1$ and compare the probability to find $\boldsymbol{X}$ in the square $[0,1]\times [0,1]$ to that of finding $\boldsymbol{\tilde{X}}$  in the same square.
+\begin{remark}
+		Given $\boldsymbol{X} = (X_1, \dots, X_n)^T$, each of the scalar random variables $X_1, \dots, X_n$ can be characterized by its PDF. However, unless the scalar RV's are mutually independent, the PDF of each coordinate of a random vector does not completely describe the probabilistic behavior of the whole vector. For instance, the behavior of the random vectors $\boldsymbol{X} = (X_1, X_2)$ and $\boldsymbol{\tilde{X}} = (X_1, X_1)$ is drastically different even if $X_1$ and $X_2$  have an identical PDF. To confirm this fact, take for example, $X_1, X_2 \sim U([-a, a])$ and $X_2 = - X_1$ and compare the probability to find $\boldsymbol{X}$ in the square $[0,1]\times [0,1]$ to that of finding $\boldsymbol{\tilde{X}}$  in the same square.
 \end{remark}
 	
 \subsection{Normal Distribution}
@@ -429,52 +454,54 @@ Recall the population variance $V(X)$ of a scalar (one dimensional) random varia
 \subsection{Estimating the Covariance Matrix}
 
 Back to statistics, let us consider how to estimate the covariance matrix based on random sampling. In this context, $C$ is called the {\em population covariance matrix}.
-Let's start with the case $d=2$. Consider a two-dimensional random vector $\mathbf{X}=(X_1,X_2)$, where, for example, $X_1$ is the height of a person and $X_2$ is the weight.
+Let's start with the case $d=2$. Consider a two-dimensional random vector $\mathbf{X}=(X_1,X_2)^T$, where, for example, $X_1$ is the height of a person and $X_2$ is the weight.
 
 Taking a sample of $m$ people from the population, we equip the data elements with two indices, the first stands for the feature (1 for height, 2 for weight) and the second for the person's designated number. 
-So the height samples are denoted by  $x_{1,1},..,x_{1,m}$ and the corresponding weight samples are $x_{2,1},..,x_{2,m}$.
-Note that we can write the data as a  matrix $\mathbf{X}\in\mathbb{R}^{d\times m}$ where $m$ is the {\em sample size} and $d$ is the dimension (number of random variables).
-In our case, $d=2$ and
-$$\mathbf{X} = 
+So the height samples are denoted by  $x_{1,1},..,x_{1,m}$ and the corresponding weight samples are $x_{2,1},..,x_{2,m}$. Note that we can write the data as a  matrix $X\in\mathbb{R}^{d\times m}$ where $m$ is the {\em sample size} and $d$ is the dimension (number of random variables). In our case, $d=2$ and
+$$X = 
 \left(\begin{array}{ccc}
 	x_{1,1} & ... & x_{1,m}\\
 		x_{2,1} & ... & x_{2,m}
+\end{array}\right)=
+\left(\begin{array}{ccc}
+	\mathbf{x}_1 & ... &\mathbf{x}_m
 \end{array}\right)
 $$
+where we denoted the column vectors of the data matrix $X$ by $\mathbf{x}_i=(x_{1,k}, x_{2,k})^T$, $k=1..m$. The boldface notation is used to remind us that the $\mathbf{x}_i$'s are vectors, not  scalars.
 
+\begin{definition}[Sample Covariance]
 Generalizing the estimators we chose for a one-dimensional RV we now define the \textbf{\textit{sample covariance}} by
-$$\hat{\sigma}(X_i, X_j) = \frac{1}{m-1} \sum^{m}_{k=1}{(x_{i,k}-\hat{\mu}_i)(x_{j,k}-\hat{\mu}_j)}, ~ ~ i,j=1,2 $$
+$$\hat{\sigma}(X_i, X_j) = \frac{1}{m-1} \sum^{m}_{k=1}{(x_{i,k}-\hat{\mu}_i)(x_{j,k}-\hat{\mu}_j)}$$
 where $\hat{\mu}_i$ is the sample mean of the random variable $X_i$.
+\end{definition}
+Here, $d=2$ so i,j=1,2, but the above definition holds for general $d$.
+ 
 In particular, the  variance estimators, that is, the sample variances of the heights and weights are:
 $$ \hat{\sigma}\left(X_i,X_i\right)  = \frac{1}{m-1} \sum^{m}_{k=1}(x_{i,k} - \hat{\mu}_i)^2, i=1,2 \\$$
-
-
-
-where $\hat{\sigma}\left(X_i,X_i\right)\equiv \hat{\sigma}^2_{X_i} \equiv  \hat{\sigma}^2_i \equiv \hat{\sigma}_{i,i}$ are all equivalent notations. We can now define the sample covariance matrix $\hat{C}$. Again, as customary in statistics, we use the "hat notation" which reminds that $\hat{C}$ is our prescription for estimating the population covariance matrix $C$, based on the data we have.
+where $\hat{\sigma}\left(X_i,X_i\right)\equiv \hat{\sigma}^2_{X_i} \equiv  \hat{\sigma}^2_i \equiv \hat{\sigma}_{i,i}$ are all equivalent notations.
+We can now define the sample covariance matrix $\hat{C}$. Again, as customary in statistics, we use the "hat notation" which reminds that $\hat{C}$ is our prescription for estimating the population covariance matrix $C$, based on the data we have.
 \vspace{3mm}
 
 \begin{definition}[Sample Covariance Matrix]
-Consider a $d$-dimensional random vector $\textbf{X}=(X_1,\ldots,X_d)$. Suppose that we have $m$ i.i.d samples $\mathbf{x}_1,\ldots,\mathbf{x}_m$ of $\mathbf{X}$. Here, the sample $\mathbf{x}_i$ is a vector in $\R^d$, and the boldface notation reminds us that $\mathbf{x}_i$ is a vector, not a scalar.
-
-The sample covariance matrix of $\mathbf{x}_1,\ldots,\mathbf{x}_d$ is defined to be the square $d$-by-$d$ matrix whose elements are given by $\hat{C}_{i,j}=\hat{\sigma}\left(X_{i},X_{j}\right)$. 
+Let $\textbf{X}=(X_1,\ldots,X_d)^T$ be a $d$-dimensional random vector. Let $\mathbf{x}_1,\ldots,\mathbf{x}_m$ be $m$ i.i.d samples of $\mathbf{X}$. Here, each sample $\mathbf{x}_i$ (note again the boldface notation) is a column vector in $\R^d$ corresponding to the columns of the data matrix $X$. The sample covariance matrix of $\mathbf{x}_1,\ldots,\mathbf{x}_m$ is a square $d$-by-$d$ matrix $\hat{C}$ with  $\hat{C}_{i,j}=\hat{\sigma}\left(X_{i},X_{j}\right)$ , $i,j=1..d$. 
 \end{definition}
 
 The sample covariance matrix is symmetric since $\hat{\sigma}\left(X_{j},X_{i}\right)=\hat{\sigma}\left(X_{i},X_{j}\right)$. The diagonal entries of the sample covariance matrix are the sample variances and the other entries are the sample covariances.
-In matrix notation, the sample covariance matrix is given by
-$$\hat{C} = \frac{1}{m-1} \sum^{m}_{i=1}(\mathbf{x}_i-\hat{\boldsymbol{\mu}})(\mathbf{x}_i-\hat{\boldsymbol{\mu}}^T)$$
+In matrix notation, the sample covariance matrix is given by \textcolor{blue}{Check}
+$$\hat{C} = \frac{1}{m-1} \sum^{m}_{i=1}(\mathbf{x}_i-\hat{\boldsymbol{\mu}})(\mathbf{x}^T_i-\hat{\boldsymbol{\mu}}^T)$$
 
 
-where $\boldsymbol{\mu} \in\mathbb{R}^{d\times 1}$ is a column vector of the sample means (in the $d=2$ case, $\hat{\boldsymbol{\mu}}^T = (\hat{\mu}_1, \hat{\mu}_2)$).
+where $\boldsymbol{\hat{\mu}} \in\mathbb{R}^{d\times 1}$ is a column vector of the sample means (in the $d=2$ case, $\hat{\boldsymbol{\mu}}^T = (\hat{\mu}_1, \hat{\mu}_2)$).
 % Depending on the context, $\bar{X}$ may also denote the means matrix: $\bar{X} \in\mathbb{R}^{d\times m}$ with elements $\bar{X}_{i,j}=\hat{\mu}_i$.
 If $\hat{\boldsymbol{\mu}}=0$, that is, if the data is shifted to have zero mean, the covariance matrix is easily computed from the symmetric matrix $XX^T$, using the relation $\hat{C} = \frac{XX^T}{m-1}$.
 
 \begin{exercise}
-	let $X^T=\left(\begin{array}{cc}
+	Let $X^T=\left(\begin{array}{cc}
 		150 & 45\\
 		170 & 74\\
 		184 & 79
 	\end{array}\right)$ be samples of height and weight of 3 different people where $X_{1, i}$ is the height and $X_{2, i}$ is the weight of the i'th person. Calculate the covariance matrix of the sample.
-\end{exercise}
+
 \textbf{Solution:} First of all we will make the data centered by subtracting the corresponding sample mean from each entry of $X^T$.
 %matrix $(1,1,1)^T\hat{\boldsymbol{\mu}}^T$:
 We have: $\hat{\mu}_1=168, \hat{\mu}_2=66$, so
@@ -507,12 +534,288 @@ $$
 \end{array}\right)
 $$
 
+\end{exercise}
+
+
+\subsection{Linear Transformations of the Data Set}
+Let us look at how linear transformations affect the data set and as a result, the covariance matrix. 
+Although we will now focus on the two-dimensional case, the results in this section can be easily generalized to higher dimensional data. 
+The covariance matrix for two dimensions, $d=2$, is
+
+$$C = \left( \begin{array}{ccc}  \sigma(X_1, X_1) & \sigma(X_1, X_2) \\  \sigma(X_2, X_1) & \sigma(X_2, X_2) \end{array} \right)$$
+
+As an initial data, we take a set of points generated by sampling our two independent random variables, $X_1$ and $X_2$  with two different distributions but with equal mean $\mu_1 = \mu_2=0$ and equal variances $\sigma^2_{X_1}=\sigma^2_{X_2}\equiv  \sigma^2$. 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{chapters/mathematical.basis/figures/uncorrelated.png}
+	\caption{Initially Uncorrelated Variables \textcolor{blue}{TO DO Add $x_1$ and $x_2$ labels for axis}}
+\end{figure}
+
+In particular this would mean that $X_1$ and $X_2$ are uncorrelated and the covariance matrix $C$ is therefore diagonal. Similarly, the coordinates of the generated points $(x_{1,i},x_{2,i})$, shown in the figure, will be approximately uncorrelated. For the sake of simplicity, let us assume that we have generated enough points so that the sample covariance matrix elements are (almost) equal to the population covariance matrix,  $\hat{C}\approx C$, and therefore we have:
+\vspace{3mm} 
+% \footnote{Uncorrelated does not imply independent. See, e.g., \url{https://en.wikipedia.org/wiki/Normally_distributed_and_uncorrelated_does_not_imply_independent}}
+$$\hat{C} = \left( \begin{array}{ccc}  \sigma^2 & 0 \\  0 & \sigma^2 \end{array} \right)$$
 
 
 
 
 
 
+
+Next, we will look at how transformations affect our data and the covariance matrix $\hat{C}$. We start transforming our data by multiplying the data matrix with the following scaling matrix:
+
+$$S = \left( \begin{array}{ccc}  s_{1} & 0 \\  0 & s_{2} \end{array} \right)$$
+
+This transformation simply stretches (or shrinks) the $x_1$ and $x_2$ components by multiplying them by $s_{1}$ and $s_{2}$ respectively. Now the covariance matrix of our transformed data set will be:
+$$\frac{SX(SX)^T}{m-1}=S\frac{XX^T}{m-1}S^T=SCS^T=\left( \begin{array}{ccc}  (s_{1}\sigma)^2 & 0 \\  0 & (s_{2}\sigma)^2 \end{array} \right)$$.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{chapters/mathematical.basis/figures/uncorrelated_scaled.png}
+	\caption{Uncorrelated Scaled Variables}
+\end{figure}
+
+Now we will apply a linear transformation composed of the previous scaling matrix $S$ followed by a two dimensional rotation matrix $R$, which is given by:
+$$R = \left( \begin{array}{ccc}  \cos\theta  & -\sin\theta  \\  \sin\theta  & \cos\theta  \end{array} \right)$$
+
+where $\theta$ is the rotation angle. The transformed data is then given by $RSX$ and the covariance matrix is
+
+
+$$\frac{RSX(RSX)^T}{m-1}=RS\frac{XX^T}{m-1}S^TR^T=RSCS^TR^T=R\left( \begin{array}{ccc}  (s_{1}\sigma)^2 & 0 \\  0 & (s_{2}\sigma)^2 \end{array} \right)R^T$$
+$$=\sigma^2 \times \left( \begin{array}{ccc}  s^2_{1}\cos^2\theta +s^2_{2}\sin^2\theta  & \sin\theta \cos\theta (s^2_{1}- s^2_{2})\\  \sin\theta \cos\theta (s^2_{1}- s^2_{2}) & s^2_{1}\sin^2\theta +s^2_{2}\cos^2\theta  \end{array} \right)$$
+
+Note that without applying an \emph{asymmetric} scaling, rotation alone would not be enough to create correlations since for $s_{1}= s_{2}$, the off-diagonal elements vanish.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{chapters/mathematical.basis/figures/correlated.png}
+	\caption{Correlated Scaled Variables}
+\end{figure}
+
+As we can see now, the $x,y$ coordinate of each variable are not uncorrelated anymore. For example, if we know that the $x$ value of a point in the sample is high, it is more likely that the $y$ value is low, and vice versa. 
+
+Note the form that we got on the right hand side of the first line of the above equation: an orthogonal matrix, $R$, multiplying a diagonal matrix, multiplied by another orthogonal matrix, $R^T$. This is the \textit{eigenvalue decomposition} (EVD) of the (transformed) covariance matrix. Later on, we are going to use some of the properties of the covariance matrix and its eigenvalue decomposition in the context of a technique called \textit{dimensionality reduction}.
+
+
+\section{Probability Inequalities}
+\subsection{Background}
+Probability inequalities are estimations of  probabilities which are less accurate than exact values  but generally much easier to calculate since they are given in terms of simple properties of a distribution such as the mean and the variance. Such inequalities are used in many machine learning tasks, to obtain bounds on errors of the learning algorithm.
+\vspace{3mm}
+
+For example, the law of large numbers states that if we take the empirical average (the sample mean) of enough i.i.d. random variables, it will be, most likely, very close to the expected value.
+Probability inequalities provide us a way to estimate how many samples are "enough".
+\vspace{3mm}
+
+Suppose that we have a bag containing red and blue balls and we would like to estimate the fraction $p$ of red balls in the bag by randomly picking one ball at a time and then putting it back in. The straightforward strategy is to draw $m$ samples and then using the following estimation  ("prediction")
+\[
+\hat{p} =  \frac{1}{m}\sum_{i=1}^{m}x_i =\frac{ ~\text{Number of red balls}}{m}~.
+\]
+where $x_i$ equals 1 if the $i$'th ball came out red and 0 otherwise. 
+It is clear that $\E [\hat{p}] = p$. However, we might err due to the fact that we get only limited information. We are only sampling $m$ times so we might get unlucky and end up with a non-representative sample. Although unlikely, this can happen even if $m$ is very large, even larger than the total number of balls, because each time we returned the ball to the bag.
+
+Thus, typically, we must settle for a certain accuracy - an additive error - that is, we will be happy to know that if we sample more than $m$ times, our estimation  $\hat{p}$ is not going
+to be more within a distance $\epsilon>0$ from $p$. However, no matter how large $m$ is, there is no absolute guarantee that  $\hat{p}$ will have that required accuracy.
+Since $m$ is finite, there is always a finite chance we sample the same color again and again.  So, at most we can require to have enough confidence, say, with probability of $1-\delta$ where $delta>0$ is small, that $\hat{p}$ is accurate enough ("accurate enough" defined as within  $\epsilon$ from our target, $p$). And now that we posed a realistic requirement, we can ask how large $m$ should be in order  to satisfy it.
+
+The above example demonstrate the general type question we will use probability inequalities for: Given an accuracy parameter $\epsilon > 0$ and a confidence
+parameter $\delta \in (0,1)$, how many samples are needed to guarantee that with probability of at least $1- \delta$, our estimate is within an additive error of at most $\epsilon$.
+That is, we aim at constructing an algorithm (a "learner") whose estimations are probably (with probability at least $1-\delta$) approximately (within additive error of at most $\epsilon$) correct.
+We then say that given $m$ samples or more,  our learner's estimation will be  \emph{probably approximately correct (PAC)}, a fundamental concept in machine learning.
+
+The exact formulation of the PAC framework will be given in the following chapters. Here, we will only consider a preliminary example, that of estimating the bias of a given coin, that will reveals many of the ingredients of the PAC framework.
+
+\subsection{Recap} \label{sec:recap}
+We next recall Markov's and Chebyshev's inequalities and then apply both inequalities to derive concentration inequalities for averages.
+\begin{theorem} \textbf{Markov's inequality:} For a nonnegative random
+	variable $X$ (i.e. $\text{Im}(X) \subseteq \R _{\ge 0}$) with finite mean and a positive scalar $t$,
+	\[
+	\mathbb{P} [X \geq t] \leq \frac{\mathbb{E}[X]}{t}~.
+	\]
+\end{theorem}
+\begin{proof}
+	Let $f(x)$ be the density function of $x$. Since $X$ is non-negative, we obtain
+	\begin{align*}
+		\E[X] &= \int_{x \in \R } f(x) x \,dx \\&
+		= \int_{x = 0} ^t f(x) x\, dx + \int_{x =t} ^\infty f(x) x \, dx \\&
+		\ge \int_{x =t} ^\infty f(x) x \,dx \\&
+		\ge \int_{x =t} ^\infty f(x) t \, dx\\&
+		= t \cdot \int_{x =t} ^\infty f(x) \,dx \\&
+		=t \cdot \mathbb{P}[X \ge t] ~.
+	\end{align*}
+	The desired inequality is obtained by dividing both sides by $t$.
+\end{proof}
+\begin{corollary} \label{cor:markovAve}
+	Let $X$ be a nonnegative random variable with finite mean. Denote its distribution by $\Dc $. Let $X_1,\ldots,X_m$ be $m$ i.i.d. copies of $X$, i.e., $X_1,\ldots,X_m$ are i.i.d. random variables which are distributed according to $\Dc $. Denote their average by $\bar{X}=\frac{1}{m} \sum_{i=1} ^m X_i$. Finally, let $t>0$. Then
+	\[
+	\mathbb{P} [\bar{X} \geq t] \leq \frac{\mathbb{E}[X]}{t}~.
+	\]
+\end{corollary}
+\begin{proof}
+	By the linearity of the expectation,
+	\begin{align*}
+		\ensuremath{\mathbb{E}} [\bar{X}] &= \ensuremath{\mathbb{E}} \left[\frac{1}{m} \sum_{i=1} ^m X_i \right] \\&
+		= \frac{1}{m} \sum_{i=1} ^m \ensuremath{\mathbb{E}}[X_i] \\&
+		= \frac{1}{m} \sum_{i=1} ^m \ensuremath{\mathbb{E}}[X] \\&
+		= \ensuremath{\mathbb{E}}[X]~.
+	\end{align*}
+	Applying Markov's inequality, we obtain the desired bound.
+\end{proof}
+
+Applying Markov inequality to the random variable $(X-\E[X])^2$, we obtain Chebyshev's inequality.
+\begin{theorem} \textbf{Chebyshev's inequality:} For a random variable
+	$X$ with finite mean and variance, and for every $t  > 0$,
+	\[
+	\mathbb{P}[|X-\E [X]| \geq t] \leq \frac{V[X]}{t^2}.
+	\]
+\end{theorem}
+\begin{proof}
+	Simply observe that $\mathbb{P}[|X-\E [X]| \geq t] = \mathbb{P}[(X-\E [X])^2 \geq t^2]$ and apply Markov's inequality.
+\end{proof}
+Unlike the expectation, the variance of the average of i.i.d. random variables is not equal to the variance of the original random variable. Concretely, for a random variable $X$ and $m$ i.i.d. copies of $X$, denoted $X_1,\ldots, X_m$, we have
+\begin{align} \label{eq:varAve}
+	V \left[\frac{1}{m} \sum_{i=1} ^m X_i \right] &= \frac{1}{m^2} V \left[\sum_{i=1} ^m X_i \right] \notag \\&
+	= \frac{1}{m^2} \sum_{i=1} ^m V [X_i] \notag \\&
+	= \frac{1}{m^2} \sum_{i=1} ^m V [X] \notag \\&
+	= \frac{1}{m} V[X]~.
+\end{align}
+In particular, the variance of the average tends to zero when $m$ tends to infinity. This leads to a much better concentration inequality.
+\begin{corollary} \label{cor:chebysevAve}
+	Let $X$ be a nonnegative random variable with finite variance and let $X_1,\ldots,X_m$ be $m$ i.i.d. copies of $X$. Denote their average by $\bar{X}=\frac{1}{m} \sum_{i=1} ^m X_i$. Finally, let $t>0$. Then
+	\[
+	\mathbb{P} [|\bar{X}-\E [\bar{X}]| \geq t] = \mathbb{P} [|\bar{X}-\E [X]| \geq t] \leq \frac{V[X]}{mt^2}~.
+	\]
+\end{corollary}
+
+For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is defined by $\ensuremath{\mathbb{E}}[X^k]$. As we just saw, Markov's inequality exploits only information about the first moment, while Chebyshev's inequality  exploits both the first and the second moments. Comparing the bounds in \ref{cor:markovAve} and \ref{cor:chebysevAve}, we see that using both the first and the second moments, we obtain better concentration inequalities than using only the first. We shall see soon that more generally, the more moments we use, the better the bounds we get.
+
+\subsection{Coin Prediction}  \label{sec:basicConcentration}
+Let us formulate the problem of estimating the bias of a
+coin (in short, coin prediction)\footnote{We take this opportunity to recall some basic notions from probability theory}. Formally, a coin is a Bernoulli random variable $Z$ with a bias $p - 1/2$ ('bias' is defined here as the \textit{deviation} from $p=1/2$, where $p$ is the probability to obtain ``heads'').
+%The probability space which is associated with $Z$ is the triplet $(\Omega ,\mathbb{P}  )$, where the sample space $\Omega$ equals $\{H,T\}$,  $$\prod\{1\}]=p~,~\Dc [\{0\}]=1-p~. $$Once we defined $\Dc (\{1\})$ and $\Dc (\{0\})$, the values of $\Dc $ on other events are determined by combining the fact that $\Dc $ is additive (for disjoints subsets $E,F \in \cF$, we have $\Dc (E \cup F)=\Dc (E) + \Dc (F)$) with the fact that $\Dc (\Omega)=1$.
+The random variable $Z$ is simply a function from $\Omega$ to $\{0,1\}$. Let $Z_1,
+\ldots, Z_m$ be a sequence of independent and identically distributed
+(i.i.d.) random variables according to the distribution $\Dc _Z$ (that
+is, each of the $Z_i$ has the same distribution as $Z$, and all of the
+$Z_i$ are mutually independent). Denote the random sequence  (a.k.a. sample)
+$(Z_1,\ldots, Z_m)$ by $S$, where $|S|=m$. The distribution which is associated with $S$ is denoted by $\Dc _Z ^m$ (or simply by $\Dc ^m$).
+
+The input of a \emph{learning algorithm} $A$ for the task of coin prediction consists of a random sequence $S$ which is drawn according to
+$\Dc ^m$. Based on this input, the algorithm has to predict the value of $p$. We denote this prediction, (that is, the output of the algorithm) by $A(S)$ or simply by $\hat{p}$. Clearly, the drawn sequence can not fully describe the distribution. Hence, we introduce an \emph{accuracy} parameter $\epsilon>0$, and allow $\hat{p}$ to deviate from $p$ by at most $\epsilon$. Furthermore, there is always a chance that the drawn sequence would be highly non-representative, so it is impossible to obtain a guarantee that holds with absolute certainty. Hence, we introduce a \emph{confidence} parameter $\delta>0$, and allow that the event $B:=\{s : |\hat{p}-p|>\epsilon\}$ occur with probability at
+most $\delta$. More formally:
+
+\begin{definition}  \label{def:sampleCoin}
+	A mistake-bound learning algorithm $A$ for the task of (batch) coin prediction is a function $\hat{p}(S)$
+	where $S\in \bigcup_{m=1} ^\infty \{0,1\}^m$ and $\hat{p}(S)\in [0,1]$ which satisfies the following condition:
+	
+	For any $0\le \epsilon,\delta\le 1$, there exists a non-negative integer $m_A(\epsilon,\delta)$ such that,
+	if a sequence $S$ of $m$ numbers, where $m\ge m_A$, is generated according to $\Dc ^m_p$, (that is, $\Dc ^m$ with parameter $p$, which is added temporarily here as a subscript but omitted later on) then the probability that the algorithm's output $\hat{p}(S)$ will not be in $[p-\epsilon,p+\epsilon]$ is bounded by:
+	$$ \Dc ^{m}_p \left[ |\hat{p}-p| > \epsilon\right] <  \delta,$$
+	\textbf{for any $0\le p\le 1$,} and if a sequence $S$ of $m$ numbers, where $m < m_A$, is generated, \textbf{there exist a $p$}, with $0\le p\le 1$ such that:
+	$$ \Dc ^{m}_p \left[ |\hat{p}-p| >  \epsilon \right] > \delta$$
+	
+	The function $m_A(\epsilon,\delta)$: $\left[0,1\right]\times \left[0,1\right]\rightarrow \mathbb{N}$ is called the \emph{sample complexity} of the learning algorithm $A$.
+	
+	% More generally: the sample complexity of a machine learning algorithm represents the number of training-samples that it needs in order to successfully learn a target function.
+\end{definition}
+
+The first condition means that, no matter what $p$ is, it is enough to draw $m_A$ samples (i.e., to flip the coin $m_A$ times) in order to know $p$, with a certainty of $1-\delta$ and an accuracy of $\pm \epsilon$. The second conditions means that, at least for some values of $p$, drawing $m_A(\epsilon,\delta)-1$ samples would \textit{not} be enough for that.
+
+\textbf{Note about the confidence requirement}: In the above definition the confidence requirement must hold \emph{independently of the procedure by which the coins are provided}, that is, independently of the way $p$ is chosen. It does not matter if, for example, the coin is randomly drawn from a pile of coins where most coins are approximately fair (most of their $p$'s are close to $1/2$) or where most are faked in a specific way, (their $p$'s are concentrated around, say, $\frac{1}{4}$ ),  or where all $p$'s are equally probable.
+
+Another way to think of the sample complexity is the following. Consider all possible sequences, $S$, of $m$ 0's and 1's. For each value of $p$, each of these sequences has a different probability to occur. Each $S$ can be labeled as 'good' ('typical') or 'bad'('atypical'), 'good' means that $m \cdot \hat{p}(S)$ is between $m(p-\epsilon)$ and $m(p+\epsilon)$ and 'bad' otherwise (Note that,  even for the same coin,  if  $S$ is good with respect to algorithm $A_1(S)$ it may still be bad with respect to another algorithm $A_2(S),$  if $\hat{p}_1(S)\ne \hat{p}_2(S)$.) Given a coin, let us denote the smallest $m$ for which the  total sum of the probabilities of all the good sequences is at least $1-\delta$, by $m_A^{(p)}(\epsilon,\delta)$. We can think of $m_A^{(p)}$ as the \emph{coin-specific} sample complexity. The algorithm sample complexity $m_A(\epsilon,\delta)$ is the maximal number among the coin-specific sample complexities, that is: $m_A(\epsilon,\delta) = \max_{p}(m_A^{(p)}(\epsilon,\delta))$.
+
+%The term `approximately' in PAC stems from the fact that we only require that $\hat{p}$ approximates $p$ to an accuracy $\epsilon$. The term `probably' in PAC comes from the fact that we are satisfied whenever $\hat{p}$ satisfies the accuracy requirements with probability at least$1-\delta$.
+
+Given an i.i.d. random sample $S=(z_1, \ldots, z_m)$, a reasonable
+estimate of $p$ is the empirical proportion of heads (ones), namely
+$\hat{p}=\frac{1}{m} \sum_{i=1} ^m z_m$. The first basic property of
+this average is that its expected value equals $p$. This follows by
+the linearity of expectation as follows:
+\[
+\ensuremath{\mathbb{E}} \left [\frac{1}{m} \sum_{i=1} ^m Z_i \right] = \frac{1}{m} \sum_{i=1} ^m
+\ensuremath{\mathbb{E}}[Z_i] = \frac{1}{m} \cdot m \cdot p = p~.
+\]
+We say in this case that $\hat{p}$ forms an \emph{unbiased estimate}
+of $p$. What can we say about the quality of $\hat{p}$ as an estimate
+of $p$? In other words, how tightly $\hat{p}$ is concentrated around
+its expectation? To answer this question, we can use concentration inequalities.\\
+
+\noindent \textbf{First attempt: Markov's inequality: }
+
+For a direct application of Markov's inequality we take  $|\hat{p}-p|$ as our RV  (note that $\hat{p}-p$ is not a positive RV and therefore cannot be used in Markov's inequality). We then need to calculate $\frac{1}{\epsilon}\ensuremath{\mathbb{E}}[|\hat{p}-p|]$ and extract its dependence on the sample size $m$.
+Since we are going to get much better bounds below, here we only state the result (and leave the calculation as a challange exercise):
+$$
+\Dc ^m \left[|\hat{p}-p| \geq \epsilon \right]  \le \frac{1}{\sqrt{4m\epsilon^2}}
+$$
+This implies that the sample complexity of coin prediction is bounded above by
+$m(\epsilon,\delta) \le \left \lceil \frac{1}{4\epsilon^2} \cdot
+\frac{1}{\delta^2} \right \rceil$.
+(You can verify by substituting $m=\frac{1}{4\epsilon^2}\cdot
+\frac{1}{\delta^2}$ in the bound)
+
+\vspace{5mm}
+
+\begin{exercise}[Markov's inequality]
+	Prove that:  $\Dc ^m \left[|\hat{p}-p| \geq \epsilon \right]  \le \frac{1}{\sqrt{4m\epsilon^2}}.$
+\end{exercise}
+
+\begin{itemize}
+	\item Hint: Show that for any RV $h$ with $\ensuremath{\mathbb{E}}(h)=0$ :
+	$$\ensuremath{\mathbb{E}}(|h|) \le \sqrt{ Var(h)}$$
+	and then apply this result to the RHS of Markov's inequality.
+	
+	\item Use the above to obtain a bound over the sample complexity and compare it to the one obtained from the Chebyshev's inequality.
+\end{itemize}
+\color{black}
+
+\noindent \textbf{Second attempt: Chebyshev's inequality: }
+The variance of a Bernoulli random variable is $p(1-p) \le 1/4$. Applying \ref{cor:chebysevAve}, we obtain that
+$$ \Dc ^m [|\hat{p}-p| \ge \epsilon] = \Dc ^m[|\hat{p}-\mathbb{E} [\hat{p}]| \ge \epsilon] \le \frac{Var[Z]}{m\epsilon^2} \le \frac{1}{4m \epsilon ^2}$$
+
+The bound obtained using Chebyshev's inequality tends to zero as $\frac{1}{m}$ while the one obtained from Markov's inequality tends to zero as $\frac{1}{\sqrt{m}}$.
+This fact enables us to obtain a better bound for the sample complexity:
+
+\begin{corollary}  \label{cor:basicConcentration}
+	The sample complexity of coin prediction is bounded above by
+	$m(\epsilon,\delta) \le \left \lceil \frac{1}{4\epsilon^2} \cdot
+	\frac{1}{\delta} \right \rceil$.
+	(You can verify by substituting $m=\frac{1}{4\epsilon^2} \cdot
+	\frac{1}{\delta}$ in the bound)
+\end{corollary}
+
+
+\color{black}
+
+
+A natural question which arises is whether the obtained bound is optimal (tight). There is a good reason to suspect that this bound is not optimal; When we applied Markov's or Chebyshev's inequality, we did not exploit the fact that our RV's are bounded (between $0$ and $1$).  Indeed, in the next section we prove a much better bound \footnote{Which is tight, although we will not prove that}. For this end, we will introduce Hoeffding's inequality for the average of independent and bounded random variables. This inequality will give us exponential (instead of polynomial!) convergence in terms of the sample size $m$.
+
+\subsubsection{Hoeffding's Inequality}
+\begin{theorem}[Hoeffding's inequality]
+	Let $X_1, \ldots X_m$ be independent and bounded random variables with $a_i \leq X_i \leq b_i$. Let $\bar{X} = \frac{1}{m} \sum_{i=1} ^m X_i$. Then,
+	\[
+	\mathbb{P}  [ |\bar{X} - \E[\bar{X}]| \geq \epsilon ] \leq 2 \exp \left( \frac{-2m^2 \epsilon^2}{\sum _{i =1} ^m (b_i-a_i)^2} \right)
+	\]
+\end{theorem}
+\begin{corollary}
+	Let $X_1, \ldots X_m$ be a sequence of i.i.d. (independent \textbf{and} identically distributed) and bounded with $a \leq X_i \leq b$ (same $a, b$ for all $X_i$'s). Let $\bar{X} = \frac{1}{m} \sum_{i=1} ^m X_i$ and let $\mu = \E[X_i]$. Then,
+	\[
+	\mathbb{P}  [|\bar{X} - \mu| \geq \epsilon] \leq 2 \exp \left( \frac{-2 m \epsilon^2}{(b-a)^2} \right)
+	\]
+\end{corollary}
+
+\subsubsection{Coin Prediction Revisited}
+Lets apply Hoeffding's inequality for the case of coin prediction which was discussed above. For a sample of size $m$, we obtain
+\[
+\Dc ^m [|\hat{p}-p| \ge \epsilon ]\leq  2 \exp(-2 m \epsilon ^2)~.
+\]
+Indeed, we achieve an exponential improvement (in terms of $\delta$).
+\begin{corollary}  \label{cor:basicConcentration}
+	The sample complexity of coin prediction is bounded above by
+	$m(\epsilon,\delta) \le \left \lceil \frac{1}{2\epsilon^2} \cdot
+	\log(\frac{2}{\delta}) \right \rceil$.
+	(You can verify by substituting $m=\frac{1}{2\epsilon^2} \cdot
+	\log(\frac{2}{\delta})$ in the bound)
+\end{corollary}
 
 
 
