@@ -19,8 +19,8 @@ As such, the bias-variance \textbf{tradeoff} is that: the more complicated the m
 
 \subsection{Generalization Error Decomposition}
 We have already encountered the generalization error decomposition when discussing linear regression problems (\todo{add link-reference to decomposition in regression}). There we have shown how we can decompose the MSE into the bias and variance components. Next, let us revisit the decomosition but for a general loss function. Let $h^{*}=argmin_{h\in\Hc} L_{\Dc}\left(h\right)$ and $h_S=\Ac\left(S\right)$ be the outout of a learning algorithm, then we can decompose the generalization error of the hypothesis returned by the learner as follows: 
-\begin{equation} %TODO - center
-$$ L_{\Dc}\left(h_S\right) = \underset{\eps_{approximation}}{\underbrace{L_{\Dc}\left(h^{*}\right)}} + \underset{\eps_{estimation}} {\underbrace{L_{\Dc}\left(h_{S}\right)-L_{\Dc}\left(h^{*}\right)}} $$
+\begin{equation}
+L_{\Dc}\left(h_S\right) = \underset{\eps_{approximation}}{\underbrace{L_{\Dc}\left(h^{*}\right)}} + \underset{\eps_{estimation}} {\underbrace{L_{\Dc}\left(h_{S}\right)-L_{\Dc}\left(h^{*}\right)}}
 \label{eqn:error_decomposition}
 \end{equation}
 

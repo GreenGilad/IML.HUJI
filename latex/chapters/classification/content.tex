@@ -24,7 +24,7 @@ In the previous chapter we discussed learning a regression problem where the res
 When we discussed regression problems we decided to measure the performance of a given hypothesis using the square loss (and mentioned that we could also use the absolute loss). For classification problems let us consider other loss functions. A very straight forward way to evaluate the performance of a classification predictor is to simply count the number of correctly classified samples. That is, given a prediction rule $h:\Xc\rightarrow \left\{\pm 1\right\}$ and a labeled sample \trainset, the \textbf{mis-classification} loss of $h$ on this sample is:
 
 \begin{equation}
-$$L_S\left(h\right)\coloneqq\sum^{m}_{i=1}\mathbbm{1}\left[y_i\neq h\left(\x_i\right)\right]=\left|\left\{i|y_i\neq h\left(\x_i\right)\right\}\right|$$
+L_S\left(h\right)\coloneqq\sum^{m}_{i=1}\mathbbm{1}\left[y_i\neq h\left(\x_i\right)\right]=\left|\left\{i|y_i\neq h\left(\x_i\right)\right\}\right|
 \label{eqn:misclass_loss}
 \end{equation}
 
@@ -147,7 +147,7 @@ The first classifier we consider is the linear classifier of finding a half-spac
 
 The hypothesis class of half-space classifiers in $\R^d$ is the set of functions with the form
 \begin{equation}
-$$\Hc_{half} \coloneqq \left\{h_{\w,b}\left(\x\right)=sign\left(\inprod{\x}{\w} + b\right)|\w\in\R^d,b\in\R\right\} = \left\{\x\mapsto sign\left(\inprod{\x}{\w}+b\right)\right\}$$
+\Hc_{half} \coloneqq \left\{h_{\w,b}\left(\x\right)=sign\left(\inprod{\x}{\w} + b\right)|\w\in\R^d,b\in\R\right\} = \left\{\x\mapsto sign\left(\inprod{\x}{\w}+b\right)\right\}
 \label{eqn:h_half}
 \end{equation}
 Notice the similarity to the linear regression hypothesis class. So why are functions of the form seen in \ref{eqn:h_half} are half-space classifiers? Let us assume at first that $b=0$. We can express the domain set as a disjoint union of the following:
@@ -181,12 +181,10 @@ As we are assuming the given sample is linearly separable (realazibility), there
 
 Thus, it is enough to search for a vector $\w$ that satisfies $\forall\, i\in\left[m\right]\quad y_i\cdot sign\left(\inprod{\x}{\w}\right)\geq 1$. This is a problem of finding a vector that satisfies $m$ linear constraints, and can be solved using generic linear programming solvers. We are interested in solving:
 \begin{equation}
-$$
 \begin{array}{ccc}
 minimize & L_S\left(h_{\w}\right) & \\
 subject \, to & y_i\inprod{\x_i}{\w}\geq 1 & i=1,\ldots,m\\
 \end{array}
-$$
 \label{eqn:half_space_opt}
 \end{equation}
 which, as stated above for any ERM solution $L_S\left(h_\w\right)=0$. Therefore, as this optimization problem has a trivial objective, it is a \textbf{feasibility} problem - we are looking for any vector which satisfies the constraints.
@@ -207,11 +205,11 @@ Returning to the same hypothesis class of non-homogeneous separating half-spaces
 \subsection{Maximum Margin Learning Principle}
 
 \begin{definition}
-	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $u\in\R^d$. Define the distance between $\left(\w,b\right)$ and $u$ by: $$ d\left(\left(\w,b\right),u\right)\coloneqq \underset{v:\inprod{v}{w}+b=0}{min}\left|\left|u-v\right|\right| $$ (namely, the Euclidean distance between $u$ and the closest point on the hyperplane)
+Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $u\in\R^d$. Define the distance between $\left(\w,b\right)$ and $u$ by: $$ d\left(\left(\w,b\right),u\right)\coloneqq \underset{v:\inprod{v}{w}+b=0}{min}\left|\left|u-v\right|\right| $$ (namely, the Euclidean distance between $u$ and the closest point on the hyperplane)
 \end{definition}
 
 \begin{definition}[Margin]\label{def:margin}
-	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $S=u_1,\ldots,u_m\in\R^d$ a set of points. The \textbf{margin} of $\left(\w,b\right)$ and $S$ is the smallest distance between the hyperplane and any point: $$ M\left(\left(\w,b\right),S\right) \coloneqq \underset{i\in\left[m\right]}{min}\,\, d\left(\left(\w,b\right),u_i\right) $$
+Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $S=u_1,\ldots,u_m\in\R^d$ a set of points. The \textbf{margin} of $\left(\w,b\right)$ and $S$ is the smallest distance between the hyperplane and any point: $$ M\left(\left(\w,b\right),S\right) \coloneqq \underset{i\in\left[m\right]}{min}\,\, d\left(\left(\w,b\right),u_i\right) $$
 \end{definition}
 
 So, the new learning principle is: choose $h_{\w,b}\in\Hc_{SVM}$ that has the \textbf{largest margin} with respect to our training data $S$. The vectors closest to the hyperplane determine the margin. They are called \textbf{support vectors} and hence this learner's name.
@@ -219,12 +217,10 @@ So, the new learning principle is: choose $h_{\w,b}\in\Hc_{SVM}$ that has the \t
 \subsection{Hard-SVM}
 Let's start with the \textbf{realizable case}. To implement our learning principle of maximal margin, we need to search, among all the hyperplane separating $S$, for the hyperplane with maximum margin. Namely, the hypothesis $h_{\w,b} \in \Hc_{SVM}$ our learner will choose is the solution to the following optimization problem:
 \begin{equation}
-$$
 \begin{array}{ccc}
 maximize & M( (\w,b) , S) & \\
 subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
 \end{array}
-$$
 \label{eqn:hard_svm_opt}
 \end{equation}
 The optimization variables are $\w\in\R^d,b\in\R$. Comparing with the linear program of half-spaces (\ref{eqn:half_space_opt}) we see that the constraints are kept, which ensure the hyperplane chosen separates the training sample, but instead of a trivial objective, we seek to minimize the margin (We don't worry about ``maximize`` instead of ``minimize`` as we can just multiply the objective by $-1$). 
@@ -235,12 +231,10 @@ The Hard-SVM optimization problem \ref{eqn:hard_svm_opt} (and many other problem
 \begin{definition}[Optimization Problem]
 An optimization problem over $\R^d$ has the general form:
 \begin{equation*}
-$$
 \begin{array}{ccc}
 minimize & f_0\left(\x\right) & \\
 subject \, to & f_i\left(\x\right)\leq b_i & i=1,\ldots,n\\
 \end{array}
-$$
 \end{equation*}
 where $\x$ is the optimization variable, $f_0:\R^d\rightarrow\R$ is the objective function and $f_i:\R^d\rightarrow\R$ are the constraint functions. It is implicitly implied that the optimization problem happens over $dom\left(f_0\right)\subset\R^d$, the domain of $f_0$.
 \end{definition}
@@ -309,13 +303,11 @@ $$
 
 So, as the margin \ref{def:margin} between a given hyperplane $\left(\w,b\right)$ and a set of points $S$ is the minimal distance between the hyperplane and any point in the set, we derive that our optimization problem is infact of the form:
 \begin{equation}
-$$
 \begin{array}{ccc}
 \underset{\norm{\w}=1,b}{argmax} & \underset{i\in\left[m\right]}{min}\,\left|\inprod{\w}{\x_i}+b\right| & \\
 subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
 \end{array}
 \label{eqn:hard_svm_opt2}
-$$
 \end{equation}
 
 While the constraints enforce $\w$ to define a separating hyperplane, the objective will make us choose a separating hyperplane with the maximal margin. To solve this problem numerically, we will need to perform a slight manipulation and write it in a different form.
@@ -323,13 +315,11 @@ While the constraints enforce $\w$ to define a separating hyperplane, the object
 \begin{claim}
 Let $\left(\vv{v}^*,c^*\right)$ be an optimal solution of:
 \begin{equation}
-$$
 \begin{array}{ccc}
 \underset{\left(\w,b\right)}{argmin} & \norm{\w}^2 & \\
 subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
 \end{array}
 \label{eqn:hard_svm_opt3}
-$$
 \end{equation}
 Then, $\w^*\coloneqq\gamma\vv{v}^*,b^*\coloneqq\gamma c^*$ for $\gamma=\norm{\vv{v}^*}^{-1}$ is an optimal solution for \ref{eqn:hard_svm_opt2}.
 \end{claim}
@@ -369,10 +359,9 @@ where support vectors satisfy $y_i\left(\inprod{\w}{\x_i}+b\right)$ and that for
 \subsection{Soft-SVM}
 The basic assumption of Hard-SVM is that the training sample is linearly separable. If that is not the case then the optimization problem has no solutions as for any candidate $\left(\w,b\right)$ at least one of the constraints $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)\geq 1$ cannot be satisfied.
 \\~\\
-But what if the training sample is almost linearly separable? That is, what if most of the samples are linearly separable with only a few violating the constraints by not too much? Recall that if $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)<0$ then sample $\x_i$ is on the ``wrong side`` of the hyperplane. This means that: $$\exists \,\xi_i> 0\quad s.t.\quad y_i\cdot\left(\inprod{\w}{\x_i}+b\right) \geq 1-\xi_i $$ Therefore, sample $\x_i$ is on the wrong side of the \textbf{margin} by an amount proportional to $\xi_i$. To allow training samples to violate the constraints ``a little``, we modify the optimization problem to:
+But what if the training sample is almost linearly separable? That is, what if most of the samples are linearly separable with only a few violating the constraints by ``not too much``? Recall that if $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)<0$ then sample $\x_i$ is on the ``wrong side`` of the hyperplane. This means that: $$\exists \,\xi_i> 0\quad s.t.\quad y_i\cdot\left(\inprod{\w}{\x_i}+b\right) \geq 1-\xi_i $$ Therefore, sample $\x_i$ is on the wrong side of the \textbf{margin} by an amount proportional to $\xi_i$. To allow training samples to violate the constraints ``a little``, we modify the optimization problem to:
 
 \begin{equation}
-$$
 \begin{array}{clc}
 minimize & \norm{\w}^2 & \\
 subject \, to & \begin{cases}
@@ -381,32 +370,211 @@ y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i & i=1,\ldots,m\\
 \end{cases}
 \end{array}
 \label{eqn:sofv_svm_opt}
-$$
 \end{equation}
-where $C>0$ is a constant we specify. The variables $\xi_1,\ldots,\xi_m$ are new auxiliary variables we introduce (sometimes known as slack variables). Notice that the later we choose $C$, the more violations of margin we allow. On the one hand, we want to allow ``noisy`` samples to violate the margin, so the hyperplane will ignore them. On the other hand, if we allow too many violations, we lose touch with the training sample and its structure. This is exactly the bias-variane tradeoff: the larger $C$, the more freedom the learner has to ``chase after the training sample``.
+where $C>0$ is a constant we specify. The variables $\xi_1,\ldots,\xi_m$ are new auxiliary variables we introduce (sometimes known as slack variables). Notice that the larger we choose $C$ to be, the more violations of margin we allow. On the one hand, we want to allow ``noisy`` samples to violate the margin, so the hyperplane will ignore them. On the other hand, if we allow too many violations, we lose touch with the training sample and its structure. This is exactly the bias-variance trade-off: the larger $C$, the more freedom the learner has to ``chase after the training sample``.
 
-\begin{figure}[!h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\textwidth]{chapters/classification/figures/soft_svm.png}
 \end{figure}
 ~\\
-A tricky question regarding the above optimization problem is how to choose $C$? Instead of specifying its value we prefer working with a slightly different optimization problem:
+Instead of specifying $C$ directly, we often prefer working with a slightly different optimization problem, where instead of constraining the value of $\frac{1}{m}\sum\x_i$ we jointly minimize the norm of $\w$ (related to the margin) and the average of $\xi_i$ (corresponding margin violations).
 \begin{equation}
-$$
 \begin{array}{cll}
-minimize & \lambda\norm{\w}^2 + \frac{1}{m}\sum_{i=1}^m \xi_i& \\
-subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i & i=1,\ldots,m\quad\land \quad \xi_i \geq 0\\
+\underset{\w,\left\{\xi_i\right\}}{minimize} & \lambda\norm{\w}^2 + \frac{1}{m}\sum_{i=1}^m \xi_i& \\
+subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i,\,\, \xi_i \geq0 & i=1,\ldots,m\\
 \end{array}
 \label{eqn:sofv_svm_opt}
-$$
 \end{equation}
-Soft-SVM jointly minimizes the norm of $\w$ (related to the margin) and the average of $\xi_i$ (corresponding to constraints violoations). The tradeoff between the two terms is controlled by the hyper-parameter $\lambda$. The larger $\lambda$, the less sensitive the solution will be to the term $\frac{1}{m}\sum_{i=1}^m \xi_i$, and will allow more violations. The smaller $\lambda$, the more sensitive and will allow less violations. If we choose to work with this optimization problem to choose $h$, the constant $\lambda$ also moves us along different members of a family of learners, each with a different bias-variance tradeoff. $\lambda$ is known as a \textbf{regularization parameter}. This topic is covered in \autoref{chap:regularization}.
 
-\todo{Add explanation about representation using hinge loss}
+To simplify the above optimization problem let use define the \textbf{hinge} loss function:
+\begin{equation}
+\ell^{hinge}\left(a\right)=\max\left\{0,1-a\right\},\,\, a\in\R
+\end{equation}
+
+\begin{claim}
+Given a training set $\trainset$ and hyperplane $\left(\w,b\right)$, the Soft-SVM optimization problem (\ref{eqn:sofv_svm_opt}) is equivalent to $$ \underset{\w,b}{\min} \left(\lambda\norm{\w}^2+L_S^{hinge}\left(\left(\w,b\right)\right)\right) $$ where $L_S^{hinge}\left(\left(\w,b\right)\right)\coloneqq \frac{1}{m}\sum \ell^{hinge}\left(y_i\inprod{\x_i}{\w}\right)$
+\end{claim}
+
+\begin{proof}
+Given a specific hyperplane $\left(\w,b\right)$ consider the minimization over $\xi_1,\ldots,\xi_m$. Since we defined the auxiliary variables to be nonnegative, the optimal assignment of $\xi_i$ is $$ \xi_i \coloneqq \begin{cases}
+0 & y_i\left(\inprod{\x_i}{\w}+b\right)\\
+1-y_i\left(\inprod{\x_i}{\w}+b\right) & otherwise\\
+\end{cases} $$
+Thus $\xi_i=\ell^{hinge}\left(y_i\left(\inprod{\x_i}{\w}+b\right)\right)$
+\end{proof}
+
+The hyper-parameter $\lambda$ controls the trade-off between the two norm of $\w$ and the violations of margin. The larger $\lambda$, the less sensitive the solution will be to the term $\frac{1}{m}\sum_{i=1}^m \xi_i$, and will allow more violations. The smaller $\lambda$, the more sensitive and will allow less violations. If we choose to work with this optimization problem to choose $h$, the constant $\lambda$ also moves us along different members of a family of learners, each with a different bias-variance tradeoff. $\lambda$ is known as a \textbf{regularization parameter}. This topic is covered in \autoref{chap:regularization}.
 
 
-\subsubsection{The Kernel Trick}
-\todo{Explain about kernels and the kernel trick. Recitation 4 (which is not enough)}
+
+\subsubsection{The Kernel Method}
+The three classifiers seen above (halfspace classifier, Hard-SVM and Soft-SVM) all use the halfspaces hypothesis class. Though these linear classifiers are fairly simple to implement, the hypothesis class of halfspaces is of limited power. Consider the case where $\Xc=\R$ with the following sample:
+\begin{figure}[H]
+	\centering
+	\includegraphics{chapters/classification/figures/linearly_inseparable.png}
+\end{figure}
+As the data in not linearly separable, all three learners will fail. Notice however, that if instead of using the original feature representation of the data, we embed the samples in a new feature space, such as mapping each sample $x\rightarrow\left(x,x^2\right)$, we get a linearly separable sample in $\R^2$:
+\begin{figure}[H]
+	\centering
+	\includegraphics{chapters/classification/figures/linearly_separable.png}
+\end{figure}
+
+Therefore, to enrich the expressiveness of the halfspace hypothesis class, we can consider embedding the data into another (potentially of higher dimension) feature space, over which we then learn a halfspace. Schematically:
+\begin{itemize}
+	\item Given some domain set $\Xc\subseteq\R^d$ and a learning problem, select an embedding  $\psi:\Xc\rightarrow\Fc$ for some feature space $\Fc$. In most cases $\Fc\subseteq \R^k$ for some $k>d$.
+	\item Train a halfspace using the training set $\left\{\left(\psi\left(\x_i\right),y_i\right)\right\}^m_{i=1}$.
+\end{itemize}
+~\\
+\todo{move to bottom and properly show how to use kernels for svm} Applying the above scheme to the Soft-SVM learner we would therefore want to solve:
+$$
+\underset{\w,b}{\min}\left(\lambda \norm{\w}^2 +\frac{1}{m}\sum\ell^{hinge}\left(y_i\left(\inprod{\psi\left(\x_i\right)}{\w}+b\right)\right) \right)
+$$
+This approach seems very attractive as the assumption that our data is linearly separable in \textit{some} feature space does not look very limiting. However, several challenges need to be addressed:
+\begin{itemize}
+	\item \textbf{Selection of $\psi$}: We need to find an appropriate mapping $\psi$ under which the data is linearly separable.
+	\item \textbf{Computational complexity}:  Often, as $k\gg d$ (and sometimes even infinite) and as $\psi$ could be very complicated, computing $\psi\left(\x\right)$, is computationally expensive.
+	\item \textbf{Sample complexity}: When transitioning to a potentially much higher feature space, the number of samples needed to learn a halfspace increases. \todo{Add reference to VCdim of halfspaces}
+\end{itemize}
+~\\
+
+To address the computational complexity problem, we could use kernel based learning. Some algorithms do not directly depend on the data $\psi\left(\x_i\right)$, but rather access the data only through the result of the dot-product $\inprod{\psi\left(\x_i\right)}{\psi\left(\x_j\right)}$. In these cases we might be able to find an efficient way to compute the result $\inprod{\psi\left(\x_i\right)}{\psi\left(\x_j\right)}$ without ever directly computing  $\psi\left(\x_i\right)$. This approach is also known as the \textit{kernel trick}, and the embedding function $\psi$ is a kernel function.
+
+
+\begin{claim}[Polynomial Kernels]
+The following mapping, of $k$ degree polynomials, is a kernel function: $$ K\left(\x,\x'\right)\coloneqq \left(1+\inprod{\x}{\x'}\right)^k $$
+\end{claim}
+\begin{proof}
+To show the above is indeed a kernel function let us find a mapping $\psi$ such that $K\left(\x,\x'\right)=\inprod{\x}{\x'}$. For simplicity let $x_0=1=x'_0$. Then: 
+$$
+\begin{array}{ccl}
+K\left(\x,\x'\right) & = &\left(1+\inprod{\x}{\x'}\right)^k\\
+& = & \left(\sum_{i=1}^d x_ix'_i\right)^k\\
+& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\prod_{i=1}^{k}x_{J_i}x'_{J_i}\\
+& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\prod_{i=1}^{k}x_{J_i}\prod_{i=1}^{k}x'_{J_i}\\
+& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\psi\left(\x\right)_J\psi\left(\x'\right)_J
+\end{array}
+$$
+Where we define $\psi:\R^d\rightarrow\R^{\left(n+1\right)^k}$ such that each coordinate of $\psi\left(\x\right)$ corresponds to some $J\in\left\{0,\ldots,d\right\}^k$ and is equal to $\prod_{i=1}^k x_{J_i}$. Therefore we obtained that $K\left(\x,\x'\right) = \inprod{\psi\left(\x\right)}{\psi\left(\x'\right)}$
+\end{proof}
+
+\begin{example}
+Let $\x,\x'\in \Xc=\R^2$ with $x_0=1=x'_0$ and $k=2$ so:
+$$ \begin{array}{ccl}
+\left(1+\inprod{\x}{\x'}\right)^2 & = & \left(1+x_1x'_1 + x_2x'_2\right)^2\\
+& = & 1 + 2x_1x'_1 + 2x_2x'_2 + \left(x_1x'_1\right)^2 + \left(x_2x'_2\right)^2 + 2x_1x'_1x_2x'_2
+\end{array} $$
+By defining $\psi$ as $\psi\left(\x\right)=\left(1,1\cdot x_1, x_1 \cdot 1, 1\cdot x_2, x_2\cdot 1, x_1^2, x_2^2, x_1\cdot x_2, x_2 \cdot x_1\right)^\top$ we achieve that $K\left(\x,\x'\right)=\inprod{\x}{\x'}$
+\end{example}
+
+%\begin{claim}[Gaussian Kernels]
+%	The following mapping is a kernel function: $$ K\left(\x,\x'\right)\coloneqq \exp\left(-\frac{1}{2}\norm{\x-\x'}^2\right) $$
+%\end{claim}
+%\begin{proof}
+%%Let us define the embeding function $\psi$ such that $\psi\left(\x\right)$
+%\end{proof}
+
+
+By embedding a given sample using a polynomial kernel of degree $k$, and learning a halfspace in this embedding, we are in-fact learning a polynomial predictor of degree $k$ over the original space.
+
+In the case of polynomial kernels we used an embedding in $\R^{\left(n+1\right)^k}$. 
+
+\section{Logistic Regression}
+\subsection{A Probabilistic Model For Noisy Labels}
+Recall the statistical model for linear regression when assuming Gaussian errors (\ref{lin_reg_stat_model}), $\y=\X\w+\eps$ where $\eps\sim\Nc\left(0,\sigma^2I_d\right) $. Notice that as $\eps$ is a random variable, $\y$ too is a random variable distributing as a multi-variate Gaussian:
+$$ \y\sim\Nc\left(\X\w,\sigma^2I_d\right) $$
+
+Focusing on a pair $\left(\x_i,y_i\right)$, we can think of the above as the \textbf{conditional probability} of $y_i$ given $\x_i$: $$ p\left(y_i|\x_i,\w\right) =\Nc\left(y_i|\phi_{\w}\left(\x_i\right),\sigma^2\right)\quad \text{where}\quad \phi_{\w}\left(\x\right)=\w^\top\x$$
+where we also condition on $\w$ to explicitly state the dependence on the model parameters. In other words, we assumed that each sample $\left(\x,y\right)$ is such that the \textbf{expected value} of the label $y$ is linear in $\x$. As we are dealing with a regression model and $y_i\in\R$, the support of the random variable $y_i|\x_i,\w$ is $\R$. 
+\\~\\
+Let us adapt the model above to fit for classification problems. We would like to assume that $y_i$ distributes \textbf{Bernoulli} with a probability $p\left(\x_i\right)$ that somehow relates with $\x_i$, and captures how likely is $y_i$ being $1$: $$ p\left(y_i|\x_i\right)=Ber\left(y_i|p\left(\x_i\right)\right) $$
+How shall $p\left(\x_i\right)$ relate with $\x_i$? Unlike the linear regression model, we cannot assume a linear function $\phi_{\w}\left(\x\right)=\w^\top\x$ as $\phi_{\w}\in\R$ while $p\left(\x_i\right)$ is restricted to $\left[0,1\right]$. Instead, we would like to choose some \textbf{link} function $\phi_{\w}:\R\rightarrow\left[0,1\right]$ that is monotone increasing and maps $\left(-\infty,\infty\right)$ bijectively to $\left(0,1\right)$. Define the relation to be
+\begin{equation}
+p\left(y_i|\x_i,\w\right) = Ber\left(y_i|\phi_{\w}\left(\x_i\right)\right), \quad \phi_{\w}\coloneqq sigm\left(\w^\top\x\right)
+\label{eqn:logistic_model}
+\end{equation}
+where $sigm$ is the \textbf{sigmoid} function, also known as the \textbf{logit} function: $$ sigm\left(\vv{a}\right)\coloneqq\frac{e^{\vv{a}}}{e^{\vv{a}} + 1} $$
+This function is indeed monotone increasing and maps $\left(-\infty,\infty\right)$ bijectively to $\left(0,1\right)$.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/classification/figures/logistic.png}
+	\caption{\todo{todo}}
+\end{figure}
+
+
+\begin{itemize}
+	\item As $\w^\top\x\rightarrow -\infty$ then $sigm\left(\w^\top\x\right)\rightarrow 0$. This means that it is ``very unlikely`` that the label is $1$:  $p\left(y_i=1|\x_i,\w\right)\rightarrow 0$. 
+	\item As $\w^\top\x\rightarrow \infty$ then $sigm\left(\w^\top\x\right)\rightarrow 1$. This means that it is ``very likely`` that the label is $1$: $p\left(y_i=1|\x_i,\w\right)\rightarrow 1$. 
+\end{itemize}
+
+
+\begin{remark}
+	In \ref{eqn:logistic_model} we modeled the logistic regression model for binary classification problems. Notice that the Bernoulli distribution can be seen as a private case of the Multinomial distribution $Multinomial\left(p_1,\ldots,p_K\right),\,\,\sum_pi=1, 0\leq p_i\leq 1$. We can expand the above logistic regression model to fit multi-classification problems by extending the sigmoidal function to what is known as the softmax function $\sigma\left(\vv{a}\right)=e^{\vv{a}_i}/\sum^K_{j=1}e^{\vv{a}_j}$
+\end{remark}
+
+\subsubsection{The Hypothesis Class}
+So we would like to define the hypothesis class of logistic regression as: 
+\begin{equation}
+\Hc_{logistic}\coloneqq\left\{h_{\w}\left(\x\right)=sigm\left(\w^\top\x\right)|\w\in\R^{d+1}\right\}
+\label{eqn:logisitc_hypothesis_class}
+\end{equation}
+However, notice that defining the hypotheses in such manner means that $h_{\w}:\R^{d+1}\rightarrow\left[0,1\right]$ and not $h_{\w}:\R^{d+1}\rightarrow\left\{0,1\right\}$ as required for classification problems. Since $\left\{0,1\right\}\subset\left[0,1\right]$, we can use the training sample to select a function in $\Hc_{logistic}$. This means we will be able to train a model, but how will we predict over new samples? Suppose our learner chose some $h_{\w}\in\Hc_{logistic}$. As we think about $h_{\w}\left(\x\right)$ as an estimate of the probability that the label corresponding to $\x$ is $1$, we can use it for classification. If $h_{\w}\left(\x\right)$ is low the label is likely to be $0$. If $h_{\w}\left(\x\right)$ is high, the label is likely to be $1$. Choosing some \textbf{cutoff} value $\alpha\in\left[0,1\right]$, our class prediction will be: $\widehat{y}\coloneqq \indc{h_{\w}\left(\x\right)>\alpha} $. To choose a fitting value for $\alpha$ we can calculate the Type-I and Type-II errors of the classifier and plot its ROC curve (\autoref{error_types} and \autoref{roc})
+
+
+\subsubsection{Learning Via Maximum Likelihood}
+Once we have defined the logistic regression model (\ref{eqn:logistic_model}) and hypothesis class (\ref{eqn:logisitc_hypothesis_class}), we would like to come up with a learner. To do so we will use the maximum likelihood principle. Recall, that by the maximum likelihood principle, we estimate the parameters (the desired hypothesis) as those that have the highest probability, given the data.
+\\~\\
+Let $\trainset$ be our sample of independent observations, assuming that $\y_i\sim Ber\left(\phi_{\w}\left(\x\right)\right)$ where $\phi$ is the logistic function. The likelihood of $\w\in\R^{d+1}$ is: 
+$$
+\begin{array}{ccl}
+\Lc\left(\w\right|\X,\y) & = & \Prob\left(y_1,\ldots,y_m|\X,\w\right) \,\, = \,\, \prod \Prob\left(y_i|\x_i,\w\right)\\
+& = & \underset{i:y_i=1}{\prod}\Prob\left(y_i|\x_i,\w\right)\cdot \underset{i:y_i=0}{\prod}\Prob\left(y_i|\x_i,\w\right)\\
+& = & \underset{i:y_i=1}{\prod} p_i\left(\w\right) \cdot \underset{i:y_i=0}{\prod} \left( 1-p_i\left(\w\right)\right)\\
+& = & \prod p_i\left(\w\right)^{y_i} \left(1-p_i\left(\w\right)\right)^{1-y_i}
+\end{array}
+$$
+where $p_i\left(\w\right)=\phi_{\w}\left(\x_i\right)$. Since the log function is monotone increasing we can maximize the log-likelihood $\ell\left(\w\right)\coloneqq \log\Lc\left(\w\right)$ instead: $$
+\begin{array}{ccl}
+\ell\left(\w|\X,\y\right) & = & \overset{m}{\underset{i=1}{\sum}}\left[y_i\log\left(p_i\left(\w\right)\right)+\left(1-y_i\right)\log\left(1-p_i\left(\w\right)\right)\right]\\
+& = & \overset{m}{\underset{i=1}{\sum}}\left[ y_i\log\left(\frac{e^{\w^\top \x_i}}{1+e^{\w^\top \x_i}}\right) + \left(1-y_i\right)\log\left(\frac{1}{1+e^{\w^\top\x_i}}\right) \right]\\
+& = & \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]
+\end{array}
+$$
+And therefore, choosing the function $h\in\Hc_{logistic}$ by applying the maximum likelihood principle means that: 
+\begin{equation}
+\widehat{\w}\coloneqq \underset{\w\in\R^{d+1}}{argmax} \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]
+\label{eqn:logistic_opt}
+\end{equation}
+
+
+\begin{remark}
+	Instead of deriving the learner using the maximum likelihood principle, we could derive it using the ERM principle with the following loss function: $\ell\left(h_{\w}\right)\coloneqq \log\left(1+\exp\left(-y\inprod{\w}{\x}\right)\right)$. We would have reached the same optimization expression.
+\end{remark}
+
+\subsection{Computational Implementation}
+Now that we have defined the hypothesis class and an optimization problem to find the desired hypothesis, the next step is finding an efficient algorithm to solve it. By working with the logistic function, the resulting log-likelihood expression is \textbf{concave} function of the optimization variable $\w$. This means, that instead of solving the maximization problem \ref{eqn:logistic_opt} we can solve the minimization of minus the log-likelihood, which is convex. As such, there are general algorithms for finding the minima of such functions.
+\\~\\
+While there is no closed form for the maximizer $\widehat{\w}$, as logistic regression is a very useful learner, there is a custom iterative algorithm that usually converges quickly to $\widehat{\w}$. This algorithm is based on \textbf{Newton-Raphson} iterations.
+
+\todo{Do we want to add explanations about the Newton-Raphson iterations?}
+\subsection{Interpretability}
+One important properly of the logistic regression learner is interpretability both in the sense of which features were important for the model and why was a certain prediction given. When working with $\Xc=\R^d$, we gather many feature, and might think that some of them are important for prediction while others less. Similar to linear regression, we are able to ask "which features were important" for the model by simply investigating the entries of the fitted coefficients vector $\w$. Feature corresponding to coefficients of values close to zero have a small impact on prediction and therefore these features are less important for the model. Features corresponding to coefficients of values far from zero have a large impact on prediction and are therefore important for the model.
+\\~\\
+Then, for a given sample $\x$, by looking at entries corresponding to important features we can understand why the model predicted $\widehat{y}$. If in entries of $\x$ corresponding important features there are large (positive or negative) values, they will have much influence the outcome. If these values are of same sign as of the coefficients then the expression $\w^\top\x$ will be larger, increasing the likelihood of the prediction being $1$. If these values are of opposite signs to the coefficients then the expression $\w^\top\x$ will become smaller, decreasing the likelihood of the prediction being $1$.
+
+
+
+\section{Bayes Classifiers}
+
+\todo{Matan - need to be written - Begin with defining $\Dc$ over $\Xc\times\Yc$}
+\todo{Then add notions of posterior(likelihod), prior and joint distributions}
+
+\subsection{Bayes Optimal Classifier}
+\todo{From the above derive the Bayes optimal}
+\subsection{Naive Bayes}
+\subsection{Linear Discriminant Analysis}
+\subsection{Quadratic Discriminant Analysis}
 
 \section{Nearest Neighbors}
 Nearest Neighbors learners predict the label of a new sample based on a set of "nearset" training samples. This means that it has no hypothesis class and no training stage per se. As prediction is based on some subset of training samples, that is determined by "closeness" to some newly given sample, the training step of the learner consists only of storing the training data so it is available for the learner when performing predictions.
@@ -561,101 +729,7 @@ Before we introduced the CART heuristic we described that solving the ERM princi
 \subsection{Pruning a Decision Tree}
 \todo{Add explanation about pruning}
 
-\section{Bayes Classifiers}
-\todo{Matan - need to be written - Begin with defining $\Dc$ over $\Xc\times\Yc$}
-\todo{Then add notions of posterior(likelihod), prior and joint distributions}
 
-\subsection{Bayes Optimal Classifier}
-\todo{From the above derive the Bayes optimal}
-\subsection{Naive Bayes}
-\subsection{Linear Discriminant Analysis}
-\subsection{Quadratic Discriminant Analysis}
-
-\section{Logistic Regression}
-\subsection{A Probabilistic Model For Noisy Labels}
-Recall the statistical model for linear regression when assuming Gaussian errors (\ref{lin_reg_stat_model}), $\y=\X\w+\eps$ where $\eps\sim\Nc\left(0,\sigma^2I_d\right) $. Notice that as $\eps$ is a random variable, $\y$ too is a random variable distributing as a multi-variate Gaussian:
-$$ \y\sim\Nc\left(\X\w,\sigma^2I_d\right) $$
-
-Focusing on a pair $\left(\x_i,y_i\right)$, we can think of the above as the \textbf{conditional probability} of $y_i$ given $\x_i$: $$ p\left(y_i|\x_i,\w\right) =\Nc\left(y_i|\phi_{\w}\left(\x_i\right),\sigma^2\right)\quad \text{where}\quad \phi_{\w}\left(\x\right)=\w^\top\x$$
-where we also condition on $\w$ to explicitly state the dependence on the model parameters. In other words, we assumed that each sample $\left(\x,y\right)$ is such that the \textbf{expected value} of the label $y$ is linear in $\x$. As we are dealing with a regression model and $y_i\in\R$, the support of the random variable $y_i|\x_i,\w$ is $\R$. 
-\\~\\
-Let us adapt the model above to fit for classification problems. We would like to assume that $y_i$ distributes \textbf{Bernoulli} with a probability $p\left(\x_i\right)$ that somehow relates with $\x_i$, and captures how likely is $y_i$ being $1$: $$ p\left(y_i|\x_i\right)=Ber\left(y_i|p\left(\x_i\right)\right) $$
-How shall $p\left(\x_i\right)$ relate with $\x_i$? Unlike the linear regression model, we cannot assume a linear function $\phi_{\w}\left(\x\right)=\w^\top\x$ as $\phi_{\w}\in\R$ while $p\left(\x_i\right)$ is restricted to $\left[0,1\right]$. Instead, we would like to choose some \textbf{link} function $\phi_{\w}:\R\rightarrow\left[0,1\right]$ that is monotone increasing and maps $\left(-\infty,\infty\right)$ bijectively to $\left(0,1\right)$. Define the relation to be
-\begin{equation}
-$$ p\left(y_i|\x_i,\w\right) = Ber\left(y_i|\phi_{\w}\left(\x_i\right)\right), \quad \phi_{\w}\coloneqq sigm\left(\w^\top\x\right)$$
-\label{eqn:logistic_model}
-\end{equation}
-where $sigm$ is the \textbf{sigmoid} function, also known as the \textbf{logit} function: $$ sigm\left(\vv{a}\right)\coloneqq\frac{e^{\vv{a}}}{e^{\vv{a}} + 1} $$
-This function is indeed monotone increasing and maps $\left(-\infty,\infty\right)$ bijectively to $\left(0,1\right)$.
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/classification/figures/logistic.png}
-	\caption{\todo{todo}}
-\end{figure}
-
-
-\begin{itemize}
-	\item As $\w^\top\x\rightarrow -\infty$ then $sigm\left(\w^\top\x\right)\rightarrow 0$. This means that it is ``very unlikely`` that the label is $1$:  $p\left(y_i=1|\x_i,\w\right)\rightarrow 0$. 
-	\item As $\w^\top\x\rightarrow \infty$ then $sigm\left(\w^\top\x\right)\rightarrow 1$. This means that it is ``very likely`` that the label is $1$: $p\left(y_i=1|\x_i,\w\right)\rightarrow 1$. 
-\end{itemize}
-
-
-\begin{remark}
-In \ref{eqn:logistic_model} we modeled the logistic regression model for binary classification problems. Notice that the Bernoulli distribution can be seen as a private case of the Multinomial distribution $Multinomial\left(p_1,\ldots,p_K\right),\,\,\sum_pi=1, 0\leq p_i\leq 1$. We can expand the above logistic regression model to fit multi-classification problems by extending the sigmoidal function to what is known as the softmax function $\sigma\left(\vv{a}\right)=e^{\vv{a}_i}/\sum^K_{j=1}e^{\vv{a}_j}$
-\end{remark}
-
-\subsubsection{The Hypothesis Class}
-So we would like to define the hypothesis class of logistic regression as: 
-\begin{equation}
-$$\Hc_{logistic}\coloneqq\left\{h_{\w}\left(\x\right)=sigm\left(\w^\top\x\right)|\w\in\R^{d+1}\right\} $$ 
-\label{eqn:logisitc_hypothesis_class}
-\end{equation}
-However, notice that defining the hypotheses in such manner means that $h_{\w}:\R^{d+1}\rightarrow\left[0,1\right]$ and not $h_{\w}:\R^{d+1}\rightarrow\left\{0,1\right\}$ as required for classification problems. Since $\left\{0,1\right\}\subset\left[0,1\right]$, we can use the training sample to select a function in $\Hc_{logistic}$. This means we will be able to train a model, but how will we predict over new samples? Suppose our learner chose some $h_{\w}\in\Hc_{logistic}$. As we think about $h_{\w}\left(\x\right)$ as an estimate of the probability that the label corresponding to $\x$ is $1$, we can use it for classification. If $h_{\w}\left(\x\right)$ is low the label is likely to be $0$. If $h_{\w}\left(\x\right)$ is high, the label is likely to be $1$. Choosing some \textbf{cutoff} value $\alpha\in\left[0,1\right]$, our class prediction will be: $\widehat{y}\coloneqq \indc{h_{\w}\left(\x\right)>\alpha} $. To choose a fitting value for $\alpha$ we can calculate the Type-I and Type-II errors of the classifier and plot its ROC curve (\autoref{error_types} and \autoref{roc})
-
-
-\subsubsection{Learning Via Maximum Likelihood}
-Once we have defined the logistic regression model (\ref{eqn:logistic_model}) and hypothesis class (\ref{eqn:logisitc_hypothesis_class}), we would like to come up with a learner. To do so we will use the maximum likelihood principle. Recall, that by the maximum likelihood principle, we estimate the parameters (the desired hypothesis) as those that have the highest probability, given the data.
-\\~\\
-Let $\trainset$ be our sample of independent observations, assuming that $\y_i\sim Ber\left(\phi_{\w}\left(\x\right)\right)$ where $\phi$ is the logistic function. The likelihood of $\w\in\R^{d+1}$ is: 
-$$
-\begin{array}{ccl}
-\Lc\left(\w\right|\X,\y) & = & \Prob\left(y_1,\ldots,y_m|\X,\w\right) \,\, = \,\, \prod \Prob\left(y_i|\x_i,\w\right)\\
-& = & \underset{i:y_i=1}{\prod}\Prob\left(y_i|\x_i,\w\right)\cdot \underset{i:y_i=0}{\prod}\Prob\left(y_i|\x_i,\w\right)\\
-& = & \underset{i:y_i=1}{\prod} p_i\left(\w\right) \cdot \underset{i:y_i=0}{\prod} \left( 1-p_i\left(\w\right)\right)\\
-& = & \prod p_i\left(\w\right)^{y_i} \left(1-p_i\left(\w\right)\right)^{1-y_i}
-\end{array}
-$$
-where $p_i\left(\w\right)=\phi_{\w}\left(\x_i\right)$. Since the log function is monotone increasing we can maximize the log-likelihood $\ell\left(\w\right)\coloneqq \log\Lc\left(\w\right)$ instead: $$
-\begin{array}{ccl}
-\ell\left(\w|\X,\y\right) & = & \overset{m}{\underset{i=1}{\sum}}\left[y_i\log\left(p_i\left(\w\right)\right)+\left(1-y_i\right)\log\left(1-p_i\left(\w\right)\right)\right]\\
-& = & \overset{m}{\underset{i=1}{\sum}}\left[ y_i\log\left(\frac{e^{\w^\top \x_i}}{1+e^{\w^\top \x_i}}\right) + \left(1-y_i\right)\log\left(\frac{1}{1+e^{\w^\top\x_i}}\right) \right]\\
-& = & \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]
-\end{array}
-$$
-And therefore, choosing the function $h\in\Hc_{logistic}$ by applying the maximum likelihood principle means that: 
-\begin{equation}
-$$ \widehat{\w}\coloneqq \underset{\w\in\R^{d+1}}{argmax} \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]  $$
-\label{eqn:logistic_opt}
-\end{equation}
-
-
-\begin{remark}
-Instead of deriving the learner using the maximum likelihood principle, we could derive it using the ERM principle with the following loss function: $\ell\left(h_{\w}\right)\coloneqq \log\left(1+\exp\left(-y\inprod{\w}{\x}\right)\right)$. We would have reached the same optimization expression.
-\end{remark}
-
-\subsection{Computational Implementation}
-Now that we have defined the hypothesis class and an optimization problem to find the desired hypothesis, the next step is finding an efficient algorithm to solve it. By working with the logistic function, the resulting log-likelihood expression is \textbf{concave} function of the optimization variable $\w$. This means, that instead of solving the maximization problem \ref{eqn:logistic_opt} we can solve the minimization of minus the log-likelihood, which is convex. As such, there are general algorithms for finding the minima of such functions.
-\\~\\
-While there is no closed form for the maximizer $\widehat{\w}$, as logistic regression is a very useful learner, there is a custom iterative algorithm that usually converges quickly to $\widehat{\w}$. This algorithm is based on \textbf{Newton-Raphson} iterations.
-
-\todo{Do we want to add explanations about the Newton-Raphson iterations?}
-\subsection{Interpretability}
-One important properly of the logistic regression learner is interpretability both in the sense of which features were important for the model and why was a certain prediction given. When working with $\Xc=\R^d$, we gather many feature, and might think that some of them are important for prediction while others less. Similar to linear regression, we are able to ask "which features were important" for the model by simply investigating the entries of the fitted coefficients vector $\w$. Feature corresponding to coefficients of values close to zero have a small impact on prediction and therefore these features are less important for the model. Features corresponding to coefficients of values far from zero have a large impact on prediction and are therefore important for the model.
-\\~\\
-Then, for a given sample $\x$, by looking at entries corresponding to important features we can understand why the model predicted $\widehat{y}$. If in entries of $\x$ corresponding important features there are large (positive or negative) values, they will have much influence the outcome. If these values are of same sign as of the coefficients then the expression $\w^\top\x$ will be larger, increasing the likelihood of the prediction being $1$. If these values are of opposite signs to the coefficients then the expression $\w^\top\x$ will become smaller, decreasing the likelihood of the prediction being $1$.
-
-\subsection{Lab: Logistic Regression} 
 
 
 \section{Summary}

@@ -194,6 +194,7 @@
 \newtheorem{definitionT}{Definition}[section]
 \newtheorem{corollaryT}[dummy]{Corollary}
 \newtheorem{claimT}[dummy]{Claim}
+\newtheorem{lemmaT}[dummy]{Lemma}
 \theoremstyle{ocrenum}
 \newtheorem{proposition}[dummy]{Proposition}
 
@@ -271,7 +272,9 @@ innerbottommargin=5pt]{cBox}
 \newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
 \newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}		
 \newenvironment{corollary}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}	
+\renewenvironment{lemma}{\begin{cBox}\begin{lemmaT}}{\end{lemmaT}\end{cBox}}
 \newenvironment{claim}{\begin{cBox}\begin{claimT}}{\end{claimT}\end{cBox}}	
+
 
 %----------------------------------------------------------------------------------------
 %	REMARK ENVIRONMENT
