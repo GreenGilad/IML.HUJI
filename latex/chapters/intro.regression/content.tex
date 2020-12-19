@@ -1,24 +1,4 @@
-\chapter{Introduction \& Linear Regression}
-\section{Introduction to Statistical Learning}
-\subsection{Estimation Theory}
-\subsubsection{Estimators}
-\subsection{Risk \& Loss Functions}
-\begin{equation}
-R\left(\theta,\widehat{\theta}\right)\coloneqq\E_\theta\left|\theta-\widehat{\theta}\right|
-\label{eqn:abs}
-\end{equation}
-
-\begin{equation}
-R\left(\theta,\widehat{\theta}\right)\coloneqq\E_\theta\left(\theta-\widehat{\theta}\right)^2
-\label{eqn:mse}
-\end{equation}
-\subsection{Learning Principles}
-\subsubsection{Empirical Risk Minimization}
-\subsubsection{Maximum Likelihood}
-\subsection{Lab: Python Data Analysis - First Steps}
-\subsection{Lab: Data Simulation and Sampling}
-\newpage
-\section{Linear Regression}
+\chapter{Linear Regression}
 
 Regression is a statistical method to model the relation between a set of explanatory variable (i.e features) and a scalar response, also referred to as dependent variable. Therefore, our sample domain is $\Xc=\R^d$ and our response set is $\Yc=\R$. We assume that there exists some deterministic (unknown to us) function $f:\Xc\rightarrow\Yc$ that is \textit{underlying} the relation between each sample $x$ and it's response $y$.
 
@@ -116,9 +96,9 @@ So a necessary condition for $\w$ to be a minimizer of the objective is to be a 
 \label{eqn:normal_eq}
 \end{equation}
 
-Let us show that $\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is the desired minimizer. Before proving so we will first make an assumption over our data $\X,\y$. We will assume that the different features (i.e columns of $\X$) are linearly independent. We will make this assumption in all of the models we will discuss in the course. %TODO - explain why it is okay to assume so?
+Let us show that $\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is the desired minimizer. Before proving so we will first make an assumption over our data $\X,\y$. We will assume that the different features (i.e columns of $\X$) are linearly independent. We will make this assumption in all of the models we will discuss in the course.
 
-\begin{theorem}[The Non-Singular Case]
+~\\\begin{theorem}[The Non-Singular Case]
 	Let $\X$ be a design matrix with $m$ observations and $d$ explanatory variables, and $\y$ a response vector. If $d \leq m$ then $\widehat{\w}=\left[\X^\top\X\right]^{-1}\X^\top\y$ is a unique minimizer of \eqref{eqn:opt_rss}. That is, for any $\w\neq\widehat{\w}\quad \norm{\y-\X\w}> \norm{\y-\X\widehat{\w}}$
 \end{theorem}
 \begin{proof}
@@ -307,25 +287,28 @@ Let us think
 
 
 \section{Polynomial Fitting}
-Using the tools of linear regression, we could also learn non-linear predictors. In fact, it can be used to find predictors that are a linear combination of some set of functions $\phi_0,\ldots,\phi_k$. Consider the following special case of polynomial fitting: Let $x_1,\ldots,x_m\in\R$ and $y_1,\ldots,y_m\in\R$. We would like to describe a polynomial relation between $\Xc$ and $\Yc$, of degree at most $k\in\N$. The hypothesis class is: 
+
+Let us expand the model of linear regression. Suppose that instead of modeling the linear relation between $\Xc$ and $\Yc$ as $y=\x^\top\w+\eps$ we introduce a set of functions $h_1,\ldots,h_k$ such that $h_j:\R^d\rightarrow\R^k$. We then define the relation as: $$y_i=\sum_{j=1}^kh_j\left(\x\right)^\top\w_i$$
+
+These functions $h_1,\ldots,h_k$, that are referred to as \textit{basis functions}, enable us to describe a relation that is \textbf{linear in the parameters} $\w$ but could be non-linear in the original input $\x$. One specific case is of polynomial fitting. Let $x_1,\ldots,x_m\in\R$ and $y_1,\ldots,y_m\in\R$. We would like to describe a polynomial relation between $\Xc$ and $\Yc$, of degree at most $k\in\N$. The hypothesis class is: 
 \begin{equation}
 \Hc^k_{poly}=\left\{x\mapsto p_{\w}\left(x\right)| \w\in\R^{k+1}\right\}
 \label{eqn:poly_reg}
 \end{equation}
-where $p_{\w}\left(x\right)=\sum^{K}_{i=1}w_i x^i$. In this case, the set of functions is given by $\phi_i\left(x\right)=x^i$ for any $i\in\left\{0,\ldots,k\right\}$. Then denote $\phi\left(x\right)\coloneqq\left(\phi_0\left(x\right),\ldots,\phi_k\left(x\right)\right)^\top$. Thus, a polynom of degree at most $k$ is given by:
-$$ p_{\w}\left(x\right)=\sum^k_{i=0}w_i\phi_i\left(x\right)=\phi\left(x\right)^{\top} \w=\left\langle\phi\left(x\right),\w\right\rangle $$
+where $p_{\w}\left(x\right)=\sum^{K}_{i=1}w_i x^i$. In this case, we define the set of basis functions to be $h_j\left(x\right)=x^j$ for any $j\in\left\{0,\ldots,k\right\}$. Then denote $h\left(x\right)\coloneqq\left(h_0\left(x\right),\ldots,h_k\left(x\right)\right)^\top$. Thus, a polynomial of degree $k$ is given by:
+$$ p_{\w}\left(x\right)=\sum^k_{j=0}h_j\left(x\right)\w_j= \left\langle h\left(x\right),\w\right\rangle =h\left(x\right)^{\top} \w $$
 
-As before we want to find a coefficients vector $\w$. Given a sample $\trainset$ we transform it to a sample $\widetilde{S}\coloneqq\left\{\left(\phi\left(x_i\right),y_i\right)\right\}^m_{i=1}$, and solve the following LS problem: $$ \widehat{w}\coloneqq\underset{\w\in\R^{k+1}}{argmin}\frac{1}{m}\sum^m_{i=1}\left(\phi\left(x_i\right)^\top \w -y_i\right)^2 $$
+As before we want to find a coefficients vector $\w$. Given a sample $\trainset$ we transform it to a sample $\widetilde{S}\coloneqq\left\{\left(h\left(x_i\right),y_i\right)\right\}^m_{i=1}$, and solve the following LS problem: $$ \widehat{w}\coloneqq\underset{\w\in\R^{k+1}}{argmin}\frac{1}{m}\sum^m_{i=1}\left(h\left(x_i\right)^\top \w -y_i\right)^2 $$
 
-Let us notice that the design matrix $\X$ defined over the transformed data is the Vandermonde matrix:
+Notice that the design matrix $\X$ defined over the transformed data is the Vandermonde matrix:
 $$
 \X =
 \left[
 \begin{array}{ccc}
-\horzbar & \phi\left(x_1\right) & \horzbar \\
-\horzbar & \phi\left(x_2\right) & \horzbar \\
+\horzbar & h\left(x_1\right) & \horzbar \\
+\horzbar & h\left(x_2\right) & \horzbar \\
 & \vdots    & \\
-\horzbar & \phi\left(x_m\right) & \horzbar
+\horzbar & h\left(x_m\right) & \horzbar
 \end{array}
 \right] = 
 \left[
@@ -339,6 +322,10 @@ $$
 $$
 
 Since we assume that the $x_i$'s are different from one another, the design matrix $\X$ is of full rank. This means that solving this linear (in $\w$) system of equations can be done as we have seen for the non-singular case above.
+
+\begin{remark}
+Here we have seen polynomial fitting where $\Xc=\R$. With very little adaptation, we could also allow the input data to be $\Xc=\R^d,\,\,d>1$. In such cases the defined polynomial could include terms of multiplication of two (or more) features. We will encounter such an example in \ref{kernel_method}.
+\end{remark}
 
 \todo{Add graphs for polynomial fitting?}
 

@@ -112,21 +112,80 @@ $$
 and $trace\left(U^\top A U\right) = trace\left(diag\left(\lambda_{1},\ldots,\lambda_{k},0,\ldots,0\right)\right)=\sum^k \lambda_i$, as requested.
 \end{proof}
 
+~\\\paragraph{Generalizing for affine subspaces:} In the above theorem we in-fact found the closest subspace- and not the closest affine subspace to the data. To find the closest affine subspace, we would like to allow the mapping $W$ to be \textbf{affine}. To achieve this we generalize the above by considering $W:\R^d\rightarrow\R^k$ to be of the form $$ W\left(\x\right)\coloneqq\widetilde{W}\left(\x-\mu\right),\quad \mu\in\R^d,\, \widetilde{W}:\R^d\rightarrow\R^k$$ 
+This allows us to ``shift`` the data before applying the linear map $\widetilde{W}$. When adding $\mu$ to the optimization problem above, we find that the minimizer $\mu$ is given by: $ \mu = \frac{1}{m}\sum \x_i $. This is the empirical mean of the data, often denoted by $\overline{\x}$. So, in order to find the closest affine subspace to the data we center the matrix $A$: $$ A\coloneqq \sum_{i=1}^m \left(\x_i -\overline{\x}\right)\left(\x_i -\overline{\x}\right)^\top $$
 
+yielding the following pseudo-code for the PCA algorithm:
 
+\begin{algorithm}
+	\caption{PCA}\label{pca_pseudo}
+	\begin{algorithmic}
+		\Procedure{PCA}{$\X$, $k$}\Comment{$\X$ The design matrix of $m$ samples and $d$ features}
+		\State Compute $A\gets \sum_{i=1}^m \left(\x_i-\overline{\x}\right)\left(\x_i-\overline{\x}\right)^\top$ 
+		\State Let $\vv{u}_1,\ldots,\vv{u}_k$ be the eigenvectors of $A$ corresponding the largest eigenvalues
+		\State \textbf{return} $\vv{u}_1,\ldots,\vv{u}_k$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+~\\ The eigenvalues of $A$, $\lambda_1\geq\ldots\geq\lambda_d$ are referred to as the \textbf{Principal Values} of $\X$. The eigenvectors of $A$, $\vv{u}_1,\ldots,\vv{u}_d$ are referred to as the \textbf{Principal Vectors}. Notice that the matrix $A$ is a $d$-by-$d$ positive semi-definite matrix. Therefore
 \subsubsection{Maximum Retained Variance}
+
 \todo{show that minimizes var}
 \todo{geometric view}
+\todo{explained variance}
+
+
 
 \subsubsection{Projection- vs. Coordinates of Data-Points}
 \subsubsection{Variants of PCA}
 \subsection{Euclidean Embedding}
 
 \section{Clustering}
+A very useful set of learning problems is of clustering. Often, either as part of data exploration or as part of the main analysis, we are interested in partitioning our data into \textbf{meaningful} groups. For example, given a corpus of images we might want to divide them into different groups such as nature/urban/people/etc. photographs; or, given the set of genes in the human genome, we might want to group together genes associated with specific diseases. In both these examples we are only given the samples (images or genes) but we do not have any \textbf{ground truth} (labels). We are not given the information of what is seen in each image, nor for each disease what genes are associated with it. 
+
+~\\We would therefore want to define some measure of \textit{similarity} between samples of a given domain. Using this similarity we could split the data into different subsets, where intuitively samples within a given set are \textit{more similar} to one another compared to samples of different sets.
+
+\begin{remark}
+This form of clustering, where we partition the data into distinct non-overlapping groups is also referred to as ``hard assignment`` as each sample is assigned to one specific subset. Sometimes, rather than assigning to some specific cluster we are interested in ``partly assigning`` to multiple clusters. This is referred to as ``soft assignment/clustering``.
+\end{remark}
+
 \subsection{K-Means}
-\subsubsection{}
-\subsubsection{K-Means++}
-\subsection{Mixture of Gaussians}
-\subsubsection{Expectation Minimization Learning Principal}
-\subsubsection{Estimating Model Parameters}
-\subsection{Spectral Clustering}
+Though there are many different approaches to perform clustering, common to many is the notion of defining some representative data-point of the cluster. Then, clustering of data-points give the given sample is perform with respect to these cluster representatives.
+
+\begin{definition}
+A partition of a dataset $\left\{\x_i\right\}_{i=1}^m$ is a set $C_1,\ldots,C_k$ such that $\left\{\x_i\right\}_{i=1}^m = \biguplus_{j=1}^k C_j$
+\end{definition}
+
+Given some partition over the data and the representative data-points, we can define a \textbf{cost function} for the partition. For some metric (i.e. distance function) over the data $d:\Xc\times\Xc\rightarrow \R_+$ we define:
+\begin{equation}
+G_d\left(C_1,\ldots,C_k, \mu_1,\ldots,\mu_k\right) \coloneqq \sum_{j=1}^k \sum_{\x\in C_j} d\left(\x,\mu_j\right)
+\end{equation}
+where $\mu_1,\ldots,\mu_k$ are the representatives of clusters $C_1,\ldots,C_k$. Using this function, the goal is to find the partitioning that minimizes the following:
+\begin{equation}
+\left\{C_1,\ldots,C_k\right\}^* = \underset{\left\{C_j,\mu_j\right\}_{j=1}^k}{argmin} G_d\left(C_1,\ldots,C_k,\mu_1,\mu_k\right) = \underset{\left\{C_j,\mu_j\right\}_{j=1}^k}{argmin} \sum_{j=1}^k \sum_{\x\in C_j} d\left(\x,\mu_j\right)
+\label{eqn:cluster_cost}
+\end{equation}
+
+~\\In the case of the $k$-means algorithm the cluster representatives are chosen to be: $$ \mu_j\left(C_j\right) \coloneqq \underset{\mu\in\Xc}{argmin}\sum_{\x\in C_j} d\left(\x,\mu\right)  $$
+
+In order to find the minimizers of \ref{eqn:cluster_cost} we would have to navigate the space of all possible partitions of $m$ objects into $k$ subsets. As there are an exponential amount of such subsets, minimizing the cost function $G$ is NP-hard, and we must resort to \textbf{heuristics}. The most famous heuristic for minimizing $G$, when $d$ is the Euclidean distance, is k-means.
+
+\begin{algorithm}
+	\caption{K-Means}\label{kmeans_pseudo}
+	\begin{algorithmic}
+		\Procedure{K-Means}{$\X$, $k$}\Comment{$\X$ The design matrix of $m$ samples and $d$ features}
+		\State Choose initial centroids $\mu_1,\ldots,\mu_k$.
+		\While{Not converged}
+			\State \textbf{Assignment:} Assign each point $\x_i$ to the centroid closest to it: $$ C_j^{\left(t\right)}\coloneqq \left\{\x | \mu_j = \underset{\mu}{argmin}\,d\left(\x,\mu\right),\x\in\X\right\} $$
+			\State \textbf{Update}: Adjust cluster centroids by: $ \forall j\in\left[k\right] \quad \mu_j^{\left(t+1\right)} \coloneqq \left|C_j^{\left(t\right)}\right|^{-1}\sum_{\x\in C_j^{\left(t\right)}}\x $
+		\EndWhile
+		\State \textbf{return} $C_1,\ldots,C_k$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+~\\ This clustering approach uses \textbf{Lloyd's Algorithm} to minimize $G$ using an iterative strategy where each time we \textbf{alternate} between minimizing two terms. We first define a partition of the dataset, associating points to subsets by their nearest centroid. These subsets are called Voronoi cells. Then we re-calculate the cluster's centroid.
+
+~\\\todo{finish - show example of run (animation)\\discuss suboptimal solutions and multiple optimal solutions. Discuss outliears\\ Choosing $k$ (and recall elbow plot in linear regression)}
+
