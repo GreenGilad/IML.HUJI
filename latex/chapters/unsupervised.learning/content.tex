@@ -122,7 +122,7 @@ yielding the following pseudo-code for the PCA algorithm:
 	\begin{algorithmic}
 		\Procedure{PCA}{$\X$, $k$}\Comment{$\X$ The design matrix of $m$ samples and $d$ features}
 		\State Compute $A\gets \sum_{i=1}^m \left(\x_i-\overline{\x}\right)\left(\x_i-\overline{\x}\right)^\top$ 
-		\State Let $\vv{u}_1,\ldots,\vv{u}_k$ be the eigenvectors of $A$ corresponding the largest eigenvalues
+		\State Let $\vv{u}_1,\ldots,\vv{u}_k$ be the eigenvectors of $A$ corresponding the largest eigenvalues.
 		\State \textbf{return} $\vv{u}_1,\ldots,\vv{u}_k$
 		\EndProcedure
 	\end{algorithmic}
@@ -138,8 +138,115 @@ yielding the following pseudo-code for the PCA algorithm:
 
 
 \subsubsection{Projection- vs. Coordinates of Data-Points}
-\subsubsection{Variants of PCA}
-\subsection{Euclidean Embedding}
+\subsubsection{Kernel PCA}
+The PCA algorithm discussed above is sometimes referred to as a ``Vanilla`` PCA, with many different variations of the algorithm to fit different scenarios. For one such variation, we apply kernel substitution techniques to obtain a \textbf{non-linear generalization} of PCA known as Kernel PCA (Sch\"olkopf \textit{et al.,} 1998). 
+\\~\\Recall the general setup of Kernel methods: Suppose some algorithm $\Ac$ and let $\X\subset\Xc$ be an $m$-by-$d$ design matrix. For some mapping function $\phi:\Xc\rightarrow\mathcal{F}$, we first apply $\phi\left(\X\right)\coloneqq\left\{\phi\left(\x\right) | \x\in\X\right\}$ and then run $\Ac$ over $\phi\left(\X\right)$. By selecting $\phi$ is a smart manner we might be able to achieve a mapping to:
+~\\\begin{itemize}
+	\item A more informative feature space, where our algorithm will perform better (recall the use in Soft-SVM for non-separable datases \todo{add reference}).\\
+	\item A new feature space of a much higher dimension (perhaps even of infinite dimension) while still being able to efficiently compute the transformation (i.e. $\phi$ a valid kernel function and use of the Kernel Trick).
+\end{itemize}
+
+~\\To apply the Kernel Trick on an algorithm $\Ac$ we require the algorithm to never access the data $\x\in\X$ directly, but only though the use of inner-products. Thus, in order to efficiently perform such kernel transformation and achieve a Kernel PCA algorithm, we must first show that we can re-write PCA to access the data only though inner-products.
+
+\begin{claim}
+Let $\X$ be a $m$-by-$d$ centered design matrix. Solving the PCA eigenvalue problem for $A=\X^\top\X$ is equivalent to solving the eigenvalue problem for $K=\X\X^\top$.
+\end{claim}
+\begin{proof}
+
+In PCA we solve the eigenvalue problem of the matrix $A=\X^\top\X=\sum\x_i\x_i^\top$. We would like to represent this sum of outer-products via inner-products. Let $v$ be an eigenvector of $A$ corresponding eigenvalue $\lambda$ then: $$ \begin{array}{c} \lambda v = Av = \sum \x_i\x_i^\top v = \sum \inprod{\x_i}{v}\x_i \\ \Downarrow \\ v = \sum \frac{1}{\lambda} \inprod{\x_i}{v}x_i \end{array} $$
+
+This means that solving an eigenvalue problem for $A$ is equivalent to finding a vector $v$ such that $$ \lambda\inprod{\x_i}{v} = \inprod{\x_i}{Av}\quad i=1,\ldots,m$$
+Fix $i\in\left[m\right]$ and denote $\alpha_i = \frac{1}{\lambda}\inprod{\x_i}{v}$, so:
+\begin{align}
+\begin{array}{lcl}
+\lambda\inprod{\x_i}{\sum_j \alpha_j\x_j} & = & \inprod{\x_i}{A\left(\sum_j \alpha_j\x_j\right)}\\
+& = & \\
+& = & \sum_j \alpha_j \inprod{\x_i}{A\x_j}\\
+& = & \sum_j \alpha_j \inprod{\x_i}{\sum_l \x_l\x_l^\top \x_j}\\
+& = & \sum_j \alpha_j \sum_l\inprod{\x_l}{\x_j}\x_l\\
+& = & \sum_j \alpha_j \sum_l \inprod{\x_l}{\x_j}\inprod{\x_i}{\x_l}\\
+& \Downarrow &\\
+\lambda\sum_j \alpha_j\inprod{\x_i}{\x_j} & = & \sum_j \alpha_j \sum_l \inprod{\x_l}{\x_j}\inprod{\x_i}{\x_l} \label{eqn:kernel_pca_1}
+\end{array}
+\end{align}
+
+Which in matrix notation is $\lambda K \alpha = K^2 \alpha$ where we define $K$ to be the Gram matrix over $\x_1,\ldots,\x_m$: $K_{ij} = \x_i^\top\x_j$, or equivalently $K=\X\X^\top$. For eigenvectors of $K$, not corresponding to zero eigenvalues the solution of $\lambda K \alpha = K^2 \alpha$ is equivalent to that of $\lambda \alpha = K \alpha$.
+\end{proof}
+
+Using the above claim, once we find $\alpha^{\left(1\right)},\ldots,\alpha^{\left(m\right)}$ the eigenvectors of $K$ we can then:
+\begin{itemize}
+	\item Obtain the eigenvectors of $A$ by $ v^{\left(l\right)}=\sum_{i=1}^m \alpha_i^{\left(l\right)}\x_i $.
+	\item Project the data-points on the low dimension subspace by: 
+	\begin{equation}
+	\widetilde{\x}_l \coloneqq \inprod{v^{\left(l\right)}}{\x} = \sum_i \alpha^{\left(l\right)}\inprod{\x_i}{\x}
+	\label{eqn:kernel_pca_2}
+	\end{equation}
+\end{itemize}
+
+~\\Notice that by showingg that we can calculate the eigenvalues \ref{eqn:kernel_pca_1} and the projection \ref{eqn:kernel_pca_2} using the data only though inner-products we have shown that the Kernel Trick is applicable for the PCA algorithm. Thus, for a kernel function $\phi$ where $A=\sum\phi\left(\x_i\right)\phi\left(\x_i\right)^\top$:
+~\\\begin{itemize}
+	\item Solve the eigenvalue problem $\lambda\alpha = K\alpha$, for $K_{ij} = \inprod{\phi\left(x_i\right)}{\phi\left(\x_i\right)}$.
+	\item Project the data-points by: $$	\widetilde{\x}_l \coloneqq \inprod{v^{\left(l\right)}}{\phi\left(\x\right)} = \sum_i \alpha^{\left(l\right)}\inprod{\phi\left(\x_i\right)}{\phi\left(\x\right)} = \sum_i \alpha^{\left(l\right)} k\left(\x_i,\x\right) $$
+\end{itemize}
+
+The above claim assumes the given design matrix $\X$ is centered. Unlike PCA, we cannot compute the mean and reduce it as it would require to compute $\phi\left(\X\right)$. Therefore, we would need to use a different approach:
+
+\begin{lemma}\label{kernel_pca_centering}
+Let $K$ be the Gram matrix of $\phi$ over the dataset $\X$. The centered Gram matrix to be used in the Kernel PCA algorithm is given by: $$ \widetilde{K} = K -\vv{1}_m K - K \vv{1}_m + \vv{1}_m K \vv{1}_m$$
+\end{lemma}
+\begin{proof}
+Denote $\widetilde{\phi}\left(\x\right)$ the projected data-point after centerlizing: $$ \widetilde{\phi}\left(\x\right)=\phi\left(\x\right)-\frac{1}{m}\sum_l \phi\left(\x_l\right) $$ where $\vv{1}_m\in\R^{m\times m},\,\,\left[\vv{1}_m\right]_{ij} = 1/m$.
+So the elements of the centered Gram matrix are given by:
+$$
+\begin{array}{ccl}
+\widetilde{K}_{ij} & = & \inprod{\widetilde{\phi}\left(\x_i\right)}{\widetilde{\phi}\left(\x-j\right)} \\
+& = & \inprod{\phi\left(\x_i\right)-\frac{1}{m}\sum_l \phi\left(\x_l\right)}{\phi\left(\x_j\right)-\frac{1}{m}\sum_k \phi\left(\x_k\right)}\\
+& = & \phi\left(\x_i\right)^\top\phi\left(\x_j\right) -\frac{1}{m}\sum_k\phi\left(\x_i\right)^\top\phi\left(\x_k\right) -\frac{1}{m}\sum_l\phi\left(\x_l\right)^\top\phi\left(\x_j\right) + \frac{1}{m^2}\sum_{l,k}\phi\left(\x_l\right)^\top\phi\left(\x_k\right)\\
+& = & K_{ij} - \frac{1}{m}\sum_l K_{il} - \frac{1}{m^2}\sum_k K_{jk} + \frac{1}{m}\sum_{l,k}K_{lk}
+\end{array}
+$$
+which in matrix notation is $\widetilde{\phi}\left(\x\right)=\phi\left(\x\right)-\frac{1}{m}\sum_l \phi\left(\x_l\right)$.
+\end{proof}
+
+~\\So a pseudo-code for the Kernel PCA algorithm is:
+
+\begin{algorithm}
+	\caption{Kernel-PCA}\label{_kernel_pca_pseudo}
+	\begin{algorithmic}
+		\Procedure{Kernel-PCA}{$\X$, $k$, $l$}\Comment{$k$ the kernel computing $\phi$ and $l$ the dimension to reduce to}
+		\State Compute the centered Gram matrix (\ref{kernel_pca_centering}): $$ \widetilde{K} = K -\vv{1}_m K - K \vv{1}_m + \vv{1}_m K \vv{1}_m,\quad K_{ij}\coloneqq k\left(\x_i,\x_j\right) $$
+		\State Let $\alpha^{\left(1\right)},\ldots,\alpha^{\left(l\right)}$ be the eigenvectors of $\widetilde{K}$ corresponding the largest eigenvalues.
+		\State Compute the corresponding eigenvectors of $A$ by: $\vv{v}^{\left(j\right)}\coloneqq\sum_{i=1}^m \alpha_i^{\left(j\right)}\x_i$
+		\State \textbf{return} $\vv{v}^{\left(1\right)},\ldots,\vv{v}^{\left(l\right)}$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+~\\
+\begin{remark}
+The PCA algorithm seen in \autoref{pca_pseudo} diagonalizes the sample covariance matrix, which is a $d$-by-$d$ matrix and has a time complexity of $\mathcal{O}\left(d^3\right)$. If $d\gg m$ this can be computationally expensive. Though the proof of the Kernel PCA algorithm we have actually shown that we can solve the ``normal`` PCA by computing $\X\X^\top$ instead of using $\X^\top\X$. This means that time complexity is reduced to $\mathcal{O}\left(m^3\right)$ for computing $\X\X^\top$ and then $\mathcal{O}\left(m^2\cdot d\right)$ for adjusting the eigenvalues of $\X\X^\top$ to those of $\X^\top\X$. So we can update the PCA pseudo code as follows:\\
+
+\begin{algorithm}
+	\caption{PCA}\label{pca_pseudo2}
+	\begin{algorithmic}
+		\Procedure{PCA}{$\X$, $k$}\Comment{$\X$ The design matrix of $m$ samples and $d$ features}
+		\If{$m>d$}
+			\State Compute $A\gets \sum_{i=1}^m \left(\x_i-\overline{\x}\right)\left(\x_i-\overline{\x}\right)^\top$ 
+			\State Let $\vv{u}_1,\ldots,\vv{u}_k$ be the eigenvectors of $A$ corresponding the largest eigenvalues.
+			\State \textbf{return} $\vv{u}_1,\ldots,\vv{u}_k$
+		\Else
+			\State Compute $B\gets \X\X^\top$ \todo{write in format as of $A$}
+			\State Let $\vv{v}_1,\ldots,\vv{v}_k$ be the eigenvectors of $B$ corresponding the largest eigenvalues.
+			\State Compute the eigenvectors of $A$ by: $\vv{u}_i=\frac{1}{\norm{\X^\top\vv{v}_i}\X^\top\vv{v}_i}\quad i=1,\ldots,k$
+			\State \textbf{return} $\vv{v}_1,\ldots,\vv{v}_k$
+		\EndIf
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+\end{remark}
+
+\todo {Add exercise 12.26 in Bishop to explain why could remove $K$}
+
+
 
 \section{Clustering}
 A very useful set of learning problems is of clustering. Often, either as part of data exploration or as part of the main analysis, we are interested in partitioning our data into \textbf{meaningful} groups. For example, given a corpus of images we might want to divide them into different groups such as nature/urban/people/etc. photographs; or, given the set of genes in the human genome, we might want to group together genes associated with specific diseases. In both these examples we are only given the samples (images or genes) but we do not have any \textbf{ground truth} (labels). We are not given the information of what is seen in each image, nor for each disease what genes are associated with it. 
