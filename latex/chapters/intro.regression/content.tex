@@ -1,6 +1,6 @@
 \chapter{Linear Regression}
 
-Regression is a statistical method to model the relation between a set of explanatory variable (i.e features) and a scalar response, also referred to as dependent variable. Therefore, our sample domain is $\Xc=\R^d$ and our response set is $\Yc=\R$. We assume that there exists some deterministic (unknown to us) function $f:\Xc\rightarrow\Yc$ that is \textit{underlying} the relation between each sample $x$ and it's response $y$.
+Regression is a statistical method to model the relation between a set of explanatory variable (i.e features) and a scalar response, also referred to as dependent variable. Therefore, our \textit{sample domain} is $\Xc=\R^d$ and our \textit{response set} is $\Yc=\R$. We assume that there exists some deterministic (unknown to us) function $f:\Xc\rightarrow\Yc$ that is \textit{underlying} the relation between each sample $x$ and it's response $y$.
 
 \begin{figure}[!h]
 	\centering
@@ -8,7 +8,7 @@ Regression is a statistical method to model the relation between a set of explan
 	\caption{\textbf{Linear Regression Illustration:} Illustration of a regression problem with a single explanatory variable. Samples represented with red dots.}
 \end{figure}
 
-In the case of linear regression we aim to model the relation using a linear predictor function $f$. Formally, the hypothesis class of linear regressors is the set of linear functions from the domain set to the response set: 
+For reasons we discuss later (\todo{add reference to no free lunch}), whenever we try to model such a relation, we restrict ourselves to specific families of function. These families are referred to as \textit{hypothesis classes}. In the case of linear regression we aim to model the relation using a linear function $f$. Formally, we define hypothesis class of linear regressors as the set of linear functions from the domain set to the response set: 
 \begin{equation}\label{eqn:lin_reg_h}
 \Hreg\coloneqq\left\{h: h\left(x_1,\ldots,x_d\right)=w_0+\underset{i=1}{\overset{d}{\sum}}x_iw_i,\,\, w_0,w_1,\ldots,w_d\in\R\right\}
 \end{equation}
@@ -169,7 +169,7 @@ Notice that the matrix $\X^\top\X$ is a positive semi-definite matrix. Now, as w
 
 ~\\The estimator we found $\widehat{\w}$ is also referred to as the OLS estimator and is often noted as $\widehat{\w}^{OLS}$.
 
-
+~\\
 \paragraph{Neumerical Stability}
 Computers don’t calculate over $\R$, they use bits and more specifically they use floating-point arithmetics with very finite precision. A lot of non-trivial knowledge and care are required in order to understand how learning algorithms are actually implemented in software. \textit{Any} learning algorithm comes down to a lot of calculus (e.g gradients) and linear algebra (e.g. inverses) implemented in software. You should care \textit{deeply} about how algorithms are implemented and when they break numerically, as in the following example.
 
@@ -327,13 +327,17 @@ Since we assume that the $x_i$'s are different from one another, the design matr
 Here we have seen polynomial fitting where $\Xc=\R$. With very little adaptation, we could also allow the input data to be $\Xc=\R^d,\,\,d>1$. In such cases the defined polynomial could include terms of multiplication of two (or more) features. We will encounter such an example in \ref{kernel_method}.
 \end{remark}
 
-\todo{Add graphs for polynomial fitting?}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{chapters/intro.regression/figures/polyfit-scheme.png}
+	\caption{\textbf{Scheme of Polynomial Fitting:} Dataset of hourly temperature where $x_i$ denotes time of day and $y_i$ the temperature. Fitting polynomial of degree $4$.}
+\end{figure}
+
 
 \section{Bias and Variance of Estimators}
-Given a regression problem $\X,\y$ we have seen how to solve $\y=\X\w+\eps$. That is finding a vector $\w$ that satisfies: $\y\approx\X\w$. We showed that the vector minimizing the sum of square distances is given by $$ \ols = \left[\X^\top\X\right]^{-1}\X^\top\y $$
-The $\ols$ estimator is a random variable (as $\y$ is a random variable) and as such we are also interested in different properties of it.
-
-\todo{If the math chapter includes estimation theory -> move the definitions there}
+Given a regression problem $\X,\y$ we have seen how to solve $\y=\X\w+\eps$. That is, finding a vector $\w$ that satisfies: $\y\approx\X\w$. We showed that the vector minimizing the sum of square distances is given by $$ \ols = \left[\X^\top\X\right]^{-1}\X^\top\y $$
+As $\y$ is a random variable, the $\ols$ estimator is a random variable. Therefore, we could look at different properties of such estimator. Specifically, we will look at the \textit{bias} and \textit{variance} of an estimator.
+~\\
 
 \begin{definition}\label{eqn:est_bias}
 Let $\widehat{\theta}$ be an estimator of $\theta$. The \textit{bias} of $\widehat{\theta}$ is the expected deviation between $\theta$ and the estimator: $B\left(\widehat{\theta}\right)\coloneqq\E\left[\widehat{\theta}\right]-\theta$. $\widehat{\theta}$ is said to be \textit{unbiased} if $B\left(\widehat{\theta}\right)=0$.
@@ -343,9 +347,7 @@ Let $\widehat{\theta}$ be an estimator of $\theta$. The \textit{bias} of $\wideh
 Let $\widehat{\theta}$ be an estimator of $\theta$. The \text{variance} of $\widehat{\theta}$ is the expected value of the squared sampling deviations: $var\left(\widehat{\theta}\right)\coloneqq\E\left[\left(\widehat{\theta}-\E\left[\widehat{\theta}\right]\right)^2\right]$.
 \end{definition}
 
-What is the expectation in both the bias (\ref{eqn:est_bias}) and the variance (\ref{eqn:est_var}) been calculated over? An estimator is a function over a sample $S=x_1,\ldots,x_m\in\R^d$ used to estimate some parameter: $\widehat{\theta}\left(x_1,\ldots,x_m\right)\overset{?}{\approx}\theta$. As such, the expectation of $\widehat{\theta}$ is over the selection of the samples.
-\\~\\
-Going back to the $\ols$ estimator, we could ask what is it's bias and variance.
+What is the expectation in both the bias (\ref{eqn:est_bias}) and the variance (\ref{eqn:est_var}) been calculated over? An estimator is a function over a sample $S=x_1,\ldots,x_m\in\R^d$ used to estimate some parameter: $\widehat{\theta}\left(x_1,\ldots,x_m\right)\overset{?}{\approx}\theta$. As such, the expectation of $\widehat{\theta}$ is over the selection of the samples. Going back to the $\ols$ estimator, we could ask what is it's bias and variance.
 
 \begin{exercise}
 Let $\X,\y$ be a regression problem such that $\y=\X\w+\eps,\,\,\eps\sim\Nc\left(0,\sigma^2I_d\right)$ and $\widehat{\w}$ being the OLS estimator. Show that $\widehat{\w}$ is an unbiased estimator.
@@ -356,16 +358,38 @@ $$
 \E\left[\widehat{\w}\right] & = &\E\left[\left[\X^\top\X\right]^{-1}\X^\top\y\right] \\
 & = & \E\left[\left[\X^\top\X\right]^{-1}\X^\top\left(\X\w +\eps\right)\right] \\
 & = & \E\left[\left[\X^\top\X\right]^{-1}\X^\top\X\w\right] + \E\left[\left[\X^\top\X\right]^{-1}\X^\top\eps\right]\\
-& = & \E\left[\w\right] + \left[\X^\top\X\right]^{-1}\X^\top\E\left[\eps\right]\\
-& = & \w
+& = & \E\left[\w\right] + \left[\X^\top\X\right]^{-1}\X^\top\E\left[\eps\right] = \w\\
 \end{array}
 $$
 where the last equality is because $\E\left[\eps\right]=0$ and $\w\in\R^d$.
 \end{proof}
+~\\
 
-\todo{Add proof of variance?}
+To get some intuition about these two properties, let us revisit polynomial fitting. Consider the polynomial $y=x^4-2x^3-0.5x^2+1+\eps$ for $\eps\sim\Nc\left(0,2\right)$. In \autoref{anim:poly1} we choose a set of $x$ values and create 10 different datasets from this model, keeping the $x$ values consistent between datasets but sampling the noise each time: $\left\{\left\{\left(\x_i, y\left(\x_i\right) + \eps_{ij}\right)\right\}^m_{i=1}\right\}^10_{j=1},\,\, \eps_{ij}\iid\Nc\left(0,2\right)$. Then, we fit a polynomial of degree $1$. Black, red and blue points represent the true model, the observed data-points (with the sample noise) and the fitted model over the observed data-points. Notice how the different datasets yield different predicted models. This is the randomness of the prediction, driven by the randomness of the trainset. Over these datasets we can now ask, for each value of $x$, what is the average prediction and its variance:\\
+\begin{itemize}
+	\item In green is the average prediction of $y$ for a given $x$ across all datasets. The difference between the green and black lines capture the concept of the bias.
+	\item In grey is the area of $\E\left[\widehat{y}\right]\pm 2\cdot Var\left(\widehat{y}\right)$ for a given $x$, also known as the confidence interval. The wider this area is, the more out prediction of $\widehat{y}$ varies for different samples. This area captures the concept of the variance.
+\end{itemize}
 
+\begin{figure}[h!]
+	\centering
+	\animategraphics[loop,autoplay,width=0.55\textwidth]{1}{chapters/intro.regression/figures/poly-deg1-diff-samples-}{0}{9}
+	\caption{\textbf{Polynomial Fitting:} Fitted polynomial of degree $1$ over different datasets differing only in values of added sample noise. \todo{reference to github code}}\label{anim:poly1}
+\end{figure}
 
+Two phenomena are visible. The first is that the average distance of the fitted model (in green) and the true model (in black) is large. This means that our hypothesis class doesn't have sufficient expressive power to learn the true model. As such, we conclude that the \textbf{bias} of our estimator is high. The second is that the fitted models over different datasets do not differ by much. As such, we conclude that the \textbf{variance} of our estimator is low.\\
+
+~\\Next, consider the same setup as before but with the fitting of a polynomial of degree $8$ (\autoref{anim:poly8}). This time the different between the average prediction at each $x$ and the true value of $x$ is lower, while the differences between the fitted models (as indicated by the confidence intervals) is much higher. So the \textbf{bias} is low and the \textbf{variance} is high. As we enable more ``flexible`` (i.e. complex) models we are able to fit a model better to our given sample. However, as seen in \autoref{anim:poly8}, if the model is too complex we might actually be fitting a model to the noise, rather than the actual true signal. 
+\begin{figure}[h!]
+	\centering
+	\animategraphics[loop,autoplay,width=0.55\textwidth]{1}{chapters/intro.regression/figures/poly-deg8-diff-samples-}{0}{9}
+	\caption{\textbf{Polynomial Fitting:} Fitted polynomial of degree $8$ over different datasets differing only in values of added sample noise\todo{reference to github code}}\label{anim:poly8}
+\end{figure}
+
+\begin{remark}
+It is important to note that what is seen in the figures are not the bias and variance of $\ols$ themselves but how these manifest over the shown datasets. \todo{refer to relevant labs and chapters}
+\end{remark}
+~\\
 Interestingly, these two properties of bias and variance are linked. Let $\widehat{\y}=\widehat{\y}\left(S\right)$ denote the estimator of $\y$ when using $\ols$, and $\y^*$ the true $\y$ values. When solving the regression problem we wanted to minimize the mean square error between $\widehat{\y}$ and $\y^*$. What would be the expected MSE value?
 \\~\\
 Denote $\overline{\y}=\E\left[\widehat{\y}\right]$ so:
@@ -377,9 +401,9 @@ $$
 & = & var\left(\widehat{\y}\right) + B\left(\widehat{\y}\right)^2
 \end{array}
 $$
-Namely, we could \textbf{decompose} the generalization error (expected square loss between prediction and true value) into a variance component and a (squared) bias component. This means, that whenever we devise some estimator over our training data, the generalization error is influenced by both these factors. This is called the \textbf{Bias-Variance Trade-off} and we will encounter this concept multiple times throughout the course. 
-\\~\\
-\todo{Add illustration of bias-variance}
+Namely, we could \textbf{decompose} the generalization error (expected square loss between prediction and true value) into a variance component and a (squared) bias component. This means, that whenever we devise some estimator over our training data, the generalization error is influenced by both these factors. This is called the \textbf{Bias-Variance Trade-off}.
+
+\todo{Add proof of variance?}
 
 \section{Summary}
 \subsection{Exercises}

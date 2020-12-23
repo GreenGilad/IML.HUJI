@@ -1,9 +1,10 @@
 \chapter{Classification}
-\todo{add part of "how to read chapter" - where we say that for each classifier think: what is the learning principle, complexity, how to train and store, how to predict, is it interpretable?...}
-
 \section{Classification Overview}
 In the previous chapter we discussed learning a regression problem where the response was a continues value $\Yc=\R$. When the response set $\Yc$ is a finite set, this is a \textbf{classification} problem. We distinguish between classification problems where $\left|\Yc\right|=2$ (such as $\Yc=\left\{\pm 1\right\}$ or $\Yc=\left\{0,1\right\}$) and multi-classification problems where $\Yc=\left\{1,\ldots,k\right\}$. In the binary classification problem (or just "classification"), we provide a "yes"/"no" prediction. In a multi-class classification, we predict one of $k>2$ classes. For most, we restrict out discussion only to binary classification problems, though all methods below can be generalized to $k$ classes. Also, we will only deal with the Euclidean sample space $\Xc=\R^d$, namely, each sample has $d$ \textbf{features}. Therefore out setup is as follows: $ \Xc=\R^d,\Yc=\left\{\pm 1\right\} $
+~\\
 
+Throughout the chapter we discuss many different types of classifiers. For each type keep in mind the following guiding questions: (1) How does it model the classification problem? (2) What are the assumptions made on the data? (3) What is the learning principle we use? (4) How does the algorithm match the learning principle? (5) What is done in the training step and how to predict over new samples? (6) Is the model interpretable?
+~\\
 \paragraph{Classification Problems Examples}
 \begin{itemize}
 	\item Determine if a given network traffic pattern is one of a cyber attack or not.
@@ -409,6 +410,9 @@ The hyper-parameter $\lambda$ controls the trade-off between the two norm of $\w
 
 
 \subsubsection{The Kernel Method}\label{kernel_method}
+
+\todo{Go over this part - Instead of being a subsubsection set as section. Begin with motivation. Explain computability problem. Formally define valid kernel functions. Prove polynomial and Gaussian Kernels. Example of 2-order poly kernel. Show how to think of Gaussian kernel as similarity!. Show (without proving) some closure properties. Then solve SVM using kernels.}\\
+
 The three classifiers seen above (halfspace classifier, Hard-SVM and Soft-SVM) all use the halfspaces hypothesis class. Though these linear classifiers are fairly simple to implement, the hypothesis class of halfspaces is of limited power. Consider the case where $\Xc=\R$ with the following sample:
 \begin{figure}[H]
 	\centering
