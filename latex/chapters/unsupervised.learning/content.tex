@@ -131,14 +131,17 @@ yielding the following pseudo-code for the PCA algorithm:
 ~\\ The eigenvalues of $A$, $\lambda_1\geq\ldots\geq\lambda_d$ are referred to as the \textbf{Principal Values} of $\X$. The eigenvectors of $A$, $\vv{u}_1,\ldots,\vv{u}_d$ are referred to as the \textbf{Principal Vectors}. Notice that the matrix $A$ is a $d$-by-$d$ positive semi-definite matrix. Therefore
 \subsubsection{Maximum Retained Variance}
 
-\todo{show that minimizes var}
-\todo{geometric view}
-\todo{explained variance}
+\todo{show that minimizes var}\\
+\todo{geometric view}\\
+\todo{explained variance}\\
 
 
 
 \subsubsection{Projection- vs. Coordinates of Data-Points}
-\subsubsection{Kernel PCA}
+\todo{Add from notes}
+
+
+\subsubsection{Kernel PCA}\label{kernel_pca}
 The PCA algorithm discussed above is sometimes referred to as a ``Vanilla`` PCA, with many different variations of the algorithm to fit different scenarios. For one such variation, we apply kernel substitution techniques to obtain a \textbf{non-linear generalization} of PCA known as Kernel PCA (Sch\"olkopf \textit{et al.,} 1998). 
 \\~\\Recall the general setup of Kernel methods: Suppose some algorithm $\Ac$ and let $\X\subset\Xc$ be an $m$-by-$d$ design matrix. For some mapping function $\phi:\Xc\rightarrow\mathcal{F}$, we first apply $\phi\left(\X\right)\coloneqq\left\{\phi\left(\x\right) | \x\in\X\right\}$ and then run $\Ac$ over $\phi\left(\X\right)$. By selecting $\phi$ is a smart manner we might be able to achieve a mapping to:
 ~\\\begin{itemize}
@@ -282,9 +285,9 @@ In order to find the minimizers of \ref{eqn:cluster_cost} we would have to navig
 	\caption{K-Means}\label{kmeans_pseudo}
 	\begin{algorithmic}
 		\Procedure{K-Means}{$\X$, $k$}\Comment{$\X$ The design matrix of $m$ samples and $d$ features}
-		\State Choose initial centroids $\mu_1,\ldots,\mu_k$.
+		\State Choose initial centroids $\mu_1,\ldots,\mu_k$ randomly.
 		\While{Not converged}
-			\State \textbf{Assignment:} Assign each point $\x_i$ to the centroid closest to it: $$ C_j^{\left(t\right)}\coloneqq \left\{\x | \mu_j = \underset{\mu}{argmin}\,d\left(\x,\mu\right),\x\in\X\right\} $$
+			\State \textbf{Assignment:} Assign each point $\x_i$ to the centroid closest to it: $$ C_j^{\left(t\right)}\coloneqq \left\{\x | \mu_j = argmin_{\mu}\,\,d\left(\x,\mu\right),\x\in\X\right\} $$
 			\State \textbf{Update}: Adjust cluster centroids by: $ \forall j\in\left[k\right] \quad \mu_j^{\left(t+1\right)} \coloneqq \left|C_j^{\left(t\right)}\right|^{-1}\sum_{\x\in C_j^{\left(t\right)}}\x $
 		\EndWhile
 		\State \textbf{return} $C_1,\ldots,C_k$
@@ -292,7 +295,56 @@ In order to find the minimizers of \ref{eqn:cluster_cost} we would have to navig
 	\end{algorithmic}
 \end{algorithm}
 
+
 ~\\ This clustering approach uses \textbf{Lloyd's Algorithm} to minimize $G$ using an iterative strategy where each time we \textbf{alternate} between minimizing two terms. We first define a partition of the dataset, associating points to subsets by their nearest centroid. These subsets are called Voronoi cells. Then we re-calculate the cluster's centroid.
 
-~\\\todo{finish - show example of run (animation)\\discuss suboptimal solutions and multiple optimal solutions. Discuss outliears\\ Choosing $k$ (and recall elbow plot in linear regression)}
 
+\begin{figure}[h!]
+	\centering
+	\animategraphics[loop,autoplay,width=0.45\textwidth]{1}{chapters/unsupervised.learning/figures/kmeans-basic-}{0}{14}
+	%	\caption{\textbf{Polynomial Fitting:} Fitted polynomial of degree $1$ over different datasets differing only in values of added sample noise. \todo{reference to github code}}
+	\label{anim:kmeans1}
+\end{figure}
+
+\subsubsection{Convergence to Multiple- and Sub- Optimal Solutions}
+As clustering problems are NP-Hard, the K-Means algorithm algorithm uses the Lloyd's algorithm heuristic to find a good partition of the data. Being a heuristic, the optimality of the algorithm assignment to clusters isn't guaranteed. In fact, due to the nature of the random initialization of centroids, the K-Means algorithm might converge into a sub-optimal solution or to there exists more than a single possible optimal solution.~\\
+
+Sub-optimality means that given a dataset $\left\{\x_i\right\}^m_{i=1}$ the K-Means algorithm returned some partitioning $C_1,\ldots,C_k$ such that there exists a different partitioning of the data $C_1',\ldots,C_k'$ with a lower objective value: $G\left(C_1,\ldots,C_k\right) > G\left(C_1',\ldots,C_k'\right)$. This is the product of the objective function not being convex, which means there could be several local minima, each achieving a different cost. In \autoref{anim:kmeans2} we see 4 groups of data-points and two initial centroids, positioned in such a way that forces the algorithm to converge into a sub-optimal solution. Optimal assignment is achieved for final centroids $\mu_i=\left(0,5\right), \mu_j=\left(20,5\right),\,\,i\neq j$.
+
+\begin{figure}[h!]
+	\centering
+	\animategraphics[loop,autoplay,width=0.45\textwidth]{1}{chapters/unsupervised.learning/figures/kmeans-suboptimal-}{0}{4}
+	\caption{\textbf{Suboptimal Solution:} Data-points and initial centroids leading to a suboptimal solution.}
+	\label{anim:kmeans2}
+\end{figure}
+
+
+
+Multiple optimal solution means that given a dataset $\left\{\x_i\right\}^m_{i=1}$ there are more than a single possible partitioning of the data that will yield the lowest objective value. It is important to note, that whenever discussing clustering assignments, we always look at the partitioning up to a permutation of the partition names. That is, suppose we are given the samples $1,2,3,4,5$ the partitioning of $C_1=\left\{1,2,3\right\},C_2=\left\{4,5\right\}$ is identical to $C_1=\left\{4,5\right\},C_2=\left\{1,2,3\right\}$, and clearly, both will achieve the same objective value. When referring to multiple optimal solution we mean:
+$$
+\begin{array}{ll}
+Given \,\,\left\{\x_i\right\}^m_{i=1}  & \exists\left\{C_1\ldots,C_k\right\},\left\{C_1',\ldots,C_k'\right\} \\
+For \,\, which & G\left(C_1,\ldots,C_k\right) = G\left(C_1',\ldots,C_k'\right)\\
+It \,\, holds \,\, that & \exists j\in\left[k\right] \,\,\,\forall l\in\left[k\right]\quad C_j\neq C_l'
+\end{array}
+$$
+and that they achieve an objective value lower (or equal) to any other partitioning of the dataset. An example for such dataset and initialization of centroids is seen in \autoref{anim:kmeans2}. In this case both centroids are initialized in the center of all data points.
+
+\begin{figure}[h!]
+	\centering
+	\animategraphics[loop,autoplay,width=0.4\textwidth]{1.07}{chapters/unsupervised.learning/figures/kmeans-multiple-a-}{0}{8}
+	\animategraphics[loop,autoplay,width=0.4\textwidth]{1}{chapters/unsupervised.learning/figures/kmeans-multiple-b-}{0}{6}
+	\caption{\textbf{Multiple Optimal Solutions:} Data-points and initial centroids leading to two different optimal solutions}
+	\label{anim:kmeans3}
+\end{figure}
+
+
+
+\subsubsection{Selection of $k$}
+As in different algorithms previously seen, in K-Means too we are required to provide a value for the hyper-parameter $k$. As we do not know how many clusters we really have in the dataset this is not a simple task. Notice that as long as we have more data-points than clusters, for any optimal solution with $k$ clusters, we can achieve a solution with a lower objective for $k+1$. As such, simply running over different values of $k$ and selecting the minimal value isn't a viable solution. Instead, we will apply a similar technique to the one used in PCA. We will plot the to objective achieved for different values of $k$ and select the value after which the improvement is less drastic. In \autoref{selecting-k} we apply this strategy over the dataset seen in \autoref{anim:kmeans1}. As seen in the elbow-plot once we reach $k=4$, the incremental improvement in score is much lower. Since the data was generated from 4 different Gaussians, this approach managed to find the correct value.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{chapters/unsupervised.learning/figures/kmeans-selecting-k.png}
+	\caption{\textbf{Selecting $k$ hyper-parameter in K-Means}}\label{selecting-k}
+\end{figure}

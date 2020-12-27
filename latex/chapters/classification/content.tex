@@ -192,7 +192,27 @@ which, as stated above for any ERM solution $L_S\left(h_\w\right)=0$. Therefore,
 
 \subsection{The Perceptron Algorithm}
 Another way for solving ERM for half-spaces is by using the Perceptron algorithm.
-\todo{Matan - Add content for Perceptron}
+\todo{Matan - Add content for Perceptron}\\
+\todo{This algorithm is easily adapter for online learning}\\
+
+\begin{algorithm}
+	\caption{Batch-Perceptron}\label{batch_perceptron}
+	\begin{algorithmic}
+		\Procedure{Perceptron}{$\trainset$}
+		\State $\w^{\left(0\right)} \gets 0$ \Comment{Initialize parameters}
+		\While{not converged}
+		\For{$i=1,\ldots,m$}
+		\If{$\y_i \neq sign\left(\x_i^\top\w^{\left(t\right)}\right)}$ \Comment{If predicted wrong}
+		\State $\w^{\left(t+1\right)} \gets \w^{\left(t\right)} + \y_i\x_i$ \Comment{Update parameters}
+		\EndIf
+		\EndFor
+		\EndWhile
+		\State \textbf{return} $\w^{\left(t+1\right)}$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+
 
 \section{Support Vector Machines}
 When using the half-space classifier seen above we encounter two problems:
@@ -409,79 +429,145 @@ The hyper-parameter $\lambda$ controls the trade-off between the two norm of $\w
 
 
 
-\subsubsection{The Kernel Method}\label{kernel_method}
+\subsection{Kernel Methods}\label{kernel_method}
 
-\todo{Go over this part - Instead of being a subsubsection set as section. Begin with motivation. Explain computability problem. Formally define valid kernel functions. Prove polynomial and Gaussian Kernels. Example of 2-order poly kernel. Show how to think of Gaussian kernel as similarity!. Show (without proving) some closure properties. Then solve SVM using kernels.}\\
-
-The three classifiers seen above (halfspace classifier, Hard-SVM and Soft-SVM) all use the halfspaces hypothesis class. Though these linear classifiers are fairly simple to implement, the hypothesis class of halfspaces is of limited power. Consider the case where $\Xc=\R$ with the following sample:
+The three classifiers seen above (halfspace classifier, Hard-SVM and Soft-SVM) all use the halfspaces hypothesis class. Though these linear classifiers are fairly simple to implement, the hypothesis class of halfspaces is of limited power. Consider the case where $\Xc=\R$ with the sample seen in \autoref{halfspace_lim_power} (left). As the data in not linearly separable, all three learners will fail. Notice however, that if instead of using the original feature representation of the data, we embed the samples in a new feature space, such as mapping each sample $x\rightarrow\left(x,x^2\right)$, we get a linearly separable sample in $\R^2$ (right).
 \begin{figure}[H]
 	\centering
 	\includegraphics{chapters/classification/figures/linearly_inseparable.png}
-\end{figure}
-As the data in not linearly separable, all three learners will fail. Notice however, that if instead of using the original feature representation of the data, we embed the samples in a new feature space, such as mapping each sample $x\rightarrow\left(x,x^2\right)$, we get a linearly separable sample in $\R^2$:
-\begin{figure}[H]
-	\centering
 	\includegraphics{chapters/classification/figures/linearly_separable.png}
+	\caption{\textbf{Mapping to Feature Space}: Data originally linearly inseparable that is linearly separable in mapped feature space}\label{halfspace_lim_power}
 \end{figure}
 
-Therefore, to enrich the expressiveness of the halfspace hypothesis class, we can consider embedding the data into another (potentially of higher dimension) feature space, over which we then learn a halfspace. Schematically:
+So, to enrich the expressiveness of an hypothesis class, we can consider embedding the data into another (potentially of higher dimension) feature space, over which we then learn some predictor. Schematically:
 \begin{itemize}
-	\item Given some domain set $\Xc\subseteq\R^d$ and a learning problem, select an embedding  $\psi:\Xc\rightarrow\Fc$ for some feature space $\Fc$. In most cases $\Fc\subseteq \R^k$ for some $k>d$.
-	\item Train a halfspace using the training set $\left\{\left(\psi\left(\x_i\right),y_i\right)\right\}^m_{i=1}$.
-\end{itemize}
-~\\
-\todo{move to bottom and properly show how to use kernels for svm} Applying the above scheme to the Soft-SVM learner we would therefore want to solve:
-$$
-\underset{\w,b}{\min}\left(\lambda \norm{\w}^2 +\frac{1}{m}\sum\ell^{hinge}\left(y_i\left(\inprod{\psi\left(\x_i\right)}{\w}+b\right)\right) \right)
-$$
-This approach seems very attractive as the assumption that our data is linearly separable in \textit{some} feature space does not look very limiting. However, several challenges need to be addressed:
+	\item Given some domain set $\Xc\subseteq\R^d$ and a learning algorithm $\Ac$, select an embedding  $\psi:\Xc\rightarrow\Fc$ for some feature space $\Fc$. In many cases we will want $\Fc\subseteq \R^k$ for some $k \gg d$.
+	\item Train $\Ac$ using the training set $\left\{\left(\psi\left(\x_i\right),y_i\right)\right\}^m_{i=1}$.
+\end{itemize}~\\
+
+This approach seems very attractive as the assumption that our data is linearly separable in \textit{some} feature space does not look very limiting. In order to apply this strategy, several challenges need to be addressed:
 \begin{itemize}
 	\item \textbf{Selection of $\psi$}: We need to find an appropriate mapping $\psi$ under which the data is linearly separable.
 	\item \textbf{Computational complexity}:  Often, as $k\gg d$ (and sometimes even infinite) and as $\psi$ could be very complicated, computing $\psi\left(\x\right)$, is computationally expensive.
 	\item \textbf{Sample complexity}: When transitioning to a potentially much higher feature space, the number of samples needed to learn a halfspace increases. \todo{Add reference to VCdim of halfspaces}
 \end{itemize}
 ~\\
+\begin{example}
+Suppose we are interested in separating between people that got a certain disease and people that don't, based on gene expression levels. We are given $\trainset$ where $\x_i$ is a vector in $\R^{20000}$ (the "gene space") where each coordinate $\x_i\left(j\right)$ denotes how much is gene $j$ expressed in individual $i$. $y_i\in\left\{\text{healthy},\text{sick}\right\}$ is the label. It is often the case that different genes are co-expressed, and modeling this co-expression might increase our expressive power and our ability to separate between the two groups. Let us create new additional features $\x_i\left(j\right)\x_i\left(k\right)$ that captures \textit{interaction} between the $j,k$ features. Using this mapping each sample gets the form: $$ \psi\left(\x\right) = \left(\x\left(1\right),\ldots,\x\left(20000\right),\x\left(1\right)\x\left(1\right),\ldots,\x\left(1\right)\x\left(20000\right),\ldots,\x\left(20000\right)\x\left(2000\right)\right)^\top $$ 
+Meaning that the feature space is of dimension $d+d^2/2=\mathcal{O}\left(d^2\right)$ where $d=20000$ the dimension of the original sample space. If we decide to use co-expression of geen trios then the feature space is of dimension $d+d^2/2 + d^3/3=\mathcal{O}\left(d^3\right)$. Depending on the problem it might make sense to also look at feature interactions of even higher orders, suppose interactions of $k$ features. If that is the case, our mapping function, maps us to a space of size $\mathcal{O}\left(d^k\right)$, which is exponential in the original sample space size.
+\end{example}
 
-To address the computational complexity problem, we could use kernel based learning. Some algorithms do not directly depend on the data $\psi\left(\x_i\right)$, but rather access the data only through the result of the dot-product $\inprod{\psi\left(\x_i\right)}{\psi\left(\x_j\right)}$. In these cases we might be able to find an efficient way to compute the result $\inprod{\psi\left(\x_i\right)}{\psi\left(\x_j\right)}$ without ever directly computing  $\psi\left(\x_i\right)$. This approach is also known as the \textit{kernel trick}, and the embedding function $\psi$ is a kernel function.
+\subsubsection{Kernel Functions}
+As the mapping enables us to transition to a new feature space of very high dimension (could be exponential or even of infinite dimension), we are facting a computational challange in computing this transition. To address this problem we could use kernel based learning. In this approach, we decide to use a mapping function out of a (wide) specific family of mapping functions, called \textit{kernel functions}, that even though might map to a very high dimension, can still be computed efficiently.\\
+
+\begin{definition}[PSD Kernel]
+A symmetric function $k:\Xc\times\Xc\rightarrow\R$ is called a Positive Semi-Definite kernel on $\Xc$ if $\forall \left\{x_1,\ldots,x_m\right\}\subseteq\Xc$ the associated kernel matrix (also known as Gram matrix) $K_{ij}=k\left(\x_i,\x_j\right)$ is PSD.
+\end{definition}
+\begin{corollary}
+Let $g:\Xc\times\Xc\rightarrow\R$ and $h:\R^d\rightarrow\R^k$ such that $g\left(x,y\right)=h\left(x\right)^\top h\left(y\right)$. Then $g$ is a PSD kernel function.
+\end{corollary}
+\begin{proof}
+Given a arbitrary set $\left\{\x_1,\ldots,\x_m\right\}\subseteq\Xc$ for arbitrary size $m\in\N$ denote $H$ the matrix where: $$ H=\left[\begin{array}{ccc}
+| & & |\\
+h\left(\x_1\right) & \cdots & h\left(\x_m\right)\\
+| & & |
+\end{array}\right] $$
+Consider the matrix $G=H^\top H$ so $G_{ij}=h\left(\x_i\right)^\top h\left(\x_j\right)=g\left(\x_i,\x_j\right)$. So $G$ is the Gram matrix of $g$ over the given set. This matrix is PSD as we were able to show it as the multiplication of $H^\top H$ \todo{add reference to PSD equiv. conditions}
+\end{proof}
+
+This corollary means that any kernel function can be written as an \textbf{inner product} of some transformation $h$ of the data. This transformation $h$ is the mapping function described above. So to check if a given function is a kernel function we could: $\left(1\right)$ show the associated Gram matrix is PSD or $\left(2\right)$ find the transformation $h$ that satisfies that $g\left(x,y\right)=h\left(x\right)^\top h\left(y\right)$~\\
+
+\begin{exercise}
+Let $\Xc=\R^d$. Show that $k:\Xc\times\Xc\rightarrow \R$ that is defined by $k\left(x,y\right)=1,\,\,x,y\in\Xc$ is a valid kernel function. In addition, state a possible mapping function $h$ such that $g\left(x,y\right)=h\left(x\right)^\top \left(y\right)$.
+\end{exercise}
+\begin{proof}
+Let $\left\{\x_i\right\}^m_{i=1}\subseteq\Xc$. The Gram matrix of $k$ over this set is: $K_{ij}=k\left(\x_i,\x_j\right)=1$. As the eigenvalues of $K$ are $m,0\geq 0$ and $K$ is a symmetric matrix, we conclude that $K\in PSD$. Thus $k$ a valid kernel function.\\ As for the mapping function $h$, it must satisfy that $h\left(x\right)^\top h\left(y\right)=1$ for any $x,y$. So we could choose $h:\R^d\rightarrow\R^k$ that always returns some unit vector $v$. Then $h\left(x\right)^\top h\left(y\right) = v^\top v = \norm{v} = 1$. Notice that we haven't specificed $k$, the dimension of the embedded space, which could be of any size we desire.
+\end{proof}
 
 
+~\\One commonly used kernel function is the polynomial kernel.
 \begin{claim}[Polynomial Kernels]
-The following mapping, of $k$ degree polynomials, is a kernel function: $$ K\left(\x,\x'\right)\coloneqq \left(1+\inprod{\x}{\x'}\right)^k $$
+Let $\Xc=\R^d$ and consider the $k$ degree polynomial mapping:$$\x\mapsto\left(1,\ldots,\x\left(i\right),\ldots,\x\left(i\right)\x\left(j\right),\ldots,\prod_{\underset{J\subset\left[d\right],\left|J\right|=k}{i\in J}}\x\left(i\right)\right)$$
+This is a valid kernel and can be computed by $$ k\left(\x,\x'\right)\coloneqq\left(1+\inprod{\x}{\x'}\right)^k $$
 \end{claim}
 \begin{proof}
-To show the above is indeed a kernel function let us find a mapping $\psi$ such that $K\left(\x,\x'\right)=\inprod{\x}{\x'}$. For simplicity let $x_0=1=x'_0$. Then: 
+To show this is a valid kernel, we will find some mapping $\psi$ such that $K\left(\x,\x'\right)$ equals to $\psi\left(\x\right)^\top \psi\left(\x'\right)$. For simplicity let $x_0=1=x'_0$. Then: 
 $$
 \begin{array}{ccl}
-K\left(\x,\x'\right) & = &\left(1+\inprod{\x}{\x'}\right)^k\\
+k\left(\x,\x'\right) & = &\left(1+\inprod{\x}{\x'}\right)^k\\
 & = & \left(\sum_{i=1}^d x_ix'_i\right)^k\\
 & = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\prod_{i=1}^{k}x_{J_i}x'_{J_i}\\
 & = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\prod_{i=1}^{k}x_{J_i}\prod_{i=1}^{k}x'_{J_i}\\
-& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\psi\left(\x\right)_J\psi\left(\x'\right)_J
+& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\psi\left(\x\right)_J\psi\left(\x'\right)_J\\
+& = & \psi\left(\x\right)^\top \psi\left(\x'\right)
 \end{array}
 $$
-Where we define $\psi:\R^d\rightarrow\R^{\left(n+1\right)^k}$ such that each coordinate of $\psi\left(\x\right)$ corresponds to some $J\in\left\{0,\ldots,d\right\}^k$ and is equal to $\prod_{i=1}^k x_{J_i}$. Therefore we obtained that $K\left(\x,\x'\right) = \inprod{\psi\left(\x\right)}{\psi\left(\x'\right)}$
+Where we define $\psi:\R^d\rightarrow\R^{\left(n+1\right)^k}$ such that each coordinate of $\psi\left(\x\right)$ corresponds to some $J\in\left\{0,\ldots,d\right\}^k$ and is equal to $\prod_{i=1}^k x_{J_i}$. Therefore we obtained that $k\left(\x,\x'\right) = \inprod{\psi\left(\x\right)}{\psi\left(\x'\right)}$
 \end{proof}
 
+~\\
 \begin{example}
 Let $\x,\x'\in \Xc=\R^2$ with $x_0=1=x'_0$ and $k=2$ so:
 $$ \begin{array}{ccl}
 \left(1+\inprod{\x}{\x'}\right)^2 & = & \left(1+x_1x'_1 + x_2x'_2\right)^2\\
 & = & 1 + 2x_1x'_1 + 2x_2x'_2 + \left(x_1x'_1\right)^2 + \left(x_2x'_2\right)^2 + 2x_1x'_1x_2x'_2
 \end{array} $$
-By defining $\psi$ as $\psi\left(\x\right)=\left(1,1\cdot x_1, x_1 \cdot 1, 1\cdot x_2, x_2\cdot 1, x_1^2, x_2^2, x_1\cdot x_2, x_2 \cdot x_1\right)^\top$ we achieve that $K\left(\x,\x'\right)=\inprod{\x}{\x'}$
+By defining $\psi$ as $\psi\left(\x\right)=\left(1,1\cdot x_1, x_1 \cdot 1, 1\cdot x_2, x_2\cdot 1, x_1^2, x_2^2, x_1\cdot x_2, x_2 \cdot x_1\right)^\top$ we achieve that $K\left(\x,\x'\right)=\psi\left(\x\right)^\top \psi\left(\x'\right)$
 \end{example}
 
-%\begin{claim}[Gaussian Kernels]
-%	The following mapping is a kernel function: $$ K\left(\x,\x'\right)\coloneqq \exp\left(-\frac{1}{2}\norm{\x-\x'}^2\right) $$
-%\end{claim}
-%\begin{proof}
-%%Let us define the embeding function $\psi$ such that $\psi\left(\x\right)$
-%\end{proof}
+~\\
+\begin{claim}[Gaussian Kernels]
+The following is a valid kernel function: $$ k\left(\x,\x'\right)\coloneqq \exp\left(-\frac{1}{2\sigma^2}\norm{\x-\x'}^2\right),\quad\sigma^2\in\R_+ $$ with the mapping function $\psi$ defined such that: $$ \forall n\in\N \quad \psi\left(\x\right)_n \coloneqq \frac{1}{\sqrt{n!}}\exp\left(-x^2/2\sigma\right) x^n $$
+\end{claim}
+\begin{proof}
+Let us begin with showing that $k\left(\x,\x'\right) = \psi\left(\x\right)^\top \psi\left(\x'\right)$:
+$$
+\begin{array}{ccl}
+\psi\left(\x\right)^\top \psi\left(\x'\right) & = & \sum_{n=0}^\infty \left(\frac{1}{\sqrt{n!}}\exp\left(-x^2/2\sigma\right) x^n\right) \left(\frac{1}{\sqrt{n!}}\exp\left(-\left(\x'\right)^2/2\sigma\right) \left(\x'\right)^n\right)\\
+& = & \exp\left(-\frac{\x^2 +\left(\x'\right)^2}{2\sigma}\right)\sum_{n=0}^\infty \frac{\left(\x\x'\right)^n}{n!}\\
+& = & \exp\left(-\frac{1}{2\sigma^2}\norm{\x-\x'}^2\right)
+\end{array}
+$$
+\end{proof}
+Interestingly, the feature space mapped by $\psi$ is of infinite dimension.
+
+~\\Since a function is a valid kernel function if it's associated Gram matrix is PSD we can derive several closure properties for kernel functions. Here are some of these properties.
+\begin{claim}
+	Let $k$ be some valid kernel function then the following are valid kernel functions:
+	\begin{enumerate}
+		\item $k\left(x,y\right)x^\top A y$, where $A\in PSD$.
+		\item $c\cdot k_1\left(x,y\right)$ where $c>0$.
+		\item $exp\left(k_1\left(x,y\right)\right)$
+		\item $f\left(x\right)k_1 f\left(y\right)$
+	\end{enumerate}
+\end{claim}
+\begin{exercise}
+Using the closure properties above, show that the Gaussian kernel is a valid kernel function.
+\end{exercise}
+\begin{proof}
+$$
+\begin{array}{ccl}
+k\left(\x,\x'\right) & = & \exp\left(-\norm{\x-\x'}^2/2\sigma^2\right) \\
+& = & \exp\left(-\norm{\x}^2/2\sigma^2\right) \cdot \exp\left(-\x^\top\x'/\sigma^2\right) \cdot \exp\left(-\norm{\x'}^2/2\sigma^2\right) \\
+& \overset{\left(*\right)}{=} & f\left(\x\right) \exp\left(-\x^\top\x'/\sigma^2\right) f\left(\x'\right) 
+\end{array}
+$$
+where we define $f\left(\x\right) = \exp\left(-\norm{\x}^2/2\sigma^2\right)$. Now notice that this is a valid kernel as: $\left(1\right)$ $\x^\top\x'$ is a valid kernel. $\left(2\right)$ scaling by $\frac{1}{\sigma^2}$ is a valid kenel. $\left(3\right)$ exponent of a valid kernel is a valid kernel. And finaly, $\left(4\right)$ multiplying by $f\left(\x\right), f\left(\x'\right)$ from left and right is a valid kernel.
+\end{proof}
+
+\begin{remark}
+The Gaussian kernel is a specific case of the wider Radial Basis Function (RBF) kernel $k\left(\x,\x'\right)\coloneqq \exp\left(-\beta \norm{\x-\x'}^2\right)$.
+\end{remark}
+
+~\\ Notice in both examples, the polynomial- and Gaussian kernels, the embedding is of much higher dimension but computing the value can be done efficiently without actually transitioning to the feature space. In the case of the $k$ degree polynomial kernel, the feature space is of dimension $\mathcal{O}\left(\left(d+1\right)^k\right)$. In the case of the Gaussian kernel the feature space is of an infinite dimension. However in both cases, computing the kernel function can be done in $\mathcal{O}\left(d\right)$.
 
 
-By embedding a given sample using a polynomial kernel of degree $k$, and learning a halfspace in this embedding, we are in-fact learning a polynomial predictor of degree $k$ over the original space.
+\subsubsection{The Kernel Trick}
+Now that we have introduced the notion of kernel functions, and seen that they encapsulate the mapping to some possibly-elaborate feature space, the next question is when and how can we apply it to different learning algorithms. Here we will use kernels in the context of the SVM algorithm and in \ref{kernel_pca} we use kernels in the context of the Kernel-PCA algorithm.
+~\\
+\todo{Add SVM using kernels - for that we need to state representer theorem}\\
+\todo{Finish with: The algorithm must be written as inner products of the data}
 
-In the case of polynomial kernels we used an embedding in $\R^{\left(n+1\right)^k}$. 
 
 \section{Logistic Regression}
 \subsection{A Probabilistic Model For Noisy Labels}
