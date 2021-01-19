@@ -240,14 +240,16 @@ rightline=false,
 leftline=true,
 topline=false,
 bottomline=false,
+backgroundcolor=gray!10,
 linecolor=ocre,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=0pt,
+innertopmargin=5pt,
+innerbottommargin=5pt
 leftmargin=0cm,
 rightmargin=0cm,
 linewidth=4pt,
-innerbottommargin=0pt]{dBox}	
+]{dBox}	
 
 % Corollary box
 \newmdenv[skipabove=7pt,
@@ -257,14 +259,14 @@ leftline=true,
 topline=false,
 bottomline=false,
 linecolor=gray,
-backgroundcolor=black!5,
+backgroundcolor=gray!10,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
 innertopmargin=5pt,
+innerbottommargin=10pt
 leftmargin=0cm,
 rightmargin=0cm,
-linewidth=4pt,
-innerbottommargin=5pt]{cBox}
+linewidth=4pt]{cBox}
 
 % Creates an environment for each type of theorem and assigns it a theorem text style from the "Theorem Styles" section above and a colored box from above
 \newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}

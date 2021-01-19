@@ -141,7 +141,7 @@ yielding the following pseudo-code for the PCA algorithm:
 \todo{Add from notes}
 
 
-\subsubsection{Kernel PCA}\label{kernel_pca}
+\subsection{Kernel PCA}\label{kernel_pca}
 The PCA algorithm discussed above is sometimes referred to as a ``Vanilla`` PCA, with many different variations of the algorithm to fit different scenarios. For one such variation, we apply kernel substitution techniques to obtain a \textbf{non-linear generalization} of PCA known as Kernel PCA (Sch\"olkopf \textit{et al.,} 1998). 
 \\~\\Recall the general setup of Kernel methods: Suppose some algorithm $\Ac$ and let $\X\subset\Xc$ be an $m$-by-$d$ design matrix. For some mapping function $\phi:\Xc\rightarrow\mathcal{F}$, we first apply $\phi\left(\X\right)\coloneqq\left\{\phi\left(\x\right) | \x\in\X\right\}$ and then run $\Ac$ over $\phi\left(\X\right)$. By selecting $\phi$ is a smart manner we might be able to achieve a mapping to:
 ~\\\begin{itemize}

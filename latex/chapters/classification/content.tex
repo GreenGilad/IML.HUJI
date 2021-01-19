@@ -138,22 +138,34 @@ Plotting the ROC curve of a classifier has a few different uses:
 
 
 \section{Half-Space Classifier}
-The first classifier we consider is the linear classifier of finding a half-space such that samples on opposite sides of the half-space are classified differently. So the domain set is $\Xc=\R^d$ and labels are $\Yc=\left\{\pm 1\right\}$.
+Similar to linear regression, one of the simplest family of classifiers is that of linear predictors. In such, we are interested in separating a given dataset into two classes using a linear separator function, as seen in \autoref{lin_sep1}.
 
 \begin{figure}[h!] %TODO - caption should not be centered
 	\centering
 	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/halfspace_illustration.png}
 	\caption{Half-space Classification Illustration:} Over $\R^3$ we see the half-space of all blue labeled data-points below the purple plane. All points above the half-space are red labeled.
+	\label{lin_sep1}
 \end{figure}
 
-The hypothesis class of half-space classifiers in $\R^d$ is the set of functions with the form
+As we have seen in \autoref{eqn:lin_reg_h}, the family of linear functions can be described as: $$ L_d \coloneqq \left\{\x\mapsto \x^\top \w + b | \w\in\R^d,b\in\R\right\} $$
+where the linearity refers to the functions being linear in the parameters $\w$. Next, consider the following definitions:
+
+\begin{definition}\label{def:hyperplane}
+Let $\w\in\R^d$ and $b\in\R$. The hyperplane defined by $\left(\w,b\right)$ is the set $$\left\{\x|\inprod{\w}{\x}=b,\,\x\in\R^d\right\}$$
+\end{definition}
+\begin{definition}\label{def:halfspace}
+Let $\left(\w,b\right)$ be an hyperplane, so the half-space of $\left(\w,b\right)$ is defined as the set $$\left\{\x|\inprod{\w}{\x}\geq b, \x\in\R^d\right\}$$or equivalently as $\left\{\x|sign\left(\inprod{\w}{\x} - b\right)\geq 0,\x\in\R^d\right\}$.
+\end{definition}
+
+~\\Notice that the family of linear functions $L_d$ is in-fact the family of hyperplanes. As such, we can look at the family of functions that is the composition of the $sign$ function and $L_d$, $sign\circ L_{d}$. This family defines the hypothesis class of the half-space classifiers. Denote $h_{\w,b}\left(\x\right) = \inprod{\w}{\x} + b$ then:
 \begin{equation}
 \Hc_{half} \coloneqq \left\{h_{\w,b}\left(\x\right)=sign\left(\inprod{\x}{\w} + b\right)|\w\in\R^d,b\in\R\right\} = \left\{\x\mapsto sign\left(\inprod{\x}{\w}+b\right)\right\}
 \label{eqn:h_half}
 \end{equation}
-Notice the similarity to the linear regression hypothesis class. So why are functions of the form seen in \ref{eqn:h_half} are half-space classifiers? Let us assume at first that $b=0$. We can express the domain set as a disjoint union of the following:
-$$ \R^d=\left\{\x\in\R^d | \inprod{\x}{\w}>0\right\} \biguplus \left\{\x\in\R^d | \inprod{\x}{\w}=0\right\} \biguplus \left\{\x\in\R^d | \inprod{\x}{\w}<0\right\} $$
-these sets correspond to the open half spaces on either side of the hyperplane $\w^\perp=\left\{\x\in\R^d|\inprod{\x}{\w}=0\right\}$ and points on the hyper-plane itself. As such. each vector $\w\in\R^d$ defines a hyper-plane $\w^\perp$ that divides $\R^d$ into two half-spaces.
+
+~\\So why are functions in the form seen in \ref{eqn:h_half} are half-space classifiers? Let us assume at first that $b=0$. We can express the domain set as a disjoint union of the following:
+$$ \R^d=\left\{\x\in\R^d | \w^\top \w>0\right\} \biguplus \left\{\x\in\R^d | \w^\top \w=0\right\} \biguplus \left\{\x\in\R^d | \w^\top \w<0\right\} $$
+These sets correspond to the open half spaces on either side of the hyperplane $\w^\perp=\left\{\x\in\R^d|\w^\top \w=0\right\}$ and points on the hyper-plane itself. As such. each vector $\w\in\R^d$ defines a hyper-plane $\w^\perp$ that divides $\R^d$ into two half-spaces.
 
 \begin{figure}[h!] %TODO - caption should not be centered
 	\centering
@@ -163,7 +175,7 @@ these sets correspond to the open half spaces on either side of the hyperplane $
 
 The case where $b=0$ is called the \textbf{homogeneous} case, as the hyperplane $\w^\perp$ is a linear subspace going through the origin. When $b\neq 0$ the hyperplane does not go through the origin and is called the non-homogeneous case. Recall that we have seen how we could transition from the non-homogeneous to the homogeneous case in the linear regression chapter.
 \\~\\
-Given a sample \trainset, we would like to find an hypothesis $h_{\w,b}\in\Hc_{half}$ such that all data points in $S$ that are labeled $1$ are on the one side of the hyper-plane and all those labeled $-1$ are on the other side. To find such an hypothesis we must first make the assumption that the dataset is \textbf{linearly separable}. That is, there exists a hyper-plane such that samples of opposing labels are on opposite sides. Mathematically we assume that $$ \exists \w\in\R^d,b\in\R\quad s.t\quad \forall i\in\left[m\right] \quad y_i\cdot sign \left(\inprod{\x}{\w} + b\right)=1$$
+Given a sample \trainset, we would like to find an hypothesis $h_{\w,b}\in\Hc_{half}$ such that all data points in $S$ that are labeled $1$ are on the one side of the hyper-plane and all those labeled $-1$ are on the other side. To find such an hypothesis we must first make the assumption that the dataset is \textbf{linearly separable}. That is, there exists a hyper-plane such that samples of opposing labels are on opposite sides. Mathematically, we assume that $$ \exists \w\in\R^d,b\in\R\quad s.t\quad \forall i\in\left[m\right] \quad y_i\cdot sign \left(\inprod{\x}{\w} + b\right)=1$$
 
 or equivalently since the inner product will be negative for all samples with $y_i<0$ and positive for all samples with $y_i>0$:
 $$ \exists \w\in\R^d,b\in\R\quad s.t\quad \forall i\in\left[m\right] \quad y_i\cdot \left(\inprod{\x}{\w} + b\right)>0$$
@@ -171,12 +183,12 @@ $$ \exists \w\in\R^d,b\in\R\quad s.t\quad \forall i\in\left[m\right] \quad y_i\c
 Note, that assuming that a given training set is linearly separable is a \textbf{realizability assumption}. Namely, the labels are generated by a function in our hypothesis class $\Hc_{half}$.
 
 \subsection{Learning Linearly Separable Data Via ERM}
-To train a model over the defined hypothesis class of homogenous half-spaces($\w\in\R^d, b=0$) observe the following: For any hypothesis $h_\w\in \Hc_{half}$, the misclassified training samples are exactly those where $y_i\cdot sign\left(\inprod{\x}{\w}\right)=-1$ or equivalently $y_i\inprod{\x}{\w}<0$. As such we define the loss of a given hypothesis over $S$ as: $$ L_S\left(h_\w\right)\coloneqq\sum^m_{i=1}\mathbbm{1}\left[y_i\inprod{\x}{\w}<0\right] $$
+To train a model over the defined hypothesis class of homogenous half-spaces ($\w\in\R^d, b=0$) observe the following: For any hypothesis $h_\w\in \Hc_{half}$, the misclassified training samples are exactly those where $y_i\cdot sign\left(\inprod{\x}{\w}\right)=-1$ or equivalently $y_i\inprod{\x}{\w}<0$. So defining the loss of a given hypothesis over $S$ is: $$ L_S\left(h_\w\right)\coloneqq\sum^m_{i=1}\mathbbm{1}\left[y_i\inprod{\x}{\w}<0\right] $$
 
 Since we assumed that $S$ is linearly separable, we would like to find $h_\w\in\Hc_{half}$ that perfectly separates the training set. Such an hypothesis will be one that achieves $L_S\left(h_\w\right)=0$. In other words, we are applying the ERM principle and seeking for any separating hyperplane $\w^\perp$, corresponding to an hypothesis $h_\w$ that minimizes the empirical risk $L_S\left(h_\w\right)$.
 
 \subsection{Computational Implementation}
-Once we realize what learning principle we want to apply, we need to find a compulationally efficient algorithm to find the desired hypothesis. As we are applying the ERM principle we would like to efficiently compute $$ argmin_{\w\in\R^d}L_S\left(h_\w\right) $$
+Once we realize what learning principle we want to apply, we need to find a compulationally efficient algorithm to find the desired hypothesis. As we are applying the ERM principle we would like to efficiently compute $$ \underset{\w\in\R^d}{argmin}\,L_S\left(h_\w\right) $$
 
 As we are assuming the given sample is linearly separable (realazibility), there exists a vector $\w_0\in\R^d$ such that $ y_i\cdot\inprod{\x}{\w_0}>0\quad i=1,\ldots,m $. This implies that there also exists a (different) vector $\w_1\in\R^d$ such that $ y_i\cdot\inprod{\x}{\w_01}\geq 1 \quad i=1,\ldots,m $ as we can simply normalize $\w_0$ by the smallest product: $$ \w_1 \coloneqq \frac{1}{min_i\left\{y_i\cdot \inprod{\x}{\w_0}\right\}}\cdot \w_0 $$
 
@@ -190,28 +202,33 @@ subject \, to & y_i\inprod{\x_i}{\w}\geq 1 & i=1,\ldots,m\\
 \end{equation}
 which, as stated above for any ERM solution $L_S\left(h_\w\right)=0$. Therefore, as this optimization problem has a trivial objective, it is a \textbf{feasibility} problem - we are looking for any vector which satisfies the constraints.
 
-\subsection{The Perceptron Algorithm}
-Another way for solving ERM for half-spaces is by using the Perceptron algorithm.
-\todo{Matan - Add content for Perceptron}\\
-\todo{This algorithm is easily adapter for online learning}\\
+\todo{ Proper writing+ deriving that this a a LP}
 
+\subsection{The Perceptron Algorithm}
+Another way for solving ERM for half-spaces is by using the Perceptron algorithm, suggested by Frank Rosenblatt in 1958. This is an iterative algorithm that constructs a series of vectors $\w^{\left(0\right)},\w^{\left(1\right)},\ldots$, each derived from the previous. At each iteration $t$ we search for a sample $i$ which is misclassified by $w^{\left(t\right)}$. Then, we update $\w^{\left(t\right)}$ by moving it in the direction of thhe misclassified sample $\w^{\left(t+1\right)}=\w^{\left(t\right)} + y_i\x_i$. 
+\todo{ Add animation of perceptron}
 \begin{algorithm}
 	\caption{Batch-Perceptron}\label{batch_perceptron}
 	\begin{algorithmic}
 		\Procedure{Perceptron}{$\trainset$}
 		\State $\w^{\left(0\right)} \gets 0$ \Comment{Initialize parameters}
-		\While{not converged}
-		\For{$i=1,\ldots,m$}
-		\If{$\y_i \neq sign\left(\x_i^\top\w^{\left(t\right)}\right)}$ \Comment{If predicted wrong}
-		\State $\w^{\left(t+1\right)} \gets \w^{\left(t\right)} + \y_i\x_i$ \Comment{Update parameters}
+		\For{$t=1,2,\ldots$}
+		\If{$\exists \, i\,\, s.t. \,\,\, y_i\inprod{\w^{\left(t\right)}}{\x_i}\leq 0$}
+		\State $\w^{\left(t+1\right)}=\w^{\left(t\right)}+y_i\x_i$
+		\Else
+		\State \textbf{return} $\w^{\left(t\right)}$
 		\EndIf
 		\EndFor
-		\EndWhile
-		\State \textbf{return} $\w^{\left(t+1\right)}$
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
 
+
+\todo{ Add convergence + correctness theorem}
+
+\begin{remark}
+The Perceptron algorithm is in fact a simple case of the more general algorithm of Subgradient Descent covered in \autoref{chap:conv_opt}. Furthermore, we can modify the algorithm is such a way that rather than requiring an entire dataset $S$, it will each time get a single sample and update based on that one sample. We will encounter this variation in Online Learning \autoref{chap:online}.
+\end{remark}
 
 
 \section{Support Vector Machines}

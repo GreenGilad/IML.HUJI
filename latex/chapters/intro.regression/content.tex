@@ -1,5 +1,5 @@
 \chapter{Linear Regression}
-
+\label{chp:lin_reg}
 Regression is a statistical method to model the relation between a set of explanatory variable (i.e features) and a scalar response, also referred to as dependent variable. Therefore, our \textit{sample domain} is $\Xc=\R^d$ and our \textit{response set} is $\Yc=\R$. We assume that there exists some deterministic (unknown to us) function $f:\Xc\rightarrow\Yc$ that is \textit{underlying} the relation between each sample $x$ and it's response $y$.
 
 \begin{figure}[!h]
@@ -41,8 +41,8 @@ In the realizable case, the system of equations has either a unique solution or 
 
 
 
-\subsection{Ordinary Least Squares}
-\subsubsection{Least Squares Loss Function} %TODO - better explanation of risk vs. loss and the empirical risk..
+\section{Ordinary Least Squares}
+\subsection{Least Squares Loss Function} %TODO - better explanation of risk vs. loss and the empirical risk..
 To design a learning algorithm that will learn (predict) $f$, we would like to be able to quantify the \textit{risk} of choosing any predictor $\widehat{f}\in\Hreg$. We derive different algorithms, each with different properties, by the choice of the risk function. In the case of Ordinary Least Squares, OLS, we choose to work with the mean squared risk \eqref{eqn:mse}: 
 
 $$
@@ -58,7 +58,7 @@ As we assess our chosen hypotheses using the squared risk it makes sense to choo
 
 Putting it all together, given a training set \trainset and some prediction rule $\widehat{f}\in\Hreg$ the quantity of the squared risk over the training data is called the \textbf{empirical risk}. In our case the empirical risk of the linear function is given by: $$ R\left(y,\widehat{f}\left(\x\right)\right)=\sum^m_{i=1}\left(y_i-\x_i^\top\widehat{\w}\right)^2 = \norm{\y-\X\widehat{\w}}^2_2=\left(\y-\X\widehat{\w}\right)^\top \left(\y-\X\widehat{\w}\right)$$
 
-\subsubsection{Residual Sum of Squares}
+\subsection{Residual Sum of Squares}
 Therefore, under the selection of the squared risk function, minimizing the empirical risk means minimizing the sum of squares of the deviations of the responses from a linear function. In other words, we choose the linear function in $\Hreg$ that is closest to the responses in terms of the Euclidean distance. The deviation $y_i-\x_i^\top\w$ is called the $i$-th \textbf{residual}. The total empirical risk is therefore called \textbf{Residual Sum of Squares} (or \textbf{RSS}), denoted by:
 
 \begin{align}
@@ -265,7 +265,7 @@ $$
 
 we conclude that the MLE (assuming Gaussian noise) is just the OLS estimator we obtained using the ERM principle over the squared loss. %TODO - link to equation
 
-\subsubsection{Model Interpretation}
+\subsection{Model Interpretation}
 Suppose we fitted a model $\w$ to a regression problem $\X,\y$ with the noise assumptions seen in \ref{eqn:lin_reg_prob_model2}. So:
 $$
 \begin{array}{ll}
@@ -283,8 +283,31 @@ Let us think
 
 
 \subsection{Categorical Variables}
-\todo {Matan - Write sub-section about categorical variables}
 
+Consider the following problem. Suppose we want to predict the price of a house based on the following set of explanatory variables:
+\begin{itemize}
+	\item The `House Size` is a numeric variable accepting positive numbers.
+	\item The `Garden Size` is a categorical variable accepting the values: $small$, $medium$ and $large$.
+	\item The `Number of Bedroons` is a categorical numeric variable accepting natural numbers.
+	\item The `House Type` is a categorical variable accepting the values: $private\,house$, $apartment$ and $studio-apartment$.
+\end{itemize}
+
+~\\We would like to construct the following regression problem: $$ y=\x^\top \w,\quad \w=\left[\begin{array}{l}w_{\text{house size}}\\ w_{\text{garden size}}\\ w_{\text{number of bedrooms}}\\ w_{\text{house type}}\end{array}\right] $$
+Notice that we have different \textit{types} of variables, and it is not clear how to treat each one of them. The `House Size` and `Number of Bedrooms` variables are \textit{quantitative} variables where we have a natural order over the values. That is, we are able to state if one house is larger than another or if the number of bedrooms in a house is less than the number of bedrooms in another house. For these variables, solving the set of linear equations seen in a linear regression problem is something we know how to do.
+
+~\\In the case of the `Garden Size` variable, though the values are in fact not numeric ($small$, $medium$ and $large$), we are able to define a logical order over these values. It makes sense to state that $small < medium < large$ or that $large \neq small$. We can think of this order as some encoding of the non-numeric categories as numbers, with the order defined over these numbers being the order of the variable. For example: $small\mapsto 1, medium \mapsto 2, large \mapsto 3$.
+
+~\\Last, consider the `House Type` variable. Can we define some logical map as we did for the `Number of Bedrooms` variable? Are we able to state that in some sense that $studio-apartment > private-house$ or that $studio-apartment < private-house$? As we cannot find any logical ordering we must devise a different manner in which to deal with these variables. The most commonly used method is to encode these categories in what is known as \textit{dummy variables} or \textit{one-hot encoding}. Given a categorical variable with $K$ categories we instead represent it as a binary vectors with $K$ entries, where only one of these entries is ``on``. $$ \x_{\text{house type}} = `apartment` \quad \Rightarrow \quad \x =
+\left[\begin{array}{c} x_1\\ x_2\\ x_3 \\ x_4 \\ x_5 \\ x_6 \end{array}\right] \begin{array}{l}\text{house size}\\ \text{garden size}\\ \text{number of bedrooms}\\ \text{private-house}\\\text{apartment} \\ \text{studio-apartment} \end{array}
+$$
+where $x_4+x_5+x+6 = 1, \,\,x_4,x_5,\x_6\in\left\{0,1\right\}$. 
+
+\begin{remark}
+Notice that by converting a single categorical variable with $K$ categories to a one-hot encoding we are in-fact adding $K-1$ variables to our model. This addition has both influences on running times (as the algorithms we use are often polynomial in the number of features) and on the number of samples needed for learning (as we will see in \todo{add reference to sample complexity}).
+\end{remark}
+\begin{remark}
+\todo{add about one-hot creating features that are not independent from one another. and reference to regularization that this is tricky}
+\end{remark}
 
 \section{Polynomial Fitting}
 
