@@ -4,7 +4,7 @@ Regression is a statistical method to model the relation between a set of explan
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.3\textwidth]{chapters/intro.regression/figures/regression_noiseless_intuition.png}
+	\includegraphics[width=0.5\textwidth]{chapters/intro.regression/figures/2_1.png}
 	\caption{\textbf{Linear Regression Illustration:} Illustration of a regression problem with a single explanatory variable. Samples represented with red dots.}
 \end{figure}
 
@@ -58,7 +58,7 @@ As we assess our chosen hypotheses using the squared risk it makes sense to choo
 
 Putting it all together, given a training set \trainset and some prediction rule $\widehat{f}\in\Hreg$ the quantity of the squared risk over the training data is called the \textbf{empirical risk}. In our case the empirical risk of the linear function is given by: $$ R\left(y,\widehat{f}\left(\x\right)\right)=\sum^m_{i=1}\left(y_i-\x_i^\top\widehat{\w}\right)^2 = \norm{\y-\X\widehat{\w}}^2_2=\left(\y-\X\widehat{\w}\right)^\top \left(\y-\X\widehat{\w}\right)$$
 
-\subsection{Residual Sum of Squares}
+\subsection{Residual Sum of Squares}\label{rss}
 Therefore, under the selection of the squared risk function, minimizing the empirical risk means minimizing the sum of squares of the deviations of the responses from a linear function. In other words, we choose the linear function in $\Hreg$ that is closest to the responses in terms of the Euclidean distance. The deviation $y_i-\x_i^\top\w$ is called the $i$-th \textbf{residual}. The total empirical risk is therefore called \textbf{Residual Sum of Squares} (or \textbf{RSS}), denoted by:
 
 \begin{align}
@@ -226,7 +226,7 @@ As our model allows some uncertainty in the responses, even for identical $\x$s,
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.3\textwidth]{chapters/intro.regression/figures/regression_noiseless_intuition.png}
+	\includegraphics[width=0.5\textwidth]{chapters/intro.regression/figures/2_3.png}
 	\caption{\textbf{Probabilistic Model:} \todo{add caption}}
 \end{figure}
 
@@ -234,7 +234,12 @@ As our model allows some uncertainty in the responses, even for identical $\x$s,
 
 \todo{Matan - Regression via projections - with noise $\widehat{\y}$ no longer in image}
 
-
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/intro.regression/figures/2_4.png}
+	\includegraphics[width=0.5\textwidth]{chapters/intro.regression/figures/2_5.png}
+	\caption{\textbf{\todo{add caption}}}
+\end{figure}
 
 
 \subsection{Maximum Likelihood Equivalence}
@@ -352,7 +357,7 @@ Here we have seen polynomial fitting where $\Xc=\R$. With very little adaptation
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{chapters/intro.regression/figures/polyfit-scheme.png}
+	\includegraphics[width=1\textwidth]{chapters/intro.regression/figures/2_6.png}
 	\caption{\textbf{Scheme of Polynomial Fitting:} Dataset of hourly temperature where $x_i$ denotes time of day and $y_i$ the temperature. Fitting polynomial of degree $4$.}
 \end{figure}
 
@@ -397,7 +402,7 @@ To get some intuition about these two properties, let us revisit polynomial fitt
 \begin{figure}[h!]
 	\centering
 	\animategraphics[loop,autoplay,width=0.55\textwidth]{1}{chapters/intro.regression/figures/poly-deg1-diff-samples-}{0}{9}
-	\caption{\textbf{Polynomial Fitting:} Fitted polynomial of degree $1$ over different datasets differing only in values of added sample noise. \todo{reference to github code}}\label{anim:poly1}
+	\caption{\textbf{Polynomial Fitting:} Fitted polynomial of degree $1$ over different datasets differing only in values of added sample noise. \GitChapterTwoExamples}\label{anim:poly1}
 \end{figure}
 
 Two phenomena are visible. The first is that the average distance of the fitted model (in green) and the true model (in black) is large. This means that our hypothesis class doesn't have sufficient expressive power to learn the true model. As such, we conclude that the \textbf{bias} of our estimator is high. The second is that the fitted models over different datasets do not differ by much. As such, we conclude that the \textbf{variance} of our estimator is low.\\
@@ -406,7 +411,7 @@ Two phenomena are visible. The first is that the average distance of the fitted 
 \begin{figure}[h!]
 	\centering
 	\animategraphics[loop,autoplay,width=0.55\textwidth]{1}{chapters/intro.regression/figures/poly-deg8-diff-samples-}{0}{9}
-	\caption{\textbf{Polynomial Fitting:} Fitted polynomial of degree $8$ over different datasets differing only in values of added sample noise\todo{reference to github code}}\label{anim:poly8}
+	\caption{\textbf{Polynomial Fitting:} Fitted polynomial of degree $8$ over different datasets differing only in values of added sample noise. \GitChapterTwoExamples}\label{anim:poly8}
 \end{figure}
 
 \begin{remark}
