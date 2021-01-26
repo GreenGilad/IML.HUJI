@@ -194,6 +194,7 @@
 \newtheorem{definitionT}{Definition}[section]
 \newtheorem{corollaryT}[dummy]{Corollary}
 \newtheorem{claimT}[dummy]{Claim}
+\newtheorem{lemmaT}[dummy]{Lemma}
 \theoremstyle{ocrenum}
 \newtheorem{proposition}[dummy]{Proposition}
 
@@ -239,14 +240,16 @@ rightline=false,
 leftline=true,
 topline=false,
 bottomline=false,
+backgroundcolor=gray!10,
 linecolor=ocre,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=0pt,
+innertopmargin=5pt,
+innerbottommargin=5pt
 leftmargin=0cm,
 rightmargin=0cm,
 linewidth=4pt,
-innerbottommargin=0pt]{dBox}	
+]{dBox}	
 
 % Corollary box
 \newmdenv[skipabove=7pt,
@@ -256,14 +259,14 @@ leftline=true,
 topline=false,
 bottomline=false,
 linecolor=gray,
-backgroundcolor=black!5,
+backgroundcolor=gray!10,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
 innertopmargin=5pt,
+innerbottommargin=10pt
 leftmargin=0cm,
 rightmargin=0cm,
-linewidth=4pt,
-innerbottommargin=5pt]{cBox}
+linewidth=4pt]{cBox}
 
 % Creates an environment for each type of theorem and assigns it a theorem text style from the "Theorem Styles" section above and a colored box from above
 \newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}
@@ -271,7 +274,9 @@ innerbottommargin=5pt]{cBox}
 \newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
 \newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}		
 \newenvironment{corollary}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}	
+\renewenvironment{lemma}{\begin{cBox}\begin{lemmaT}}{\end{lemmaT}\end{cBox}}
 \newenvironment{claim}{\begin{cBox}\begin{claimT}}{\end{claimT}\end{cBox}}	
+
 
 %----------------------------------------------------------------------------------------
 %	REMARK ENVIRONMENT
@@ -314,7 +319,7 @@ innerbottommargin=5pt]{cBox}
 
 % For an unclear reason, the package should be loaded now and not later
 \usepackage{hyperref}
-\hypersetup{hidelinks,backref=true,pagebackref=true,hyperindex=true,colorlinks=false,breaklinks=true,urlcolor= ocre,bookmarks=true,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
+\hypersetup{hidelinks,backref=true,pagebackref=true,hyperindex=true,colorlinks=true,linkcolor=ocre,breaklinks=true,urlcolor= ocre,bookmarks=true,bookmarksopen=false,pdftitle={Introduction to Machine Learning (67577) - Course Book},pdfauthor={Author}}
 
 %----------------------------------------------------------------------------------------
 %	CHAPTER HEADINGS
@@ -345,7 +350,7 @@ innerbottommargin=5pt]{cBox}
 			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			\end{tikzpicture}};
 		\end{tikzpicture}}
-\par\vspace*{230\p@}
+\par\vspace*{270\p@}
 \fi
 \fi}
 

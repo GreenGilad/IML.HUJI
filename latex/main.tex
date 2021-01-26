@@ -13,11 +13,13 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[11pt,fleqn]{book} % Default font size and left-justified equations
+\documentclass[11pt]{book} % Default font size and left-justified equations
 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{graphicx}
 \usepackage{animate}
-\usepackage{cancel}
+\usepackage{float}
 
 \usepackage[top=3cm,bottom=3cm,left=3.2cm,right=3.2cm,headsep=10pt,letterpaper]{geometry} % Page margins
 
@@ -26,11 +28,9 @@
 
 % Font Settings
 \usepackage{avant} % Use the Avantgarde font for headings
-%\usepackage{times} % Use the Times font for headings
 \usepackage{mathptmx} % Use the Adobe Times Roman as the default text font together with math symbols from the Sym­bol, Chancery and Com­puter Modern fonts
 \usepackage{mathtools}
 \usepackage{microtype} % Slightly tweak font spacing for aesthetics
-\usepackage[utf8]{inputenc} % Required for including letters with accents
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \usepackage{diagbox}
 \usepackage{cancel}
@@ -72,9 +72,9 @@
 \thispagestyle{empty}
 %\noindent Copyright \copyright\ 2014 Andrea Hidalgo\\ % Copyright notice
 \textsc{Introduction to Machine Learning, The Hebrew University, Jerusalem}\\\\
-\textsc{Address to code examples and labs repository}\\\\ % URL
-Written by and by.\\\\ % License information
-\textit{First release, October 2020} % Printing/edition date
+\textsc{\Git}\\\\ % URL
+Written Green Gilad, Ury \todo{add surname} and Gavish Matan\\\\ % License information
+\textit{First release, March 2021} % Printing/edition date
 
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS
@@ -98,6 +98,7 @@ Written by and by.\\\\ % License information
 \input{chapters/gradient.descent/content.tex}
 
 \chapter{Online- and Reinforcement Learning}
+\label{chap:online}
 \chapter{Deep Learning}
 
 \newpage
