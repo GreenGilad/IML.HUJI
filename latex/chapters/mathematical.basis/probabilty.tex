@@ -606,70 +606,73 @@ For example, the law of large numbers states that if we take the empirical avera
 Probability inequalities provide us a way to estimate how many samples are "enough".
 \vspace{3mm}
 
-Suppose that we have a bag containing red and blue balls and we would like to estimate the fraction $p$ of red balls in the bag by randomly picking one ball at a time and then putting it back in. The straightforward strategy is to draw $m$ samples and then using the following estimation  ("prediction")
+Suppose that we have a bag containing red and blue balls and we would like to estimate the fraction $p$ of red balls in the bag by randomly picking one ball at a time and then putting it back in. The straightforward strategy is to draw $m$ samples and then to use the following estimation  ("prediction")
 \[
-\hat{p} =  \frac{1}{m}\sum_{i=1}^{m}x_i =\frac{ ~\text{Number of red balls}}{m}~.
+\hat{p} =  \frac{1}{m}\sum_{i=1}^{m}x_i =\frac{ ~\text{Number of red balls}}{m}~,
 \]
 where $x_i$ equals 1 if the $i$'th ball came out red and 0 otherwise. 
 It is clear that $\E [\hat{p}] = p$. However, we might err due to the fact that we get only limited information. We are only sampling $m$ times so we might get unlucky and end up with a non-representative sample. Although unlikely, this can happen even if $m$ is very large, even larger than the total number of balls, because each time we returned the ball to the bag.
+Thus, typically, we must settle for a certain accuracy - an additive error - that is, we will be happy to know that if we sample more than $m$ times, our estimation,  $\hat{p}$, is going
+to be within a distance $\epsilon>0$ from the real $p$. However, no matter how large $m$ is, there is no absolute guarantee that  $\hat{p}$ will have that required accuracy.
+Since $m$ is finite, there is always a finite chance we sample the same color again and again.  So, at most we can require to have enough confidence, say, with probability of $1-\delta$ where $\delta>0$ is small, that $\hat{p}$ is accurate enough ("accurate enough" defined as within  $\epsilon$ from our target, $p$). And now that we posed a realistic requirement, we can ask how large $m$ should be in order  to satisfy it.
 
-Thus, typically, we must settle for a certain accuracy - an additive error - that is, we will be happy to know that if we sample more than $m$ times, our estimation  $\hat{p}$ is not going
-to be more within a distance $\epsilon>0$ from $p$. However, no matter how large $m$ is, there is no absolute guarantee that  $\hat{p}$ will have that required accuracy.
-Since $m$ is finite, there is always a finite chance we sample the same color again and again.  So, at most we can require to have enough confidence, say, with probability of $1-\delta$ where $delta>0$ is small, that $\hat{p}$ is accurate enough ("accurate enough" defined as within  $\epsilon$ from our target, $p$). And now that we posed a realistic requirement, we can ask how large $m$ should be in order  to satisfy it.
 
-The above example demonstrate the general type question we will use probability inequalities for: Given an accuracy parameter $\epsilon > 0$ and a confidence
+The above example demonstrate the general type of questions we will use probability inequalities for: Given an accuracy parameter $\epsilon > 0$ and a confidence
 parameter $\delta \in (0,1)$, how many samples are needed to guarantee that with probability of at least $1- \delta$, our estimate is within an additive error of at most $\epsilon$.
 That is, we aim at constructing an algorithm (a "learner") whose estimations are probably (with probability at least $1-\delta$) approximately (within additive error of at most $\epsilon$) correct.
 We then say that given $m$ samples or more,  our learner's estimation will be  \emph{probably approximately correct (PAC)}, a fundamental concept in machine learning.
 
-The exact formulation of the PAC framework will be given in the following chapters. Here, we will only consider a preliminary example, that of estimating the bias of a given coin, that will reveals many of the ingredients of the PAC framework.
+The exact formulation of the PAC framework will be given in the following chapters. Here, we will only consider a preliminary example, that of estimating the bias of a given coin, that will reveal many of the ingredients of the PAC framework.
 
-\subsection{Recap} \label{sec:recap}
-We next recall Markov's and Chebyshev's inequalities and then apply both inequalities to derive concentration inequalities for averages.
-\begin{theorem} \textbf{Markov's inequality:} For a nonnegative random
-	variable $X$ (i.e. $\text{Im}(X) \subseteq \R _{\ge 0}$) with finite mean and a positive scalar $t$,
+\subsection{Markov's and Chebyshev's inequalities} \label{sec:recap}
+We now recall Markov's and Chebyshev's inequalities and then apply both inequalities to derive concentration inequalities for averages.
+\begin{theorem} \textbf{Markov's inequality:} Let $X$ be a nonnegative random
+	variable (i.e. $\text{Im}(X) \subseteq \R _{\ge 0}$)  and deonte the expectation value of $X$ by $\mathbb{E}[X]$. For any $t>0$,
 	\[
 	\mathbb{P} [X \geq t] \leq \frac{\mathbb{E}[X]}{t}~.
 	\]
 \end{theorem}
 \begin{proof}
-	Let $f(x)$ be the density function of $x$. Since $X$ is non-negative, we obtain
+	Let $f(x)$ be the density function of $x$. Since $X$ is non-negative so $f(x)=0$ for $x<0$. Thus,
 	\begin{align*}
-		\E[X] &= \int_{x \in \R } f(x) x \,dx \\&
-		= \int_{x = 0} ^t f(x) x\, dx + \int_{x =t} ^\infty f(x) x \, dx \\&
-		\ge \int_{x =t} ^\infty f(x) x \,dx \\&
-		\ge \int_{x =t} ^\infty f(x) t \, dx\\&
-		= t \cdot \int_{x =t} ^\infty f(x) \,dx \\&
-		=t \cdot \mathbb{P}[X \ge t] ~.
+		\frac{\mathbb{E}[X]}{t} &= \frac{1}{t}\int_{0 } ^\infty f(x) x \,dx \ge \frac{1}{t}\int_{x =t} ^\infty f(x) x \,dx \ge \frac{1}{t}\int_{x =t} ^\infty f(x) t \, dx=\mathbb{P}[X \ge t] ~.
 	\end{align*}
-	The desired inequality is obtained by dividing both sides by $t$.
 \end{proof}
 \begin{corollary} \label{cor:markovAve}
-	Let $X$ be a nonnegative random variable with finite mean. Denote its distribution by $\Dc $. Let $X_1,\ldots,X_m$ be $m$ i.i.d. copies of $X$, i.e., $X_1,\ldots,X_m$ are i.i.d. random variables which are distributed according to $\Dc $. Denote their average by $\bar{X}=\frac{1}{m} \sum_{i=1} ^m X_i$. Finally, let $t>0$. Then
+ Let $X_1,\ldots,X_m$ be $m$ i.i.d. non-negative  random variables and denote the expectation value of each by  $\mathbb{E}[X_i]=\mathbb{E}[X]$, $i=1..m$. 
+ Denote also  $\bar{X}=\frac{1}{m} \sum_{i=1} ^m X_i$. Then for any  $t>0$,
 	\[
 	\mathbb{P} [\bar{X} \geq t] \leq \frac{\mathbb{E}[X]}{t}~.
 	\]
 \end{corollary}
 \begin{proof}
-	By the linearity of the expectation,
+	We can apply Markov's inequality to the random variable $\bar{X}$ since it is non-negative  (being a sum of none-negative random variables). Thus, 
+		\[
+	\mathbb{P} [\bar{X} \geq t] \leq \frac{\mathbb{E}[\bar{X}]}{t}~.
+	\]
+	Now, 
 	\begin{align*}
-		\ensuremath{\mathbb{E}} [\bar{X}] &= \ensuremath{\mathbb{E}} \left[\frac{1}{m} \sum_{i=1} ^m X_i \right] \\&
-		= \frac{1}{m} \sum_{i=1} ^m \ensuremath{\mathbb{E}}[X_i] \\&
-		= \frac{1}{m} \sum_{i=1} ^m \ensuremath{\mathbb{E}}[X] \\&
+		\ensuremath{\mathbb{E}} [\bar{X}] = \ensuremath{\mathbb{E}} \left[\frac{1}{m} \sum_{i=1} ^m X_i \right] 
+		= \frac{1}{m} \sum_{i=1} ^m \ensuremath{\mathbb{E}}[X_i] 
+		= \frac{1}{m} \sum_{i=1} ^m \ensuremath{\mathbb{E}}[X] 
 		= \ensuremath{\mathbb{E}}[X]~.
 	\end{align*}
-	Applying Markov's inequality, we obtain the desired bound.
+ and therefore, we obtain the desired bound.
 \end{proof}
 
-Applying Markov inequality to the random variable $(X-\E[X])^2$, we obtain Chebyshev's inequality.
+Markov's inequality gives a bound in terms of the expectation value $\E(X)$, but it can be used to obtain also a bound in terms of the variance of $X$,  $V(X)= \E (X-\E[X])^2$. This bound is called Chebyshev's inequality and does not require $X$ to be non-negative.  
 \begin{theorem} \textbf{Chebyshev's inequality:} For a random variable
-	$X$ with finite mean and variance, and for every $t  > 0$,
+	$X$ with finite mean  $\E[X]$ and a variance $V(X)$ and for every $t  > 0$,
 	\[
 	\mathbb{P}[|X-\E [X]| \geq t] \leq \frac{V[X]}{t^2}.
 	\]
 \end{theorem}
 \begin{proof}
-	Simply observe that $\mathbb{P}[|X-\E [X]| \geq t] = \mathbb{P}[(X-\E [X])^2 \geq t^2]$ and apply Markov's inequality.
+	The random variable $(X-\E[X])^2$ is non-negative (even if $X$ isn't). Applying Markov's inequality to it, we obtain 
+	\[
+	\mathbb{P}[(X-\E [X])^2 \geq t^2] \leq \frac{V[X]}{t^2},
+	\]
+To finish the proof, simply observe that $\mathbb{P}[|X-\E [X]| \geq t] = \mathbb{P}[(X-\E [X])^2 \geq t^2]$.
 \end{proof}
 Unlike the expectation, the variance of the average of i.i.d. random variables is not equal to the variance of the original random variable. Concretely, for a random variable $X$ and $m$ i.i.d. copies of $X$, denoted $X_1,\ldots, X_m$, we have
 \begin{align} \label{eq:varAve}
