@@ -138,13 +138,12 @@ Plotting the ROC curve of a classifier has a few different uses:
 
 
 \section{Half-Space Classifier}
-Similar to linear regression, one of the simplest family of classifiers is that of linear predictors. In such, we are interested in separating a given dataset into two classes using a linear separator function, as seen in \autoref{lin_sep1}.
+Similar to linear regression, one of the simplest families of classifiers is that of linear classifiers. In these, we are interested in separating a given dataset into two classes using a linear separator function, as seen in \autoref{lin_sep1}.
 
 \begin{figure}[h!] %TODO - caption should not be centered
 	\centering
-	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/halfspace_illustration.png}
-	\caption{Half-space Classification Illustration:} Over $\R^3$ we see the half-space of all blue labeled data-points below the purple plane. All points above the half-space are red labeled.
-	\label{lin_sep1}
+	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/3_1.png}
+	\caption{Half-space Classification Illustration:} For a domain-set $\Xc\in\R^2$ the two classes, coded as red and blue colors, are linearly separable \label{lin_sep1}
 \end{figure}
 
 As we have seen in \autoref{eqn:lin_reg_h}, the family of linear functions can be described as: $$ L_d \coloneqq \left\{\x\mapsto \x^\top \w + b | \w\in\R^d,b\in\R\right\} $$
@@ -167,9 +166,9 @@ Let $\left(\w,b\right)$ be an hyperplane, so the half-space of $\left(\w,b\right
 $$ \R^d=\left\{\x\in\R^d | \w^\top \w>0\right\} \biguplus \left\{\x\in\R^d | \w^\top \w=0\right\} \biguplus \left\{\x\in\R^d | \w^\top \w<0\right\} $$
 These sets correspond to the open half spaces on either side of the hyperplane $\w^\perp=\left\{\x\in\R^d|\w^\top \w=0\right\}$ and points on the hyper-plane itself. As such. each vector $\w\in\R^d$ defines a hyper-plane $\w^\perp$ that divides $\R^d$ into two half-spaces.
 
-\begin{figure}[h!] %TODO - caption should not be centered
+\begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/defining_hyperplane.png}
+	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/3_2.png}
 	\caption{Corresponding Hyperplane to $\w^\perp$}
 \end{figure}
 
@@ -234,11 +233,31 @@ The Perceptron algorithm is in fact a simple case of the more general algorithm 
 \section{Support Vector Machines}
 When using the half-space classifier seen above we encounter two problems:
 \begin{itemize}
-	\item When we are searching for a separating half-space the solution is not unique. That is, there could be more than a single vector satisfying the constraints of \ref{eqn:half_space_opt} and achieving the minimal empirical loss (of zero when assuming realizibility or any other positive number if not). As such we are faced with the problem of which one to choose.
+	\item When we are searching for a separating half-space the solution is not unique. That is, there could be more than a single vector satisfying the constraints of \ref{eqn:half_space_opt} and achieving the minimal empirical loss (of zero when assuming realizibility or any other positive number if not). As such we are faced with the problem of which one to choose. \autoref{fig:multiple_hyperplanes} illustrates the existance of multiple separating hyper-planes. \\
 	\item A more severe problem rises when we chose to work with the ERM learning principle for selecting the hypothesis, but the data is not linearly separable (non-realizible case). In this case the optimization problem described in \ref{eqn:half_space_opt} is computationally hard.
 \end{itemize}
 
-Returning to the same hypothesis class of non-homogeneous separating half-spaces $\Hc_{half}$ (\ref{eqn:h_half}), let us \textbf{not} assume the data is linearly separable. We would like to describe a different learning principle that will be able to cope with both problems above: finds a unique hypoerplane and that can be implemented computationally efficiently even when data is not linearly separable (i.e with polynomial running time given the input).
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}{0.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{chapters/classification/figures/3_3.png}
+		\caption{Algorithm selected hyper-plane (solid line) and additional optional separating hyperplanes (dashed lines)}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{chapters/classification/figures/3_4.png}
+		\caption{All hyper-planes linearly separating the data}
+	\end{subfigure}
+	\caption{Illustration of the existance of multiple separating hyper-planes}
+	\label{fig:multiple_hyperplanes}
+\end{figure}
+
+
+
+~\\Returning to the same hypothesis class of non-homogeneous separating half-spaces $\Hc_{half}$ (\ref{eqn:h_half}), let us \textbf{not} assume the data is linearly separable. We would like to describe a different learning principle that will be able to cope with both problems above: finds a unique hypoerplane and that can be implemented computationally efficiently even when data is not linearly separable (i.e with polynomial running time given the input).
 
 \subsection{Maximum Margin Learning Principle}
 
@@ -250,7 +269,16 @@ Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $u\in\R^d$. Define t
 Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane and $S=u_1,\ldots,u_m\in\R^d$ a set of points. The \textbf{margin} of $\left(\w,b\right)$ and $S$ is the smallest distance between the hyperplane and any point: $$ M\left(\left(\w,b\right),S\right) \coloneqq \underset{i\in\left[m\right]}{min}\,\, d\left(\left(\w,b\right),u_i\right) $$
 \end{definition}
 
-So, the new learning principle is: choose $h_{\w,b}\in\Hc_{SVM}$ that has the \textbf{largest margin} with respect to our training data $S$. The vectors closest to the hyperplane determine the margin. They are called \textbf{support vectors} and hence this learner's name.
+So, the new learning principle is: choose $h_{\w,b}\in\Hc_{SVM}$ that has the \textbf{largest margin} with respect to our training data $S$. In \autoref{fig:margin} we are able to see that the margins of both hyper-planes. Based on that, we would prefer selecting the hyper-plane that is in the center of the grey area. The vectors closest to the hyperplane determine the margin. They are called \textbf{support vectors} and hence this learner's name.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{chapters/classification/figures/3_5.png}
+	\caption{Margin of specified hyper-planes}
+	\label{fig:margin}
+\end{figure}
+
+
 
 \subsection{Hard-SVM}
 Let's start with the \textbf{realizable case}. To implement our learning principle of maximal margin, we need to search, among all the hyperplane separating $S$, for the hyperplane with maximum margin. Namely, the hypothesis $h_{\w,b} \in \Hc_{SVM}$ our learner will choose is the solution to the following optimization problem:
@@ -397,7 +425,7 @@ where support vectors satisfy $y_i\left(\inprod{\w}{\x_i}+b\right)$ and that for
 \subsection{Soft-SVM}
 The basic assumption of Hard-SVM is that the training sample is linearly separable. If that is not the case then the optimization problem has no solutions as for any candidate $\left(\w,b\right)$ at least one of the constraints $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)\geq 1$ cannot be satisfied.
 \\~\\
-But what if the training sample is almost linearly separable? That is, what if most of the samples are linearly separable with only a few violating the constraints by ``not too much``? Recall that if $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)<0$ then sample $\x_i$ is on the ``wrong side`` of the hyperplane. This means that: $$\exists \,\xi_i> 0\quad s.t.\quad y_i\cdot\left(\inprod{\w}{\x_i}+b\right) \geq 1-\xi_i $$ Therefore, sample $\x_i$ is on the wrong side of the \textbf{margin} by an amount proportional to $\xi_i$. To allow training samples to violate the constraints ``a little``, we modify the optimization problem to:
+But what if the training sample is almost linearly separable? That is, what if most of the samples are linearly separable with only a few violating the constraints by ``not too much``? Recall that if $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)<0$ then sample $\x_i$ is on the ``wrong side`` of the hyperplane. This means that: $$\exists \,\xi_i> 0\quad s.t.\quad y_i\cdot\left(\inprod{\w}{\x_i}+b\right) \geq 1-\xi_i $$ Therefore, sample $\x_i$ is on the "wrong" side of the \textbf{margin} by an amount proportional to $\xi_i$ (\autoref{fig:soft_svm}). To allow training samples to violate the constraints ``a little``, we modify the optimization problem to:
 
 \begin{equation}
 \begin{array}{clc}
@@ -413,7 +441,9 @@ where $C>0$ is a constant we specify. The variables $\xi_1,\ldots,\xi_m$ are new
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\textwidth]{chapters/classification/figures/soft_svm.png}
+	\includegraphics[width=0.3\textwidth]{chapters/classification/figures/3_6.png}
+	\label{fig:soft_svm}
+	\caption{Slack variables of data-points that are on the "wrong" side of the hyper-plane.}
 \end{figure}
 ~\\
 Instead of specifying $C$ directly, we often prefer working with a slightly different optimization problem, where instead of constraining the value of $\frac{1}{m}\sum\x_i$ we jointly minimize the norm of $\w$ (related to the margin) and the average of $\xi_i$ (corresponding margin violations).
@@ -605,7 +635,7 @@ This function is indeed monotone increasing and maps $\left(-\infty,\infty\right
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/classification/figures/logistic.png}
+	\includegraphics[width=0.5\textwidth]{chapters/classification/figures/3_7.png}
 	\caption{\todo{todo}}
 \end{figure}
 
