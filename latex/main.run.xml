@@ -52,7 +52,6 @@
     <requires type="static">
       <file>blx-dm.def</file>
       <file>blx-compat.def</file>
-      <file>blx-case-expl3.def</file>
       <file>biblatex.def</file>
       <file>standard.bbx</file>
       <file>alphabetic.bbx</file>

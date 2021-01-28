@@ -17,8 +17,8 @@ Finally, we \textit{predict} that we will need $T= N \times \hat{\mu}_{tea}$ cup
 
 The little "hat" symbol, $\hat{}$ , is there to point out that the right hand side of the above definition is what we \textit{choose} as an \textit{estimator} for the population mean $\mu_{tea}$.  The linearity of the expectation value ensures that the expectation value of the estimator $\hat{\mu}_{tea}$ is indeed equal to   $\mu_{tea}$. An estimator whose expectation value is equal to the quantity it is designed to estimate, is called an \textit{unbiased} estimator.
 $\hat{\mu}_{tea}$ may seem an obvious choice since it has a form similar to that of $\mu_{tea}=\frac{1}{N}\sum_{k=1}^{N}x_k$.
-However, if we tried to estimate the \textit{variance}, $V(x)$, of the personal tea consumption among the guests using the same logic, that is, by choosing $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ as an estimator, we would find, perhaps surprisingly, that we are consistently off target:
-the expectation value of $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ is \textit{different} than the variance $V(x)$ and therefore $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ is a \textit{biased} estimator.
+However, if we tried to estimate the \textit{variance}, $Var(x)$, of the personal tea consumption among the guests using the same logic, that is, by choosing $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ as an estimator, we would find, perhaps surprisingly, that we are consistently off target:
+the expectation value of $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ is \textit{different} than the variance $Var(x)$ and therefore $\frac{1}{m}\sum_{k=1}^{m}(x_k-\hat{\mu}_{tea})^2$ is a \textit{biased} estimator.
 We will return to this point in the next sections.
 \vspace{3mm}
 
@@ -211,10 +211,10 @@ Properties:
 \end{definition}
 Properties of the variance:
 \begin{itemize}
-	\item $V(X)\geq0$ , ~$V(X)=0\,\iff\,X$ is a constant.
+	\item $Var(X)\geq0$ , ~$Var(X)=0\,\iff\,X$ is a constant.
 	\item $V\left(X\right)=\E \left[X^{2}\right] - (\E \left[X\right])^{2}$
-	\item $V(aX+b)=a^{2}V(X)$
-	\item $V(X+Y)=\E \left[\left(X+Y-\E (X)-\E (Y)\right)^{2}\right]=V(X)+V(Y)+2\overbrace{\E \left[\left(X-\E [X]\right)\left(Y-\E [Y]\right)\right]}^{\sigma \left(X,Y \right)}$
+	\item $Var(aX+b)=a^{2}Var(X)$
+	\item $Var(X+Y)=\E \left[\left(X+Y-\E (X)-\E (Y)\right)^{2}\right]=Var(X)+Var(Y)+2\overbrace{\E \left[\left(X-\E [X]\right)\left(Y-\E [Y]\right)\right]}^{\sigma \left(X,Y \right)}$
 	\item If $X_{1},\dots,X_{n}$ are independent then $V\left(\sum X_{i}\right)=\sum V\left(X_{i}\right)$\end{itemize}
 
 \begin{definition}
@@ -228,7 +228,7 @@ Properties:
 \begin{itemize}
 	\item $\sigma (X,Y)=\sigma \left(Y,X \right)$
 	\item $\sigma \left(aX+b,cY+d \right) = a \cdot c \cdot\sigma \left(X,Y \right)$
-	\item $\sigma(X,X)=V(X)$
+	\item $\sigma(X,X)=Var(X)$
 \end{itemize}
 
 Note the different meaning implied by the above definitions: The variance measures the variation of a single random variable (like the height of a person in a population), whereas covariance is a measure of how much two random variables  (like the height and weight) vary together.
@@ -269,9 +269,9 @@ Can we {\em estimate}  the distribution's mean and variance using only those sam
 Formally, let $X$ be a random variable, let $\Dc \left(x\right)$ be its (unknown) distribution, and let $X_1,\ldots,X_m\overset{i.i.d}{\sim} D(x)$, where i.i.d  denotes \emph{independent and identically distributed} random variables. We are given \emph{data samples}: $x_1,\ldots,x_m$, where each $x_i$ is a {\em number} obtained by sampling $X_i$.
 %The data has its own mean and variance which are likely to be, at least, slightly different than those of $\Dc \left(x\right),$ and therefore it is customary, in statistics, to use different names for these.
 In statistics, $\ensuremath{\mathbb{E}}[X]$ is called the {\em population} mean - "population" added to emphasize that it is the mean of the unknown distribution, not the mean of the observed data.
-Similarly, $V(X)$ is called the \textit{population variance}.
+Similarly, $Var(X)$ is called the \textit{population variance}.
 
-There are many ways to estimate $\ensuremath{\mathbb{E}}[X]$ and $V(X)$ based on those $n$ samples, and each one is called an \textit{estimator}. Throughout this book we are going to use the following estimators (commonly denoted with the "hat" symbol to emphasize the fact that they are the way we choose to use the experimental observations in order to estimate the real, namely, the population, mean and variance):
+There are many ways to estimate $\ensuremath{\mathbb{E}}[X]$ and $Var(X)$ based on those $n$ samples, and each one is called an \textit{estimator}. Throughout this book we are going to use the following estimators (commonly denoted with the "hat" symbol to emphasize the fact that they are the way we choose to use the experimental observations in order to estimate the real, namely, the population, mean and variance):
 \begin{itemize}
 	\item \textbf{\textit{Sample mean}} (an estimator for the population mean)
 	$$		\hat{\mu}_X = \frac{1}{m} \sum_{i=1}^m x_i$$
@@ -295,7 +295,7 @@ $$
 $$
 The $X_i$'s are i.i.d which implies that  $\E(x_i)=\E(X)$ and $\E(x_i^2)=\E(X^2)$ for every $i$, as well as that   $\E(x_ix_{i'})=\E^2(X)=\mu^2_X$ for every  $i\neq i'$. Substituting into the above sums one obtains  
 $$
-\E\left(\hat{\sigma}_X^2\right) =\E(X^2) -\E^2(X)=V(X)= \sigma^2_X
+\E\left(\hat{\sigma}_X^2\right) =\E(X^2) -\E^2(X)=Var(X)= \sigma^2_X
 $$
 \end{exercise}
 
@@ -427,7 +427,7 @@ $x_1\sim\mathcal{N}({\mu_1},{\sigma_1^2})$
 
 \subsection{Covariance Matrix}
 
-Recall the population variance $V(X)$ of a scalar (one dimensional) random variable $X$. What is the proper generalization for the case of a random vector?
+Recall the population variance $Var(X)$ of a scalar (one dimensional) random variable $X$. What is the proper generalization for the case of a random vector?
 \begin{definition}[Covariance Matrix]
 	Consider a $d$-dimensional random vector $ \mathbf{X} =(X_{1},X_{2},...,X_d)^T$.
 	We define the  {\em Covariance Matrix} $C$ as the $d \times d$ matrix whose $ (i,j)$ entry is the covariance $C_{ij}=\sigma (X_i,X_j)$
@@ -445,7 +445,7 @@ Recall the population variance $V(X)$ of a scalar (one dimensional) random varia
 		\item Recall that we can use  matrix notations for random vectors. In matrix notation,
 		$$C=\mathbb{E}[({X} - {\mathbb{E}\left[X\right]} )({X} -{\mathbb{E}\left[X\right]} )^{T}]$$
 		
-		\item The diagonal elements of $C$ are $\sigma (X_i, X_i) \equiv \sigma^2 _{X_i} \equiv  V(X_i)$. $C$ is symmetric positive semidefinite.
+		\item The diagonal elements of $C$ are $\sigma (X_i, X_i) \equiv \sigma^2 _{X_i} \equiv  Var(X_i)$. $C$ is symmetric positive semidefinite.
 		
 	\end{itemize}
 	
@@ -660,36 +660,39 @@ We now recall Markov's and Chebyshev's inequalities and then apply both inequali
  and therefore, we obtain the desired bound.
 \end{proof}
 
-Markov's inequality gives a bound in terms of the expectation value $\E(X)$, but it can be used to obtain also a bound in terms of the variance of $X$,  $V(X)= \E (X-\E[X])^2$. This bound is called Chebyshev's inequality and does not require $X$ to be non-negative.  
+Markov's inequality gives a bound in terms of the expectation value $\E(X)$, but it can be used to obtain also a bound in terms of the variance of $X$,  $Var(X)= \E (X-\E[X])^2$. This bound is called Chebyshev's inequality and does not require $X$ to be non-negative.  
 \begin{theorem} \textbf{Chebyshev's inequality:} For a random variable
-	$X$ with finite mean  $\E[X]$ and a variance $V(X)$ and for every $t  > 0$,
+	$X$ with finite mean  $\E[X]$ and a variance $Var(X)$ and for every $t  > 0$,
 	\[
-	\mathbb{P}[|X-\E [X]| \geq t] \leq \frac{V[X]}{t^2}.
+	\mathbb{P}[|X-\E [X]| \geq t] \leq \frac{Var(X)}{t^2}.
 	\]
 \end{theorem}
 \begin{proof}
-	The random variable $(X-\E[X])^2$ is non-negative (even if $X$ isn't). Applying Markov's inequality to it, we obtain 
+Applying Markov's inequality to the random variable $(X-\E[X])^2$ (which is non-negative even if $X$ can take negative values) we obtain 
 	\[
-	\mathbb{P}[(X-\E [X])^2 \geq t^2] \leq \frac{V[X]}{t^2},
+	\mathbb{P}[(X-\E [X])^2 \geq t^2] \leq \frac{Var(X)}{t^2},
 	\]
 To finish the proof, simply observe that $\mathbb{P}[|X-\E [X]| \geq t] = \mathbb{P}[(X-\E [X])^2 \geq t^2]$.
 \end{proof}
-Unlike the expectation, the variance of the average of i.i.d. random variables is not equal to the variance of the original random variable. Concretely, for a random variable $X$ and $m$ i.i.d. copies of $X$, denoted $X_1,\ldots, X_m$, we have
+Unlike in the case of the expectation value, the variance of the average of i.i.d. random variables is not equal to the variance of the original random variable. 
+For example, for $m$ i.i.d. random variables, $X_1,\ldots, X_m$, with a variance $Var(X_i)=Var(X)$, $i=1..m$,  we have
 \begin{align} \label{eq:varAve}
-	V \left[\frac{1}{m} \sum_{i=1} ^m X_i \right] &= \frac{1}{m^2} V \left[\sum_{i=1} ^m X_i \right] \notag \\&
-	= \frac{1}{m^2} \sum_{i=1} ^m V [X_i] \notag \\&
-	= \frac{1}{m^2} \sum_{i=1} ^m V [X] \notag \\&
-	= \frac{1}{m} V[X]~.
+	V \left[\frac{1}{m} \sum_{i=1} ^m X_i \right] = 
+	\frac{1}{m^2} V \left[\sum_{i=1} ^m X_i \right] \notag 
+	= \frac{1}{m^2} \sum_{i=1} ^m Var(X_i) \notag 
+	= \frac{1}{m^2} \sum_{i=1} ^m Var(X) \notag
+	= \frac{1}{m} Var(X)~.
 \end{align}
+where we used the fact the  $ V \left[X_1+X_2 \right] = Var(X_1)+Var(X_2)$ for independent $X_1$ and $X_2$.
 In particular, the variance of the average tends to zero when $m$ tends to infinity. This leads to a much better concentration inequality.
 \begin{corollary} \label{cor:chebysevAve}
-	Let $X$ be a nonnegative random variable with finite variance and let $X_1,\ldots,X_m$ be $m$ i.i.d. copies of $X$. Denote their average by $\bar{X}=\frac{1}{m} \sum_{i=1} ^m X_i$. Finally, let $t>0$. Then
+	Let $X_1,\ldots,X_m$ be $m$ i.i.d. copies of a  random variable $X$ with a finite variance $Var(X)$. Denoting $\bar{X}=\frac{1}{m} \sum_{i=1} ^m X_i$ and for any $t>0$, one has
 	\[
-	\mathbb{P} [|\bar{X}-\E [\bar{X}]| \geq t] = \mathbb{P} [|\bar{X}-\E [X]| \geq t] \leq \frac{V[X]}{mt^2}~.
+	\mathbb{P} [|\bar{X}-\E [\bar{X}]| \geq t] = \mathbb{P} [|\bar{X}-\E [X]| \geq t] \leq \frac{Var(X)}{mt^2}~.
 	\]
 \end{corollary}
 
-For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is defined by $\ensuremath{\mathbb{E}}[X^k]$. As we just saw, Markov's inequality exploits only information about the first moment, while Chebyshev's inequality  exploits both the first and the second moments. Comparing the bounds in \ref{cor:markovAve} and \ref{cor:chebysevAve}, we see that using both the first and the second moments, we obtain better concentration inequalities than using only the first. We shall see soon that more generally, the more moments we use, the better the bounds we get.
+For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is defined by $\ensuremath{\mathbb{E}}[X^k]$. As we just saw, Markov's inequality exploits only information about the first moment, while Chebyshev's inequality  uses both the first and the second moments. Comparing the bounds in \ref{cor:markovAve} and \ref{cor:chebysevAve}, we see that using both the first and the second moments, we obtain better concentration inequalities than using only the first. We shall see soon that more generally, the more moments we use, the better the bounds we get.
 
 \subsection{Coin Prediction}  \label{sec:basicConcentration}
 Let us formulate the problem of estimating the bias of a
