@@ -695,19 +695,23 @@ In particular, the variance of the average tends to zero when $m$ tends to infin
 For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is defined by $\ensuremath{\mathbb{E}}[X^k]$. As we just saw, Markov's inequality exploits only information about the first moment, while Chebyshev's inequality  uses both the first and the second moments. Comparing the bounds in \ref{cor:markovAve} and \ref{cor:chebysevAve}, we see that using both the first and the second moments, we obtain better concentration inequalities than using only the first. We shall see soon that more generally, the more moments we use, the better the bounds we get.
 
 \subsection{Coin Prediction}  \label{sec:basicConcentration}
-Let us formulate the problem of estimating the bias of a
-coin (in short, coin prediction)\footnote{We take this opportunity to recall some basic notions from probability theory}. Formally, a coin is a Bernoulli random variable $Z$ with a bias $p - 1/2$ ('bias' is defined here as the \textit{deviation} from $p=1/2$, where $p$ is the probability to obtain ``heads'').
-%The probability space which is associated with $Z$ is the triplet $(\Omega ,\mathbb{P}  )$, where the sample space $\Omega$ equals $\{H,T\}$,  $$\prod\{1\}]=p~,~\Dc [\{0\}]=1-p~. $$Once we defined $\Dc (\{1\})$ and $\Dc (\{0\})$, the values of $\Dc $ on other events are determined by combining the fact that $\Dc $ is additive (for disjoints subsets $E,F \in \cF$, we have $\Dc (E \cup F)=\Dc (E) + \Dc (F)$) with the fact that $\Dc (\Omega)=1$.
-The random variable $Z$ is simply a function from $\Omega$ to $\{0,1\}$. Let $Z_1,
-\ldots, Z_m$ be a sequence of independent and identically distributed
-(i.i.d.) random variables according to the distribution $\Dc _Z$ (that
-is, each of the $Z_i$ has the same distribution as $Z$, and all of the
-$Z_i$ are mutually independent). Denote the random sequence  (a.k.a. sample)
-$(Z_1,\ldots, Z_m)$ by $S$, where $|S|=m$. The distribution which is associated with $S$ is denoted by $\Dc _Z ^m$ (or simply by $\Dc ^m$).
+In this section we consider the problem of estimating the bias of a coin, or in short 'coin prediction'. 
+This will allow us to introduce the important concept of the sample complexity, to demonstrate the usefulness and limitations of the Markov's and Chebyshev's inequalities as well as a new one called Hoeffding's inequality.
 
-The input of a \emph{learning algorithm} $A$ for the task of coin prediction consists of a random sequence $S$ which is drawn according to
-$\Dc ^m$. Based on this input, the algorithm has to predict the value of $p$. We denote this prediction, (that is, the output of the algorithm) by $A(S)$ or simply by $\hat{p}$. Clearly, the drawn sequence can not fully describe the distribution. Hence, we introduce an \emph{accuracy} parameter $\epsilon>0$, and allow $\hat{p}$ to deviate from $p$ by at most $\epsilon$. Furthermore, there is always a chance that the drawn sequence would be highly non-representative, so it is impossible to obtain a guarantee that holds with absolute certainty. Hence, we introduce a \emph{confidence} parameter $\delta>0$, and allow that the event $B:=\{s : |\hat{p}-p|>\epsilon\}$ occur with probability at
-most $\delta$. More formally:
+Formally, a coin flip is a Bernoulli random variable $Z$ which takes the value 1 (for "Heads") or 0 (for "tails") .
+We shall denote the probability distribution of $Z$ by $\Dc_p$, where $0\le p \le 1$, $\Dc_p(1)=p$  and $\Dc_p(0)=1-p$ are the probabilities to obtain 1 and 0 correspondingly. 
+The \textit{bias} of the coin is defined as $p - 1/2$, that is, it is the \textit{deviation} from $p=1/2$.
+A series of $m$ coin flips is represented by a sequence of $m$ independent and identically distributed (i.i.d.) random variables, $Z_1, \ldots, Z_m$  each distributed according to $\Dc_p$. 
+We denote the  results of  $m$ flips by the sequence  (a.k.a. sample) $S = (z_1,\ldots, z_m)$  and the probability of obtaining a specific $S$ by $\Dc _p ^m$ (or simply by $\Dc ^m$).
+
+A coin prediction \emph{learning algorithm}, $A$, is a procedure with  takes as an input a sequence $S$, drawn according to $\Dc_p ^m$, and produces as an output an estimation of $p$ (or of the bias $p-1/2$).
+This estimation, also called 'prediction', is denoted  by $A(S)$ or $\hat{p}(S)$ or simply $\hat{p}$.
+Being finite, the sequence $S$ can not fully describe the distribution, so we do not expect our estimation $\hat{p}$ to be exact.
+Instead, we will settle for an algorithm which will yield a $\hat{p}$ which is within a distance of $\epsilon$ from $p$, where  $0< \epsilon <1$ is called the \emph{accuracy} parameter.
+Furthermore, there is always (unless $p$  equals 1 or 0) \textit{some} chance that the drawn sequence would be highly non-representative - for example, it can come out all 0's  in spite of $p$ being close to 1. 
+So it is impossible to obtain a guarantee that $|\hat{p}-p|<\epsilon$ holds with absolute certainty. 
+Hence, we introduce a \emph{confidence} parameter $0<\delta <1$, and require that our the event $\{S : |\hat{p}-p|>\epsilon\}$ occurs  with a probability of at
+most $\delta$. In other words, we require our algorithm to be such that the probability of flipping the coin $m$ times and obtaining a sequence $S$ that causes it to produce an inaccurate estimation, $\hat{p}(S)$, of $p$ (inaccurate defined by $|\hat{p}-p|>\epsilon$ ) is smaller or equal to $\delta$. More formally:
 
 \begin{definition}  \label{def:sampleCoin}
 	A mistake-bound learning algorithm $A$ for the task of (batch) coin prediction is a function $\hat{p}(S)$
