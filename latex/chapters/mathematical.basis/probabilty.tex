@@ -696,93 +696,102 @@ For a positive integer $k$, the $k$-th \emph{moment} of a random variable $X$ is
 
 \subsection{Coin Prediction}  \label{sec:basicConcentration}
 In this section we consider the problem of estimating the bias of a coin, or in short 'coin prediction'. 
-This will allow us to introduce the important concept of the sample complexity, to demonstrate the usefulness and limitations of the Markov's and Chebyshev's inequalities as well as a new one called Hoeffding's inequality.
+This will allow us to introduce the important concept of the \textit{sample complexity}, to demonstrate the usefulness and limitations of the Markov's and Chebyshev's inequalities as well as a new one called Hoeffding's inequality.
 
-Formally, a coin flip is a Bernoulli random variable $Z$ which takes the value 1 (for "Heads") or 0 (for "tails") .
-We shall denote the probability distribution of $Z$ by $\Dc_p$, where $0\le p \le 1$, $\Dc_p(1)=p$  and $\Dc_p(0)=1-p$ are the probabilities to obtain 1 and 0 correspondingly. 
+Formally, a coin flip is a Bernoulli random variable $Z$ which takes the value 1 for "Heads" or 0 for "tails".
+We shall denote the probability distribution of $Z$ by $\Dc_p$, where $0\le p \le 1$ and where $\Dc_p(1)=p$  and $\Dc_p(0)=1-p$ are the probabilities to obtain 1 and 0 correspondingly. 
 The \textit{bias} of the coin is defined as $p - 1/2$, that is, it is the \textit{deviation} from $p=1/2$.
 A series of $m$ coin flips is represented by a sequence of $m$ independent and identically distributed (i.i.d.) random variables, $Z_1, \ldots, Z_m$  each distributed according to $\Dc_p$. 
-We denote the  results of  $m$ flips by the sequence  (a.k.a. sample) $S = (z_1,\ldots, z_m)$  and the probability of obtaining a specific $S$ by $\Dc _p ^m$ (or simply by $\Dc ^m$).
+We denote the  results of  $m$ flips by the sequence  (a.k.a. sample) $S = (z_1,\ldots, z_m)$  and the probability of obtaining a specific $S$ by $\Dc _p ^m(S)$ (or simply by $\Dc ^m(S)$).
 
-A coin prediction \emph{learning algorithm}, $A$, is a procedure with  takes as an input a sequence $S$, drawn according to $\Dc_p ^m$, and produces as an output an estimation of $p$ (or of the bias $p-1/2$).
+
+A coin prediction \emph{learning algorithm}, $A$, is a procedure which  takes as an input a sequence $S$, drawn according to $\Dc_p ^m$, and produces as an output an estimation of $p$.
 This estimation, also called 'prediction', is denoted  by $A(S)$ or $\hat{p}(S)$ or simply $\hat{p}$.
-Being finite, the sequence $S$ can not fully describe the distribution, so we do not expect our estimation $\hat{p}$ to be exact.
-Instead, we will settle for an algorithm which will yield a $\hat{p}$ which is within a distance of $\epsilon$ from $p$, where  $0< \epsilon <1$ is called the \emph{accuracy} parameter.
-Furthermore, there is always (unless $p$  equals 1 or 0) \textit{some} chance that the drawn sequence would be highly non-representative - for example, it can come out all 0's  in spite of $p$ being close to 1. 
-So it is impossible to obtain a guarantee that $|\hat{p}-p|<\epsilon$ holds with absolute certainty. 
-Hence, we introduce a \emph{confidence} parameter $0<\delta <1$, and require that our the event $\{S : |\hat{p}-p|>\epsilon\}$ occurs  with a probability of at
-most $\delta$. In other words, we require our algorithm to be such that the probability of flipping the coin $m$ times and obtaining a sequence $S$ that causes it to produce an inaccurate estimation, $\hat{p}(S)$, of $p$ (inaccurate defined by $|\hat{p}-p|>\epsilon$ ) is smaller or equal to $\delta$. More formally:
 
+Since $S$ is finite, we do not expect our estimation $\hat{p}$ to be exact.
+Instead, we will settle for an algorithm that yields a $\hat{p}$ which satisfies  $|\hat{p}-p|\le \epsilon$, for some  $0< \epsilon <1$ which is called the \emph{accuracy} parameter. Even then, there is always (unless $p$  equals 1 or 0) \textit{some} chance that the drawn sequence would be highly non-representative. For example, it can come out all 0's  in spite of $p$ being close to 1. So it is impossible to obtain a guarantee that $|\hat{p}-p|\le\epsilon$ holds with absolute certainty. 
+Hence, we introduce a \emph{confidence} parameter $0<\delta <1$, and require that the event $\{S : |\hat{p}-p|>\epsilon\}$ occurs  with a probability of at
+most $\delta$. In other words, we require our algorithm to be such that the probability of flipping the coin $m$ times and obtaining a sequence $S$ that causes it to produce an inaccurate estimation, $\hat{p}(S)$ ('inaccurate' meaning $|\hat{p}-p|>\epsilon$ ) is smaller or equal to $\delta$. 
+
+Intuitively, the larger the number of flips, the more information we have about the coin and the better chance we have to satisfy the accuracy and confidence requirements. 
+Since the accuracy and confidence parameters $\epsilon$ and $\delta$ are fixed, there should be some finite number of flips $m_A$  
+(which depends on  $\epsilon$ and $\delta$ and on our choice of algorithm, A) such that for any sample of size $m\ge m_A$ our algorithm, A, satisfies the above accuracy and confidence requirements. 
+If such $m_A$ exists, we say that our algorithm is a \textit{learning algorithm} for the task of coin prediction, or more precisely a \textit{PAC learning algorithm} (a concept that will be discussed broadly in the later chapters) for that task. 
+    
 \begin{definition}  \label{def:sampleCoin}
-	A mistake-bound learning algorithm $A$ for the task of (batch) coin prediction is a function $\hat{p}(S)$
+	A \textit{(PAC) learning algorithm $A$ for the task of (batch) coin prediction} is a function $\hat{p}(S)$
 	where $S\in \bigcup_{m=1} ^\infty \{0,1\}^m$ and $\hat{p}(S)\in [0,1]$ which satisfies the following condition:
-	
-	For any $0\le \epsilon,\delta\le 1$, there exists a non-negative integer $m_A(\epsilon,\delta)$ such that,
-	if a sequence $S$ of $m$ numbers, where $m\ge m_A$, is generated according to $\Dc ^m_p$, (that is, $\Dc ^m$ with parameter $p$, which is added temporarily here as a subscript but omitted later on) then the probability that the algorithm's output $\hat{p}(S)$ will not be in $[p-\epsilon,p+\epsilon]$ is bounded by:
-	$$ \Dc ^{m}_p \left[ |\hat{p}-p| > \epsilon\right] <  \delta,$$
-	\textbf{for any $0\le p\le 1$,} and if a sequence $S$ of $m$ numbers, where $m < m_A$, is generated, \textbf{there exist a $p$}, with $0\le p\le 1$ such that:
-	$$ \Dc ^{m}_p \left[ |\hat{p}-p| >  \epsilon \right] > \delta$$
-	
-	The function $m_A(\epsilon,\delta)$: $\left[0,1\right]\times \left[0,1\right]\rightarrow \mathbb{N}$ is called the \emph{sample complexity} of the learning algorithm $A$.
+	\begin{itemize}
+		\item For any $0< \epsilon,\delta< 1$, there exists a non-negative integer $m_A(\epsilon,\delta)$ such that,
+		if a sequence $S$ of $m$ numbers, where $m\ge m_A$, is generated according to $\Dc ^m_p$,  then,  \textbf{for any $0\le p\le 1$}:
+		$$\Dc ^{m}_p \left[ |\hat{p}-p| > \epsilon\right] \le  \delta,$$
+		where  $ \Dc ^{m}_p \left[ |\hat{p}-p| > \epsilon\right] \equiv  \Dc ^{m}_p(\{S|~ |\hat{p}(S)-p| > \epsilon\})$ is the probability to get an $S$ such that the algorithm's output $\hat{p}(S)$ will not be in the interval $[p-\epsilon,p+\epsilon]$. 
+		\item If a sequence $S$ of $m$ numbers, where $m < m_A$, is generated, \textbf{there exists a $p$}, with $0\le p\le 1$, such that:
+		$$ \Dc ^{m}_p \left[ |\hat{p}-p| >  \epsilon \right] > \delta$$
+		
+	\end{itemize}
+	The function $m_A(\epsilon,\delta)$: $\left[0,1\right]\times \left[0,1\right]\rightarrow \mathbb{N}$ is called the \emph{sample complexity} of the algorithm $A$.
 	
 	% More generally: the sample complexity of a machine learning algorithm represents the number of training-samples that it needs in order to successfully learn a target function.
 \end{definition}
 
-The first condition means that, no matter what $p$ is, it is enough to draw $m_A$ samples (i.e., to flip the coin $m_A$ times) in order to know $p$, with a certainty of $1-\delta$ and an accuracy of $\pm \epsilon$. The second conditions means that, at least for some values of $p$, drawing $m_A(\epsilon,\delta)-1$ samples would \textit{not} be enough for that.
+%Note how we used the more compact notation for the probability to obtain a good series 	$$ \Dc ^{m}_p(\{S|~ |\hat{p}(S)-p| > \epsilon\}) = \Dc ^{m}_p \left[ |\hat{p}-p| > \epsilon\right] \le  \delta,$$
+
+
+
+
+The first condition means that, no matter what $p$ is  (that is, no matter how biased the coin is), it is enough to draw $m_A$ samples (i.e., to flip the coin $m_A$ times) in order to know $p$, with a certainty of $1-\delta$ and an accuracy of $\pm \epsilon$. The second conditions means that, at least for some values of $p$, drawing $m_A(\epsilon,\delta)-1$ samples would \textit{not} be enough for that.
+\vspace{3mm}
 
 \textbf{Note about the confidence requirement}: In the above definition the confidence requirement must hold \emph{independently of the procedure by which the coins are provided}, that is, independently of the way $p$ is chosen. It does not matter if, for example, the coin is randomly drawn from a pile of coins where most coins are approximately fair (most of their $p$'s are close to $1/2$) or where most are faked in a specific way, (their $p$'s are concentrated around, say, $\frac{1}{4}$ ),  or where all $p$'s are equally probable.
+\vspace{3mm}
 
 Another way to think of the sample complexity is the following. Consider all possible sequences, $S$, of $m$ 0's and 1's. For each value of $p$, each of these sequences has a different probability to occur. Each $S$ can be labeled as 'good' ('typical') or 'bad'('atypical'), 'good' means that $m \cdot \hat{p}(S)$ is between $m(p-\epsilon)$ and $m(p+\epsilon)$ and 'bad' otherwise (Note that,  even for the same coin,  if  $S$ is good with respect to algorithm $A_1(S)$ it may still be bad with respect to another algorithm $A_2(S),$  if $\hat{p}_1(S)\ne \hat{p}_2(S)$.) Given a coin, let us denote the smallest $m$ for which the  total sum of the probabilities of all the good sequences is at least $1-\delta$, by $m_A^{(p)}(\epsilon,\delta)$. We can think of $m_A^{(p)}$ as the \emph{coin-specific} sample complexity. The algorithm sample complexity $m_A(\epsilon,\delta)$ is the maximal number among the coin-specific sample complexities, that is: $m_A(\epsilon,\delta) = \max_{p}(m_A^{(p)}(\epsilon,\delta))$.
 
 %The term `approximately' in PAC stems from the fact that we only require that $\hat{p}$ approximates $p$ to an accuracy $\epsilon$. The term `probably' in PAC comes from the fact that we are satisfied whenever $\hat{p}$ satisfies the accuracy requirements with probability at least$1-\delta$.
+\vspace{3mm}
 
-Given an i.i.d. random sample $S=(z_1, \ldots, z_m)$, a reasonable
-estimate of $p$ is the empirical proportion of heads (ones), namely
-$\hat{p}=\frac{1}{m} \sum_{i=1} ^m z_m$. The first basic property of
-this average is that its expected value equals $p$. This follows by
-the linearity of expectation as follows:
+\subsubsection{Choosing an Algorithm}
+
+Let us now look for an algorithm that satisfies the above definition. Given a sample $S=(z_1, \ldots, z_m)$ the most straightforward estimate of $p$ is the empirical proportion of heads (ones), namely
+$$\hat{p}(S)=\frac{1}{m} \sum_{i=1} ^m z_m.$$
+So we have a very simple algorithm for coin prediction, "Count the ones and divide by the number of flips, $m$", which we now like to prove to be a PAC learning algorithm, according to the above definition.
+
+First, recall that this choice of $\hat{p}$ forms an \emph{unbiased estimate} of $p$, since its expected value equals $p$:
 \[
 \ensuremath{\mathbb{E}} \left [\frac{1}{m} \sum_{i=1} ^m Z_i \right] = \frac{1}{m} \sum_{i=1} ^m
 \ensuremath{\mathbb{E}}[Z_i] = \frac{1}{m} \cdot m \cdot p = p~.
 \]
-We say in this case that $\hat{p}$ forms an \emph{unbiased estimate}
-of $p$. What can we say about the quality of $\hat{p}$ as an estimate
-of $p$? In other words, how tightly $\hat{p}$ is concentrated around
-its expectation? To answer this question, we can use concentration inequalities.\\
 
-\noindent \textbf{First attempt: Markov's inequality: }
 
-For a direct application of Markov's inequality we take  $|\hat{p}-p|$ as our RV  (note that $\hat{p}-p$ is not a positive RV and therefore cannot be used in Markov's inequality). We then need to calculate $\frac{1}{\epsilon}\ensuremath{\mathbb{E}}[|\hat{p}-p|]$ and extract its dependence on the sample size $m$.
-Since we are going to get much better bounds below, here we only state the result (and leave the calculation as a challange exercise):
+ 
+Now we should test the  quality of $\hat{p}$ as an estimate of $p$.  In other words, how many coin flips we need to ensure that $\hat{p}$ is, most probably, very close to
+its expectation value, $p$? To answer this question, we can use the concentration inequalities introduced in the previous section.
+
+\subsubsection{Estimating the Sample Complexity Using Markov's Inequality}
+
+For a direct application of Markov's inequality we take  $|\hat{p}-p|$ as our random variable. The absolute value is needed because Markov's inequality requires a non-negative random variable to hold. We then need to calculate $\frac{1}{\epsilon}\ensuremath{\mathbb{E}}[|\hat{p}-p|]$ and extract its dependence on the sample size $m$.
+Since we are going to get much better bounds below, here we only state the result and leave the calculation as an exercise:
 $$
-\Dc ^m \left[|\hat{p}-p| \geq \epsilon \right]  \le \frac{1}{\sqrt{4m\epsilon^2}}
+\Dc_p ^m \left[|\hat{p}-p| \geq \epsilon \right]  \le \frac{1}{\sqrt{4m\epsilon^2}}.
 $$
-This implies that the sample complexity of coin prediction is bounded above by
-$m(\epsilon,\delta) \le \left \lceil \frac{1}{4\epsilon^2} \cdot
-\frac{1}{\delta^2} \right \rceil$.
-(You can verify by substituting $m=\frac{1}{4\epsilon^2}\cdot
-\frac{1}{\delta^2}$ in the bound)
+Note that the right-hand-side is smaller or equal to $\delta$ for every $m$ that satisfies $m\ge  \left \lceil \frac{1}{4\epsilon^2} \cdot \frac{1}{\delta^2} \right \rceil. $
+It follows that the  our coin prediction algorithm is indeed a PAC learning algorithm, with a sample complexity  $m_A(\epsilon,\delta)$ which  is bounded from above by 
+$m_A(\epsilon,\delta)\le  \left \lceil \frac{1}{4\epsilon^2} \cdot \frac{1}{\delta^2} \right \rceil. $ 
 
-\vspace{5mm}
 
 \begin{exercise}[Markov's inequality]
-	Prove that:  $\Dc ^m \left[|\hat{p}-p| \geq \epsilon \right]  \le \frac{1}{\sqrt{4m\epsilon^2}}.$
+	Prove that:  $\Dc_p ^m \left[|\hat{p}-p| \geq \epsilon \right]  \le \frac{1}{\sqrt{4m\epsilon^2}}.$
+	Hint: Show that for any random variable $h$ with $\ensuremath{\mathbb{E}}(h)=0$, one has $\ensuremath{\mathbb{E}}(|h|) \le \sqrt{ Var(h)}$
+	and then apply this result to the right-hand-side of Markov's inequality.
 \end{exercise}
 
-\begin{itemize}
-	\item Hint: Show that for any RV $h$ with $\ensuremath{\mathbb{E}}(h)=0$ :
-	$$\ensuremath{\mathbb{E}}(|h|) \le \sqrt{ Var(h)}$$
-	and then apply this result to the RHS of Markov's inequality.
-	
-	\item Use the above to obtain a bound over the sample complexity and compare it to the one obtained from the Chebyshev's inequality.
-\end{itemize}
-\color{black}
+\subsubsection{Estimating the Sample Complexity Using Chebyshev's Inequality}
 
-\noindent \textbf{Second attempt: Chebyshev's inequality: }
-The variance of a Bernoulli random variable is $p(1-p) \le 1/4$. Applying \ref{cor:chebysevAve}, we obtain that
-$$ \Dc ^m [|\hat{p}-p| \ge \epsilon] = \Dc ^m[|\hat{p}-\mathbb{E} [\hat{p}]| \ge \epsilon] \le \frac{Var[Z]}{m\epsilon^2} \le \frac{1}{4m \epsilon ^2}$$
+Let us  try to and see if,  using Chebyshev's inequality, we can obtain an improved upper bound of the sample complexity, 'improved', meaning that  we can use fewer coin flips and still predict $p$ with the same accuracy, $\epsilon$, and confidence, $\delta$.  The variance of a Bernoulli random variable is $p(1-p) \le 1/4$. Applying Corollary \ref{cor:chebysevAve}, one gets
+$$ \Dc_p ^m [|\hat{p}-p| \ge \epsilon] = \Dc_p ^m[|\hat{p}-\mathbb{E} [\hat{p}]| \ge \epsilon] \le \frac{p(1-p)}{m\epsilon^2} \le \frac{1}{4m \epsilon ^2}$$
 
-The bound obtained using Chebyshev's inequality tends to zero as $\frac{1}{m}$ while the one obtained from Markov's inequality tends to zero as $\frac{1}{\sqrt{m}}$.
+We see that the bound obtained using Chebyshev's inequality tends to zero as $\frac{1}{m}$ while the one obtained from Markov's inequality tends to zero as $\frac{1}{\sqrt{m}}$.
 This fact enables us to obtain a better bound for the sample complexity:
 
 \begin{corollary}  \label{cor:basicConcentration}
@@ -797,7 +806,8 @@ This fact enables us to obtain a better bound for the sample complexity:
 \color{black}
 
 
-A natural question which arises is whether the obtained bound is optimal (tight). There is a good reason to suspect that this bound is not optimal; When we applied Markov's or Chebyshev's inequality, we did not exploit the fact that our RV's are bounded (between $0$ and $1$).  Indeed, in the next section we prove a much better bound \footnote{Which is tight, although we will not prove that}. For this end, we will introduce Hoeffding's inequality for the average of independent and bounded random variables. This inequality will give us exponential (instead of polynomial!) convergence in terms of the sample size $m$.
+A natural question which arises is whether the obtained bound is optimal (tight) or there exists an even bound of the sample complexity. 
+Indeed, in the next section we prove a much better bound (which is tight, although we will not prove that) by exploiting the fact that our random variable not only has a finite variance, but it is also bounded between $0$ and $1$. For this end, we will introduce, without proof, Hoeffding's inequality for the average of independent and bounded random variables. This inequality will give us exponential (instead of polynomial) convergence in terms of the sample size $m$.
 
 \subsubsection{Hoeffding's Inequality}
 \begin{theorem}[Hoeffding's inequality]
@@ -807,24 +817,24 @@ A natural question which arises is whether the obtained bound is optimal (tight)
 	\]
 \end{theorem}
 \begin{corollary}
-	Let $X_1, \ldots X_m$ be a sequence of i.i.d. (independent \textbf{and} identically distributed) and bounded with $a \leq X_i \leq b$ (same $a, b$ for all $X_i$'s). Let $\bar{X} = \frac{1}{m} \sum_{i=1} ^m X_i$ and let $\mu = \E[X_i]$. Then,
+	Let $X_1, \ldots X_m$ be a sequence of $m$  i.i.d. random variables, each with an expectation value $\E[X]$ and all of which are bounded: $a \leq X_i \leq b$ (same $a, b$ for all $X_i$'s). Let $\bar{X} = \frac{1}{m} \sum_{i=1} ^m X_i$. Then,
 	\[
-	\mathbb{P}  [|\bar{X} - \mu| \geq \epsilon] \leq 2 \exp \left( \frac{-2 m \epsilon^2}{(b-a)^2} \right)
+	\mathbb{P}  [|\bar{X} - \E[X]| \geq \epsilon] \leq 2 \exp \left( \frac{-2 m \epsilon^2}{(b-a)^2} \right)
 	\]
 \end{corollary}
 
-\subsubsection{Coin Prediction Revisited}
+\subsubsection{Estimating the Sample Complexity Using Hoeffding's Inequality}
 Lets apply Hoeffding's inequality for the case of coin prediction which was discussed above. For a sample of size $m$, we obtain
 \[
-\Dc ^m [|\hat{p}-p| \ge \epsilon ]\leq  2 \exp(-2 m \epsilon ^2)~.
+\Dc_p ^m [|\hat{p}-p| \ge \epsilon ]\leq  2 \exp(-2 m \epsilon ^2)~.
 \]
-Indeed, we achieve an exponential improvement (in terms of $\delta$).
+
+Therefore, we see that using   Hoeffding's Inequality we managed to get a bound which converges  exponentially in $m$. It is straigtforward to verify that  it is enough that $m\ge \lceil \frac{1}{2\epsilon^2} \cdot \log(\frac{2}{\delta}) \right \rceil$  for the right-hand-side to be smaller or equal to $\delta$. 
+We conclude the following:
 \begin{corollary}  \label{cor:basicConcentration}
-	The sample complexity of coin prediction is bounded above by
-	$m(\epsilon,\delta) \le \left \lceil \frac{1}{2\epsilon^2} \cdot
+	The  coin prediction algorithm, $\hat{p}(S)$, which estimates $p$ by the number of ones (heads) divided by the number of coin flips, is a PAC learning algorithm with a sample complexity which is bounded above by
+	$m_A(\epsilon,\delta) \le \left \lceil \frac{1}{2\epsilon^2} \cdot
 	\log(\frac{2}{\delta}) \right \rceil$.
-	(You can verify by substituting $m=\frac{1}{2\epsilon^2} \cdot
-	\log(\frac{2}{\delta})$ in the bound)
 \end{corollary}
 
 
