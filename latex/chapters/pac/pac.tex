@@ -3,7 +3,7 @@
 \section{Introduction}
 
 \begin{example}
-\textbf{Immunotherapy}. We are working on a new medical treatment and we would like to predict for each patient whether the treatment will work for her or not.
+\textbf{Immunotherapy}. We are working on a new medical treatment and we would like to predict for each patient whether the treatment will work for him or not.
 Available to us is a data set which is shown in the figure below. On the basis of this data we need a no/yes (0 or 1) prediction in order to decide whether or not to apply the treatment.
 \begin{figure}[h!]
   \centering
@@ -18,26 +18,23 @@ Let us list the ingredients of a general problem of this type:
  \item The individual object, $\mathbf{x}$, that we wish to label. In our case, each such object is a vector $\mathbf{x}$ of $d$ real numbers describing $d$ features of a patient, as shown in the figure.
  \item The set of all possible $\mathbf{x}$'s is called the \textit{\textbf{Domain set, $\Xc$}}. We can take, for example,  $\Xc= \mathbb{R}^d$ (We could also take a smaller $\Xc$ since age must be positive and sex can have only two values).
  \item \textit{\textbf{Label set, $\Yc$}}: set of possible labels. In our case we can take, for example,  $\Yc=\{0,1\}$, where $0$ corresponds to a recommendation for not giving the treatment and 1 for giving it.
- \item \textbf{A prediction rule, $h:\Xc\to \Yc$}: used to label future examples. This function is called a \textbf{predictor}, a \textbf{hypothesis}, or a  \textbf{classifier}.
+ \item \textit{\textbf{A prediction rule}}, $h:\Xc\to \Yc$: used to label future examples. This function is also called a \textit{\textbf{predictor}}, a \textit{\textbf{hypothesis}}, or a  \textit{\textbf{classifier}}.
 \end{itemize}
 
 
-So the learner's input (e.g., the data in the figure) is called \textbf{Training data,} and consisting of $m$ already-labeled objects {$S=((\mathbf{x}_1,y_1),...,(\mathbf{x}_m,y_m)) \in  (\Xc\times \Yc)^m$, and the learner's output is the prediction rule, $h:\Xc\to \Yc$. So a learner is a map $\mathcal{A}:S\mapsto h$. The goal of the learner is to produce an $h$ that will be correct (as much as possible) on future examples.  So we need to have a way to quantify this, namely, to measure the quality of prediction of a candidate rule  $h$ with respect to future examples. 
+The learner, that is, our algorithm, $\mathcal{A}$, receives an input, called the \textit{\textbf{Training data}},  which consists of $m$ already-labeled objects {$S=((\mathbf{x}_1,y_1),...,(\mathbf{x}_m,y_m)) \in  (\Xc\times \Yc)^m$. In our example, $m=21$ and these objects are the 21 lines in the figure. The learner's output is the prediction rule, $h:\Xc\to \Yc$. So a learner is a map $\mathcal{A}:S\mapsto h$. 
+The learner's task is to produce an $h$ that will be sufficiently correct when labeling future objects, where  'sufficiently' should be clearly defined. If, for a large enough training data, the learner can always come up with such an $h$, we say that the task is \textit{learnable}.
 
 \section{A Theoretical framework for learning}
 
-The most basic questions in machine learning are: Is anything learnable? what
-can be learned and what cannot? When learning is possible, how many training
-samples do we need to learn? When learning is possible, how do we learn? In this lecture we develop the {\bf PAC theory of
-learning}, a famous theory that gives (within its assumptions and framework) a complete
-answer to this question - for {\bf batch  supervised learning}. 
+The basic questions in machine learning are: Which tasks are learnable?  
+ How do we learn learnable tasks? How many training samples do we need in order to learn them? 
+ In this chapter we develop the \textit{\textbf{ PAC theory of learning}}, a famous theory that gives, within its definitions and assumptions, a complete answer to this question,  for \textit{\textbf{ batch supervised learning}} ('batch', meaning that the whole training data set is fed at once into the algorithm and 'supervised' meaning that this set contains the labels, $y$, and not only the domain set, i.e., the $\mathbf{x}$ values ). \textcolor{blue}{[Was batch learning defined earlier?]}.
 
 \subsection{A Data-generation Model }
-To formal mathematical answers to such questions, we must make formal
-mathematical assumptions on how our training and test samples are generated.
 From now on, we assume the following:
 \begin{itemize}
-  \item There is a distribution $\Dc$ over the examples $\Xc$.  That is, each $\mathbf{x}_i$ is sampled according to $\Dc$ and therefore each sequence $S$, of $m$ $\mathbf{x}$'s, has a different probability to appear.
+  \item There is a distribution $\Dc$ over the example space $\Xc$.  That is, each $\mathbf{x}_i$ is sampled according to $\Dc$ and therefore each sequence $S$, of $m$ $\mathbf{x}$'s, has a different probability to appear.
   \item The $\mathbf{x}$'s are \textbf{Independently Identically Distributed (i.i.d.)}.
   In particular, the training set $S$ consists of $(x_i,f(x_i))_{i=1.. m}$, where the $\mathbf{x}_i$'s were sampled independently according to $\Dc$, and our test set, will be made of future examples: $x\in\Xc$, again to be  sampled according to $\Dc$ independently of each other and of those in the training set.
   \item There is a function $f$ which is the correct classifier, i.e., for every $i \in [m]$, $y_i = f(x_i)$

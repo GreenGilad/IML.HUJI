@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.12.22)  2 FEB 2021 21:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.12.22)  13 FEB 2021 23:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -3055,31 +3055,35 @@ File: chapters/pac/figures/ImmunotherapyDataSet.png Graphic file (type png)
 Package pdftex.def Info: chapters/pac/figures/ImmunotherapyDataSet.png  used on
  input line 10.
 (pdftex.def)             Requested size: 335.83224pt x 176.61116pt.
- [93 <./chapters/pac/figures/ImmunotherapyDataSet.png (PNG copy)>] [94]
+ [93 <./chapters/pac/figures/ImmunotherapyDataSet.png (PNG copy)>]
+Underfull \vbox (badness 1859) has occurred while \output is active []
+
+ [94]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 63.
- [95]
-Underfull \hbox (badness 10000) in paragraph at lines 105--108
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 62.
+
+[95]
+Underfull \hbox (badness 10000) in paragraph at lines 104--107
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--118
+Underfull \hbox (badness 10000) in paragraph at lines 109--117
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
 
  []
 
 [96]
-Underfull \hbox (badness 10000) in paragraph at lines 167--170
+Underfull \hbox (badness 10000) in paragraph at lines 166--169
 
  []
 
 [97] [98]
-Underfull \hbox (badness 10000) in paragraph at lines 318--329
+Underfull \hbox (badness 10000) in paragraph at lines 317--328
 
  []
 
@@ -3088,33 +3092,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 318--329
 File: chapters/pac/figures/m_eps_del.png Graphic file (type png)
 <use chapters/pac/figures/m_eps_del.png>
 Package pdftex.def Info: chapters/pac/figures/m_eps_del.png  used on input line
- 360.
+ 359.
 (pdftex.def)             Requested size: 202.13171pt x 123.98917pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [100 <./chapters/pac/figures/m_eps_del.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 378--383
+Underfull \hbox (badness 10000) in paragraph at lines 377--382
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 397--403
+Underfull \hbox (badness 10000) in paragraph at lines 396--402
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 397--403
+Underfull \hbox (badness 10000) in paragraph at lines 396--402
 
  []
 
 [101]
-Package mdframed Info: mdframed works in twoside mode on input line 405.
+Package mdframed Info: mdframed works in twoside mode on input line 404.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 405.
+(mdframed)              on input line 404.
 
-Underfull \hbox (badness 10000) in paragraph at lines 431--434
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
 
  []
 
@@ -3123,32 +3127,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 431--434
 File: chapters/pac/figures/threshold.png Graphic file (type png)
 <use chapters/pac/figures/threshold.png>
 Package pdftex.def Info: chapters/pac/figures/threshold.png  used on input line
- 504.
+ 503.
 (pdftex.def)             Requested size: 157.64015pt x 61.6558pt.
  [103]
 <chapters/pac/figures/thresholds1.png, id=2279, 459.96844pt x 127.97812pt>
 File: chapters/pac/figures/thresholds1.png Graphic file (type png)
 <use chapters/pac/figures/thresholds1.png>
 Package pdftex.def Info: chapters/pac/figures/thresholds1.png  used on input li
-ne 521.
+ne 520.
 (pdftex.def)             Requested size: 137.9916pt x 38.39372pt.
 <chapters/pac/figures/thresholds1a.png, id=2280, 459.96844pt x 127.97812pt>
 File: chapters/pac/figures/thresholds1a.png Graphic file (type png)
 <use chapters/pac/figures/thresholds1a.png>
 Package pdftex.def Info: chapters/pac/figures/thresholds1a.png  used on input l
-ine 527.
+ine 526.
 (pdftex.def)             Requested size: 137.9916pt x 38.39372pt.
 <chapters/pac/figures/thresholds1b.png, id=2281, 459.96844pt x 127.97812pt>
 File: chapters/pac/figures/thresholds1b.png Graphic file (type png)
 <use chapters/pac/figures/thresholds1b.png>
 Package pdftex.def Info: chapters/pac/figures/thresholds1b.png  used on input l
-ine 533.
+ine 532.
 (pdftex.def)             Requested size: 137.9916pt x 38.39372pt.
 <chapters/pac/figures/thresholds2.png, id=2282, 485.56406pt x 141.52875pt>
 File: chapters/pac/figures/thresholds2.png Graphic file (type png)
 <use chapters/pac/figures/thresholds2.png>
 Package pdftex.def Info: chapters/pac/figures/thresholds2.png  used on input li
-ne 539.
+ne 538.
 (pdftex.def)             Requested size: 145.67033pt x 42.45894pt.
 
 
@@ -3157,49 +3161,49 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [104 <./chapters/pac/figures/threshold.png> <./chapters/pac/figures/thresholds1
 .png (PNG copy)> <./chapters/pac/figures/thresholds1a.png> <./chapters/pac/figu
 res/thresholds1b.png>]
-Package mdframed Info: mdframed works in twoside mode on input line 554.
+Package mdframed Info: mdframed works in twoside mode on input line 553.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 554.
+(mdframed)              on input line 553.
 <chapters/pac/figures/thresholds3.png, id=2295, 374.90062pt x 176.91093pt>
 File: chapters/pac/figures/thresholds3.png Graphic file (type png)
 <use chapters/pac/figures/thresholds3.png>
 Package pdftex.def Info: chapters/pac/figures/thresholds3.png  used on input li
-ne 566.
+ne 565.
 (pdftex.def)             Requested size: 112.47105pt x 53.07368pt.
 <chapters/pac/figures/thresholds4.png, id=2296, 429.85594pt x 94.10156pt>
 File: chapters/pac/figures/thresholds4.png Graphic file (type png)
 <use chapters/pac/figures/thresholds4.png>
 Package pdftex.def Info: chapters/pac/figures/thresholds4.png  used on input li
-ne 579.
+ne 578.
 (pdftex.def)             Requested size: 128.95776pt x 28.23068pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 576--584
+Underfull \hbox (badness 10000) in paragraph at lines 575--583
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 588--593
+Underfull \hbox (badness 10000) in paragraph at lines 587--592
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 588--593
+Underfull \hbox (badness 10000) in paragraph at lines 587--592
 
  []
 
 [105 <./chapters/pac/figures/thresholds2.png (PNG copy)> <./chapters/pac/figure
 s/thresholds3.png (PNG copy)> <./chapters/pac/figures/thresholds4.png (PNG copy
 )>]
-Package mdframed Info: mdframed works in twoside mode on input line 597.
+Package mdframed Info: mdframed works in twoside mode on input line 596.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 597.
+(mdframed)              on input line 596.
  [106]
-Package mdframed Info: mdframed works in twoside mode on input line 646.
+Package mdframed Info: mdframed works in twoside mode on input line 645.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 646.
+(mdframed)              on input line 645.
 Package epstopdf Info: Source file: <chapters/pac/figures/connection_m_eps_delt
 a.eps>
 (epstopdf)                    date: 2020-03-01 21:26:06
@@ -3211,7 +3215,7 @@ a-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/conne
 ction_m_eps_delta-eps-converted-to.pdf chapters/pac/figures/connection_m_eps_de
 lta.eps>
-(epstopdf)             \includegraphics on input line 653.
+(epstopdf)             \includegraphics on input line 652.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/connection_m_eps_delta-eps-converted-to.pdf, id=2312, 172
 .645pt x 123.46124pt>
@@ -3219,7 +3223,7 @@ File: chapters/pac/figures/connection_m_eps_delta-eps-converted-to.pdf Graphic
 file (type pdf)
 <use chapters/pac/figures/connection_m_eps_delta-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/connection_m_eps_delta-eps-conver
-ted-to.pdf  used on input line 653.
+ted-to.pdf  used on input line 652.
 (pdftex.def)             Requested size: 138.11617pt x 98.7691pt.
 Package epstopdf Info: Source file: <chapters/pac/figures/connection_m_eps_delt
 a_finite4.eps>
@@ -3232,7 +3236,7 @@ a_finite4-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/conne
 ction_m_eps_delta_finite4-eps-converted-to.pdf chapters/pac/figures/connection_
 m_eps_delta_finite4.eps>
-(epstopdf)             \includegraphics on input line 658.
+(epstopdf)             \includegraphics on input line 657.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/connection_m_eps_delta_finite4-eps-converted-to.pdf, id=2
 313, 172.645pt x 141.52875pt>
@@ -3240,7 +3244,7 @@ File: chapters/pac/figures/connection_m_eps_delta_finite4-eps-converted-to.pdf
 Graphic file (type pdf)
 <use chapters/pac/figures/connection_m_eps_delta_finite4-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/connection_m_eps_delta_finite4-ep
-s-converted-to.pdf  used on input line 658.
+s-converted-to.pdf  used on input line 657.
 (pdftex.def)             Requested size: 138.11617pt x 113.22314pt.
 
 
@@ -3257,7 +3261,7 @@ a_finite2-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/conne
 ction_m_eps_delta_finite2-eps-converted-to.pdf chapters/pac/figures/connection_
 m_eps_delta_finite2.eps>
-(epstopdf)             \includegraphics on input line 663.
+(epstopdf)             \includegraphics on input line 662.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/connection_m_eps_delta_finite2-eps-converted-to.pdf, id=2
 314, 172.645pt x 140.525pt>
@@ -3265,7 +3269,7 @@ File: chapters/pac/figures/connection_m_eps_delta_finite2-eps-converted-to.pdf
 Graphic file (type pdf)
 <use chapters/pac/figures/connection_m_eps_delta_finite2-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/connection_m_eps_delta_finite2-ep
-s-converted-to.pdf  used on input line 663.
+s-converted-to.pdf  used on input line 662.
 (pdftex.def)             Requested size: 138.11617pt x 112.42014pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -3281,7 +3285,7 @@ a_finite3-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/conne
 ction_m_eps_delta_finite3-eps-converted-to.pdf chapters/pac/figures/connection_
 m_eps_delta_finite3.eps>
-(epstopdf)             \includegraphics on input line 668.
+(epstopdf)             \includegraphics on input line 667.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/connection_m_eps_delta_finite3-eps-converted-to.pdf, id=2
 315, 172.645pt x 140.525pt>
@@ -3289,7 +3293,7 @@ File: chapters/pac/figures/connection_m_eps_delta_finite3-eps-converted-to.pdf
 Graphic file (type pdf)
 <use chapters/pac/figures/connection_m_eps_delta_finite3-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/connection_m_eps_delta_finite3-ep
-s-converted-to.pdf  used on input line 668.
+s-converted-to.pdf  used on input line 667.
 (pdftex.def)             Requested size: 138.11617pt x 112.42014pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -3306,7 +3310,7 @@ s-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/compl
 exity_measure-eps-converted-to.pdf chapters/pac/figures/complexity_measure.eps>
 
-(epstopdf)             \includegraphics on input line 696.
+(epstopdf)             \includegraphics on input line 695.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/complexity_measure-eps-converted-to.pdf, id=2339, 256.96p
 t x 65.24374pt>
@@ -3314,7 +3318,7 @@ File: chapters/pac/figures/complexity_measure-eps-converted-to.pdf Graphic file
  (type pdf)
 <use chapters/pac/figures/complexity_measure-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/complexity_measure-eps-converted-
-to.pdf  used on input line 696.
+to.pdf  used on input line 695.
 (pdftex.def)             Requested size: 154.17719pt x 39.14653pt.
 Package epstopdf Info: Source file: <chapters/pac/figures/2_intervals.eps>
 (epstopdf)                    date: 2020-10-11 10:47:07
@@ -3325,7 +3329,7 @@ rted-to.pdf>
 (epstopdf)                    size: 3889 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/2_int
 ervals-eps-converted-to.pdf chapters/pac/figures/2_intervals.eps>
-(epstopdf)             \includegraphics on input line 706.
+(epstopdf)             \includegraphics on input line 705.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/2_intervals-eps-converted-to.pdf, id=2340, 225.84375pt x 
 49.18375pt>
@@ -3333,7 +3337,7 @@ File: chapters/pac/figures/2_intervals-eps-converted-to.pdf Graphic file (type
 pdf)
 <use chapters/pac/figures/2_intervals-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/2_intervals-eps-converted-to.pdf 
- used on input line 706.
+ used on input line 705.
 (pdftex.def)             Requested size: 180.67523pt x 39.34703pt.
 
 
@@ -3350,7 +3354,7 @@ e-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/VC_th
 reshold_intuitive-eps-converted-to.pdf chapters/pac/figures/VC_threshold_intuit
 ive.eps>
-(epstopdf)             \includegraphics on input line 714.
+(epstopdf)             \includegraphics on input line 713.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/VC_threshold_intuitive-eps-converted-to.pdf, id=2341, 129
 .48375pt x 32.12pt>
@@ -3358,7 +3362,7 @@ File: chapters/pac/figures/VC_threshold_intuitive-eps-converted-to.pdf Graphic
 file (type pdf)
 <use chapters/pac/figures/VC_threshold_intuitive-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/VC_threshold_intuitive-eps-conver
-ted-to.pdf  used on input line 714.
+ted-to.pdf  used on input line 713.
 (pdftex.def)             Requested size: 77.69083pt x 19.27213pt.
 [108 <./chapters/pac/figures/connection_m_eps_delta_finite4-eps-converted-to.pd
 f> <./chapters/pac/figures/connection_m_eps_delta_finite2-eps-converted-to.pdf>
@@ -3375,7 +3379,7 @@ e3-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/VC_th
 reshold_intuitive3-eps-converted-to.pdf chapters/pac/figures/VC_threshold_intui
 tive3.eps>
-(epstopdf)             \includegraphics on input line 720.
+(epstopdf)             \includegraphics on input line 719.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/VC_threshold_intuitive3-eps-converted-to.pdf, id=2462, 12
 9.48375pt x 49.18375pt>
@@ -3383,7 +3387,7 @@ File: chapters/pac/figures/VC_threshold_intuitive3-eps-converted-to.pdf Graphic
  file (type pdf)
 <use chapters/pac/figures/VC_threshold_intuitive3-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/VC_threshold_intuitive3-eps-conve
-rted-to.pdf  used on input line 720.
+rted-to.pdf  used on input line 719.
 (pdftex.def)             Requested size: 77.69083pt x 29.51045pt.
 Package epstopdf Info: Source file: <chapters/pac/figures/VC_threshold_intuitiv
 e2.eps>
@@ -3396,7 +3400,7 @@ e2-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/VC_th
 reshold_intuitive2-eps-converted-to.pdf chapters/pac/figures/VC_threshold_intui
 tive2.eps>
-(epstopdf)             \includegraphics on input line 726.
+(epstopdf)             \includegraphics on input line 725.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/VC_threshold_intuitive2-eps-converted-to.pdf, id=2463, 12
 9.48375pt x 32.12pt>
@@ -3404,7 +3408,7 @@ File: chapters/pac/figures/VC_threshold_intuitive2-eps-converted-to.pdf Graphic
  file (type pdf)
 <use chapters/pac/figures/VC_threshold_intuitive2-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/VC_threshold_intuitive2-eps-conve
-rted-to.pdf  used on input line 726.
+rted-to.pdf  used on input line 725.
 (pdftex.def)             Requested size: 77.69083pt x 19.27213pt.
 Package epstopdf Info: Source file: <chapters/pac/figures/VC_threshold_intuitiv
 e4.eps>
@@ -3417,7 +3421,7 @@ e4-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/VC_th
 reshold_intuitive4-eps-converted-to.pdf chapters/pac/figures/VC_threshold_intui
 tive4.eps>
-(epstopdf)             \includegraphics on input line 733.
+(epstopdf)             \includegraphics on input line 732.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/VC_threshold_intuitive4-eps-converted-to.pdf, id=2464, 12
 9.48375pt x 49.18375pt>
@@ -3425,7 +3429,7 @@ File: chapters/pac/figures/VC_threshold_intuitive4-eps-converted-to.pdf Graphic
  file (type pdf)
 <use chapters/pac/figures/VC_threshold_intuitive4-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/VC_threshold_intuitive4-eps-conve
-rted-to.pdf  used on input line 733.
+rted-to.pdf  used on input line 732.
 (pdftex.def)             Requested size: 77.69083pt x 29.51045pt.
 Package epstopdf Info: Source file: <chapters/pac/figures/complexity_measure2.e
 ps>
@@ -3438,7 +3442,7 @@ ps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=chapters/pac/figures/compl
 exity_measure2-eps-converted-to.pdf chapters/pac/figures/complexity_measure2.ep
 s>
-(epstopdf)             \includegraphics on input line 740.
+(epstopdf)             \includegraphics on input line 739.
 Package epstopdf Info: Output file is already uptodate.
 <chapters/pac/figures/complexity_measure2-eps-converted-to.pdf, id=2465, 256.96
 pt x 65.24374pt>
@@ -3446,20 +3450,20 @@ File: chapters/pac/figures/complexity_measure2-eps-converted-to.pdf Graphic fil
 e (type pdf)
 <use chapters/pac/figures/complexity_measure2-eps-converted-to.pdf>
 Package pdftex.def Info: chapters/pac/figures/complexity_measure2-eps-converted
--to.pdf  used on input line 740.
+-to.pdf  used on input line 739.
 (pdftex.def)             Requested size: 205.56827pt x 52.19505pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 756--766
+Underfull \hbox (badness 10000) in paragraph at lines 755--765
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 756--766
+Underfull \hbox (badness 10000) in paragraph at lines 755--765
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 756--766
+Underfull \hbox (badness 10000) in paragraph at lines 755--765
 
  []
 
@@ -3469,43 +3473,43 @@ _threshold_intuitive3-eps-converted-to.pdf> <./chapters/pac/figures/VC_threshol
 d_intuitive2-eps-converted-to.pdf> <./chapters/pac/figures/VC_threshold_intuiti
 ve4-eps-converted-to.pdf> <./chapters/pac/figures/complexity_measure2-eps-conve
 rted-to.pdf>]
-Package mdframed Info: mdframed works in twoside mode on input line 775.
+Package mdframed Info: mdframed works in twoside mode on input line 774.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 775.
+(mdframed)              on input line 774.
 
 
 Package mdframed Warning: You got a bad break
 (mdframed)                because the last box will be empty
 (mdframed)                you have to change it manually
 (mdframed)                by changing the text, the space
-(mdframed)                or something else on input line 779.
+(mdframed)                or something else on input line 778.
 
 [110]
-Underfull \hbox (badness 10000) in paragraph at lines 780--786
+Underfull \hbox (badness 10000) in paragraph at lines 779--785
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 821--822
+Underfull \hbox (badness 10000) in paragraph at lines 820--821
 
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 822.
+Package mdframed Info: mdframed works in twoside mode on input line 821.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 822.
-Package mdframed Info: mdframed works in twoside mode on input line 828.
+(mdframed)              on input line 821.
+Package mdframed Info: mdframed works in twoside mode on input line 827.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 828.
-Package mdframed Info: mdframed works in twoside mode on input line 843.
+(mdframed)              on input line 827.
+Package mdframed Info: mdframed works in twoside mode on input line 842.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 843.
-Package mdframed Info: Not enough space on this page on input line 850.
+(mdframed)              on input line 842.
+Package mdframed Info: Not enough space on this page on input line 849.
 [111]
-Package mdframed Info: Not enough space on this page on input line 850.
+Package mdframed Info: Not enough space on this page on input line 849.
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -4715,7 +4719,7 @@ fonts/type1/urw/avantgar/uagk8a.pfb><c:/texlive/2019/texmf-dist/fonts/type1/urw
 mf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2019/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb><c:/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri
 8a.pfb>
-Output written on main.pdf (159 pages, 15194318 bytes).
+Output written on main.pdf (159 pages, 15194882 bytes).
 PDF statistics:
  3605 PDF objects out of 4296 (max. 8388607)
  2620 compressed objects within 27 object streams
