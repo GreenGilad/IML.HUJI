@@ -207,7 +207,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.3}Probably correct \& Approximately correct learners}{93}{section.4.3}%
 \defcounter {refsection}{0}\relax 
+<<<<<<< HEAD
 \contentsline {paragraph}{Second question:}{94}{section*.45}%
+=======
+\contentsline {subsection}{\numberline {4.2.2}Classifiers}{95}{subsection.4.2.2}% 
+>>>>>>> dcff4c1c855cf30d16a836331ce54b5a079cf83b
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{Definition:}{95}{section*.46}%
 \defcounter {refsection}{0}\relax 
