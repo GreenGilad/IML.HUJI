@@ -205,7 +205,7 @@ Now, let us fix some $\rho\in\R$ and ask where will we find the $\widehat{\w}_\r
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/sparsity.png}
+	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/6.1.png}
 	\caption{\todo{Add caption}}
 \end{figure}
 
@@ -292,7 +292,7 @@ Therefore, for the Best-Subset and Lasso solutions, the solutions' sparsity grow
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=1\textwidth]{chapters/regularization.model.selection/figures/shrinkage.png}
+	\includegraphics[width=1\textwidth]{chapters/regularization.model.selection/figures/6.2.png}
 	\caption{\todo{Add caption}}
 \end{figure}
 
@@ -373,7 +373,7 @@ Potentially the simplest method to do so is cross-validation (CV). Instead of th
 So this method can be used for selecting the  tuning parameters. For each candidate $\Ac_\alpha$, we train it $k$ times according to the CV procedure, each time leaving out one of the $k$ folds. Then we choose $\alpha$ (and as such the learner $\Ac_\alpha$) whose average error (over the $k$ validation sets) was lowest.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/regularization.model.selection/figures/cv_result.png}
+	\includegraphics[width=0.7\textwidth]{chapters/regularization.model.selection/figures/6.3.png}
 	\caption{\todo{Add caption}}
 \end{figure}
 Once we finished the model selection phase using CV, and have a fully specified learner $\Ac$, we train $\Ac$ \textbf{again} on the entire training sample $S$. This way we are still able to train $\Ac$ on as many points as possible.

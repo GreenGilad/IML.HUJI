@@ -218,27 +218,48 @@ So far we assumed that there exists some deterministic function $f:\Xc\rightarro
 \label{eqn:lin_reg_prob_model}
 \end{equation}
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/intro.regression/figures/2_3.png}
+	\caption{\textbf{Probabilistic Model:} Modeling sample noise in the responses. Each sample is now found at $\left(\x_i,y_i\right)$ for $y_i\sim\Nc\left(\x_i^\top \w,\sigma^2\right)$}
+\end{figure}
+
 As our model allows some uncertainty in the responses, even for identical $\x$s, we may end up with different $y$s. Let us adapt our learning algorithm from the deterministic case, and deal with the probabilistic (noisy) one. In the same manner as before, using the linear hypothesis class $\Hreg$,  we asusme there exists an unknown coefficients vector $\w$. Denoting the noise vector $\eps=\left(\eps_1,\ldots,\eps_m\right)^\top$ we have in matrix notation: 
 \begin{equation}
 \y=\X\w+\eps, \quad\quad \eps\sim\Nc\left(0_d,\sigma^2I_d\right)
 \label{eqn:lin_reg_prob_model2}
 \end{equation}
 
+
+
+\paragraph{Geometric Interpretation}
+To understand what is the meaning of the sample noise and what will the linear regression model do to the data, let us adapt a geometric interpretation. For $\X\in\R^{m\times d}$ the regression design matrix consider the space spanned by the columns of $\X$. Denote this subspace by $\mathcal{S}\coloneqq Col\left(\X\right) = Im\left(\X\right)$ and consider the OLS solution: $$ \widehat{w} = \left(\X^\top\X\right)^{-1}\X^\top \y $$
+
+For the predicted response vector $\widehat{\y}$ one of the following occurs:
+\begin{itemize}
+	\item $\widehat{\y}\in\mathcal{S}$: This means that there exists a vector $\w\in\R^d$ such that $\X\w = \y$.
+	\item $\widehat{\y}\in\mathcal{S}^\perp$: In this case $\x^\top\y=0$.
+	\item $\widehat{\y}$ is a combination of both. Namely we can write $\widehat{\y}$ as some combination $\widehat{\y}=\y_{\mathcal{S}} + \y_\perp$ where $\y_{\mathcal{S}} \in \mathcal{S}$ and $\y_\perp\in\mathcal{S}^\perp$.
+\end{itemize}
+
+For the third case we can then express $\widehat{\y}$ as:
+\begin{equation}
+\begin{array}{ccl}
+	\widehat{\y} & =  & \y_{\mathcal{S}} + \y_\perp \\
+	& = & \X\w + 0 \\
+	& = & \X \left(\X^\top\X\right)^{-1}\X^\top \y
+\end{array}
+\end{equation}
+
+Where the matrix $\X \left(\X^\top\X\right)^{-1}\X^\top$ is in-fact the \textbf{orgothonal projection matrix} onto the subpsace $\mathcal{S}$. Therefore, the additional sample noise is the component in the response that ``pulls`` $y_i$ out of the subspace. When we perform the linear regression we project the samples onto the estimated subspace and remove the component estimated to be in the perpendicular subspace.  
+
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/intro.regression/figures/2_3.png}
-	\caption{\textbf{Probabilistic Model:} \todo{add caption}}
-\end{figure}
-
-\subsubsection{Geometric Interpretation}
-
-\todo{Matan - Regression via projections - with noise $\widehat{\y}$ no longer in image}
-
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/intro.regression/figures/2_4.png}
-	\includegraphics[width=0.5\textwidth]{chapters/intro.regression/figures/2_5.png}
-	\caption{\textbf{\todo{add caption}}}
+	\includegraphics[width=0.45\textwidth]{chapters/intro.regression/figures/2_4.png}
+	\hfill
+	\includegraphics[width=0.45\textwidth]{chapters/intro.regression/figures/2_5.png}
+	\caption{\textbf{Linear Regression As Orthogonal Projection:} \todo{add caption}}
+	\label{fig:regression_geometric}
 \end{figure}
 
 
@@ -432,16 +453,3 @@ $$
 Namely, we could \textbf{decompose} the generalization error (expected square loss between prediction and true value) into a variance component and a (squared) bias component. This means, that whenever we devise some estimator over our training data, the generalization error is influenced by both these factors. This is called the \textbf{Bias-Variance Trade-off}.
 
 \todo{Add proof of variance?}
-
-\section{Summary}
-\subsection{Exercises}
-\begin{enumerate}
-	\item Let $A$ be a real $n\times m$ matrix. Show that the null space of $A$ and $A^\top A$ is the same. That is: $Ker\left(A\right)=Ker\left(A^\top A\right)$.
-	\item Let $A$ be a real $n\times m$ matrix. If the columns of $A$ are independent then $A^\top A$ is a positive definite matrix.
-	\item Let $\X$ be a design matrix of a linear regression problem such that $\X^\top\X$ is invertible. Show that ${\X^\dagger}^\top=\left(\X^\top\X\right)^{-1}\X$.
-\end{enumerate}
-\todo{add questions from assignments}
-\subsection{Lab: Linear Regression}
-The aim of the linear regression lab is to explore the linear regression hypothesis class and specifically the OLS estimator. 
-
-\subsection{Lab: Polynomial Fitting}
