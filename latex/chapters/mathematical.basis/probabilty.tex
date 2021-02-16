@@ -336,84 +336,58 @@ Which by definition \ref{def: UVN} is a univariate Gaussian of the form $x_1\sim
 
 
 \subsubsection{Covariance Matrix}
-Recall the population variance $Var(X)$ of a scalar (one dimensional) random variable $X$. What is the proper generalization for the case of a random vector?
+Unlike the univariate case, when dealing with a multivariate distribution the variance is a matrix rather than a vector.
+
 \begin{definition}[Covariance Matrix]
-	Consider a $d$-dimensional random vector $ \mathbf{X} =(X_{1},X_{2},...,X_d)^T$.
-	We define the  {\em Covariance Matrix} $C$ as the $d \times d$ matrix whose $ (i,j)$ entry is the covariance $C_{ij}=\sigma (X_i,X_j)$
-	\begin{itemize}
-		\item In other words:
-		\begingroup
-		\footnotesize % \small in 11pt base font is 10pt
-		$$C=\left(\begin{array}{ccc}
-			\mathbb{E}\left[\left(X_{1}-\mathbb{E}\left[X_{1}\right]\right)\left(X_{1}-\mathbb{E}\left[X_{1}\right]\right)\right] & ... & \mathbb{E}\left[\left(X_{1}-\mathbb{E}\left[X_{1}\right]\right)\left(X_{d}-\mathbb{E}\left[X_{d}\right]\right)\right]\\
-			\vdots & \ddots & \vdots\\
-			\mathbb{E}\left[\left(X_{d}-\mathbb{E}\left[X_{d}\right]\right)\left(X_{1}-\mathbb{E}\left[X_{1}\right]\right)\right] & ... & \mathbb{E}\left[\left(X_{d}-\mathbb{E}\left[X_{d}\right]\right)\left(X_{d}-\mathbb{E}\left[X_{d}\right]\right)\right]
-		\end{array}\right)$$
-		\endgroup
-		
-		\item Recall that we can use  matrix notations for random vectors. In matrix notation,
-		$$C=\mathbb{E}[({X} - {\mathbb{E}\left[X\right]} )({X} -{\mathbb{E}\left[X\right]} )^{T}]$$
-		
-		\item The diagonal elements of $C$ are $\sigma (X_i, X_i) \equiv \sigma^2 _{X_i} \equiv  Var(X_i)$. $C$ is symmetric positive semidefinite.
-		
-	\end{itemize}
-	
+Let $ \X \coloneqq\left(X_{1},X_{2},...,X_d\right)^\top$ be a random vector. The  {\em Covariance Matrix} $\Sigma$ is the $d \times d$ matrix whose $\left(i,j\right)$ entry is the covariance $\Sigma_{ij}\coloneqq\sigma\left(X_i,X_j\right)$:
+
+$$\Sigma\coloneqq\left(\begin{array}{ccc}
+	\E\left[\left(X_{1}-\E\left[X_{1}\right]\right)\left(X_{1}-\E\left[X_{1}\right]\right)\right] & ... & \E\left[\left(X_{1}-\E\left[X_{1}\right]\right)\left(X_{d}-\E\left[X_{d}\right]\right)\right]\\
+	\vdots & \ddots & \vdots\\
+	\E\left[\left(X_{d}-\E\left[X_{d}\right]\right)\left(X_{1}-\E\left[X_{1}\right]\right)\right] & ... & \E\left[\left(X_{d}-\E\left[X_{d}\right]\right)\left(X_{d}-\E\left[X_{d}\right]\right)\right]
+\end{array}\right)$$
+
+\begin{itemize}
+\item In matrix notation we can express the covariance matrix as: $$\Sigma\coloneqq\E\left[(X - {\E\left[X\right]} )({X} -{\E\left[X\right]} )^\top\right]$$
+\item The diagonal elements of $\Sigma$ are $\sigma\left(X_i, X_i\right) \equiv \sigma^2 _{X_i} \equiv  Var\left(X_i\right)$. $Sigma$ is a symmetric positive semi-definite matrix.
+\end{itemize}
 \end{definition}
 
 
-Back to statistics, let us consider how to estimate the covariance matrix based on random sampling. In this context, $C$ is called the {\em population covariance matrix}.
-Let's start with the case $d=2$. Consider a two-dimensional random vector $\mathbf{X}=(X_1,X_2)^T$, where, for example, $X_1$ is the height of a person and $X_2$ is the weight.
+Back to statistics, let us consider how to estimate the covariance matrix based on a given sample. In this context, $\Sigma$ is called the {\em population covariance matrix}.
+Let us start with the bi-variate case $d=2$. Consider a two-dimensional random vector $\X=\left(X_1,X_2\right)^\top$, where, for example, $X_1$ is the height of a person and $X_2$ is the weight.
 
-Taking a sample of $m$ people from the population, we equip the data elements with two indices, the first stands for the feature (1 for height, 2 for weight) and the second for the person's designated number. 
-So the height samples are denoted by  $x_{1,1},..,x_{1,m}$ and the corresponding weight samples are $x_{2,1},..,x_{2,m}$. Note that we can write the data as a  matrix $X\in\mathbb{R}^{d\times m}$ where $m$ is the {\em sample size} and $d$ is the dimension (number of random variables). In our case, $d=2$ and
+~\\Taking a sample of $m$ people from the population, we equip the data elements with two indices, the first stands for person's designated number and the second for the feature (1 for height, 2 for weight). Therefore, the height samples are denoted by  $x_{1,1},\ldots,x_{1,m}$ and the corresponding weight samples are $x_{2,1},\ldots,x_{2,m}$. Note that we can write the data as a matrix $X\in\R^{m \times d}$ where $m$ is the {\em sample size} and $d$ is the dimension (number of random variables). In our case, $d=2$ and
 $$X = 
-\left(\begin{array}{ccc}
-	x_{1,1} & ... & x_{1,m}\\
-		x_{2,1} & ... & x_{2,m}
-\end{array}\right)=
-\left(\begin{array}{ccc}
-	\mathbf{x}_1 & ... &\mathbf{x}_m
-\end{array}\right)
+\left[\begin{array}{cc}
+x_{1,1} &  x_{2,1} \\
+\vdots & \vdots \\
+x_{m,1} & x_{m,2}
+\end{array}\right] = \left(\x_1,\ldots,\x_m\right)^\top
 $$
-where we denoted the column vectors of the data matrix $X$ by $\mathbf{x}_i=(x_{1,k}, x_{2,k})^T$, $k=1..m$. The boldface notation is used to remind us that the $\mathbf{x}_i$'s are vectors, not  scalars.
+
 
 \begin{definition}[Sample Covariance]
-Generalizing the estimators we chose for a one-dimensional RV we now define the \textbf{\textit{sample covariance}} by
-$$\hat{\sigma}(X_i, X_j) = \frac{1}{m-1} \sum^{m}_{k=1}{(x_{i,k}-\hat{\mu}_i)(x_{j,k}-\hat{\mu}_j)}$$
-where $\hat{\mu}_i$ is the sample mean of the random variable $X_i$.
+The unbiased estimator of the \textbf{\textit{sample covariance}} of the $i$'th and $j$'th random variables is given by:
+$$\widehat{\sigma}\left(X_i, X_j\right) = \frac{1}{m-1} \sum^{m}_{k=1}{(x_{k,i}-\widehat{\mu}_i)(x_{k,j}-\widehat{\mu}_j)}$$
+where $\widehat{\mu}_i$ is the sample mean of the random variable $X_i$.
 \end{definition}
-Here, $d=2$ so i,j=1,2, but the above definition holds for general $d$.
  
-In particular, the  variance estimators, that is, the sample variances of the heights and weights are:
-$$ \hat{\sigma}\left(X_i,X_i\right)  = \frac{1}{m-1} \sum^{m}_{k=1}(x_{i,k} - \hat{\mu}_i)^2, i=1,2 \\$$
-where $\hat{\sigma}\left(X_i,X_i\right)\equiv \hat{\sigma}^2_{X_i} \equiv  \hat{\sigma}^2_i \equiv \hat{\sigma}_{i,i}$ are all equivalent notations.
-We can now define the sample covariance matrix $\hat{C}$. Again, as customary in statistics, we use the "hat notation" which reminds that $\hat{C}$ is our prescription for estimating the population covariance matrix $C$, based on the data we have.
-\vspace{3mm}
+In particular, notice that for the case where $i=j$ we are left with the unbiased estimator previously seen. We can now define the sample covariance matrix $\widehat{\Sigma}$.
 
 \begin{definition}[Sample Covariance Matrix]
-Let $\textbf{X}=(X_1,\ldots,X_d)^T$ be a $d$-dimensional random vector. Let $\mathbf{x}_1,\ldots,\mathbf{x}_m$ be $m$ i.i.d samples of $\mathbf{X}$. Here, each sample $\mathbf{x}_i$ (note again the boldface notation) is a column vector in $\R^d$ corresponding to the columns of the data matrix $X$. The sample covariance matrix of $\mathbf{x}_1,\ldots,\mathbf{x}_m$ is a square $d$-by-$d$ matrix $\hat{C}$ with  $\hat{C}_{i,j}=\hat{\sigma}\left(X_{i},X_{j}\right)$ , $i,j=1..d$. 
+Let $\X=\left(X_1,\ldots,X_d\right)^\top$ be a $d$-dimensional random vector and ket $\x_1,\ldots,\x_m\in\R^d$ be $m$ i.i.d samples of $\X$. The \textbf{\textit{sample covariance matrix}} is a square $d$-by-$d$ matrix $\widehat{\Sigma}$ such that $\widehat{\Sigma}_{i,j}=\widehat{\sigma}\left(X_{i},X_{j}\right)\quad i,j=1,\ldots,d$.
+
+~\\In matrix notation the sample covariance matrix is given by:
+$$ \widehat{\Sigma} \coloneqq \frac{1}{m-1} \sum^{m}_{i=1}\left(\x_i-\widehat{\mu}\right)\left(\x_i-\widehat{\mu}\right)^\top = \frac{1}{m}\X\X^\top $$
 \end{definition}
 
-The sample covariance matrix is symmetric since $\hat{\sigma}\left(X_{j},X_{i}\right)=\hat{\sigma}\left(X_{i},X_{j}\right)$. The diagonal entries of the sample covariance matrix are the sample variances and the other entries are the sample covariances.
-In matrix notation, the sample covariance matrix is given by \textcolor{blue}{Check}
-$$\hat{C} = \frac{1}{m-1} \sum^{m}_{i=1}(\mathbf{x}_i-\hat{\boldsymbol{\mu}})(\mathbf{x}^T_i-\hat{\boldsymbol{\mu}}^T)$$
-
-
-where $\boldsymbol{\hat{\mu}} \in\mathbb{R}^{d\times 1}$ is a column vector of the sample means (in the $d=2$ case, $\hat{\boldsymbol{\mu}}^T = (\hat{\mu}_1, \hat{\mu}_2)$).
-% Depending on the context, $\bar{X}$ may also denote the means matrix: $\bar{X} \in\mathbb{R}^{d\times m}$ with elements $\bar{X}_{i,j}=\hat{\mu}_i$.
-If $\hat{\boldsymbol{\mu}}=0$, that is, if the data is shifted to have zero mean, the covariance matrix is easily computed from the symmetric matrix $XX^T$, using the relation $\hat{C} = \frac{XX^T}{m-1}$.
-
 \begin{exercise}
-	Let $X^T=\left(\begin{array}{cc}
-		150 & 45\\
-		170 & 74\\
-		184 & 79
-	\end{array}\right)$ be samples of height and weight of 3 different people where $X_{1, i}$ is the height and $X_{2, i}$ is the weight of the i'th person. Calculate the covariance matrix of the sample.
+Let $\X=\left(\begin{array}{cc} 150 & 45\\ 170 & 74\\ 184 & 79 \end{array}\right)$ be samples of height and weight of 3 different people. Calculate the covariance matrix of the given sample.
 
-\textbf{Solution:} First of all we will make the data centered by subtracting the corresponding sample mean from each entry of $X^T$.
-%matrix $(1,1,1)^T\hat{\boldsymbol{\mu}}^T$:
-We have: $\hat{\mu}_1=168, \hat{\mu}_2=66$, so
-$$X_{centered}^{T}=X^T  - \left(\begin{array}{cc}
+~\\Let us begin with centering the data. That is, subtract the empirical mean from each sample
+The sample mean is: $\widehat{\mu}=\left(168,66\right)^\top$, so:
+$$\X_{centered}=\X - \left(\begin{array}{cc}
 	168 & 66\\
 	168 & 66\\
 	168 & 66
@@ -434,75 +408,76 @@ $$X_{centered}^{T}=X^T  - \left(\begin{array}{cc}
 	2 & 8\\
 	16 & 13
 \end{array}\right)$$
-Now,
+Now, following the definition of the sample covariance matrix:
 $$
-\hat{C} = \frac{X_{centered}X_{centered}^{T}}{3-1}=\left(\begin{array}{cc}
+\widehat{\Sigma} = \frac{1}{3-1}\X_{centered}\X_{centered}^\top=\left(\begin{array}{cc}
 	292 & 301\\
 	301 & 337
 \end{array}\right)
 $$
-
 \end{exercise}
 
 
 \subsubsection{Linear Transformations of the Data Set}
-Let us look at how linear transformations affect the data set and as a result, the covariance matrix. 
-Although we will now focus on the two-dimensional case, the results in this section can be easily generalized to higher dimensional data. 
-The covariance matrix for two dimensions, $d=2$, is
+Let us look at how linear transformations affect the data set and as a result, the covariance matrix. Linear transformation can be of two types: scaling and rotating. Although we will now focus on the two-dimensional case, these results are easily generalized to higher dimensional data. The covariance matrix for two dimensions, $d=2$, is
 
-$$C = \left( \begin{array}{ccc}  \sigma(X_1, X_1) & \sigma(X_1, X_2) \\  \sigma(X_2, X_1) & \sigma(X_2, X_2) \end{array} \right)$$
+$$\Sigma = \left( \begin{array}{ccc}  \sigma\left(X_1, X_1\right) & \sigma\left(X_1, X_2\right) \\  \sigma\left(X_2, X_1\right) & \sigma\left(X_2, X_2\right) \end{array} \right)$$
 
-As an initial data, we take a set of points generated by sampling our two independent random variables, $X_1$ and $X_2$  with two different distributions but with equal mean $\mu_1 = \mu_2=0$ and equal variances $\sigma^2_{X_1}=\sigma^2_{X_2}\equiv  \sigma^2$. 
+~\\We begin with a sample of points taken $i.i.d$ from a bi-variate Gaussian with a zero mean and equal variances $\sigma^2_{X_1}=\sigma^2_{X_2}\equiv  \sigma^2$ (\autoref{cov1}). In particular this means that $X_1$ and $X_2$ are uncorrelated and the covariance matrix $\Sigma$ is therefore of the form $\sigma^2 I_2$. In \autoref{cov1} we can indeed see that there is no apparent relation between a points $x$ coordinate and $y$ coordinate. When we calculate the sample covariance matrix, as the sample size $m$ increases, our estimation tends to $\widehat{\Sigma}=\sigma^2 I_2$.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.3]{chapters/mathematical.basis/figures/uncorrelated.png}
-	\caption{Initially Uncorrelated Variables \textcolor{blue}{TO DO Add $x_1$ and $x_2$ labels for axis}}
+	\includegraphics[width=0.5\textwidth]{chapters/mathematical.basis/figures/cov.png}
+	\caption{Uncorrelated variables with identical variance}
+	\label{cov1}
 \end{figure}
 
-In particular this would mean that $X_1$ and $X_2$ are uncorrelated and the covariance matrix $C$ is therefore diagonal. Similarly, the coordinates of the generated points $(x_{1,i},x_{2,i})$, shown in the figure, will be approximately uncorrelated. For the sake of simplicity, let us assume that we have generated enough points so that the sample covariance matrix elements are (almost) equal to the population covariance matrix,  $\hat{C}\approx C$, and therefore we have:
-\vspace{3mm} 
-% \footnote{Uncorrelated does not imply independent. See, e.g., \url{https://en.wikipedia.org/wiki/Normally_distributed_and_uncorrelated_does_not_imply_independent}}
-$$\hat{C} = \left( \begin{array}{ccc}  \sigma^2 & 0 \\  0 & \sigma^2 \end{array} \right)$$
-
-
-
-
-
-
-
-Next, we will look at how transformations affect our data and the covariance matrix $\hat{C}$. We start transforming our data by multiplying the data matrix with the following scaling matrix:
+Next, will us look at how linear transformations affect our data and the sample covariance matrix $\widehat{\Sigma}$ (\autoref{scaled_cov}). We start transforming our data by multiplication by a scaling matrix:
 
 $$S = \left( \begin{array}{ccc}  s_{1} & 0 \\  0 & s_{2} \end{array} \right)$$
 
-This transformation simply stretches (or shrinks) the $x_1$ and $x_2$ components by multiplying them by $s_{1}$ and $s_{2}$ respectively. Now the covariance matrix of our transformed data set will be:
-$$\frac{SX(SX)^T}{m-1}=S\frac{XX^T}{m-1}S^T=SCS^T=\left( \begin{array}{ccc}  (s_{1}\sigma)^2 & 0 \\  0 & (s_{2}\sigma)^2 \end{array} \right)$$.
+Notice how this transformation stretches (or shrinks) the $x_1$ and $x_2$ components of each sample by multiplying them by $s_{1}$ and $s_{2}$ respectively. In addition, as the scaling matrix is diagonal, the stretching of the $x$ axis is uncorrelated with that of the $y$ axis. The sample covariance matrix of the transformed data is:
+$$\widehat{\Sigma}_{scaled}=\frac{1}{m-1}S\X\left(S\X\right)^\top=S\left(\frac{1}{m-1}\X\X^\top\right)S^\top=\left( \begin{array}{ccc}  (s_{1}\widehat{\sigma})^2 & 0 \\  0 & (s_{2}\widehat{\sigma})^2 \end{array} \right)$$.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.3]{chapters/mathematical.basis/figures/uncorrelated_scaled.png}
-	\caption{Uncorrelated Scaled Variables}
+	\includegraphics[width=0.5\textwidth]{chapters/mathematical.basis/figures/scaled_cov.png}
+	\caption{Uncorrelated scaled variables with different scaling in the $x$ and $y$ axis}
+	\label{scaled_cov}
 \end{figure}
 
-Now we will apply a linear transformation composed of the previous scaling matrix $S$ followed by a two dimensional rotation matrix $R$, which is given by:
+Lastly, over the scaled data let us follow with a rotation transformation (\autoref{rotated_cov}). Recall that any orthogonal matrix is in fact a rotation matrix, and specifically the rotation matrix of degree $\theta $ in $\R^2$ is given by:
 $$R = \left( \begin{array}{ccc}  \cos\theta  & -\sin\theta  \\  \sin\theta  & \cos\theta  \end{array} \right)$$
 
-where $\theta$ is the rotation angle. The transformed data is then given by $RSX$ and the covariance matrix is
+As we can see in \autoref{rotated_cov} the transformed data shows a correlation between the $x$ and $y$ axes. To understand the reasoning behind let us calculate the sample covariance matrix of the scaled and then rotated data.
 
+$$
+\begin{array}{ccl}
+	\widehat{\Sigma}_{rotated} & = & =\frac{1}{m-1}\left(RS\X\right)\left(RS\X\right)^{\top}=RS\left(\frac{1}{m-1}\X\X^{\top}\right)\left(RS\right)^{\top}R\left(S\widehat{\Sigma}S^{\top}\right)R^{\top}\\
+	\\
+	& = & R\left[\begin{array}{cc}
+		\left(s_{1}\sigma\right)^{2} & 0\\
+		0 & \left(s_{2}\sigma\right)^{2}
+	\end{array}\right]R^{\top}=\sigma^{2}\left[\begin{array}{cc}
+		s_{1}^{2}\cos^{2}\theta+s_{2}^{2}\sin^{2}\theta\,\, & \sin\theta\cos\theta\left(s_{1}^{2}-s_{2}^{2}\right)\\
+		\sin\theta\cos\theta\left(s_{1}^{2}-s_{2}^{2}\right) & s_{1}^{2}\sin^{2}\theta+s_{2}^{2}\cos^{2}\theta
+	\end{array}\right]
+\end{array}
+$$
 
-$$\frac{RSX(RSX)^T}{m-1}=RS\frac{XX^T}{m-1}S^TR^T=RSCS^TR^T=R\left( \begin{array}{ccc}  (s_{1}\sigma)^2 & 0 \\  0 & (s_{2}\sigma)^2 \end{array} \right)R^T$$
-$$=\sigma^2 \times \left( \begin{array}{ccc}  s^2_{1}\cos^2\theta +s^2_{2}\sin^2\theta  & \sin\theta \cos\theta (s^2_{1}- s^2_{2})\\  \sin\theta \cos\theta (s^2_{1}- s^2_{2}) & s^2_{1}\sin^2\theta +s^2_{2}\cos^2\theta  \end{array} \right)$$
+As the off diagonal element of the covariance matrix is non-zero, the two variables are correlated. Note that if we would not have applied an \emph{asymmetric} scaling (i.e if $s_1=s_2$), the off diagonal elements would have been zero. This means that rotation alone is not sufficient to induce correlations between random variables.
 
-Note that without applying an \emph{asymmetric} scaling, rotation alone would not be enough to create correlations since for $s_{1}= s_{2}$, the off-diagonal elements vanish.
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.3]{chapters/mathematical.basis/figures/correlated.png}
-	\caption{Correlated Scaled Variables}
+	\includegraphics[width=0.5\textwidth]{chapters/mathematical.basis/figures/correlated_cov.png}
+	\caption{Correlated variables produced by rotation of uncorrelated variables}
+	\label{rotated_cov}
 \end{figure}
 
-As we can see now, the $x,y$ coordinate of each variable are not uncorrelated anymore. For example, if we know that the $x$ value of a point in the sample is high, it is more likely that the $y$ value is low, and vice versa. 
+\begin{remark}
+The form obtained above, where we multiply an orthogonal matrix $R$ by a diagonal matrix and then by another orthogonal matrix $R^\top$ is in fact the EVD of the sample covariance matrix of the transformed data. We will return to this point when we discuss the Principal Component Analysis algorithm (\ref{pca}).
+\end{remark}
 
-Note the form that we got on the right hand side of the first line of the above equation: an orthogonal matrix, $R$, multiplying a diagonal matrix, multiplied by another orthogonal matrix, $R^T$. This is the \textit{eigenvalue decomposition} (EVD) of the (transformed) covariance matrix. Later on, we are going to use some of the properties of the covariance matrix and its eigenvalue decomposition in the context of a technique called \textit{dimensionality reduction}.
 
 
 \subsection{Probability Inequalities}
