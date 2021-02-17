@@ -29,29 +29,27 @@ The learner's task is to produce an $h$ that will be sufficiently correct when l
 
 The basic questions in machine learning are: Which tasks are learnable?  
  How do we learn learnable tasks? How many training samples do we need in order to learn them? 
- In this chapter we develop the \textit{\textbf{ PAC theory of learning}}, a famous theory that gives, within its definitions and assumptions, a complete answer to this question,  for \textit{\textbf{ batch supervised learning}} ('batch', meaning that the whole training data set is fed at once into the algorithm and 'supervised' meaning that this set contains the labels, $y$, and not only the domain set, i.e., the $\mathbf{x}$ values ). \textcolor{blue}{[Was batch learning defined earlier?]}.
+ In this chapter we develop the \textit{\textbf{ PAC theory of learning}}, a famous theory that gives, within its definitions and assumptions, a complete answer to these questions,  for \textit{\textbf{ batch supervised learning}} ('batch', meaning that the whole training data set is fed at once into the algorithm and 'supervised' meaning that this set contains the labels, $y$, and not only the domain set, i.e., the $\mathbf{x}$ values ). \textcolor{blue}{[Was batch learning defined earlier?]}.
 
 \subsection{A Data-generation Model }
-From now on, we assume the following:
+From now on, we will use the following two assumptions:
 \begin{itemize}
-  \item There is a distribution $\Dc$ over the example space $\Xc$.  That is, each $\mathbf{x}_i$ is sampled according to $\Dc$ and therefore each sequence $S$, of $m$ $\mathbf{x}$'s, has a different probability to appear.
-  \item The $\mathbf{x}$'s are \textbf{Independently Identically Distributed (i.i.d.)}.
-  In particular, the training set $S$ consists of $(x_i,f(x_i))_{i=1.. m}$, where the $\mathbf{x}_i$'s were sampled independently according to $\Dc$, and our test set, will be made of future examples: $x\in\Xc$, again to be  sampled according to $\Dc$ independently of each other and of those in the training set.
-  \item There is a function $f$ which is the correct classifier, i.e., for every $i \in [m]$, $y_i = f(x_i)$
-  For now, we assume that $f$ is deterministic (no noise): $y=f(x)$ and we will call it the "PAC model". 
-  In following lectures we'll add noise and call it the "Agnostic PAC model".
+  \item There exists a deterministic (noiseless) function $f$ which is the correct classifier, i.e., for every $\mathbf{x}$ there is a single correct label, given by $y=f(\mathbf{x})$. 
+  In particular, once we are given a training sequence $S= ((\mathbf{x}_1,y_1),...,(\mathbf{x}_m,y_m))$ we know the values of $f$ at $m$ points: $ f(\mathbf{x}_i)=y_i$, $i=1..m$.
+  We shall refer to this case as the \textit{\textbf{PAC Model}}.  In contrast, a bit later, we will consider a more general case which we will call the \textit{\textbf{Agnostic PAC model}} and in which the \textit{same} $\mathbf{x}$ may appear with \textit{different} labels, even within the same training set.
+
+ \item All $\mathbf{x}$'s, both those that appear in the training set \textit{and} those in any future test set,  are independent and identically distributed (i.i.d) random variables, i.e., they are sampled independently using a distribution $\Dc$ over the example space $\Xc$. In particular, this means that the probability, $\Prob(S)$, of getting the sequence  $S=((\mathbf{x}_1,y_1),...,(\mathbf{x}_m,y_m)$ is given by $\Prob(S)=\prod_{i=1}^{m}\Dc(\mathbf{x}_i)$. Note that  $\Prob(S)$ does not  depend on the labels $y_i$'s, since, by the previous assumption, these labels are uniquely determined by the $\mathbf{x}_i$'s and $f$. 
 \end{itemize}
 
-Compare the above to first learning problem we saw - the Linear Model: There, we had samples\footnote{the sample space there was $\Xc=\mathbb{R}^d$} $\mathbf{x}_1,..,\mathbf{x}_m\in\mathbb{R}^d$  fixed (given) and all of them received equal importance, for example, in their contribution to the global error (the loss function). In the framework we are developing now, the samples $\{x_i\}$ are  i.i.d samples according to $\Dc$, i.e., they have different probabilities to appear and therefore may have a different weights in the loss function.
-In the previous lecture we started with assumption $y_i=f(\mathbf{x}_i)$ where $f$ is deterministic and linear. We then assumed \textit{noise} $y_i = f(x_i)+z_i$. Next lecture we will add noise also to our current model.
+Compare the above PAC model to the first learning problem we saw, namely, the Linear Model. There, we also were given $m$ examples, $\mathbf{x}_1,..,\mathbf{x}_m\in\Xc$ (where we specifically took  $\Xc=\mathbb{R}^d$) but all of them received equal importance, for example, in their contribution to the global error (the loss function). Now, the examples $\mathbf{x}_i$'s are  i.i.d samples chosen according to $\Dc$, i.e., they have different probabilities to appear and therefore may have different weights in the loss function. Another difference is that in the case of the linear model we started with the assumption $y_i=f(\mathbf{x}_i)$ where $f$ was deterministic and linear. Here, we do assume $f$ to be deterministic, but otherwise it may take the form of any possible function from $\Xc$ to $\Yc$.
+In the linear model we eventually relaxed the deterministic assumption and considered $y$ to be a random function of $\mathbf{x}$ of the form:  $y_i = f(x_i)+z_i$. 
+An analogous generalization will take place also here, once we consider the more general, agnostic, case. Finally we note that, although this chapter will focus on \textit{classifiers}, many principles we will encounter will hold also for linear regression problems.
 
-\subsection{Classifiers}
+\subsection{Generalization Error for Classifiers}
 
-We will focus on focus on \textbf{classifiers} until further notice. However, many principles you'll see today are true for regression problems as well.
-
-For a classifier, we define the \textbf{Generalization Error} as:
+For a classification task, we define the \textbf{Generalization Error} as:
 \[
-L_{\Dc,f}(h) ~\equiv~ \mathbb{P}rob_{x \sim \Dc}[h(x) \neq f(x)] ~\equiv ~ \Dc\left( \{ x \in \Xc : h(x)
+L_{\Dc,f}(h) ~\equiv~ \Prob_{x \sim \Dc}[h(x) \neq f(x)] ~\equiv ~ \Dc\left( \{ x \in \Xc : h(x)
   \neq f(x) \}\right) ~.
 \]
 where $\Dc$ and $f$ are unknowns. The generalization error is also called the \textbf{risk}, or the \textbf{true error}. Recall that $\Dc$ is a distribution over $\Xc$, that is, for a given $A \subset \Xc$, the value of $\Dc(A)$ is the probability to see some $x \in A$.
