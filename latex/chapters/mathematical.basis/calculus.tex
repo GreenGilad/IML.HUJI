@@ -18,7 +18,7 @@ Consider the \textbf{Re}ctified \textbf{L}inear \textbf{U}nit function defined a
 	\end{cases}$$	
 \end{example}
 
-Note that at $x=0$ the derivative of ReLU is undefined. We will discuss ways to handle such cases in \todo{add reference to sub gradients, chapter 8}. Next, let us expand the derivative definition to multivariate functions.
+Note that at $x=0$ the derivative of ReLU is undefined. We will discuss ways to handle such cases in \autoref{chap:conv_opt}. Next, let us expand the derivative definition to multivariate functions.
 
 \begin{definition}[Partial Derivative]
 Let $f:\R^d\rightarrow\R$. The partial derivative of $f$ at point $\x\in\R^d$ with respect to $x_{i}$ is defined as
@@ -41,9 +41,8 @@ $$ \frac{\partial}{\partial x_i}f\left(\x\right) = \begin{cases}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{chapters/mathematical.basis/figures/max_3D.png}
-	\includegraphics[scale=0.5]{chapters/mathematical.basis/figures/max_2D.png}
-	\caption{\todo{Change these images}}
+	\includegraphics[width=0.8\textwidth]{chapters/mathematical.basis/figures/max.png}
+	\caption{Visualization of bi-variate $max$ function in 3D and 2D}
 \end{figure}
 
 
@@ -53,9 +52,8 @@ For $f\left(x,y\right) = x^2 + xy + y^2$ the partial derivatives of $f$ at $\lef
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{chapters/mathematical.basis/figures/polynomial_3D.png}  
-	\includegraphics[scale=0.5]{chapters/mathematical.basis/figures/polynomial_2D.png}
-	\caption{\todo{Change these images}}
+	\includegraphics[width=0.8\textwidth]{chapters/mathematical.basis/figures/polynomial.png}  
+	\caption{Visualization of bi-variate polynomial of degree 2 in 3D and 2D}
 \end{figure}
  
 \subsubsection{Gradients}
@@ -63,8 +61,6 @@ For $f\left(x,y\right) = x^2 + xy + y^2$ the partial derivatives of $f$ at $\lef
 The gradient of $f$ at $\x$ is the vector of partial derivatives:
 $$\nabla f\left(\x\right) \coloneqq \left(\frac{\partial f\left(\x\right)}{\partial x_1},\ldots, \frac{\partial f\left(\x\right)}{\partial x_d} \right)^\top $$
 \end{definition}
-
-\todo{add visualization of gradients}
 
 
 \begin{example}\label{exe:gradient_poly}
@@ -92,9 +88,10 @@ which in vector notation can be written as: $\nabla f\left(\x\right) = 2\x$.
 
 
 \subsubsection{Jacobians}
-Consider the following scenario. We have gathered historic information of season, time of day, latitude and longitude at different points in the world. Next, we have described some function that given these parameters states the temperature and air-pressure of that location and time. We want to find the the extrema points of this function. In this scenario, the described function gets fours parameters and returns two outputs $f:\R^4\rightarrow\R^2$. To find the extrema points we need to generalize the gradient definition to vector-valued functions.
-In different applications in machine learning, the function we are trying to minimize is a vector-valued function, namely $f:\R^m\rightarrow\R^d$ where . For example, 
+In different applications in machine learning, the function we are trying to minimize is a vector-valued function, namely $f:\R^m\rightarrow\R^d$. 
 
+~\\ For example, consider the following scenario. We have gathered historic information of season, time of day, latitude and longitude at different points in the world. Next, we have described some function that given these parameters states the temperature and air-pressure of that location and time. We want to find the the extrema points of this function. In this scenario, the described function gets fours parameters and returns two outputs $f:\R^4\rightarrow\R^2$. In order to find the extrema points we need to generalize the gradient definition to vector-valued functions.
+~\\
 \begin{definition}[Jacobian]
 	Let $\vv{f}:\R^m\rightarrow\R^d$ where $\vv{f}\left(\x\right)=\left(f_1\left(\x\right),\ldots, f_d\left(\x\right)\right)^\top$. The Jacobian of $f$ is the $d\times m$ matrix of all partial derivatives:
 	\[
@@ -130,14 +127,16 @@ $$ J_{\x}\left(f\right)=\left[\begin{array}{c}
 \end{proof}
 
 \subsubsection{Chain Rules}
-\todo{add chain rule in the simple case}
+\begin{theorem}[Chain Rule - Univariate]
+Let $f:\R\to\R$ and $g:\R\to\R$ be two differential functions, then the derivative of the composite $f\circ g$ is: $$ \left(f\circ g\right)' \coloneqq \left(f'\circ g\right)\cdot g' $$
+Namely, for $h\left(x\right)=f\left(g\left(x\right)\right)$ then $\forall x\in\R$ $h'\left(x\right)=f'\left(g\left(x\right)\right)\cdot g'\left(x\right)$.
+\end{theorem}
 
-
-\begin{theorem}[The Chain Rule]
+\begin{theorem}[Chain Rule - Multivariate]
 Let $f:\R^d\rightarrow\R^m$ and $g:\R^k\rightarrow\R^d$. The Jacobian of the composition $\left(f\circ g\right):\R^k\rightarrow\R^m$ at $\x$ is 
 $$
 J_{\x}\left(f\circ g\right) = J_{g\left(\x\right)}(f)J_{\x}\left(g\right) 
-=\begin{bmatrix}
+\coloneqq\begin{bmatrix}
 	\frac{\partial f_1\left(g\left(\x\right)\right)}{\partial g_1\left(\x\right)} & \ldots & \frac{\partial f_1\left(g\left(\x\right)\right)}{\partial g_d\left(\x\right)}\\
 	\vdots &  & \vdots\\
 	\frac{\partial f_m\left(g\left(\x\right)\right)}{\partial g_1\left(\x\right)} & \ldots & \frac{\partial f_m\left(g\left(\x\right)\right)}{\partial g_d\left(\x\right)}
@@ -147,7 +146,7 @@ J_{\x}\left(f\circ g\right) = J_{g\left(\x\right)}(f)J_{\x}\left(g\right)
 	\frac{\partial g_d\left(\x\right)}{\partial x_1} & \ldots & \frac{\partial g_d\left(\x\right)}{\partial x_k}
 \end{bmatrix}
 $$
-In element-wise notation  $$J_{\x}\left(f\circ g\right)_{i,j} = \sum_l\frac{\partial f_i\left(g\left(\x\right)\right)}{\partial g_l\left(\x\right)}  \frac{\partial g_l\left(\x\right)}{\partial x_j} $$
+In element-wise notation:  $$J_{\x}\left(f\circ g\right)_{i,j} \coloneqq \sum_l\frac{\partial f_i\left(g\left(\x\right)\right)}{\partial g_l\left(\x\right)}  \frac{\partial g_l\left(\x\right)}{\partial x_j} $$
 \end{theorem}
 
 \begin{exercise}
@@ -231,4 +230,4 @@ If for example $x=0.1, y=0.2$ then $f\left(3+0.1,4+0.2\right) = 5.2201.. \approx
 
 Another use of first order approximations is as follows. Suppose we investigate some objective function $f:\R^d\rightarrow\R$ at point $\vv{p}_0\in\R^d$. Now, we would like to "take a step" in $\R^d$ in the direction where $f$ grows with the fastest rate. That is, we are searching for the direction in space, that if we move in, $f$ grows the most. How can we find such direction?
 
-~\\Recall that $f\left(\vv{p}_0+\vv{p}\right)\approx f\left(\vv{p}_0\right)+\nabla f\left(\vv{p}_0\right)\cdot \vv{p}$. In addition, the angle between $\nabla f\left(\vv{p}_0\right)$ and $\vv{p}$ is $\nabla f\left(\vv{p}_0\right)\cdot \vv{p}=\norm{\nabla f\left(\vv{p}_0\right)}\cdot\norm{\vv{p}} \cos\theta$. As we are only interested in the direction in which to step, and not the step size, let us assume that $\norm{\left(\vv{p}\right)}=1$. Since $\cos x \in \left[-1, 1\right]$, the direction that maximizes $f$ is $\vv{p}_{max}\coloneqq \nabla f\left(\vv{p}_0\right)/\norm{\nabla \left(\vv{p}_0\right)}$. Similarly the direction that minimizes $f$ is $\vv{p}_{min}\coloneqq -\nabla f\left(\vv{p}_0\right)/\norm{\nabla \left(\vv{p}_0\right)}$. So, if we adapt a step-wise approach, for sufficiently small enough steps sizes, for maximizing/minimizing $f$, moving in the direction of the gradient or opposite to the gradient is a good approach. We will revisit this concept in \todo{Add reference to GD}
+~\\Recall that $f\left(\vv{p}_0+\vv{p}\right)\approx f\left(\vv{p}_0\right)+\nabla f\left(\vv{p}_0\right)\cdot \vv{p}$. In addition, the angle between $\nabla f\left(\vv{p}_0\right)$ and $\vv{p}$ is $\nabla f\left(\vv{p}_0\right)\cdot \vv{p}=\norm{\nabla f\left(\vv{p}_0\right)}\cdot\norm{\vv{p}} \cos\theta$. As we are only interested in the direction in which to step, and not the step size, let us assume that $\norm{\left(\vv{p}\right)}=1$. Since $\cos x \in \left[-1, 1\right]$, the direction that maximizes $f$ is $\vv{p}_{max}\coloneqq \nabla f\left(\vv{p}_0\right)/\norm{\nabla \left(\vv{p}_0\right)}$. Similarly the direction that minimizes $f$ is $\vv{p}_{min}\coloneqq -\nabla f\left(\vv{p}_0\right)/\norm{\nabla \left(\vv{p}_0\right)}$. So, if we adapt a step-wise approach, for sufficiently small enough steps sizes, for maximizing/minimizing $f$, moving in the direction of the gradient or opposite to the gradient is a good approach. We will revisit this concept in \autoref{chap:conv_opt}

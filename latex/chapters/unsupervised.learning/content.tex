@@ -17,7 +17,7 @@ There are different reasons to study and apply dimension reduction:
 \end{itemize}
 
 
-\subsection{Principal Component Analysis (PCA)}
+\subsection{Principal Component Analysis (PCA)}\label{pca}
 Let $\x_1,\ldots,\x_m\in\R^d$ be some dataset and suppose that it approximately resides in some lower $k$-dimensional linear subspace of $\R^d$. We would like to find some linear transformation of the data to project it on that lower dimension subspace. To do so we should solve to challenges:
 \begin{itemize}
 	\item There are infinitely many subspaces we could consider. Which subspace should we choose and how should we acquire it?
@@ -72,7 +72,7 @@ U^* = \underset{U\in\R^{d\times k},U^\top U=I}{argmax} \sum_{i=1}^m trace\left(U
 
 
 
-\begin{theorem}
+\begin{theorem}\label{pca_closest_subspace}
 Let $A=\sum\x_i\x_i^\top$ and let $\vv{u}_1,\ldots,\vv{u}_k$ be the $k$ leading eigenvectors of $A$. Then, the solution to the PCA problem is given by $U\in\R^{d\times k}$ whose columns are $\vv{u}_1,\ldots,\vv{u}_k$.
 \end{theorem}
 \begin{proof}
@@ -128,17 +128,78 @@ yielding the following pseudo-code for the PCA algorithm:
 	\end{algorithmic}
 \end{algorithm}
 
-~\\ The eigenvalues of $A$, $\lambda_1\geq\ldots\geq\lambda_d$ are referred to as the \textbf{Principal Values} of $\X$. The eigenvectors of $A$, $\vv{u}_1,\ldots,\vv{u}_d$ are referred to as the \textbf{Principal Vectors}. Notice that the matrix $A$ is a $d$-by-$d$ positive semi-definite matrix. Therefore
+~\\ The eigenvalues of $A$, $\lambda_1\geq\ldots\geq\lambda_d$ are referred to as the \textbf{Principal Values} of $\X$. The eigenvectors of $A$, $\vv{u}_1,\ldots,\vv{u}_d$ are referred to as the \textbf{Principal Vectors}. Notice that the matrix $A$ is a $d$-by-$d$ positive semi-definite matrix. Therefore \todo{finish}
+
+
 \subsubsection{Maximum Retained Variance}
+Another way to think about PCA is as a dimensionality reduction technique that maintains the maximum amount of variance of the data possible in a $k<d$ dimensional subspace. To prove so we will have to solve a constraint maximization problem using Lagrange Multipliers. 
 
-\todo{show that minimizes var}\\
-\todo{geometric view}\\
-\todo{explained variance}\\
+\todo{Explain lagrange multipliers}
+
+\begin{theorem}\label{pca_max_var}
+Let $\X$ be an $m$-by-$d$ design matrix. The projection of $\X$ onto a $k$ dimensional linear subspace that retains maximum of the variance in $\X$ is given by the matrix $U\in\R^{d\times k}$ whose columns are the $k$ eigenvectors with leading eigenvalues of the sample covariance matrix $S$.
+\end{theorem}
+\begin{proof}
+We begin with considering the projection onto a one-dimensional subspace. Without loss of generality let $\vv{v}\in\R^d$ be a unit vector used to project the data onto. The variance of the projection of each $\x_i$ onto $\vv{v}$, $\vv{v}^\top\x_i$ is given by:
+$$
+\begin{array}{rclcl}
+	\E\left[\vv{v}^\top \x\right] & = & \frac{1}{m}\sum \vv{v}^\top \x_i =\vv{v}^\top \overline{\x} \\
+	\\
+	Var\left(\vv{v}^\top \x\right) & = & \E_{\x}\left[\left(\vv{v}^\top \x_i - \E_{\x}\left[\vv{v}^\top \x\right]\right)^2\right]
+	& = & \frac{1}{m}\sum\left(\vv{v}^\top \x_i - \vv{v}^\top \overline{\x}\right)^2 \\
+	& = & \frac{1}{m}\sum\left[\vv{v}^\top\left(\x_i - \overline{\x}\right)\right]^2
+	& = & \frac{1}{m}\sum \left[\vv{v}^\top\left(\x_i - \overline{\x}\right)\right]\left[\vv{v}^\top\left(\x_i - \overline{\x}\right)\right]^\top \\
+	& = & \frac{1}{m}\sum \vv{v}^\top\left(\x_i - \overline{\x}\right)\left(\x_i - \overline{\x}\right)^\top \vv{v}
+	& = & \vv{v}^\top\left[\frac{1}{m}\sum\left(\x_i - \overline{\x}\right)\left(\x_i - \overline{\x}\right)^\top\right]\vv{v} \\
+	& = & \vv{v}^\top S \vv{v}
+\end{array}
+$$
+So now let us maximize the projected variance with respect to $\vv{v}$:
+$$ \widehat{\vv{v}} = \underset{\norm{v}=1}{argmax}\, \vv{v}^\top S\vv{v} $$ To solve this optimization problem we will use the Lagrange multipliers method with the constraint $g\left(\vv{v}\right) = 1-\vv{v}^\top \vv{v}$. So the lagrangian is given by:
+$$\begin{array}{c}
+\Lc = \vv{v}^\top S \vv{v} + \lambda g\left(\vv{v}\right)\\
+\Downarrow\\
+\frac{\partial}{\partial \vv{v}}\Lc = 2S\vv{v} - 2\lambda \vv{v} = 0
+\end{array}$$
+Therefore the maximizer of $\vv{v}^\top\vv{v}$ must be an eigenvector of $S$. Notice that by left-multiplying the derivative by $\vv{v}^\top$ we find that the retained variance itself is given by: $$ \vv{v}^\top S\vv{v} = \lambda\vv{v}^\top\vv{v} \overset{\norm{\vv{v}}=1}{=} \lambda$$
+Thus, the maximal retained variance is the largest eigenvalue $\lambda_1$, achieved by $\vv{v}\coloneqq\vv{u}_1$.
+
+~\\Next, let us find the direction that retains the second largest amount of variance. As we are looking for an orthogonal projection we add an additional constraint that this direction is orthogonal to $\vv{u}_1$:
+
+$$ \widehat{\vv{v}} = \underset{\norm{\vv{v}}=1,\, \vv{v}^\top \vv{u}_1 = 0}{argmax}\, \vv{v}^\top S\vv{v} $$
+
+As before, when solving the constraint optimization problem for $\vv{v}$ we find that the direction retaining the second largest amount of variance is $\vv{v}\coloneqq \vv{u}_2$, with the amount of variance being $\lambda_2$. Proving by induction we get that $\forall k\leq d$, the $k$ dimensional subspace that retains maximal variance of projecting $\X$ onto it, is given by the $k$ leading eigenvectors of $S$.
+\end{proof}
 
 
+\subsubsection{Link Between Closest Subspace and Maximum Variance}
+In the above we have seen two interpretations of PCA: one as closest subspace and one as maximizing variance. To understand how the two are connected consider the dataset seen in \autoref{pca_interp_link} and specifically the $\x_i$ data-point. Notice that by orthogonally projecting $\x_i$ onto $\vv{u}_1$ a right-angle triangle is formed where:
+\begin{itemize}
+	\item The edge denoted by $a$ is the size of the projection of $\x_i$ onto $\vv{u}_1$: $a\coloneqq \norm{\x_i^\top \vv{u}_1}$. This is the measure maximized in the maximum variance interpretation.
+	\item The edge denoted by $b$ is the distance between the original data-points $\x_i$ and its orthogonal projection onto $\vv{u}_1$: $b\coloneqq \norm{\x_i - \x_i \vv{u}_1}$. This is the measure minimized in the closest subspace interpretation.
+	\item The edge denoted by $c$ is the size of $\x_i$: $c\coloneqq \norm{\x_i}$.
+\end{itemize}
+
+As this is a right-angle triangle, we know from the Pythagorean theorem that $c^2=a^2+b^2$. Therefore, if we find a PCA solution that minimizes $b$ (the closest subspace), we in fact find a solution that maximizes $a$. Similarly by finding a solution that maximizes $a$ (maximal projected variance), we find a solution that minimizes $b$.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/unsupervised.learning/figures/7.1.jpg}
+	\caption{\textbf{Link Between PCA Interpretations}: Projection of $\x_i$ onto $\vv{u}_1$ forming a right-angle triangle.}\label{pca_interp_link}
+\end{figure}
 
 \subsubsection{Projection- vs. Coordinates of Data-Points}
-\todo{Add from notes}
+When considering PCA (or many other dimensionality reduction algorithms), an important but often overlooked point is the difference between projection and embedding (i.e coordinates) of the data-points. Suppose $\X\in\R^{m\times d}$ and we run the PCA algorithm to find a lower $k$ dimensional linear subspace. The optimal PCA solution is the subspace that minimizes the sum of squared distances between each data-point $\x_i$ and its orthogonal projection onto the subspace. As we have seen above (\ref{pca_closest_subspace}, \ref{pca_max_var}), this subspace is spanned by the $k$ leading eigenvectors of the $d\times d$ sample covariance matrix $S=\frac{1}{m}\sum\left(\x_i-\overline{x}\right)\left(\x_i-\overline{x}\right)^\top$.
+
+~\\This matrix $U\in\R^{d\times k}$ enables the \textbf{projection} of the points in $\R^d$ onto the $k$ dimensional subspace, spanned by these leading eigenvectors. However, we would also like to actually reduce the dimension. Namely, find the map $W:\R^d\rightarrow\R^k$ and work with the dimension-reduced dataset $W\left(\x_1\right),\ldots,W\left(\w_m\right)$. As proven above, it is in fact $W=U^\top$ the map that provides the \textbf{embedding} of the data into the low dimension space. The vector $U^\top \x_i$ is a $k$ dimensional vector, laying within the found $k$ dimensional subspace. These are the \textbf{coordinates} of the original vector $\x_i$ according to the orthonormal set of $k$ leading eigenvalues of $S$.
+
+~\\Let $\vv{u}_1,\ldots, \vv{u}_d$ be the $d$ eigenvectors of $S$ numbered in ascending order by the associated eigenvalues. As these vectors form a basis in $\R^d$, the vector $\x_i$ can be decomposed as $\x_i = \sum_{j=1}^d \inprod{\x_i}{\vv{u}_j}\vv{u}_j$. 
+\begin{itemize}
+	\item The \textbf{projecting} of $\x_i$ on the optimal $k$-dimensional subspace is given by $\x_i=\sum_{j=1}^k \inprod{\x_i}{\vv{u}_j}\vv{u}_j$.
+	\item The \textbf{coordinates} (i.e. embedding) of $\x_i$ according to the $k$ leading principal vectors are given by: $\left(\inprod{\x_i}{\vv{u}_1},\ldots,\inprod{\x_i}{\vv{u}_k}\right)^\top$.
+\end{itemize}
+
+In Figure todo{add reference} we can see the difference between the projection and the coordinates of the data-points. Figure {add reference to left side} we see a dataset in $\R^d$ and the two dimensional subspace found by the PCA algorithm. The orthogonal projection of the points ...........
 
 
 \subsection{Kernel PCA}\label{kernel_pca}
@@ -342,7 +403,7 @@ and that they achieve an objective value lower (or equal) to any other partition
 
 \subsubsection{Selection of $k$}
 As in different algorithms previously seen, in K-Means too we are required to provide a value for the hyper-parameter $k$. As we do not know how many clusters we really have in the dataset this is not a simple task. Notice that as long as we have more data-points than clusters, for any optimal solution with $k$ clusters, we can achieve a solution with a lower objective for $k+1$. As such, simply running over different values of $k$ and selecting the minimal value isn't a viable solution. Instead, we will apply a similar technique to the one used in PCA. We will plot the to objective achieved for different values of $k$ and select the value after which the improvement is less drastic. In \autoref{selecting-k} we apply this strategy over the dataset seen in \autoref{anim:kmeans1}. As seen in the elbow-plot once we reach $k=4$, the incremental improvement in score is much lower. Since the data was generated from 4 different Gaussians, this approach managed to find the correct value.
-
+	
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{chapters/unsupervised.learning/figures/kmeans-selecting-k.png}

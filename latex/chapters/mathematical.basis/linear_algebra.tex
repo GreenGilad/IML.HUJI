@@ -1,9 +1,7 @@
 \section{Linear Algebra}
-\todo{fix dimensions to be $m$ and $d$ so to be consistent with future materials}
-\todo{add motivation}
 \subsection{Linear Transformations}
 \begin{definition}[Linear Transformation]
-	Let $V\in\R^n$ and $W\in\R^m$ be two vectors spaces. A function $T:V\rightarrow W$ is called a linear transformation of $V$ into $W$, if $\forall u, v \in V$ and $c\in \R$.
+	Let $V\in\R^d$ and $W\in\R^m$ be two vectors spaces. A function $T:V\rightarrow W$ is called a linear transformation of $V$ into $W$, if $\forall u, v \in V$ and $c\in \R$.
 	\begin{itemize}
 		\item Additivity: $T\left(u+v\right) = T\left(u\right)+T\left(v\right)$
 		\item Scalar multiplication: $T \left(cu\right) = cT \left(u\right)$
@@ -35,13 +33,13 @@ Let $A$ be the matrix corresponding the linear transformation $T:V\rightarrow W$
 Note that by definition, $Ker\left(A\right), Row\left(A\right)\subseteq V$ and $Im\left(A\right)\subseteq W$. Using the above definitions let us gain some insights into what these vector spaces provide us with.\\
 
 \begin{definition}
-Let $A\in\R^{n\times m}$. The rank of $A$ is the maximum number of linearly independent rows of $A$ and denoted by $rank\left(A\right)$.
+Let $A\in\R^{m\times d}$. The rank of $A$ is the maximum number of linearly independent rows of $A$ and denoted by $rank\left(A\right)$.
 \end{definition}
 
-It holds that the rank of $A$ equals both the dimension of the columns space and of the row space of $A$. As such, we refer to $A$ being of \textit{full rank} if and only if $rank\left(A\right)=min\left(n,m\right)$. Otherwise we say that $A$ is rank deficient.\\
+It holds that the rank of $A$ equals both the dimension of the columns space and of the row space of $A$. As such, we refer to $A$ being of \textit{full rank} if and only if $rank\left(A\right)=min\left(m,d\right)$. Otherwise we say that $A$ is rank deficient.\\
 
 \begin{definition}
-Let $A\in\R^{n\times n}$ be a square matrix. $A$ is called  invertible (or non-singular) if there exists a matrix $B\in\R^{n\times n}$ such that $AB=I_n=BA$. We denote the inverse by $A^{-1}$.
+Let $A\in\R^{d\times d}$ be a square matrix. $A$ is called  invertible (or non-singular) if there exists a matrix $B\in\R^{d\times d}$ such that $AB=I_d=BA$. We denote the inverse by $A^{-1}$.
 \end{definition}
 
 \begin{claim}
@@ -57,18 +55,18 @@ Let $A$ be a square matrix. The following are equivalent (TFAE):
 
 ~\\
 \begin{example}
-Consider the following scenario: Suppose we are given a set of $n$ linearly independent linear equations, each of the form $y_i=\sum_{j=1}^{n}\w_j\cdot x_{ij}$, where the $x_{i,j}$'s and $y_i$ are given while $\w_j$'s are unknown. We would like to find a solution for this system of equations. That is, a coefficients vector $\w\in\R^n$ that satisfies:
-$$ \forall i\in[n] \,\,\, y_i=\sum_{j=1}^n \w_j \cdot x_{ij} = \w^\top x$$
+Consider the following scenario: Suppose we are given a set of $n$ linearly independent linear equations, each of the form $y_i=\sum_{j=1}^{d}\w_j\cdot x_{ij}$, where the $x_{i,j}$'s and $y_i$ are given while $\w_j$'s are unknown. We would like to find a solution for this system of equations. That is, a coefficients vector $\w\in\R^d$ that satisfies:
+$$ \forall i\in[d] \,\,\, y_i=\sum_{j=1}^d \w_j \cdot x_{ij} = \w^\top x_i$$
 ~\\
-Let us rearrange the equations in matrix form. Given a linear equation we will denote all it's $x$'s by the vector $x_i\in\R^n$ where $i$ denotes the numbering of the current equation. Similarly we will arrange all the $y$'s in a vector $y\in\R^n$. Thus, we can represent the problem written above as follows:
-$$  Find  \,\,\,\w\in\R^n \,\,\, such\,that\,\,\, y=X\w$$
+Let us rearrange the equations in matrix form. Given a linear equation we will denote all it's $x$'s by the vector $x_i\in\R^d$ where $i$ denotes the numbering of the current equation. Similarly we will arrange all the $y$'s in a vector $y\in\R^m$. Thus, we can represent the problem written above as follows:
+$$  \text{Find}  \,\,\,\w\in\R^d \,\,\, \text{such that}\,\,\, y=X\w$$
 ~\\
 As we assumed that all linear equations are independent, the rows of $X$ are linearly independent. Therefore, it is of full rank and there exists an invertible matrix $X^{-1}$ such that $XX^{-1}=I$. Equipped with this observation finding $\w$ is simply:
 $$ y=X\w \,\, \Rightarrow \,\, X^{-1}y=X^{-1}X\w \,\, \Rightarrow \\, \w=X^{-1}y$$
 \end{example}
 
 \begin{remark}
-Let us think of each vector $x_i\in\mathbb R^n$ as some independent observation (or sample) we have of some phenomena. Each coordinate of $x_i$ corresponds some measurement we have of this observation. Together with this sample we are given some response value $y_i\in\R$. By solving for $\w$ we learn the relation between the $x$'s and $y$'s. Now suppose we are given a new sample $x\in\R^n$. As we already know the relation between the $x$s and the $y$s, we can predict what is the appropriate $y$ value it achieves.
+Let us think of each vector $x_i\in\R^d$ as some independent observation (or sample) we have of some phenomena. Each coordinate of $x_i$ corresponds some measurement we have of this observation. Together with this sample we are given some response value $y_i\in\R$. By solving for $\w$ we learn the relation between the $x$'s and $y$'s. Now suppose we are given a new sample $x\in\R^d$. As we already know the relation between the $x$s and the $y$s, we can predict what is the appropriate $y$ value it achieves.
 ~\\
 The general problem of finding such vectors is called \textbf{Regression}. In the case where the relationship is linear it is called \textbf{Linear Regression}. We will discuss linear regression in \autoref{chp:lin_reg}.
 \end{remark}
@@ -118,7 +116,7 @@ The absolute and Euclidean norms are part of a wider family of norms called the 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{chapters/mathematical.basis/figures/1_1.png}  
+	\includegraphics[width=0.8\textwidth]{chapters/mathematical.basis/figures/1_1.png}  
 \end{figure}
 
 ~\\
@@ -154,7 +152,7 @@ Hence, we conclude that: $$\norm{v}\cdot\norm{u}\cdot \cos \theta = \inprod{v}{u
 From the above, we have an expression for the angle between two vectors, using the inner-product. We can therefore define what it means to project one vector onto the other. Using the identity of $\cos\theta$: $$p=\norm{v}\cos\theta\cdot \frac{u}{\norm{u}}=\norm{v}\frac{ \inprod{v}{u}}{\norm{v}\cdot\norm{u}}\cdot \frac{u}{\norm{u}}=\frac{ \inprod{v}{u} }{\norm{u}^2}\cdot u$$
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{chapters/mathematical.basis/figures/1_2.png}  
+	\includegraphics[width=0.5\textwidth]{chapters/mathematical.basis/figures/1_2.png}  
 \end{figure}
 
 \begin{definition}[Vector Projection]
