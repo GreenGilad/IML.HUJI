@@ -1,13 +1,34 @@
 \chapter{Unsupervised Learning}
-Up to this point our learning paradigm was of \textbf{supervised batch learning}. Given a sample space $\Xc$ and a label/response space $\Yc$, we were interested in \textbf{prediction}: finding some way to predict $y\in\Yc$ corresponding to a new unseen sample $x\in\Xc$, based on a training set of labeled samples $\trainset$. However, there are many learning problems that do not fit into this framework of supervised batch learning. In one such set of problems we still consider a domain set $\Xc$ but there is no label/response space. Namely, the data is of the form $S=\left\{\x_i\right\}^m_{i=1}$ where $\x_i\in\Xc$. Such problems are called \textbf{un-supervised} learning problems, and the goal is to infer different properties of $\Xc$. A few examples are:\\
+Up to this point, our learning paradigm was of \textbf{supervised batch learning}. Given a sample space $\Xc$ and a label/response space $\Yc$, we were interested in \textbf{prediction}: finding some way to predict $y\in\Yc$ corresponding to a new unseen sample $x\in\Xc$, based on a training set of labeled samples $\trainset$. However, there are many learning problems that do not fit into this framework of supervised batch learning. In one such set of problems we still consider a domain set $\Xc$ but there is no label/response space. Namely, the data is of the form $S=\left\{\x_i\right\}^m_{i=1}$ where $\x_i\in\Xc$. Such problems are called \textbf{un-supervised} learning problems, and the goal is to infer different properties of $\Xc$. A few examples are:\\
 \begin{itemize}
-\item \textbf{Uncovering low-dimensional structures:} In some cases we have reason to believe that some given data, though represented in high dimensional, could actually be represented in a lower dimensional representation. Consider for example the MNIST database of handwritten digits. This coprus of 28-by-28 pixels grey-scaled images shows scans of people handwriting of the digits $0,\ldots,9$. Though each imange (sample) is represented in $\R^{28\times 28}$, there are very few variations on how people write digits. Therefore, it might be possible to \textbf{reduce the dimension} of the samples into a more compact, of lower dimension, representation.\\
+\item \textbf{Uncovering low-dimensional structures:} In some cases we have reason to believe that some given data, though represented in high dimension, could actually be represented in a lower dimension. Consider for example the MNIST database of handwritten digits. This coprus of $28$-by-$28$ pixels grey-scaled images shows scans of people handwriting of the digits $0,\ldots,9$. Though each imange (sample) is represented in $\R^{28\times 28}$, there are very few variations on how people write digits. In \autoref{pca_data_example} we can see that in most images a big area in the surrounding of the image remains constant. This means that these pixels are not informative for predicting the digit. In addition, even though two images of the same digit (for example the digit $3$ as seen below) show differences, they are still mostly the same. Therefore, it might be possible to \textbf{reduce the dimension} of the samples into a more compact, of lower dimension, representation.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{chapters/unsupervised.learning/figures/pca_data_Digit.png}
+	\caption{\textbf{MNIST Digits Dataset}: A set of 5 labelled samples from the MNIST Digits dataset}\label{pca_data_example}
+\end{figure}
+
+~\\
 \item \textbf{Clustering:} Often, when we are given a dataset, we are interested in grouping (or segmenting) it into subsets such that those samples within each cluster are in some way more "closely related" to each other than to samples in other subsets. We refer to these subsets as \textit{clusters}. Consider once more the MNIST digits dataset. In general, it seems logical that images of the same digit resemble each other more than images of different digits. If we would to try to cluster it (that is, segment its samples into different subsets) we would hope to get 10 separate subsets, each containing images of a specific digit.\\
 \item \textbf{Anomaly detection:} Suppose we are interesting in detecting when some given system is not behaving "as usual". Consider an air conditioning system or power plant. We place sensors in the system and would like to get a warning when something is behaving "strange". We do not know what exactly a "strange" behavior would look like, but it might be caused due to some mechanical malfunction, a software problem or even a cyber attack. We monitor the state of the system at all times. If we have installed $d$ sensors, each time we take a reading of the system we get a sample $\x_i\in\R^d$. We train out learning system on the readings $\x_1,\ldots,\x_m\in\R^d$ where we believe these represent the normal state of the system. Now, given a new reading $\x\in\R^d$, is it "normal"? or is there something wrong? We are required to make a decision without have seeing the system in the "wrong"/"abnormal"/"strange" state before.
 \end{itemize}
 
+~\\\autoref{unsupervised_img} shows an example of performing both clustering and dimensionality reduction. In the figure we visualize a dataset of single-cell RNA-sequencing gene expression. This dataset consists of 8850 cells (samples, seen in figure as the individual dots) over 30449 genes (features) where for each cell we have the level of expression (a number in $\N_0$) of the specific gene. The analysis of this dataset included:
+\begin{itemize}
+	\item \textbf{Dimensionality reduction}: to reduce dimensionality from the original 30449 dimensional features space to a lower 25 dimensional space. Further computations were performed over this lower dimension space, making computations simpler. The dimensionaliy reduction algorithm in use is the PCA algorithm which we discuss below (\autoref{pca}).\\
+	\item \textbf{Clustering}: Over the reduced, 25 dimensional, feature space a clustering algorithm was used. This algorithm split the dataset into different clusters. These  different clusters are represented using different colors.\\
+	\item \textbf{Secondary dimensionality reduction}: To help with visualizing the data, another dimensionality reduction algorithm was used. This time, dimension was reduced to a two dimensinoal space, enabling clear overview of both data and clustering results.
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{chapters/unsupervised.learning/figures/single.cell.dim.clust.png}
+	\caption{\textbf{Clustering and Dimensionality Reduction}}\label{unsupervised_img}
+\end{figure}
+
 \section{Dimensionality Reduction}
-Dimensionality reduction is the process of mapping some high dimensional space (the ambient space) to some new low dimensional space (the intrinsic space). Given a dataset $\x_1,\ldots,\x_m\in\R^d$ find some mapping $f:\R^d\rightarrow\R^k$ for $k<d$, where $f\left(\x_1\right),\ldots,f\left(\x_m\right)$ still resembles $\x_1,\ldots,\x_m$ in some sense. Different dimensionality reduction techniques are usually separated to linear- and non-linear techniques depending on the selected $f$. 
+Dimensionality reduction is the process of mapping some high dimensional space (the ambient space) to some new low dimensional space (the intrinsic space). Given a dataset $\x_1,\ldots,\x_m\in\R^d$ we want to find some mapping $f:\R^d\rightarrow\R^k$ for $k \ll d$, where $f\left(\x_1\right),\ldots,f\left(\x_m\right)$ still resembles $\x_1,\ldots,\x_m$ in some sense. Different dimensionality reduction techniques are usually separated to linear- and non-linear techniques depending on the selected $f$. 
 \\~\\
 There are different reasons to study and apply dimension reduction:
 \begin{itemize}
@@ -18,23 +39,23 @@ There are different reasons to study and apply dimension reduction:
 
 
 \subsection{Principal Component Analysis (PCA)}\label{pca}
-Let $\x_1,\ldots,\x_m\in\R^d$ be some dataset and suppose that it approximately resides in some lower $k$-dimensional linear subspace of $\R^d$. We would like to find some linear transformation of the data to project it on that lower dimension subspace. To do so we should solve to challenges:
-\begin{itemize}
-	\item There are infinitely many subspaces we could consider. Which subspace should we choose and how should we acquire it?
-	\item Even if we knew the subspace, projecting the data-points $\x\in\R^d$ onto the subspace does not yet rerude the dimension. We would want to find a way to represent each sample by the $k$ coordinates of that sample \textit{in} the subspace. This is also known as the embedding of the samples.
-\end{itemize}
+Let $\x_1,\ldots,\x_m\in\R^d$ be some dataset and suppose that it approximately resides in some lower $k$-dimensional linear subspace of $\R^d$. We would like to find some linear transformation of the data to project it on that lower dimension subspace. To do so we need to solve two challenges:
+\begin{enumerate}
+	\item There are infinitely many subspaces we could consider. Which subspace should we choose and how should we acquire it?\\
+	\item Even if we knew the subspace, projecting the data-points $\x\in\R^d$ onto the subspace does not yet reduce the dimension. We would want to find a way to represent each sample by the $k$ coordinates of that sample \textit{in} the subspace. This is also known as the \textit{embedding} of the samples.
+\end{enumerate}~\\
 
-In the case of Principal Component Analysis (PCA) given a dataset $\x_1,\ldots,\x_m\in\R^d$ we are searching for some linear transformation such that we minimize the squared error between the original samples and their transformation:
+In the case of Principal Component Analysis (PCA), given a dataset $\x_1,\ldots,\x_m\in\R^d$ we are searching for some linear transformation such that we minimize the squared error between the original samples and their transformation:
 \begin{equation}
-f^*=\underset{f}{argmin} \sum^m_{i=1}\norm{\x_i - f\left(\x_i\right)}^2
+f^*\coloneqq\underset{f}{argmin} \sum^m_{i=1}\norm{\x_i - f\left(\x_i\right)}^2
 \end{equation}
 This problem can be formulated in four different ways:
-\begin{itemize}
+\begin{enumerate}
 	\item Finding the closest affine subspace to the points.
-	\item Finding the affine subspace that retains most of the variation in the data
-	\item Finding the affine subspace that minimizes the distortion of distances between points in the ambient compared to the intrinsic spaces.
-	\item Generalization of linear regression
-\end{itemize}~\\
+	\item Finding the affine subspace that retains most of the variation seen in the data (sometimes referred to as \textit{signal}).
+	\item Finding the affine subspace that minimizes the distortion of the pairwise distances between points in the ambient- compared to the intrinsic spaces.
+	\item Generalization of linear regression with Gaussian noise both in the explanatory variables directions and in the response direction. This interpretation is also known as probabilistic PCA.
+\end{enumerate}~\\
 Here, we will discuss the first two, most common, formulations.
 
 \subsubsection{Closest Affine Subspace}
@@ -112,6 +133,7 @@ $$
 and $trace\left(U^\top A U\right) = trace\left(diag\left(\lambda_{1},\ldots,\lambda_{k},0,\ldots,0\right)\right)=\sum^k \lambda_i$, as requested.
 \end{proof}
 
+
 ~\\\paragraph{Generalizing for affine subspaces:} In the above theorem we in-fact found the closest subspace- and not the closest affine subspace to the data. To find the closest affine subspace, we would like to allow the mapping $W$ to be \textbf{affine}. To achieve this we generalize the above by considering $W:\R^d\rightarrow\R^k$ to be of the form $$ W\left(\x\right)\coloneqq\widetilde{W}\left(\x-\mu\right),\quad \mu\in\R^d,\, \widetilde{W}:\R^d\rightarrow\R^k$$ 
 This allows us to ``shift`` the data before applying the linear map $\widetilde{W}$. When adding $\mu$ to the optimization problem above, we find that the minimizer $\mu$ is given by: $ \mu = \frac{1}{m}\sum \x_i $. This is the empirical mean of the data, often denoted by $\overline{\x}$. So, in order to find the closest affine subspace to the data we center the matrix $A$: $$ A\coloneqq \sum_{i=1}^m \left(\x_i -\overline{\x}\right)\left(\x_i -\overline{\x}\right)^\top $$
 
@@ -128,7 +150,7 @@ yielding the following pseudo-code for the PCA algorithm:
 	\end{algorithmic}
 \end{algorithm}
 
-~\\ The eigenvalues of $A$, $\lambda_1\geq\ldots\geq\lambda_d$ are referred to as the \textbf{Principal Values} of $\X$. The eigenvectors of $A$, $\vv{u}_1,\ldots,\vv{u}_d$ are referred to as the \textbf{Principal Vectors}. Notice that the matrix $A$ is a $d$-by-$d$ positive semi-definite matrix. Therefore \todo{finish}
+~\\ The eigenvalues of $A$, $\lambda_1\geq\ldots\geq\lambda_d$ are referred to as the \textbf{Principal Values} of $\X$. The eigenvectors of $A$, $\vv{u}_1,\ldots,\vv{u}_d$ are referred to as the \textbf{Principal Components}. Notice that the matrix $A$ is a $d$-by-$d$ positive semi-definite matrix. Therefore the PCA algorithm is in fact a case of a matrix diagonalization algorithm where we simply try to find the eigenvalues and eigenvectors of some target matrix.
 
 
 \subsubsection{Maximum Retained Variance}
@@ -199,7 +221,41 @@ When considering PCA (or many other dimensionality reduction algorithms), an imp
 	\item The \textbf{coordinates} (i.e. embedding) of $\x_i$ according to the $k$ leading principal vectors are given by: $\left(\inprod{\x_i}{\vv{u}_1},\ldots,\inprod{\x_i}{\vv{u}_k}\right)^\top$.
 \end{itemize}
 
-In Figure todo{add reference} we can see the difference between the projection and the coordinates of the data-points. Figure {add reference to left side} we see a dataset in $\R^d$ and the two dimensional subspace found by the PCA algorithm. The orthogonal projection of the points ...........
+~\\In \autoref{pca_circ} we illustrate the difference between the projection and the coordinates (embedding) of the data-points. This dataset was generated as follows: 1000 points were sampled from the $\ell_2$ unit ball in $\R^2$. That is, $\left\{\left(\left(x_i\right)_1, \left(x_i\right)_2\right)\right\}^{1000}_{i=1}$ where $\left(x_i\right)_1^2+\left(x_i\right)_2^2=1$. Then Gaussian noise was added in a third axis: $$\left\{\left(\left(x_i\right)_1, \left(x_i\right)_2, \eps_i\right)\right\}^{1000}_{i=1} \quad \left(x_i\right)_1^2+\left(x_i\right)_2^2=1 \quad \eps_1,\ldots,\eps_{1000}\iid\Nc\left(0, 0.1\right)$$
+
+~\\ \autoref{pca_circ} (left) shows this dataset. Then, using PCA we first project the data onto the subspace defined by the 3 PCs (\autoref{pca_circ}, center). At this point each data-point is still represented in $\R^3$, but we can indeed see that it is mainly the first 2 axes that capture the signal in the data, with the third axis showing only minor variations (the added noise). Lastly, when embedding the data into a 2 dimensional subspace (\autoref{pca_circ}, right), we are left with the true signal of the data (i.e. samples drawn from a 2 dimensional $\ell_2$ unit ball), and data-points are represented using only 2 coordinates.
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{chapters/unsupervised.learning/figures/pca_circ.png}
+	\caption{\textbf{Projection vs. Embedding}: Dataset of sampels taken on the $\ell_2$ unit ball with Gaussian noise in $\R^3$, and then rotated in a random direction. \GitChapterSevelExamplesPCA}\label{pca_circ}
+\end{figure}
+
+
+\subsubsection{Principal Components As ``Typical Data-Points``}
+The principal components found by PCA are vectors in the ambient space $\R^d$. This means that they share the same dimension as the data-points $x_1,\ldots, x_m$. As they are orthonormal vectors chosen such that the first $k$ provide the best linear approximation of dimension $k$ to the dataset, we can look at them in an interesting way. They are, in this sense, the ``typical`` data-points, maximally different from each other (as they are an orthonormal set). Thus, it is often interesting to see what they represent as data-points: what part of the ``signal`` do they capture.
+
+~\\Returning to the MNIST Digits dataset of \autoref{pca_data_example} we can look at each principal component as a $28$-by-$28$ image. Then, we can think of the representation of each image by the linear combination of these images:
+
+$$ \widehat{f}\left(\x\right) = \sum_{i=1}^k \alpha_i \vv{u}_i + \overline{\x}, \quad \alpha_1,\ldots,\alpha_k\in\R $$
+where $\vv{u}_1,\ldots,\vv{u}_k$ are the leading $k$ principal components and $\widehat{\x}$ is the centering vector of the data. Notice that as this is a linear combination we are reconstructing the sample $\x$ via adding and subtracting (weighted) principal components.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{chapters/unsupervised.learning/figures/pca_pcs_Digit.png}
+	\caption{\textbf{Top Principal Components} of PCA fitted over the MNIST Digits dataset. \GitChapterSevelExamplesPCA}\label{pca_pcs}
+\end{figure}
+
+\autoref{pca_reconstruction} shows the reconstruction process of an image of digit $4$ as the linear combination of the principal components.
+
+\begin{figure}[h!]
+	\centering
+	\animategraphics[loop,autoplay,width=0.8\textwidth]{1}{chapters/unsupervised.learning/figures/pca_reconstruction_Digit-}{0}{25}
+	\caption{\textbf{PCA Reconstruction:} Constructing image from principal components. \GitChapterSevelExamplesPCA}
+	\label{anim:pca}
+\end{figure}
+
 
 
 \subsection{Kernel PCA}\label{kernel_pca}

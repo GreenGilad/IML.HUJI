@@ -290,6 +290,7 @@ In this case we write: $\x\sim\Nc(\mu,\Sigma)$
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{chapters/mathematical.basis/figures/normal_distributions.png}
+	\caption{Uni- and bivariate normal distributions. \GitChapterOneExamples}
 \end{figure}
 
 Observe that definition \ref{def: MVN} is generalization of \ref{def: UVN}, i.e. when $d = 1$ both definitions are same. Often, we are interested only in how one of the variates distributes, without the influence of the rest. For example, suppose we have joint probability function of the variables ``height`` and ``weight`` but we are interested in how the ``height`` distributes. To do so we would like to integrate out the ``weight`` variable. This leads to the following definition:
@@ -425,10 +426,10 @@ $$\Sigma = \left( \begin{array}{ccc}  \sigma\left(X_1, X_1\right) & \sigma\left(
 
 ~\\We begin with a sample of points taken $i.i.d$ from a bi-variate Gaussian with a zero mean and equal variances $\sigma^2_{X_1}=\sigma^2_{X_2}\equiv  \sigma^2$ (\autoref{cov1}). In particular this means that $X_1$ and $X_2$ are uncorrelated and the covariance matrix $\Sigma$ is therefore of the form $\sigma^2 I_2$. In \autoref{cov1} we can indeed see that there is no apparent relation between a points $x$ coordinate and $y$ coordinate. When we calculate the sample covariance matrix, as the sample size $m$ increases, our estimation tends to $\widehat{\Sigma}=\sigma^2 I_2$.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/mathematical.basis/figures/cov.png}
-	\caption{Uncorrelated variables with identical variance}
+	\includegraphics[width=0.35\textwidth]{chapters/mathematical.basis/figures/cov.png}
+	\caption{Uncorrelated variables with identical variance. \GitChapterOneExamples}
 	\label{cov1}
 \end{figure}
 
@@ -439,10 +440,10 @@ $$S = \left( \begin{array}{ccc}  s_{1} & 0 \\  0 & s_{2} \end{array} \right)$$
 Notice how this transformation stretches (or shrinks) the $x_1$ and $x_2$ components of each sample by multiplying them by $s_{1}$ and $s_{2}$ respectively. In addition, as the scaling matrix is diagonal, the stretching of the $x$ axis is uncorrelated with that of the $y$ axis. The sample covariance matrix of the transformed data is:
 $$\widehat{\Sigma}_{scaled}=\frac{1}{m-1}S\X\left(S\X\right)^\top=S\left(\frac{1}{m-1}\X\X^\top\right)S^\top=\left( \begin{array}{ccc}  (s_{1}\widehat{\sigma})^2 & 0 \\  0 & (s_{2}\widehat{\sigma})^2 \end{array} \right)$$.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/mathematical.basis/figures/scaled_cov.png}
-	\caption{Uncorrelated scaled variables with different scaling in the $x$ and $y$ axis}
+	\includegraphics[width=0.35\textwidth]{chapters/mathematical.basis/figures/scaled_cov.png}
+	\caption{Uncorrelated scaled variables with different scaling in the $x$ and $y$ axis. \GitChapterOneExamples}
 	\label{scaled_cov}
 \end{figure}
 
@@ -469,8 +470,8 @@ As the off diagonal element of the covariance matrix is non-zero, the two variab
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.5\textwidth]{chapters/mathematical.basis/figures/correlated_cov.png}
-	\caption{Correlated variables produced by rotation of uncorrelated variables}
+	\includegraphics[width=0.35\textwidth]{chapters/mathematical.basis/figures/correlated_cov.png}
+	\caption{Correlated variables produced by rotation of uncorrelated variables. \GitChapterOneExamples}
 	\label{rotated_cov}
 \end{figure}
 
