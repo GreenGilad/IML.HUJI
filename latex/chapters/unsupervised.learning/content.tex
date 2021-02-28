@@ -234,7 +234,7 @@ When considering PCA (or many other dimensionality reduction algorithms), an imp
 
 
 \subsubsection{Principal Components As ``Typical Data-Points``}
-The principal components found by PCA are vectors in the ambient space $\R^d$. This means that they share the same dimension as the data-points $x_1,\ldots, x_m$. As they are orthonormal vectors chosen such that the first $k$ provide the best linear approximation of dimension $k$ to the dataset, we can look at them in an interesting way. They are, in this sense, the ``typical`` data-points, maximally different from each other (as they are an orthonormal set). Thus, it is often interesting to see what they represent as data-points: what part of the ``signal`` do they capture.
+The principal components found by PCA are vectors in the ambient space $\R^d$. This means that they share the same dimension as the data-points $\x_1,\ldots, \x_m$. As they are orthonormal vectors chosen such that the first $k$ provide the best linear approximation of dimension $k$ to the dataset, we can look at them in an interesting way. They are, in this sense, the ``typical`` data-points, maximally different from each other (as they are an orthonormal set). Thus, it is often interesting to see what they represent as data-points: what part of the ``signal`` do they capture.
 
 ~\\Returning to the MNIST Digits dataset of \autoref{pca_data_example} we can look at each principal component as a $28$-by-$28$ image. Then, we can think of the representation of each image by the linear combination of these images:
 
@@ -247,7 +247,7 @@ where $\vv{u}_1,\ldots,\vv{u}_k$ are the leading $k$ principal components and $\
 	\caption{\textbf{Top Principal Components} of PCA fitted over the MNIST Digits dataset. \GitChapterSevelExamplesPCA}\label{pca_pcs}
 \end{figure}
 
-\autoref{pca_reconstruction} shows the reconstruction process of an image of digit $4$ as the linear combination of the principal components.
+\autoref{anim:pca} shows the reconstruction process of an image of digit $4$ as the linear combination of the principal components. In each frame of the animation the restored image (center) is calculated as the restored image of the previous iteration plus $\alpha_i \vv{u}_i$ for $\vv{u}_i$ the principal component of the current iteration and $\alpha_i$ the loadings (coordinates) of the image for the $i$'th principal component.
 
 \begin{figure}[h!]
 	\centering

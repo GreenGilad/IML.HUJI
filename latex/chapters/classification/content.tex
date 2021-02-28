@@ -703,7 +703,7 @@ Then, for a given sample $\x$, by looking at entries corresponding to important 
 
 
 \section{Bayes Classifiers}
-
+The logistic regression classifier seen above assumes a distribution on the labels $\Yc$ given the samples  
 \todo{Matan - need to be written - Begin with defining $\Dc$ over $\Xc\times\Yc$}
 \todo{Then add notions of posterior(likelihod), prior and joint distributions}
 
@@ -714,7 +714,86 @@ Then, for a given sample $\x$, by looking at entries corresponding to important 
 \todo{From the above derive Naitve optimal}
 
 \subsection{Linear Discriminant Analysis}
-\todo{From the above derive LDA}
+The Linear Discriminant Analysis (LDA) algorithm is yet another realization of the Bayes Optimal classifier. This time we assume that the points from each label have a different Gaussian distribution. Explicitly, we assume the following generative model: 
+\begin{enumerate}
+	\item Each sample selects a label $y_i=Ber\left(\pi\right),\,\,\pi\in\left[0,1\right]$.
+	\item Then, the sample itself is drawn from the conditional probability of $X|Y$ where $X$ denotes the random variable of sampling some samples $X=x$ and $Y$ denotes the random variable of $Y=y,\,\,y\in\left\{0,1\right\}$. The distribution used to model $X|Y$ is a Gaussian distribution where each label is characterized by a different mean vector $\mu_0,\mu_1\in\R^d$ but the same covariance matrix $\Sigma\in\R^{d\times d}$.
+\end{enumerate}~\\
+Namely, for any $i\in 1,\ldots,m$ we assume that:
+$$
+\begin{array}{c}
+	y_i \sim Ber\left(\pi\right) \\
+	x_i|y_i \sim \Nc\left(\mu_{y_i},\Sigma\right)
+\end{array}
+$$
+
+Under these assumptions, predicting the class of a new sample is done by simply using the Bayes Law over the Bayes Optimal classifier to get:
+$$ \widehat{y}\left(\x\right) \coloneqq \underset{y}{argmax}\,\Prob\left(y|\x\right) = \underset{y}{argmax}\,\frac{\Prob\left(\x|y\right)\Prob\left(y\right)}{\Prob\left(]x\right)} $$
+
+\begin{claim}
+Let $\Dc$ be a joint distribution over $\Xc\times \Yc$ with the conditional distribution $$y|x\sim\Nc\left(\mu_k,\Sigma\right)\quad k\in\left\{0,1\right\}$$ Denote $\Prob\left(y=k\right)=\pi_k$ where $\pi_i\leq 0,\,\,\sum\pi_i = 1$. Then the Bayes Optimal classifier is given by: $$ \widehat{y}\left(\x\right) \coloneqq \underset{k\in\left\{0,1\right\}}{argmax}\,\, a_k^\top \x + b_k, \quad a_k \coloneqq \Sigma^{-1}\mu_k, b_k\coloneqq -\frac{1}{2}\mu_k\Sigma^{-1}\mu_k $$ 
+\end{claim}
+\begin{proof}
+We begin with expressing $\Prob\left(y=k|\x\right)$. By applying Bayes Law then:
+$$
+\Prob\left(y=k|\x\right) = 
+\frac{\Prob\left(\x|y=k\right)\Prob\left(y=k\right)}{\Prob\left(\x\right)} = \frac{\Prob\left(\x|y=k\right)\Prob\left(y=k\right)}{\sum_{k'\in\left\{0,1\right\}}\Prob\left(\x|y=k'\right)\Prob\left(y=k\right)} = \frac{\pi_k\Nc\left(\x|\mu_k,\Sigma\right)}{\sum_{k'\in\left\{0,1\right\}}\pi_{k'}\Nc\left(\x|\mu_k',\Sigma\right)}
+$$
+
+Next, from the PDF of a multivatiate Gaussian (\ref{def: MVN}) then:
+$$
+\begin{array}{ccl}
+\Prob\left(y=k|\x\right) & = & \frac{\pi_k\cdot\frac{1}{Z}\exp\left(-\frac{1}{2}\left(\x-\mu_k\right)^\top\Sigma^{-1}\left(\x-\mu_k\right)\right)}{\sum_{k'} \pi_{k'}\cdot\frac{1}{Z}\exp\left(-\frac{1}{2}\left(\x-\mu_{k'}\right)^\top\Sigma^{-1}\left(\x-\mu_{k'}\right)\right)} \\
+&  & \\
+& = & \frac{\pi_k\cancel{\frac{1}{Z}}\exp\left(\cancel{-\frac{1}{2}\x^\top\Sigma^{-1}\x} + \x^\top \Sigma^{-1}\mu_k - \frac{1}{2}\mu_k\Sigma^{-1}\mu_k\right)}{\sum_{k'}\pi_{k'}\cancel{\frac{1}{Z}}\exp\left(\cancel{-\frac{1}{2}\x^\top\Sigma^{-1}\x} + \x^\top \Sigma^{-1}\mu_{k'} - \frac{1}{2}\mu_{k'}\Sigma^{-1}\mu_{k'}\right)} \\
+&  & \\
+& = & \frac{\pi_k\exp\left(\x^\top \Sigma^{-1}\mu_k - \frac{1}{2}\mu_k\Sigma^{-1}\mu_k\right)}{\sum_{k'}\pi_{k'}\exp\left(\x^\top \Sigma^{-1}\mu_{k'} - \frac{1}{2}\mu_{k'}\Sigma^{-1}\mu_{k'}\right)} 
+\end{array}
+$$
+for $Z\coloneqq \sqrt{\left(2\pi\right)^d\left|\Sigma\right|}$ the Gaussians' normalization factor. Notice, that as we assume the classes are generated from Gaussians with the same covariance matrix $\frac{1}{Z}$ does not depend on $k$. Denote $a_k \coloneqq \Sigma^{-1}\mu_k, b_k\coloneqq -\frac{1}{2}\mu_k\Sigma^{-1}\mu_k$ and we conclude that:
+
+$$
+\Prob\left(y=k|\x\right) \propto \exp\left(a_k^\top \x + b_k\right) \quad \Longrightarrow \quad \widehat{y}\left(\x\right) = \underset{k\in\left\{0,1\right\}}{argmax}\,\, a_k^\top \x + b_k
+$$
+\end{proof}
+
+The claim above, besides showing that under the LDA assumptions we are dealing with a Bayes classifier, also tells us something about the classifier learned. Looking at the expression derived from the assumptions, we see that the classification is in fact done by some \textbf{linear separator/discriminant}. 
+
+~\\It can be shown, by taking the $\log-likelihood$ ratio between the likelihood for being classified for a class divided the likelihood for being classified for the other class, that the decision boundary between the classes is linear, similar to \autoref{lda_decision_boundary}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{chapters/classification/figures/lda_decision_boundary.png}
+	\caption{\textbf{LDA Decision Boundaries} for a multiclass setup of three Gaussians}
+	\label{lda_decision_boundary}
+\end{figure}
+
+\paragraph{Learning An LDA Classifier}
+So, in order to predict using an LDA classifier we need to know the class probabilities $\pi$, the means $\mu_0, \mu_1$ and the covariance matrix $\Sigma$. To do so we derive the maximum likelihood estimators. Given a training set $\trainset$ then the likelihood is given by:
+
+$$
+\begin{array}{ccl}
+\mathcal{L}\left(\Theta|\X,\y\right) & = & \Prob\left(\left\{\left(\x_i,y_i\right)\right\}^m_{i=1}|\Theta\right)\\
+& \overset{iid}{=} & \prod\Prob\left(\x_i,y_i|\Theta\right)  \\
+& = & \prod\Prob\left(\x_i|y_i\right)\Prob\left(y_i|\Theta\right)\\
+& = & \prod\pi_{y_i}\Nc\left(\x_i|\mu_{y_i},\Sigma\right)
+\end{array}
+$$
+
+where $\Theta\coloneqq\left\{\pi,\mu_0,\mu_1,\Sigma\right\}$. By taking the derivative, each time with respect to $\pi$, $\mu_0$, $\mu_1$ and $\Sigma$ we find that the MLE are:
+\begin{eqnarray}
+\widehat{\pi}^{MLE} &\coloneqq &\frac{1}{m}\sum \indc{y_i = 1} = \frac{m_1}{m} \\
+\widehat{\mu_y}^{MLE} &\coloneqq &\frac{1}{m_y}\sum \indc{y_i=y}\x_i \\
+\widehat{\Sigma}^{MLE} &\coloneqq &\frac{1}{m} \sum_y \sum_{i:y_i=y}\left(\x_i-\widehat{\mu}_{y_i}^{MLE}\right)\left(\x_i-\widehat{\mu}_{y_i}^{MLE}\right)^\top \label{cov_mle}
+\end{eqnarray}
+
+for $m_y, y\in\left\{0,1\right\}$ denoting the number of samples seen each of the classes. Looking closely at the expressions derived we in fact realize that the MLE predicts the values proportional to what is found in the training set.
+
+\begin{remark}
+The covariance estimator described in \ref{cov_mle} is the one derived when equating the derivative with respect to $\Sigma$ to zero. This is a \textit{biased} estimator. The unbiased estimator for the covariance matrix is given by multiplying by $\frac{1}{m-2}$ instead of $\frac{1}{m}$:
+$$ \widehat{\Sigma}^{MLE} \coloneqq \frac{1}{m-2} \sum_y \sum_{i:y_i=y}\left(\x_i-\widehat{\mu}_y^{MLE}\right)\left(\x_i-\widehat{\mu}_y^{MLE}\right)^\top$$
+This covariance matrix expression is known as the \textit{pooled covariance} and it accounts for the use of an estimator of $\widehat{mu_j}$ rather the true parameter $\mu_j$. In the general case of multi-classification the multiplication factor of the unbiased estimator is $\frac{1}{m-K} $ where $K$ is the number of classes.
+\end{remark}
 
 \subsection{Quadratic Discriminant Analysis}
 \todo{From the above derive QDA}
