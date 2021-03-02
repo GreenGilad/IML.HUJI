@@ -720,12 +720,13 @@ The Linear Discriminant Analysis (LDA) algorithm is yet another realization of t
 	\item Then, the sample itself is drawn from the conditional probability of $X|Y$ where $X$ denotes the random variable of sampling some samples $X=x$ and $Y$ denotes the random variable of $Y=y,\,\,y\in\left\{0,1\right\}$. The distribution used to model $X|Y$ is a Gaussian distribution where each label is characterized by a different mean vector $\mu_0,\mu_1\in\R^d$ but the same covariance matrix $\Sigma\in\R^{d\times d}$.
 \end{enumerate}~\\
 Namely, for any $i\in 1,\ldots,m$ we assume that:
-$$
+\begin{equation}\label{lda_generative}
 \begin{array}{c}
 	y_i \sim Ber\left(\pi\right) \\
 	x_i|y_i \sim \Nc\left(\mu_{y_i},\Sigma\right)
 \end{array}
-$$
+\end{equation}
+
 
 Under these assumptions, predicting the class of a new sample is done by simply using the Bayes Law over the Bayes Optimal classifier to get:
 $$ \widehat{y}\left(\x\right) \coloneqq \underset{y}{argmax}\,\Prob\left(y|\x\right) = \underset{y}{argmax}\,\frac{\Prob\left(\x|y\right)\Prob\left(y\right)}{\Prob\left(]x\right)} $$
@@ -764,11 +765,11 @@ The claim above, besides showing that under the LDA assumptions we are dealing w
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.6\textwidth]{chapters/classification/figures/lda_decision_boundary.png}
-	\caption{\textbf{LDA Decision Boundaries} for a multiclass setup of three Gaussians}
+	\caption{\textbf{LDA Decision Boundaries} for a multiclass setup of three Gaussians. \GitChapterThreeExamples}
 	\label{lda_decision_boundary}
 \end{figure}
 
-\paragraph{Learning An LDA Classifier}
+\paragraph{Learning A LDA Classifier}
 So, in order to predict using an LDA classifier we need to know the class probabilities $\pi$, the means $\mu_0, \mu_1$ and the covariance matrix $\Sigma$. To do so we derive the maximum likelihood estimators. Given a training set $\trainset$ then the likelihood is given by:
 
 $$
@@ -782,12 +783,12 @@ $$
 
 where $\Theta\coloneqq\left\{\pi,\mu_0,\mu_1,\Sigma\right\}$. By taking the derivative, each time with respect to $\pi$, $\mu_0$, $\mu_1$ and $\Sigma$ we find that the MLE are:
 \begin{eqnarray}
-\widehat{\pi}^{MLE} &\coloneqq &\frac{1}{m}\sum \indc{y_i = 1} = \frac{m_1}{m} \\
+\widehat{\pi}^{MLE}_y &\coloneqq &\frac{1}{m}\sum \indc{y_i = 1} = \frac{m_y}{m} \\
 \widehat{\mu_y}^{MLE} &\coloneqq &\frac{1}{m_y}\sum \indc{y_i=y}\x_i \\
 \widehat{\Sigma}^{MLE} &\coloneqq &\frac{1}{m} \sum_y \sum_{i:y_i=y}\left(\x_i-\widehat{\mu}_{y_i}^{MLE}\right)\left(\x_i-\widehat{\mu}_{y_i}^{MLE}\right)^\top \label{cov_mle}
 \end{eqnarray}
 
-for $m_y, y\in\left\{0,1\right\}$ denoting the number of samples seen each of the classes. Looking closely at the expressions derived we in fact realize that the MLE predicts the values proportional to what is found in the training set.
+for $m_y, \,\,y\in\left\{0,1\right\}$ denoting the number of samples seen each of the classes. Looking closely at the expressions derived we in fact realize that the MLE predicts the values proportional to what is found in the training set.
 
 \begin{remark}
 The covariance estimator described in \ref{cov_mle} is the one derived when equating the derivative with respect to $\Sigma$ to zero. This is a \textit{biased} estimator. The unbiased estimator for the covariance matrix is given by multiplying by $\frac{1}{m-2}$ instead of $\frac{1}{m}$:
@@ -796,7 +797,29 @@ This covariance matrix expression is known as the \textit{pooled covariance} and
 \end{remark}
 
 \subsection{Quadratic Discriminant Analysis}
-\todo{From the above derive QDA}
+In the LDA algorithm we assumed the data is generated from a set of Gaussians, differing in their mean but sharing the same covariance matrix (\ref{lda_generative}). The Quadratic Discriminant Analysis algorithm allows different covariance matrices. That is, for any $i\in 1,\ldots,m$ we assume that:
+\begin{equation}\label{qda_generative}
+	\begin{array}{c}
+		y_i \sim Ber\left(\pi\right) \\
+		x_i|y_i \sim \Nc\left(\mu_{y_i},\Sigma_{y_i}\right)
+	\end{array}
+\end{equation}
+
+~\\By enabling different covariance matrices the quadratic expression (in $\x$) of $\Prob\left(y=k|\x\right)$ does not cancel out. This in turn causes the decision boundaries between classes to be quadratic rather than linear. In both \autoref{lda_decision_boundary} and \autoref{qda_decision_boundary} the same data was used to fit either the LDA or the QDA models. We can see that while the decision boundaries of the LDA fit (\autoref{lda_decision_boundary}) are linear, in the case of QDA (\autoref{qda_decision_boundary}) we get curved (quadratic) boundaries.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{chapters/classification/figures/qda_decision_boundary.png}
+	\caption{\textbf{QDA Decision Boundaries} for a multiclass setup of three Gaussians. \GitChapterThreeExamples}
+	\label{qda_decision_boundary}
+\end{figure}
+
+\paragraph{Learning A QDA Classifier}
+Fitting a QDA classifier is very similar to the process of fitting a LDA classifier. The difference is in the estimation of the covariance matrices. In this case we fit a different covariance matrix for each class based on the samples of the class:
+
+\begin{equation}
+\widehat{\Sigma}^{MLE}_y \coloneqq \frac{1}{m_y} \sum_{i:y_i=y}\left(\x_i-\widehat{\mu}_{y}^{MLE}\right)\left(\x_i-\widehat{\mu}_{y}^{MLE}\right)^\top \label{cov_mle}
+\end{equation}
 
 \section{Nearest Neighbors}
 Nearest Neighbors learners predict the label of a new sample based on a set of "nearset" training samples. This means that it has no hypothesis class and no training stage per se. As prediction is based on some subset of training samples, that is determined by "closeness" to some newly given sample, the training step of the learner consists only of storing the training data so it is available for the learner when performing predictions.
