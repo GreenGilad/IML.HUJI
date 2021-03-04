@@ -152,44 +152,39 @@ Recalling that the loss is random - it depends on the draw of training sample
 $S$ - we now can ask the following questions. 
 
 \vspace{3mm}
-{\bf Question:} Is there a strategy that will guarantee some upper bound $0\leq\epsilon<1$ on the loss with probability 1 (namely, almost surely for any sample $S$ that might be
-	drawn according to $\Dc$?) 
+{\bf Question:} Given an $0\leq\epsilon<1$, is there a strategy that will guarantee that the loss will not exceed $\epsilon$, with probability 1? In other words, that almost surely, for any sample $S$ drawn according to $\Dc$, we will have  $L_{\Dc,f}(h) \leq \epsilon$?
 	%     \item Is there a learner $\Ac$ (``strategy we play'') that will ensure 
 	%        $L_{\Dc,f}(h) = 0$ 
 
 
-\textbf{Answer}: {\bf No.} Choose $0\leq \epsilon <1 $. The learner cannot hope to produce,
-regardless of how Nature plays, and with probability $1$, a rule $h$ with $L_{\Dc,f}(h) \leq \epsilon$.
+\textbf{Answer}: {\bf No.} 
+Choose $0\leq \epsilon <1 $. The learner cannot hope to produce, regardless of how Nature plays, and with probability $1$, a rule $h$ with $L_{\Dc,f}(h) \leq \epsilon$.
 
 \textbf{Reason}: There's always a (small) probability to get a completely ``pathological'' training	sample $S$ that does not represent $\Dc$ at all. The resulting rule $h_S$ can
 	be wrong on most of $\Xc$. If $S$ is really bad, $h_S$ can have a loss as high as $1$, higher than any $\epsilon$.
 	
 {\bf Example: }
-		Take $\Xc=\left\{ x_1,x_2 \right\}$.  Fix $\gamma$. Our learner $\Ac$ must specify what to predict on a point that was not seen in the training set. WLOG we choose to predict $+$ on a point we have not seen in the training set. Now, Nature plays $\Dc$ with
-		$\Dc(\{x_1\}) = 1-\gamma$, $\Dc(\{x_2\}) = \gamma$, and chooses a labeling function $f(x_1)=f(x_2)=-$. 
-		With probability
-		$\gamma^m$, the training sample $S$ only contains $x_2$. How does $h_S=\Ac(S)$
-		classify $x_1$ in this event? since there's no training data there, we will predict $h_S(x_1)=+$.
-		As as result, on a random test point drawn according to $\Dc$, unfortunately $h_S$ will be wrong with probability $1-\gamma$. So
-		$L_{\Dc,f}(h)=(1-\gamma)$. Now make $\gamma$ small enough to have $1-\gamma
-		> \epsilon$. 
+		Choose $0\leq \epsilon <1 $. Take $\Xc=\left\{ x_1,x_2 \right\}$.  Fix $0<\gamma$ such that  $1-\gamma>\epsilon$. Our learner $\Ac$ must specify what to predict on a point that was not seen in the training set. 
+		Let us assume, without a loss of generality, that our algorithm predicts the label $+1$ on a point we have not seen in the training set. Now, Nature chooses $\Dc$ with
+		$\Dc(\{x_1\}) = 1-\gamma$, $\Dc(\{x_2\}) = \gamma$, and chooses a labeling function $f$ with  $f(x_1)=f(x_2)=-1$. 
+		
+		With probability 		$\gamma^m$, the training sample $S$ contains only  $x_2$'s. How does $h_S=\Ac(S)$
+		classify $x_1$ in this event? Since there's no information in the training data about $x_1$, the algorithm will predict $h_S(x_1)=+1$.
+		As as result, on a random test point drawn according to $\Dc$, unfortunately $h_S$ will be wrong with probability $1-\gamma$, which is the probability to draw $x_1$. Thus,
+		$L_{\Dc,f}(h)=1-\gamma>\epsilon$. Now make $\gamma$ small enough to have $1-\gamma > \epsilon$. 
  In conclusion , even on a sample space $\Xc$ with only two points, for any fixed $\epsilon>0$, 
 		for every strategy $\Ac$ we might play, Nature has a strategy $\Dc,f$, such that 
 		with some probability $\delta$ that depends only on $\epsilon$, over the choice of training samples of length $m$, we have  
-		$L_{\Dc,f}(h_S) \leq \epsilon$.
+		$L_{\Dc,f}(h_S) \geq \epsilon$.
 		
  As $\epsilon$ was arbitrary, this means that for any arbitrarily "bad" loss $\epsilon$, Nature can cause the game to end, with strictly positive probability, with a loss at least $\epsilon$.
-	  What went wrong? In this example, with probability $\gamma^m$ (which is really very tiny) we get a "lousy" training sample $S$, one that does not represent $\Dc$ and good enough, and does not allow us to generalize. 
+	  What went wrong? In this example, with probability $\gamma^m$ (which is really very tiny) we get a "lousy" training sample $S$, one that does not represent $\Dc$  good enough, and does not allow us to generalize. 
 	  
  
-  {\bf Claim:} For any desired upper bound $\epsilon<1$ on the loss, 
-	no learner $\Ac$ can guarantee $L_{\Dc,f}(h_S) \le
-	\epsilon$ with probability $1$ against {\bf any} strategy of Nature. 
+  {\bf Conclusion:} No learner $\Ac$ can guarantee, that given an $0<\epsilon<1$, and with probability $1$,  the loss will have an upper bound of  $L_{\Dc,f}(h_S) \le \epsilon$, against \textit{any} strategy of Nature. 
 	
-  {\bf Relaxation:} We allow the learner $\Ac$ to ``fail completely''
-	(produce $h_S$ with potentially huge loss) with
-	probability $\delta$, where $\delta \in (0,1)$ is specified in the conditions
-	of the game.
+  {\bf Relaxation:} We allow the learner $\Ac$ to ``fail completely''	(produce $h_S$ with potentially huge loss) with
+	probability $\delta$, where $\delta \in (0,1)$ is specified in the conditions 	of the game.
 	
   {\bf Bottom line:} We must allow a small probability for
 	``pathological'' sample $S$, from which it is impossible to generalize. 
