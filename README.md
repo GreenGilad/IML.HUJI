@@ -17,7 +17,6 @@ git clone https://github.com/GreenGilad/IML.HUJI.git
 or download and unzip in `LOCAL_REPOSITORY_PATH`. Then:
 
 ### Anaconda + Jupyter Notebooks Setup
-- 
 - Download and install Anaconda from [official website](https://www.anaconda.com/products/individual#Downloads). 
 - Verify instllation by starting the Anaconda Prompt. A terminal should start with the text `(base)` written at the beginning of the line.
 - Set the IML conda environment. Start the Anaconda Prompt and write:
