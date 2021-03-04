@@ -98,9 +98,8 @@ These sets can be very simple (two half-spaces) or very complicated. The boundar
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=2in]{chapters/classification/figures/boundry1.png}
-	\includegraphics[width=2in]{chapters/classification/figures/boundry2.png}
-	\caption{\textbf{Decision Boundaries} of a $\left(A\right)$ linear classifier and a $\left(B\right)$ $k$-nearest neighbors classifier}
+	\includegraphics[width=.9\textwidth]{chapters/classification/figures/decision_boundary.png}
+	\caption{\textbf{Decision Boundaries} of classifiers fitted over moons dataset. \GitChapterThreeExamples}
 \end{figure}
 
 \subsection{ROC Curve}\label{roc}
@@ -110,7 +109,7 @@ As we will encounter later in this chapter, in many classification scenarios we 
 \end{cases}$$
 How do we choose $\alpha$? There is an important \textbf{tradeoff} in the selection of $\alpha$. If we set $\alpha$ to be very high we are mainly going to predict $0$. By doing so we are \textbf{less} likely to have false-positives (which is the error we try to avoid at all cost), for which we are pleased. However, at the same time, we are \text{bf} more likely to gave false-negatives. So by setting $\alpha$ too high we might have low a FPR but "miss" (misclassify) most of the positive samples. On the other extreme, if we set $\alpha$ to be very low we are mainly going to predict $1$. So we will be \textbf{more} likely to have false-positives, but at the same time will be \textbf{less} likely to have false-negatives. So if we set $\alpha$ too low, we might have a high FPR but "catch" (correctly classify) most of the positive samples. Therefore, we see that changing $\alpha\in\left[0,1\right]$ governs some trade-off between the chances of making a Type-I error (false-positives) and correctly classifying positive samples.
 \\~\\
-This trade-off was first studied during World War II, when radar was invented. The designer of the radar had to choose when to put a green dot on the radar, indicating a target detected there. Sometime radar waves would bounce off back from clouds or birds, and the designer had to choose a \textbf{threshold} $\alpha$. If the radar pulse returning is stronger than $\alpha$, the radar screen would show a green dot. If weaker than $\alpha$, no dot. Now, if $\alpha$ is set too low (say $\alpha=0.1$), the screen would be full of a thousand green dots - since any bird or cloud (with, say, $h(\x=0.2$) would be classified as \textbf{positive}, a target. So that the radar will be full of false positives, false targets, and will be useless. On the other hand, if $\alpha$ is set too high (say $\alpha=0.9$) then enemy airplanes  (with, say, $h(\x=0.8$) will not appear on the screen, since they will be classified by mistake as birds, and the radar again would be useless. 
+This trade-off was first studied during World War II, when radar was invented. The designer of the radar had to choose when to put a green dot on the radar, indicating a target detected there. Sometime radar waves would bounce off back from clouds or birds, and the designer had to choose a \textbf{threshold} $\alpha$. If the radar pulse returning is stronger than $\alpha$, the radar screen would show a green dot. If weaker than $\alpha$, no dot. Now, if $\alpha$ is set too low (say $\alpha=0.1$), the screen would be full of a thousand green dots - since any bird or cloud (with, say, $h\left(\x=0.2\right)$) would be classified as \textbf{positive}, a target. So that the radar will be full of false positives, false targets, and will be useless. On the other hand, if $\alpha$ is set too high (say $\alpha=0.9$) then enemy airplanes  (with, say, $h\left(\x=0.8\right)$) will not appear on the screen, since they will be classified by mistake as birds, and the radar again would be useless. 
 
 \begin{figure}[h!]
 	\centering
@@ -122,8 +121,8 @@ The radar engineers developed a way to visualize this tradeoff, which is still u
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=2in]{chapters/classification/figures/roc.png}
-	\caption{\todo{Create own graph + caption}}
+	\includegraphics[width=.75\textwidth]{chapters/classification/figures/roc.png}
+	\caption{\textbf{ROC Curve} of classifiers fitted over moons dataset. \GitChapterThreeExamples}
 \end{figure}
 
 Convince yourself that if the ROC curve is a linear line from $(0,0)$ to $(1,1)$, the classifier is just a random guess. If a classifier has an ROC curve that is closed to this linear line, it's a poor classifier. Now convince yourself that if the ROC curve rises sharply from $(0,0)$, for example makes a ``jump'' to $(FPR=0.1, TPR=0.9)$, it's a good classifier - we are able to correctly detect $0.9$ of the positive samples at the price of $0.1$ false positive rate. 
@@ -240,13 +239,13 @@ When using the half-space classifier seen above we encounter two problems:
 
 \begin{figure}[h!]
 	\centering
-	\begin{subfigure}{0.35\textwidth}
+	\begin{subfigure}[t]{0.35\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{chapters/classification/figures/3_3.png}
 		\caption{Algorithm selected hyper-plane (solid line) and additional optional separating hyperplanes (dashed lines)}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.35\textwidth}
+	\hspace{10mm}
+	\begin{subfigure}[t]{0.35\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{chapters/classification/figures/3_4.png}
 		\caption{All hyper-planes linearly separating the data}
@@ -332,72 +331,73 @@ Why is convex optimization interesting for machine learning? In supervised learn
 \\~\\
 Sometimes, our hypothesis class is equivalent to a Euclidean space (for example, in linear regression we saw that linear functions are determined by the weight vector and an intercept, so the hypothesis class of linear functions was equivalent to the Euclidean space $\R^{d+1}$, and we've just seen the same happens for the hypothesis class of half-space classifiers). When this happens, our learning principle reduces to solving an optimization problem, namely, the hypothesis we choose $h\in\Hc$ is found as a minimum over $\R^d$ or a subset of $\R^d$ of some objective function, usually a loss function. When this objective is convex, we can use convex optimization algorithms to implement our learning algorithm efficiently. In \autoref{chap:conv_opt} we dive deeper into theory and algorithms of convex optimization.
 
+
 \subsubsection{Solving Hard-SVM}
 So is the Hard-SVM a convex optimization problem? Recall, that by our optimization problem \ref{eqn:hard_svm_opt}, we are searching of a separating hyperplane that maximizes the margin from all points. As for any $c>0$ it holds that $\left(\w,b\right)=\left(c\w,cb\right)$ we can w.l.o.g constraint ourselfs to $\norm{\w}=1$. This way, each hyperlane has a unique vector $\w$ that corresponds to it.
 
 \begin{definition}
-Let $\x\in\R^d$ and $B\subseteq\R^d$. The distance from $\x$ to $B$ is: $$\underset{\vv{v}\in B}{inf} \norm{\x-\vv{v}}^2 $$
+	Let $\x\in\R^d$ and $B\subseteq\R^d$. The distance from $\x$ to $B$ is: $$\underset{\vv{v}\in B}{inf} \norm{\x-\vv{v}}^2 $$
 \end{definition}
 
 \begin{exercise}
-Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane where $\left|\left|w\right|\right|=1$ and $\x\in\R^d$ then the distance between $\x$ and the hyperplane $\left(\w,b\right)$ is $\left|\inprod{\w}{\x}+b\right|$.
+	Let $\left(\w,b\right)\in \R^d\times\R$ be a hyperplane where $\left|\left|w\right|\right|=1$ and $\x\in\R^d$ then the distance between $\x$ and the hyperplane $\left(\w,b\right)$ is $\left|\inprod{\w}{\x}+b\right|$.
 \end{exercise}
 \begin{proof}
-To solve this we begin with defining some point in the hyperplane, calculate it's distance from $\x$ and then showing minimality. Let $\vv{v}\coloneqq\x-\left(\inprod{\w}{\x}+b\right)\cdot\w$. This point $\vv{v}$ is indeed in the hyperplane: 
-$$
-\begin{array}{ccl}
-\inprod{\w}{\vv{v}}+b & = & \inprod{\w}{\x-\left(\inprod{\w}{\x}+b\right)\cdot\w}+b\\
-& = & \inprod{\w}{\x}-\left(\inprod{\w}{\x}+b\right)\norm{\w}^{2}+b\\
-& = & \inprod{\w}{\x}-\inprod{\w}{\x}-b+b=0
-\end{array}
-$$
-with a distance from $x$  of: $$ \norm{\x-\vv{v}}=\left|\inprod{\w}{\x}+b\right|\cdot\norm{\w} = \left|\inprod{\w}{\x}+b\right|$$ 
-Lastly, let us conclude that such $\vv{v}$ is the closest point in the hyperplane to $\x$. Let $\vv{u}$ be some point in the hyperplane, then:
-$$
-\begin{array}{ccl}
-\norm{\x-\vv{u}}^{2} & = & \norm{\x-\vv{v}+\vv{v}-\vv{u}}^{2}\\
-& = & \norm{\x-\vv{v}}^{2}+\norm{\vv{v}-\vv{u}}^{2}+2\inprod{\x-\vv{v}}{\vv{v}-\vv{u}}\\
-& \geq & \norm{\x-\vv{v}}^{2}+2\inprod{\x-\vv{v}}{\vv{v}-\vv{u}}\\
-& = & \norm{\x-\vv{v}}^{2}+2\inprod{\left(\inprod{\w}{\x}+b\right)\w}{\vv{v}-\vv{u}}\\
-& = & \norm{\x-\vv{v}}^{2}+2\left(\inprod{\w}{\x}+b\right)\inprod{\w}{\vv{v}-\vv{u}}\\
-& = & \norm{\x-\vv{v}}^{2}+2\left(\inprod{\w}{\x}+b\right)\left(\inprod{\w}{\vv{v}}-\inprod{\w}{\vv{u}}\right)\\
-& = & \norm{\x-\vv{v}}^{2}
-\end{array}
-$$
+	To solve this we begin with defining some point in the hyperplane, calculate it's distance from $\x$ and then showing minimality. Let $\vv{v}\coloneqq\x-\left(\inprod{\w}{\x}+b\right)\cdot\w$. This point $\vv{v}$ is indeed in the hyperplane: 
+	$$
+	\begin{array}{ccl}
+		\inprod{\w}{\vv{v}}+b & = & \inprod{\w}{\x-\left(\inprod{\w}{\x}+b\right)\cdot\w}+b\\
+		& = & \inprod{\w}{\x}-\left(\inprod{\w}{\x}+b\right)\norm{\w}^{2}+b\\
+		& = & \inprod{\w}{\x}-\inprod{\w}{\x}-b+b=0
+	\end{array}
+	$$
+	with a distance from $x$  of: $$ \norm{\x-\vv{v}}=\left|\inprod{\w}{\x}+b\right|\cdot\norm{\w} = \left|\inprod{\w}{\x}+b\right|$$ 
+	Lastly, let us conclude that such $\vv{v}$ is the closest point in the hyperplane to $\x$. Let $\vv{u}$ be some point in the hyperplane, then:
+	$$
+	\begin{array}{ccl}
+		\norm{\x-\vv{u}}^{2} & = & \norm{\x-\vv{v}+\vv{v}-\vv{u}}^{2}\\
+		& = & \norm{\x-\vv{v}}^{2}+\norm{\vv{v}-\vv{u}}^{2}+2\inprod{\x-\vv{v}}{\vv{v}-\vv{u}}\\
+		& \geq & \norm{\x-\vv{v}}^{2}+2\inprod{\x-\vv{v}}{\vv{v}-\vv{u}}\\
+		& = & \norm{\x-\vv{v}}^{2}+2\inprod{\left(\inprod{\w}{\x}+b\right)\w}{\vv{v}-\vv{u}}\\
+		& = & \norm{\x-\vv{v}}^{2}+2\left(\inprod{\w}{\x}+b\right)\inprod{\w}{\vv{v}-\vv{u}}\\
+		& = & \norm{\x-\vv{v}}^{2}+2\left(\inprod{\w}{\x}+b\right)\left(\inprod{\w}{\vv{v}}-\inprod{\w}{\vv{u}}\right)\\
+		& = & \norm{\x-\vv{v}}^{2}
+	\end{array}
+	$$
 \end{proof}
 
 
 So, as the margin \ref{def:margin} between a given hyperplane $\left(\w,b\right)$ and a set of points $S$ is the minimal distance between the hyperplane and any point in the set, we derive that our optimization problem is infact of the form:
 \begin{equation}
-\begin{array}{ccc}
-\underset{\norm{\w}=1,b}{argmax} & \underset{i\in\left[m\right]}{min}\,\left|\inprod{\w}{\x_i}+b\right| & \\
-subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
-\end{array}
-\label{eqn:hard_svm_opt2}
+	\begin{array}{ccc}
+		\underset{\norm{\w}=1,b}{argmax} & \underset{i\in\left[m\right]}{min}\,\left|\inprod{\w}{\x_i}+b\right| & \\
+		subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
+	\end{array}
+	\label{eqn:hard_svm_opt2}
 \end{equation}
 
 While the constraints enforce $\w$ to define a separating hyperplane, the objective will make us choose a separating hyperplane with the maximal margin. To solve this problem numerically, we will need to perform a slight manipulation and write it in a different form.
 
 \begin{claim}
-Let $\left(\vv{v}^*,c^*\right)$ be an optimal solution of:
-\begin{equation}
-\begin{array}{ccc}
-\underset{\left(\w,b\right)}{argmin} & \norm{\w}^2 & \\
-subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
-\end{array}
-\label{eqn:hard_svm_opt3}
-\end{equation}
-Then, $\w^*\coloneqq\gamma\vv{v}^*,b^*\coloneqq\gamma c^*$ for $\gamma=\norm{\vv{v}^*}^{-1}$ is an optimal solution for \ref{eqn:hard_svm_opt2}.
+	Let $\left(\vv{v}^*,c^*\right)$ be an optimal solution of:
+	\begin{equation}
+		\begin{array}{ccc}
+			\underset{\left(\w,b\right)}{argmin} & \norm{\w}^2 & \\
+			subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
+		\end{array}
+		\label{eqn:hard_svm_opt3}
+	\end{equation}
+	Then, $\w^*\coloneqq\gamma\vv{v}^*,b^*\coloneqq\gamma c^*$ for $\gamma=\norm{\vv{v}^*}^{-1}$ is an optimal solution for \ref{eqn:hard_svm_opt2}.
 \end{claim}
 \begin{proof}
-Let us begin with simplifying Equation \ref{eqn:hard_svm_opt2}. Consider a \textit{feasible} solution $\w$ to the problem (that is, statisfies all constraints). It holds that $\left|\inprod{\w}{\x_i}+b\right|=y_i\left(\inprod{\w}{\x_i}+b\right)$. Hence, we can rewrite Equation \ref{eqn:hard_svm_opt2} as:
-$$
-\begin{array}{ccc}
-\underset{\norm{\w}=1,b}{argmax} & \underset{i\in\left[m\right]}{min}\,y_i\left(\inprod{\w}{\x_i}+b\right) & \\
-subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
-\end{array}
-\label{eqn:hard_svm_opt2}
-$$
+	Let us begin with simplifying Equation \ref{eqn:hard_svm_opt2}. Consider a \textit{feasible} solution $\w$ to the problem (that is, statisfies all constraints). It holds that $\left|\inprod{\w}{\x_i}+b\right|=y_i\left(\inprod{\w}{\x_i}+b\right)$. Hence, we can rewrite Equation \ref{eqn:hard_svm_opt2} as:
+	$$
+	\begin{array}{ccc}
+		\underset{\norm{\w}=1,b}{argmax} & \underset{i\in\left[m\right]}{min}\,y_i\left(\inprod{\w}{\x_i}+b\right) & \\
+		subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1 & i=1,\ldots,m\\
+	\end{array}
+	\label{eqn:hard_svm_opt2}
+	$$
 \end{proof}
 Now, it is clear that the constraints are redundant. If $\w$ is infeasible then $min_i\,y_i\left(\inprod{\w}{\x_i}+b\right)< 0$, achieving a lower objective than any feasible solution. Therefore, we can re-write the problem as:
 $$ \underset{\norm{\w}=1,b}{argmax} \quad \underset{i\in\left[m\right]}{min}\,y_i\left(\inprod{\w}{\x_i}+b\right)\quad\left(\mathbf{*}\right) $$
@@ -411,14 +411,14 @@ But then $\left(\w_2/\delta, b_2/\delta\right)$ is a feasible solution for \ref{
 This means in fact that maximizing the margin is equivalent to minimizing the size of the hyperplane. The optimization problem written in \ref{eqn:hard_svm_opt3} is a quadratic program for which there exist efficient solves. By using them to solve problem \ref{eqn:hard_svm_opt3} we can obtain an optimal solution for the Hard-SVM optimization problem.
 
 \begin{remark}
-But so how is it that minimizing $\norm{\w}^2$ is equivalent to maximizing the margin? Let us denote the width of the total margin (i.e. the sum of margin from both sides) by $l$, and let $x_{+}$ and $x_{-}$ be the positive- and negative support vectors . To calculate the value of $l$ we will project the vector $x_{+} - x_{-}$ onto the normalized normal $\w$: 
-$$\begin{array}{ccl}
-l& = & \inprod{x_{+} - x_{-}}{\frac{\w}{\norm{\w}}}\\
-	& = & \left(\inprod{x_{+}}{\w}-\inprod{x_{-}}{\w}\right)\norm{\w}\\
-	& = & \left(1-b-\left(1-b\right)\right)/\norm{\w}\\
-	& = & 2/\norm{\w}
-\end{array}$$
-where support vectors satisfy $y_i\left(\inprod{\w}{\x_i}+b\right)$ and that for positive samples $y_i=1$ and negative samples $y_i=-1$. This shows how minimizing $\norm{\w}$ maximizes $l$.
+	But so how is it that minimizing $\norm{\w}^2$ is equivalent to maximizing the margin? Let us denote the width of the total margin (i.e. the sum of margin from both sides) by $l$, and let $x_{+}$ and $x_{-}$ be the positive- and negative support vectors . To calculate the value of $l$ we will project the vector $x_{+} - x_{-}$ onto the normalized normal $\w$: 
+	$$\begin{array}{ccl}
+		l& = & \inprod{x_{+} - x_{-}}{\frac{\w}{\norm{\w}}}\\
+		& = & \left(\inprod{x_{+}}{\w}-\inprod{x_{-}}{\w}\right)\norm{\w}\\
+		& = & \left(1-b-\left(1-b\right)\right)/\norm{\w}\\
+		& = & 2/\norm{\w}
+	\end{array}$$
+	where support vectors satisfy $y_i\left(\inprod{\w}{\x_i}+b\right)$ and that for positive samples $y_i=1$ and negative samples $y_i=-1$. This shows how minimizing $\norm{\w}$ maximizes $l$.
 \end{remark}
 
 
@@ -428,14 +428,14 @@ The basic assumption of Hard-SVM is that the training sample is linearly separab
 But what if the training sample is almost linearly separable? That is, what if most of the samples are linearly separable with only a few violating the constraints by ``not too much``? Recall that if $y_i\cdot\left(\inprod{\w}{\x_i}+b\right)<0$ then sample $\x_i$ is on the ``wrong side`` of the hyperplane. This means that: $$\exists \,\xi_i> 0\quad s.t.\quad y_i\cdot\left(\inprod{\w}{\x_i}+b\right) \geq 1-\xi_i $$ Therefore, sample $\x_i$ is on the "wrong" side of the \textbf{margin} by an amount proportional to $\xi_i$ (\autoref{fig:soft_svm}). To allow training samples to violate the constraints ``a little``, we modify the optimization problem to:
 
 \begin{equation}
-\begin{array}{clc}
-minimize & \norm{\w}^2 & \\
-subject \, to & \begin{cases}
-y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i & i=1,\ldots,m\\
-\xi_i \geq 0\quad \land\quad \frac{1}{m}\sum_{i=1}^m \xi_i \leq C & \\
-\end{cases}
-\end{array}
-\label{eqn:sofv_svm_opt}
+	\begin{array}{clc}
+		minimize & \norm{\w}^2 & \\
+		subject \, to & \begin{cases}
+			y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i & i=1,\ldots,m\\
+			\xi_i \geq 0\quad \land\quad \frac{1}{m}\sum_{i=1}^m \xi_i \leq C & \\
+		\end{cases}
+	\end{array}
+	\label{eqn:sofv_svm_opt}
 \end{equation}
 where $C>0$ is a constant we specify. The variables $\xi_1,\ldots,\xi_m$ are new auxiliary variables we introduce (sometimes known as slack variables). Notice that the larger we choose $C$ to be, the more violations of margin we allow. On the one hand, we want to allow ``noisy`` samples to violate the margin, so the hyperplane will ignore them. On the other hand, if we allow too many violations, we lose touch with the training sample and its structure. This is exactly the bias-variance trade-off: the larger $C$, the more freedom the learner has to ``chase after the training sample``.
 
@@ -448,28 +448,28 @@ where $C>0$ is a constant we specify. The variables $\xi_1,\ldots,\xi_m$ are new
 ~\\
 Instead of specifying $C$ directly, we often prefer working with a slightly different optimization problem, where instead of constraining the value of $\frac{1}{m}\sum\x_i$ we jointly minimize the norm of $\w$ (related to the margin) and the average of $\xi_i$ (corresponding margin violations).
 \begin{equation}
-\begin{array}{cll}
-\underset{\w,\left\{\xi_i\right\}}{minimize} & \lambda\norm{\w}^2 + \frac{1}{m}\sum_{i=1}^m \xi_i& \\
-subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i,\,\, \xi_i \geq0 & i=1,\ldots,m\\
-\end{array}
-\label{eqn:sofv_svm_opt}
+	\begin{array}{cll}
+		\underset{\w,\left\{\xi_i\right\}}{minimize} & \lambda\norm{\w}^2 + \frac{1}{m}\sum_{i=1}^m \xi_i& \\
+		subject \, to & y_i \cdot \left( \inprod{\x_i}{\w}+b \right) \geq 1-\xi_i,\,\, \xi_i \geq0 & i=1,\ldots,m\\
+	\end{array}
+	\label{eqn:sofv_svm_opt}
 \end{equation}
 
 To simplify the above optimization problem let use define the \textbf{hinge} loss function:
 \begin{equation}
-\ell^{hinge}\left(a\right)=\max\left\{0,1-a\right\},\,\, a\in\R
+	\ell^{hinge}\left(a\right)=\max\left\{0,1-a\right\},\,\, a\in\R
 \end{equation}
 
 \begin{claim}
-Given a training set $\trainset$ and hyperplane $\left(\w,b\right)$, the Soft-SVM optimization problem (\ref{eqn:sofv_svm_opt}) is equivalent to $$ \underset{\w,b}{\min} \left(\lambda\norm{\w}^2+L_S^{hinge}\left(\left(\w,b\right)\right)\right) $$ where $L_S^{hinge}\left(\left(\w,b\right)\right)\coloneqq \frac{1}{m}\sum \ell^{hinge}\left(y_i\inprod{\x_i}{\w}\right)$
+	Given a training set $\trainset$ and hyperplane $\left(\w,b\right)$, the Soft-SVM optimization problem (\ref{eqn:sofv_svm_opt}) is equivalent to $$ \underset{\w,b}{\min} \left(\lambda\norm{\w}^2+L_S^{hinge}\left(\left(\w,b\right)\right)\right) $$ where $L_S^{hinge}\left(\left(\w,b\right)\right)\coloneqq \frac{1}{m}\sum \ell^{hinge}\left(y_i\inprod{\x_i}{\w}\right)$
 \end{claim}
 
 \begin{proof}
-Given a specific hyperplane $\left(\w,b\right)$ consider the minimization over $\xi_1,\ldots,\xi_m$. Since we defined the auxiliary variables to be nonnegative, the optimal assignment of $\xi_i$ is $$ \xi_i \coloneqq \begin{cases}
-0 & y_i\left(\inprod{\x_i}{\w}+b\right)\\
-1-y_i\left(\inprod{\x_i}{\w}+b\right) & otherwise\\
-\end{cases} $$
-Thus $\xi_i=\ell^{hinge}\left(y_i\left(\inprod{\x_i}{\w}+b\right)\right)$
+	Given a specific hyperplane $\left(\w,b\right)$ consider the minimization over $\xi_1,\ldots,\xi_m$. Since we defined the auxiliary variables to be nonnegative, the optimal assignment of $\xi_i$ is $$ \xi_i \coloneqq \begin{cases}
+		0 & y_i\left(\inprod{\x_i}{\w}+b\right)\\
+		1-y_i\left(\inprod{\x_i}{\w}+b\right) & otherwise\\
+	\end{cases} $$
+	Thus $\xi_i=\ell^{hinge}\left(y_i\left(\inprod{\x_i}{\w}+b\right)\right)$
 \end{proof}
 
 The hyper-parameter $\lambda$ controls the trade-off between the two norm of $\w$ and the violations of margin. The larger $\lambda$, the less sensitive the solution will be to the term $\frac{1}{m}\sum_{i=1}^m \xi_i$, and will allow more violations. The smaller $\lambda$, the more sensitive and will allow less violations. If we choose to work with this optimization problem to choose $h$, the constant $\lambda$ also moves us along different members of a family of learners, each with a different bias-variance tradeoff. $\lambda$ is known as a \textbf{regularization parameter}. This topic is covered in \autoref{chap:regularization}.
@@ -500,81 +500,81 @@ This approach seems very attractive as the assumption that our data is linearly 
 \end{itemize}
 ~\\
 \begin{example}
-Suppose we are interested in separating between people that got a certain disease and people that don't, based on gene expression levels. We are given $\trainset$ where $\x_i$ is a vector in $\R^{20000}$ (the "gene space") where each coordinate $\x_i\left(j\right)$ denotes how much is gene $j$ expressed in individual $i$. $y_i\in\left\{\text{healthy},\text{sick}\right\}$ is the label. It is often the case that different genes are co-expressed, and modeling this co-expression might increase our expressive power and our ability to separate between the two groups. Let us create new additional features $\x_i\left(j\right)\x_i\left(k\right)$ that captures \textit{interaction} between the $j,k$ features. Using this mapping each sample gets the form: $$ \psi\left(\x\right) = \left(\x\left(1\right),\ldots,\x\left(20000\right),\x\left(1\right)\x\left(1\right),\ldots,\x\left(1\right)\x\left(20000\right),\ldots,\x\left(20000\right)\x\left(2000\right)\right)^\top $$ 
-Meaning that the feature space is of dimension $d+d^2/2=\mathcal{O}\left(d^2\right)$ where $d=20000$ the dimension of the original sample space. If we decide to use co-expression of geen trios then the feature space is of dimension $d+d^2/2 + d^3/3=\mathcal{O}\left(d^3\right)$. Depending on the problem it might make sense to also look at feature interactions of even higher orders, suppose interactions of $k$ features. If that is the case, our mapping function, maps us to a space of size $\mathcal{O}\left(d^k\right)$, which is exponential in the original sample space size.
+	Suppose we are interested in separating between people that got a certain disease and people that don't, based on gene expression levels. We are given $\trainset$ where $\x_i$ is a vector in $\R^{20000}$ (the "gene space") where each coordinate $\x_i\left(j\right)$ denotes how much is gene $j$ expressed in individual $i$. $y_i\in\left\{\text{healthy},\text{sick}\right\}$ is the label. It is often the case that different genes are co-expressed, and modeling this co-expression might increase our expressive power and our ability to separate between the two groups. Let us create new additional features $\x_i\left(j\right)\x_i\left(k\right)$ that captures \textit{interaction} between the $j,k$ features. Using this mapping each sample gets the form: $$ \psi\left(\x\right) = \left(\x\left(1\right),\ldots,\x\left(20000\right),\x\left(1\right)\x\left(1\right),\ldots,\x\left(1\right)\x\left(20000\right),\ldots,\x\left(20000\right)\x\left(2000\right)\right)^\top $$ 
+	Meaning that the feature space is of dimension $d+d^2/2=\mathcal{O}\left(d^2\right)$ where $d=20000$ the dimension of the original sample space. If we decide to use co-expression of geen trios then the feature space is of dimension $d+d^2/2 + d^3/3=\mathcal{O}\left(d^3\right)$. Depending on the problem it might make sense to also look at feature interactions of even higher orders, suppose interactions of $k$ features. If that is the case, our mapping function, maps us to a space of size $\mathcal{O}\left(d^k\right)$, which is exponential in the original sample space size.
 \end{example}
 
 \subsubsection{Kernel Functions}
 As the mapping enables us to transition to a new feature space of very high dimension (could be exponential or even of infinite dimension), we are facting a computational challange in computing this transition. To address this problem we could use kernel based learning. In this approach, we decide to use a mapping function out of a (wide) specific family of mapping functions, called \textit{kernel functions}, that even though might map to a very high dimension, can still be computed efficiently.\\
 
 \begin{definition}[PSD Kernel]
-A symmetric function $k:\Xc\times\Xc\rightarrow\R$ is called a Positive Semi-Definite kernel on $\Xc$ if $\forall \left\{x_1,\ldots,x_m\right\}\subseteq\Xc$ the associated kernel matrix (also known as Gram matrix) $K_{ij}=k\left(\x_i,\x_j\right)$ is PSD.
+	A symmetric function $k:\Xc\times\Xc\rightarrow\R$ is called a Positive Semi-Definite kernel on $\Xc$ if $\forall \left\{x_1,\ldots,x_m\right\}\subseteq\Xc$ the associated kernel matrix (also known as Gram matrix) $K_{ij}=k\left(\x_i,\x_j\right)$ is PSD.
 \end{definition}
 \begin{corollary}
-Let $g:\Xc\times\Xc\rightarrow\R$ and $h:\R^d\rightarrow\R^k$ such that $g\left(x,y\right)=h\left(x\right)^\top h\left(y\right)$. Then $g$ is a PSD kernel function.
+	Let $g:\Xc\times\Xc\rightarrow\R$ and $h:\R^d\rightarrow\R^k$ such that $g\left(x,y\right)=h\left(x\right)^\top h\left(y\right)$. Then $g$ is a PSD kernel function.
 \end{corollary}
 \begin{proof}
-Given a arbitrary set $\left\{\x_1,\ldots,\x_m\right\}\subseteq\Xc$ for arbitrary size $m\in\N$ denote $H$ the matrix where: $$ H=\left[\begin{array}{ccc}
-| & & |\\
-h\left(\x_1\right) & \cdots & h\left(\x_m\right)\\
-| & & |
-\end{array}\right] $$
-Consider the matrix $G=H^\top H$ so $G_{ij}=h\left(\x_i\right)^\top h\left(\x_j\right)=g\left(\x_i,\x_j\right)$. So $G$ is the Gram matrix of $g$ over the given set. This matrix is PSD as we were able to show it as the multiplication of $H^\top H$ \todo{add reference to PSD equiv. conditions}
+	Given a arbitrary set $\left\{\x_1,\ldots,\x_m\right\}\subseteq\Xc$ for arbitrary size $m\in\N$ denote $H$ the matrix where: $$ H=\left[\begin{array}{ccc}
+		| & & |\\
+		h\left(\x_1\right) & \cdots & h\left(\x_m\right)\\
+		| & & |
+	\end{array}\right] $$
+	Consider the matrix $G=H^\top H$ so $G_{ij}=h\left(\x_i\right)^\top h\left(\x_j\right)=g\left(\x_i,\x_j\right)$. So $G$ is the Gram matrix of $g$ over the given set. This matrix is PSD as we were able to show it as the multiplication of $H^\top H$ \todo{add reference to PSD equiv. conditions}
 \end{proof}
 
 This corollary means that any kernel function can be written as an \textbf{inner product} of some transformation $h$ of the data. This transformation $h$ is the mapping function described above. So to check if a given function is a kernel function we could: $\left(1\right)$ show the associated Gram matrix is PSD or $\left(2\right)$ find the transformation $h$ that satisfies that $g\left(x,y\right)=h\left(x\right)^\top h\left(y\right)$~\\
 
 \begin{exercise}
-Let $\Xc=\R^d$. Show that $k:\Xc\times\Xc\rightarrow \R$ that is defined by $k\left(x,y\right)=1,\,\,x,y\in\Xc$ is a valid kernel function. In addition, state a possible mapping function $h$ such that $g\left(x,y\right)=h\left(x\right)^\top \left(y\right)$.
+	Let $\Xc=\R^d$. Show that $k:\Xc\times\Xc\rightarrow \R$ that is defined by $k\left(x,y\right)=1,\,\,x,y\in\Xc$ is a valid kernel function. In addition, state a possible mapping function $h$ such that $g\left(x,y\right)=h\left(x\right)^\top \left(y\right)$.
 \end{exercise}
 \begin{proof}
-Let $\left\{\x_i\right\}^m_{i=1}\subseteq\Xc$. The Gram matrix of $k$ over this set is: $K_{ij}=k\left(\x_i,\x_j\right)=1$. As the eigenvalues of $K$ are $m,0\geq 0$ and $K$ is a symmetric matrix, we conclude that $K\in PSD$. Thus $k$ a valid kernel function.\\ As for the mapping function $h$, it must satisfy that $h\left(x\right)^\top h\left(y\right)=1$ for any $x,y$. So we could choose $h:\R^d\rightarrow\R^k$ that always returns some unit vector $v$. Then $h\left(x\right)^\top h\left(y\right) = v^\top v = \norm{v} = 1$. Notice that we haven't specificed $k$, the dimension of the embedded space, which could be of any size we desire.
+	Let $\left\{\x_i\right\}^m_{i=1}\subseteq\Xc$. The Gram matrix of $k$ over this set is: $K_{ij}=k\left(\x_i,\x_j\right)=1$. As the eigenvalues of $K$ are $m,0\geq 0$ and $K$ is a symmetric matrix, we conclude that $K\in PSD$. Thus $k$ a valid kernel function.\\ As for the mapping function $h$, it must satisfy that $h\left(x\right)^\top h\left(y\right)=1$ for any $x,y$. So we could choose $h:\R^d\rightarrow\R^k$ that always returns some unit vector $v$. Then $h\left(x\right)^\top h\left(y\right) = v^\top v = \norm{v} = 1$. Notice that we haven't specificed $k$, the dimension of the embedded space, which could be of any size we desire.
 \end{proof}
 
 
 ~\\One commonly used kernel function is the polynomial kernel.
 \begin{claim}[Polynomial Kernels]
-Let $\Xc=\R^d$ and consider the $k$ degree polynomial mapping:$$\x\mapsto\left(1,\ldots,\x\left(i\right),\ldots,\x\left(i\right)\x\left(j\right),\ldots,\prod_{\underset{J\subset\left[d\right],\left|J\right|=k}{i\in J}}\x\left(i\right)\right)$$
-This is a valid kernel and can be computed by $$ k\left(\x,\x'\right)\coloneqq\left(1+\inprod{\x}{\x'}\right)^k $$
+	Let $\Xc=\R^d$ and consider the $k$ degree polynomial mapping:$$\x\mapsto\left(1,\ldots,\x\left(i\right),\ldots,\x\left(i\right)\x\left(j\right),\ldots,\prod_{\underset{J\subset\left[d\right],\left|J\right|=k}{i\in J}}\x\left(i\right)\right)$$
+	This is a valid kernel and can be computed by $$ k\left(\x,\x'\right)\coloneqq\left(1+\inprod{\x}{\x'}\right)^k $$
 \end{claim}
 \begin{proof}
-To show this is a valid kernel, we will find some mapping $\psi$ such that $K\left(\x,\x'\right)$ equals to $\psi\left(\x\right)^\top \psi\left(\x'\right)$. For simplicity let $x_0=1=x'_0$. Then: 
-$$
-\begin{array}{ccl}
-k\left(\x,\x'\right) & = &\left(1+\inprod{\x}{\x'}\right)^k\\
-& = & \left(\sum_{i=1}^d x_ix'_i\right)^k\\
-& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\prod_{i=1}^{k}x_{J_i}x'_{J_i}\\
-& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\prod_{i=1}^{k}x_{J_i}\prod_{i=1}^{k}x'_{J_i}\\
-& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\psi\left(\x\right)_J\psi\left(\x'\right)_J\\
-& = & \psi\left(\x\right)^\top \psi\left(\x'\right)
-\end{array}
-$$
-Where we define $\psi:\R^d\rightarrow\R^{\left(n+1\right)^k}$ such that each coordinate of $\psi\left(\x\right)$ corresponds to some $J\in\left\{0,\ldots,d\right\}^k$ and is equal to $\prod_{i=1}^k x_{J_i}$. Therefore we obtained that $k\left(\x,\x'\right) = \inprod{\psi\left(\x\right)}{\psi\left(\x'\right)}$
+	To show this is a valid kernel, we will find some mapping $\psi$ such that $K\left(\x,\x'\right)$ equals to $\psi\left(\x\right)^\top \psi\left(\x'\right)$. For simplicity let $x_0=1=x'_0$. Then: 
+	$$
+	\begin{array}{ccl}
+		k\left(\x,\x'\right) & = &\left(1+\inprod{\x}{\x'}\right)^k\\
+		& = & \left(\sum_{i=1}^d x_ix'_i\right)^k\\
+		& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\prod_{i=1}^{k}x_{J_i}x'_{J_i}\\
+		& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\prod_{i=1}^{k}x_{J_i}\prod_{i=1}^{k}x'_{J_i}\\
+		& = & \sum_{J\in\left\{0,\ldots,d\right\}^k}\psi\left(\x\right)_J\psi\left(\x'\right)_J\\
+		& = & \psi\left(\x\right)^\top \psi\left(\x'\right)
+	\end{array}
+	$$
+	Where we define $\psi:\R^d\rightarrow\R^{\left(n+1\right)^k}$ such that each coordinate of $\psi\left(\x\right)$ corresponds to some $J\in\left\{0,\ldots,d\right\}^k$ and is equal to $\prod_{i=1}^k x_{J_i}$. Therefore we obtained that $k\left(\x,\x'\right) = \inprod{\psi\left(\x\right)}{\psi\left(\x'\right)}$
 \end{proof}
 
 ~\\
 \begin{example}
-Let $\x,\x'\in \Xc=\R^2$ with $x_0=1=x'_0$ and $k=2$ so:
-$$ \begin{array}{ccl}
-\left(1+\inprod{\x}{\x'}\right)^2 & = & \left(1+x_1x'_1 + x_2x'_2\right)^2\\
-& = & 1 + 2x_1x'_1 + 2x_2x'_2 + \left(x_1x'_1\right)^2 + \left(x_2x'_2\right)^2 + 2x_1x'_1x_2x'_2
-\end{array} $$
-By defining $\psi$ as $\psi\left(\x\right)=\left(1,1\cdot x_1, x_1 \cdot 1, 1\cdot x_2, x_2\cdot 1, x_1^2, x_2^2, x_1\cdot x_2, x_2 \cdot x_1\right)^\top$ we achieve that $K\left(\x,\x'\right)=\psi\left(\x\right)^\top \psi\left(\x'\right)$
+	Let $\x,\x'\in \Xc=\R^2$ with $x_0=1=x'_0$ and $k=2$ so:
+	$$ \begin{array}{ccl}
+		\left(1+\inprod{\x}{\x'}\right)^2 & = & \left(1+x_1x'_1 + x_2x'_2\right)^2\\
+		& = & 1 + 2x_1x'_1 + 2x_2x'_2 + \left(x_1x'_1\right)^2 + \left(x_2x'_2\right)^2 + 2x_1x'_1x_2x'_2
+	\end{array} $$
+	By defining $\psi$ as $\psi\left(\x\right)=\left(1,1\cdot x_1, x_1 \cdot 1, 1\cdot x_2, x_2\cdot 1, x_1^2, x_2^2, x_1\cdot x_2, x_2 \cdot x_1\right)^\top$ we achieve that $K\left(\x,\x'\right)=\psi\left(\x\right)^\top \psi\left(\x'\right)$
 \end{example}
 
 ~\\
 \begin{claim}[Gaussian Kernels]
-The following is a valid kernel function: $$ k\left(\x,\x'\right)\coloneqq \exp\left(-\frac{1}{2\sigma^2}\norm{\x-\x'}^2\right),\quad\sigma^2\in\R_+ $$ with the mapping function $\psi$ defined such that: $$ \forall n\in\N \quad \psi\left(\x\right)_n \coloneqq \frac{1}{\sqrt{n!}}\exp\left(-x^2/2\sigma\right) x^n $$
+	The following is a valid kernel function: $$ k\left(\x,\x'\right)\coloneqq \exp\left(-\frac{1}{2\sigma^2}\norm{\x-\x'}^2\right),\quad\sigma^2\in\R_+ $$ with the mapping function $\psi$ defined such that: $$ \forall n\in\N \quad \psi\left(\x\right)_n \coloneqq \frac{1}{\sqrt{n!}}\exp\left(-x^2/2\sigma\right) x^n $$
 \end{claim}
 \begin{proof}
-Let us begin with showing that $k\left(\x,\x'\right) = \psi\left(\x\right)^\top \psi\left(\x'\right)$:
-$$
-\begin{array}{ccl}
-\psi\left(\x\right)^\top \psi\left(\x'\right) & = & \sum_{n=0}^\infty \left(\frac{1}{\sqrt{n!}}\exp\left(-x^2/2\sigma\right) x^n\right) \left(\frac{1}{\sqrt{n!}}\exp\left(-\left(\x'\right)^2/2\sigma\right) \left(\x'\right)^n\right)\\
-& = & \exp\left(-\frac{\x^2 +\left(\x'\right)^2}{2\sigma}\right)\sum_{n=0}^\infty \frac{\left(\x\x'\right)^n}{n!}\\
-& = & \exp\left(-\frac{1}{2\sigma^2}\norm{\x-\x'}^2\right)
-\end{array}
-$$
+	Let us begin with showing that $k\left(\x,\x'\right) = \psi\left(\x\right)^\top \psi\left(\x'\right)$:
+	$$
+	\begin{array}{ccl}
+		\psi\left(\x\right)^\top \psi\left(\x'\right) & = & \sum_{n=0}^\infty \left(\frac{1}{\sqrt{n!}}\exp\left(-x^2/2\sigma\right) x^n\right) \left(\frac{1}{\sqrt{n!}}\exp\left(-\left(\x'\right)^2/2\sigma\right) \left(\x'\right)^n\right)\\
+		& = & \exp\left(-\frac{\x^2 +\left(\x'\right)^2}{2\sigma}\right)\sum_{n=0}^\infty \frac{\left(\x\x'\right)^n}{n!}\\
+		& = & \exp\left(-\frac{1}{2\sigma^2}\norm{\x-\x'}^2\right)
+	\end{array}
+	$$
 \end{proof}
 Interestingly, the feature space mapped by $\psi$ is of infinite dimension.
 
@@ -589,21 +589,21 @@ Interestingly, the feature space mapped by $\psi$ is of infinite dimension.
 	\end{enumerate}
 \end{claim}
 \begin{exercise}
-Using the closure properties above, show that the Gaussian kernel is a valid kernel function.
+	Using the closure properties above, show that the Gaussian kernel is a valid kernel function.
 \end{exercise}
 \begin{proof}
-$$
-\begin{array}{ccl}
-k\left(\x,\x'\right) & = & \exp\left(-\norm{\x-\x'}^2/2\sigma^2\right) \\
-& = & \exp\left(-\norm{\x}^2/2\sigma^2\right) \cdot \exp\left(-\x^\top\x'/\sigma^2\right) \cdot \exp\left(-\norm{\x'}^2/2\sigma^2\right) \\
-& \overset{\left(*\right)}{=} & f\left(\x\right) \exp\left(-\x^\top\x'/\sigma^2\right) f\left(\x'\right) 
-\end{array}
-$$
-where we define $f\left(\x\right) = \exp\left(-\norm{\x}^2/2\sigma^2\right)$. Now notice that this is a valid kernel as: $\left(1\right)$ $\x^\top\x'$ is a valid kernel. $\left(2\right)$ scaling by $\frac{1}{\sigma^2}$ is a valid kenel. $\left(3\right)$ exponent of a valid kernel is a valid kernel. And finaly, $\left(4\right)$ multiplying by $f\left(\x\right), f\left(\x'\right)$ from left and right is a valid kernel.
+	$$
+	\begin{array}{ccl}
+		k\left(\x,\x'\right) & = & \exp\left(-\norm{\x-\x'}^2/2\sigma^2\right) \\
+		& = & \exp\left(-\norm{\x}^2/2\sigma^2\right) \cdot \exp\left(-\x^\top\x'/\sigma^2\right) \cdot \exp\left(-\norm{\x'}^2/2\sigma^2\right) \\
+		& \overset{\left(*\right)}{=} & f\left(\x\right) \exp\left(-\x^\top\x'/\sigma^2\right) f\left(\x'\right) 
+	\end{array}
+	$$
+	where we define $f\left(\x\right) = \exp\left(-\norm{\x}^2/2\sigma^2\right)$. Now notice that this is a valid kernel as: $\left(1\right)$ $\x^\top\x'$ is a valid kernel. $\left(2\right)$ scaling by $\frac{1}{\sigma^2}$ is a valid kenel. $\left(3\right)$ exponent of a valid kernel is a valid kernel. And finaly, $\left(4\right)$ multiplying by $f\left(\x\right), f\left(\x'\right)$ from left and right is a valid kernel.
 \end{proof}
 
 \begin{remark}
-The Gaussian kernel is a specific case of the wider Radial Basis Function (RBF) kernel $k\left(\x,\x'\right)\coloneqq \exp\left(-\beta \norm{\x-\x'}^2\right)$.
+	The Gaussian kernel is a specific case of the wider Radial Basis Function (RBF) kernel $k\left(\x,\x'\right)\coloneqq \exp\left(-\beta \norm{\x-\x'}^2\right)$.
 \end{remark}
 
 ~\\ Notice in both examples, the polynomial- and Gaussian kernels, the embedding is of much higher dimension but computing the value can be done efficiently without actually transitioning to the feature space. In the case of the $k$ degree polynomial kernel, the feature space is of dimension $\mathcal{O}\left(\left(d+1\right)^k\right)$. In the case of the Gaussian kernel the feature space is of an infinite dimension. However in both cases, computing the kernel function can be done in $\mathcal{O}\left(d\right)$.
@@ -627,8 +627,8 @@ where we also condition on $\w$ to explicitly state the dependence on the model 
 Let us adapt the model above to fit for classification problems. We would like to assume that $y_i$ distributes \textbf{Bernoulli} with a probability $p\left(\x_i\right)$ that somehow relates with $\x_i$, and captures how likely is $y_i$ being $1$: $$ p\left(y_i|\x_i\right)=Ber\left(y_i|p\left(\x_i\right)\right) $$
 How shall $p\left(\x_i\right)$ relate with $\x_i$? Unlike the linear regression model, we cannot assume a linear function $\phi_{\w}\left(\x\right)=\w^\top\x$ as $\phi_{\w}\in\R$ while $p\left(\x_i\right)$ is restricted to $\left[0,1\right]$. Instead, we would like to choose some \textbf{link} function $\phi_{\w}:\R\rightarrow\left[0,1\right]$ that is monotone increasing and maps $\left(-\infty,\infty\right)$ bijectively to $\left(0,1\right)$. Define the relation to be
 \begin{equation}
-p\left(y_i|\x_i,\w\right) = Ber\left(y_i|\phi_{\w}\left(\x_i\right)\right), \quad \phi_{\w}\coloneqq sigm\left(\w^\top\x\right)
-\label{eqn:logistic_model}
+	p\left(y_i|\x_i,\w\right) = Ber\left(y_i|\phi_{\w}\left(\x_i\right)\right), \quad \phi_{\w}\coloneqq sigm\left(\w^\top\x\right)
+	\label{eqn:logistic_model}
 \end{equation}
 where $sigm$ is the \textbf{sigmoid} function, also known as the \textbf{logit} function: $$ sigm\left(\vv{a}\right)\coloneqq\frac{e^{\vv{a}}}{e^{\vv{a}} + 1} $$
 This function is indeed monotone increasing and maps $\left(-\infty,\infty\right)$ bijectively to $\left(0,1\right)$.
@@ -636,7 +636,7 @@ This function is indeed monotone increasing and maps $\left(-\infty,\infty\right
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.5\textwidth]{chapters/classification/figures/3_7.png}
-	\caption{\todo{todo}}
+	\caption{\textbf{Illustration of fitted logit function} for values corresponding to $\w^\top x$.}
 \end{figure}
 
 
@@ -653,8 +653,8 @@ This function is indeed monotone increasing and maps $\left(-\infty,\infty\right
 \subsubsection{The Hypothesis Class}
 So we would like to define the hypothesis class of logistic regression as: 
 \begin{equation}
-\Hc_{logistic}\coloneqq\left\{h_{\w}\left(\x\right)=sigm\left(\w^\top\x\right)|\w\in\R^{d+1}\right\}
-\label{eqn:logisitc_hypothesis_class}
+	\Hc_{logistic}\coloneqq\left\{h_{\w}\left(\x\right)=sigm\left(\w^\top\x\right)|\w\in\R^{d+1}\right\}
+	\label{eqn:logisitc_hypothesis_class}
 \end{equation}
 However, notice that defining the hypotheses in such manner means that $h_{\w}:\R^{d+1}\rightarrow\left[0,1\right]$ and not $h_{\w}:\R^{d+1}\rightarrow\left\{0,1\right\}$ as required for classification problems. Since $\left\{0,1\right\}\subset\left[0,1\right]$, we can use the training sample to select a function in $\Hc_{logistic}$. This means we will be able to train a model, but how will we predict over new samples? Suppose our learner chose some $h_{\w}\in\Hc_{logistic}$. As we think about $h_{\w}\left(\x\right)$ as an estimate of the probability that the label corresponding to $\x$ is $1$, we can use it for classification. If $h_{\w}\left(\x\right)$ is low the label is likely to be $0$. If $h_{\w}\left(\x\right)$ is high, the label is likely to be $1$. Choosing some \textbf{cutoff} value $\alpha\in\left[0,1\right]$, our class prediction will be: $\widehat{y}\coloneqq \indc{h_{\w}\left(\x\right)>\alpha} $. To choose a fitting value for $\alpha$ we can calculate the Type-I and Type-II errors of the classifier and plot its ROC curve (\autoref{error_types} and \autoref{roc})
 
@@ -665,23 +665,23 @@ Once we have defined the logistic regression model (\ref{eqn:logistic_model}) an
 Let $\trainset$ be our sample of independent observations, assuming that $\y_i\sim Ber\left(\phi_{\w}\left(\x\right)\right)$ where $\phi$ is the logistic function. The likelihood of $\w\in\R^{d+1}$ is: 
 $$
 \begin{array}{ccl}
-\Lc\left(\w\right|\X,\y) & = & \Prob\left(y_1,\ldots,y_m|\X,\w\right) \,\, = \,\, \prod \Prob\left(y_i|\x_i,\w\right)\\
-& = & \underset{i:y_i=1}{\prod}\Prob\left(y_i|\x_i,\w\right)\cdot \underset{i:y_i=0}{\prod}\Prob\left(y_i|\x_i,\w\right)\\
-& = & \underset{i:y_i=1}{\prod} p_i\left(\w\right) \cdot \underset{i:y_i=0}{\prod} \left( 1-p_i\left(\w\right)\right)\\
-& = & \prod p_i\left(\w\right)^{y_i} \left(1-p_i\left(\w\right)\right)^{1-y_i}
+	\Lc\left(\w\right|\X,\y) & = & \Prob\left(y_1,\ldots,y_m|\X,\w\right) \,\, = \,\, \prod \Prob\left(y_i|\x_i,\w\right)\\
+	& = & \underset{i:y_i=1}{\prod}\Prob\left(y_i|\x_i,\w\right)\cdot \underset{i:y_i=0}{\prod}\Prob\left(y_i|\x_i,\w\right)\\
+	& = & \underset{i:y_i=1}{\prod} p_i\left(\w\right) \cdot \underset{i:y_i=0}{\prod} \left( 1-p_i\left(\w\right)\right)\\
+	& = & \prod p_i\left(\w\right)^{y_i} \left(1-p_i\left(\w\right)\right)^{1-y_i}
 \end{array}
 $$
 where $p_i\left(\w\right)=\phi_{\w}\left(\x_i\right)$. Since the log function is monotone increasing we can maximize the log-likelihood $\ell\left(\w\right)\coloneqq \log\Lc\left(\w\right)$ instead: $$
 \begin{array}{ccl}
-\ell\left(\w|\X,\y\right) & = & \overset{m}{\underset{i=1}{\sum}}\left[y_i\log\left(p_i\left(\w\right)\right)+\left(1-y_i\right)\log\left(1-p_i\left(\w\right)\right)\right]\\
-& = & \overset{m}{\underset{i=1}{\sum}}\left[ y_i\log\left(\frac{e^{\w^\top \x_i}}{1+e^{\w^\top \x_i}}\right) + \left(1-y_i\right)\log\left(\frac{1}{1+e^{\w^\top\x_i}}\right) \right]\\
-& = & \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]
+	\ell\left(\w|\X,\y\right) & = & \overset{m}{\underset{i=1}{\sum}}\left[y_i\log\left(p_i\left(\w\right)\right)+\left(1-y_i\right)\log\left(1-p_i\left(\w\right)\right)\right]\\
+	& = & \overset{m}{\underset{i=1}{\sum}}\left[ y_i\log\left(\frac{e^{\w^\top \x_i}}{1+e^{\w^\top \x_i}}\right) + \left(1-y_i\right)\log\left(\frac{1}{1+e^{\w^\top\x_i}}\right) \right]\\
+	& = & \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]
 \end{array}
 $$
 And therefore, choosing the function $h\in\Hc_{logistic}$ by applying the maximum likelihood principle means that: 
 \begin{equation}
-\widehat{\w}\coloneqq \underset{\w\in\R^{d+1}}{argmax} \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]
-\label{eqn:logistic_opt}
+	\widehat{\w}\coloneqq \underset{\w\in\R^{d+1}}{argmax} \overset{m}{\underset{i=1}{\sum}} \left[y_i\cdot \w^\top\x_i - \log\left(1+e^{\w^\top\x_i}\right)\right]
+	\label{eqn:logistic_opt}
 \end{equation}
 
 
@@ -694,7 +694,7 @@ Now that we have defined the hypothesis class and an optimization problem to fin
 \\~\\
 While there is no closed form for the maximizer $\widehat{\w}$, as logistic regression is a very useful learner, there is a custom iterative algorithm that usually converges quickly to $\widehat{\w}$. This algorithm is based on \textbf{Newton-Raphson} iterations.
 
-\todo{Do we want to add explanations about the Newton-Raphson iterations?}
+
 \subsection{Interpretability}
 One important properly of the logistic regression learner is interpretability both in the sense of which features were important for the model and why was a certain prediction given. When working with $\Xc=\R^d$, we gather many feature, and might think that some of them are important for prediction while others less. Similar to linear regression, we are able to ask "which features were important" for the model by simply investigating the entries of the fitted coefficients vector $\w$. Feature corresponding to coefficients of values close to zero have a small impact on prediction and therefore these features are less important for the model. Features corresponding to coefficients of values far from zero have a large impact on prediction and are therefore important for the model.
 \\~\\
@@ -703,15 +703,123 @@ Then, for a given sample $\x$, by looking at entries corresponding to important 
 
 
 \section{Bayes Classifiers}
-
+The logistic regression classifier seen above assumes a distribution on the labels $\Yc$ given the samples  
 \todo{Matan - need to be written - Begin with defining $\Dc$ over $\Xc\times\Yc$}
 \todo{Then add notions of posterior(likelihod), prior and joint distributions}
 
 \subsection{Bayes Optimal Classifier}
-\todo{From the above derive the Bayes optimal}
+\todo{From the above derive Bayes optimal}
+
 \subsection{Naive Bayes}
+\todo{From the above derive Naitve optimal}
+
 \subsection{Linear Discriminant Analysis}
+The Linear Discriminant Analysis (LDA) algorithm is yet another realization of the Bayes Optimal classifier. This time we assume that the points from each label have a different Gaussian distribution. Explicitly, we assume the following generative model: 
+\begin{enumerate}
+	\item Each sample selects a label $y_i=Ber\left(\pi\right),\,\,\pi\in\left[0,1\right]$.
+	\item Then, the sample itself is drawn from the conditional probability of $X|Y$ where $X$ denotes the random variable of sampling some samples $X=x$ and $Y$ denotes the random variable of $Y=y,\,\,y\in\left\{0,1\right\}$. The distribution used to model $X|Y$ is a Gaussian distribution where each label is characterized by a different mean vector $\mu_0,\mu_1\in\R^d$ but the same covariance matrix $\Sigma\in\R^{d\times d}$.
+\end{enumerate}~\\
+Namely, for any $i\in 1,\ldots,m$ we assume that:
+\begin{equation}\label{lda_generative}
+\begin{array}{c}
+	y_i \sim Ber\left(\pi\right) \\
+	x_i|y_i \sim \Nc\left(\mu_{y_i},\Sigma\right)
+\end{array}
+\end{equation}
+
+
+Under these assumptions, predicting the class of a new sample is done by simply using the Bayes Law over the Bayes Optimal classifier to get:
+$$ \widehat{y}\left(\x\right) \coloneqq \underset{y}{argmax}\,\Prob\left(y|\x\right) = \underset{y}{argmax}\,\frac{\Prob\left(\x|y\right)\Prob\left(y\right)}{\Prob\left(]x\right)} $$
+
+\begin{claim}
+Let $\Dc$ be a joint distribution over $\Xc\times \Yc$ with the conditional distribution $$y|x\sim\Nc\left(\mu_k,\Sigma\right)\quad k\in\left\{0,1\right\}$$ Denote $\Prob\left(y=k\right)=\pi_k$ where $\pi_i\leq 0,\,\,\sum\pi_i = 1$. Then the Bayes Optimal classifier is given by: $$ \widehat{y}\left(\x\right) \coloneqq \underset{k\in\left\{0,1\right\}}{argmax}\,\, a_k^\top \x + b_k, \quad a_k \coloneqq \Sigma^{-1}\mu_k, b_k\coloneqq -\frac{1}{2}\mu_k\Sigma^{-1}\mu_k $$ 
+\end{claim}
+\begin{proof}
+We begin with expressing $\Prob\left(y=k|\x\right)$. By applying Bayes Law then:
+$$
+\Prob\left(y=k|\x\right) = 
+\frac{\Prob\left(\x|y=k\right)\Prob\left(y=k\right)}{\Prob\left(\x\right)} = \frac{\Prob\left(\x|y=k\right)\Prob\left(y=k\right)}{\sum_{k'\in\left\{0,1\right\}}\Prob\left(\x|y=k'\right)\Prob\left(y=k\right)} = \frac{\pi_k\Nc\left(\x|\mu_k,\Sigma\right)}{\sum_{k'\in\left\{0,1\right\}}\pi_{k'}\Nc\left(\x|\mu_k',\Sigma\right)}
+$$
+
+Next, from the PDF of a multivatiate Gaussian (\ref{def: MVN}) then:
+$$
+\begin{array}{ccl}
+\Prob\left(y=k|\x\right) & = & \frac{\pi_k\cdot\frac{1}{Z}\exp\left(-\frac{1}{2}\left(\x-\mu_k\right)^\top\Sigma^{-1}\left(\x-\mu_k\right)\right)}{\sum_{k'} \pi_{k'}\cdot\frac{1}{Z}\exp\left(-\frac{1}{2}\left(\x-\mu_{k'}\right)^\top\Sigma^{-1}\left(\x-\mu_{k'}\right)\right)} \\
+&  & \\
+& = & \frac{\pi_k\cancel{\frac{1}{Z}}\exp\left(\cancel{-\frac{1}{2}\x^\top\Sigma^{-1}\x} + \x^\top \Sigma^{-1}\mu_k - \frac{1}{2}\mu_k\Sigma^{-1}\mu_k\right)}{\sum_{k'}\pi_{k'}\cancel{\frac{1}{Z}}\exp\left(\cancel{-\frac{1}{2}\x^\top\Sigma^{-1}\x} + \x^\top \Sigma^{-1}\mu_{k'} - \frac{1}{2}\mu_{k'}\Sigma^{-1}\mu_{k'}\right)} \\
+&  & \\
+& = & \frac{\pi_k\exp\left(\x^\top \Sigma^{-1}\mu_k - \frac{1}{2}\mu_k\Sigma^{-1}\mu_k\right)}{\sum_{k'}\pi_{k'}\exp\left(\x^\top \Sigma^{-1}\mu_{k'} - \frac{1}{2}\mu_{k'}\Sigma^{-1}\mu_{k'}\right)} 
+\end{array}
+$$
+for $Z\coloneqq \sqrt{\left(2\pi\right)^d\left|\Sigma\right|}$ the Gaussians' normalization factor. Notice, that as we assume the classes are generated from Gaussians with the same covariance matrix $\frac{1}{Z}$ does not depend on $k$. Denote $a_k \coloneqq \Sigma^{-1}\mu_k, b_k\coloneqq -\frac{1}{2}\mu_k\Sigma^{-1}\mu_k$ and we conclude that:
+
+$$
+\Prob\left(y=k|\x\right) \propto \exp\left(a_k^\top \x + b_k\right) \quad \Longrightarrow \quad \widehat{y}\left(\x\right) = \underset{k\in\left\{0,1\right\}}{argmax}\,\, a_k^\top \x + b_k
+$$
+\end{proof}
+
+The claim above, besides showing that under the LDA assumptions we are dealing with a Bayes classifier, also tells us something about the classifier learned. Looking at the expression derived from the assumptions, we see that the classification is in fact done by some \textbf{linear separator/discriminant}. 
+
+~\\It can be shown, by taking the $\log-likelihood$ ratio between the likelihood for being classified for a class divided the likelihood for being classified for the other class, that the decision boundary between the classes is linear, similar to \autoref{lda_decision_boundary}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{chapters/classification/figures/lda_decision_boundary.png}
+	\caption{\textbf{LDA Decision Boundaries} for a multiclass setup of three Gaussians. \GitChapterThreeExamples}
+	\label{lda_decision_boundary}
+\end{figure}
+
+\paragraph{Learning A LDA Classifier}
+So, in order to predict using an LDA classifier we need to know the class probabilities $\pi$, the means $\mu_0, \mu_1$ and the covariance matrix $\Sigma$. To do so we derive the maximum likelihood estimators. Given a training set $\trainset$ then the likelihood is given by:
+
+$$
+\begin{array}{ccl}
+\mathcal{L}\left(\Theta|\X,\y\right) & = & \Prob\left(\left\{\left(\x_i,y_i\right)\right\}^m_{i=1}|\Theta\right)\\
+& \overset{iid}{=} & \prod\Prob\left(\x_i,y_i|\Theta\right)  \\
+& = & \prod\Prob\left(\x_i|y_i\right)\Prob\left(y_i|\Theta\right)\\
+& = & \prod\pi_{y_i}\Nc\left(\x_i|\mu_{y_i},\Sigma\right)
+\end{array}
+$$
+
+where $\Theta\coloneqq\left\{\pi,\mu_0,\mu_1,\Sigma\right\}$. By taking the derivative, each time with respect to $\pi$, $\mu_0$, $\mu_1$ and $\Sigma$ we find that the MLE are:
+\begin{eqnarray}
+\widehat{\pi}^{MLE}_y &\coloneqq &\frac{1}{m}\sum \indc{y_i = 1} = \frac{m_y}{m} \\
+\widehat{\mu_y}^{MLE} &\coloneqq &\frac{1}{m_y}\sum \indc{y_i=y}\x_i \\
+\widehat{\Sigma}^{MLE} &\coloneqq &\frac{1}{m} \sum_y \sum_{i:y_i=y}\left(\x_i-\widehat{\mu}_{y_i}^{MLE}\right)\left(\x_i-\widehat{\mu}_{y_i}^{MLE}\right)^\top \label{cov_mle}
+\end{eqnarray}
+
+for $m_y, \,\,y\in\left\{0,1\right\}$ denoting the number of samples seen each of the classes. Looking closely at the expressions derived we in fact realize that the MLE predicts the values proportional to what is found in the training set.
+
+\begin{remark}
+The covariance estimator described in \ref{cov_mle} is the one derived when equating the derivative with respect to $\Sigma$ to zero. This is a \textit{biased} estimator. The unbiased estimator for the covariance matrix is given by multiplying by $\frac{1}{m-2}$ instead of $\frac{1}{m}$:
+$$ \widehat{\Sigma}^{MLE} \coloneqq \frac{1}{m-2} \sum_y \sum_{i:y_i=y}\left(\x_i-\widehat{\mu}_y^{MLE}\right)\left(\x_i-\widehat{\mu}_y^{MLE}\right)^\top$$
+This covariance matrix expression is known as the \textit{pooled covariance} and it accounts for the use of an estimator of $\widehat{mu_j}$ rather the true parameter $\mu_j$. In the general case of multi-classification the multiplication factor of the unbiased estimator is $\frac{1}{m-K} $ where $K$ is the number of classes.
+\end{remark}
+
 \subsection{Quadratic Discriminant Analysis}
+In the LDA algorithm we assumed the data is generated from a set of Gaussians, differing in their mean but sharing the same covariance matrix (\ref{lda_generative}). The Quadratic Discriminant Analysis algorithm allows different covariance matrices. That is, for any $i\in 1,\ldots,m$ we assume that:
+\begin{equation}\label{qda_generative}
+	\begin{array}{c}
+		y_i \sim Ber\left(\pi\right) \\
+		x_i|y_i \sim \Nc\left(\mu_{y_i},\Sigma_{y_i}\right)
+	\end{array}
+\end{equation}
+
+~\\By enabling different covariance matrices the quadratic expression (in $\x$) of $\Prob\left(y=k|\x\right)$ does not cancel out. This in turn causes the decision boundaries between classes to be quadratic rather than linear. In both \autoref{lda_decision_boundary} and \autoref{qda_decision_boundary} the same data was used to fit either the LDA or the QDA models. We can see that while the decision boundaries of the LDA fit (\autoref{lda_decision_boundary}) are linear, in the case of QDA (\autoref{qda_decision_boundary}) we get curved (quadratic) boundaries.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{chapters/classification/figures/qda_decision_boundary.png}
+	\caption{\textbf{QDA Decision Boundaries} for a multiclass setup of three Gaussians. \GitChapterThreeExamples}
+	\label{qda_decision_boundary}
+\end{figure}
+
+\paragraph{Learning A QDA Classifier}
+Fitting a QDA classifier is very similar to the process of fitting a LDA classifier. The difference is in the estimation of the covariance matrices. In this case we fit a different covariance matrix for each class based on the samples of the class:
+
+\begin{equation}
+\widehat{\Sigma}^{MLE}_y \coloneqq \frac{1}{m_y} \sum_{i:y_i=y}\left(\x_i-\widehat{\mu}_{y}^{MLE}\right)\left(\x_i-\widehat{\mu}_{y}^{MLE}\right)^\top \label{cov_mle}
+\end{equation}
 
 \section{Nearest Neighbors}
 Nearest Neighbors learners predict the label of a new sample based on a set of "nearset" training samples. This means that it has no hypothesis class and no training stage per se. As prediction is based on some subset of training samples, that is determined by "closeness" to some newly given sample, the training step of the learner consists only of storing the training data so it is available for the learner when performing predictions.
@@ -754,7 +862,7 @@ As we change $k$ we change the bias-variance tradeoff.
 Decision Trees are classification and regression methods by which we partition the sample space into disjoint parts. Then, given such a partition, the response of our classification (or regression) is computed based on the training samples in the partition of the observation in question. These methods are very intuitive and yet capture many interesting aspects of learning. We will discuss some of these aspects in details in the following chapter.
 
 \begin{remark}
-To this day, one of the more powerful classification and regression algorithms is what is called: Classification And Regression Trees (CART) Random Forest. It uses the power of committee decisions over the basic decision trees to achieve very good performances. Some of the aspects of this algorithm will be discussed in later chapters.
+	To this day, one of the more powerful classification and regression algorithms is what is called: Classification And Regression Trees (CART) Random Forest. It uses the power of committee decisions over the basic decision trees to achieve very good performances. Some of the aspects of this algorithm will be discussed in later chapters.
 \end{remark}
 
 \subsection{Axis-Parallel Partitioning of $\R^d$}
@@ -768,11 +876,11 @@ Earlier in this chapter we have discussed two classifiers that use piecewise-con
 
 To make out hypothesis $\Hc_{CT}$ class smaller and simpler, we will focus on disjoint unions of boxes that are obtained by iteratively splitting an existing box into two smaller boxes along one of the axes:
 \begin{itemize}
-  \item We start with the whole sample space $\R^d$.
-  \item By selecting some coordinate $i_1\in \left[d\right]$ and some value $t_1\in\R$ we split $R^d$ into two axis-parallel "boxes" (half-spaces). We obtain: $$ B_1^+=\left\{\x\in\R^d|\x_{i_1}>t_1\right\},\quad B_1^{-}=\left\{\x\in\R^d|\x_{i_1}\leq t_i\right\} $$ 
-  \item Next, by focusing of some previously split "box" $B_j^s$ for $s\in\left\{-,+\right\}$, we can again select some coordinate $i_{j+1}\in\left[d\right]$ and some splitting value $t_{j+1}\in\R^d$ to obtain $B_{j+1}^{-}, B_{j+1}^{+}$. Notice that $B_{j+1}^{-}$ and $B_{j+1}^{+}$ are disjoint, and if following this procedure then by induction they are also disjoint from any other obtained box.
+	\item We start with the whole sample space $\R^d$.
+	\item By selecting some coordinate $i_1\in \left[d\right]$ and some value $t_1\in\R$ we split $R^d$ into two axis-parallel "boxes" (half-spaces). We obtain: $$ B_1^+=\left\{\x\in\R^d|\x_{i_1}>t_1\right\},\quad B_1^{-}=\left\{\x\in\R^d|\x_{i_1}\leq t_i\right\} $$ 
+	\item Next, by focusing of some previously split "box" $B_j^s$ for $s\in\left\{-,+\right\}$, we can again select some coordinate $i_{j+1}\in\left[d\right]$ and some splitting value $t_{j+1}\in\R^d$ to obtain $B_{j+1}^{-}, B_{j+1}^{+}$. Notice that $B_{j+1}^{-}$ and $B_{j+1}^{+}$ are disjoint, and if following this procedure then by induction they are also disjoint from any other obtained box.
 \end{itemize}
-  
+
 Note that the partitions obtained this way are special - most partitions of $\R^d$ into axis-aligned boxes are not Tree Partitions. Namely, cannot be constructed by such a top-down iterative chopping procedure.
 \begin{figure}[h!]
 	\centering
@@ -784,26 +892,26 @@ Note that the partitions obtained this way are special - most partitions of $\R^
 The hypothesis class $\Hc_{CT}$  we will consider consists of piecewise-constant functions, that assign a class prediction (1 or 0) to each box in a Tree Partition. Unless we restrict it somehow, the class contains all piecewise-constant functions supported on all Tree Partitions of $\R^d$ (to any number of boxes). Formally, for a Tree Partition $\R^d=\biguplus_{j=1}^N B_j$ of $\R^d$ into $N$ boxes, and label assignments $c_j \in \left\{ 0,1\right\}$ ($j=1,\ldots, N$) assigning label $c_j$ to box $B_j$, the hypothesis $h\in\Hc_{CT}$ is a function $h:\R^d\to\left\{ 0,1 \right\}$ defined by $$ h(\x) = \sum_{j=1}^N c_j \mathbbm{1}_{B_j}(\x) $$ where $\mathbbm{1}_{B_j}$ is the indicator function of $B_j$. 
 
 \begin{example}
-Consider the following scenario: suppose someone comes into a hispital emergency room. The first step of triage is to determine - fast - whether they are in a life-threatening medical emergency, or else they can wait in line and receive treatment in a little while. The triage uses a sequence of yes/no questions, such as: Is the patient conscious yes/no?
-\begin{itemize}
-	\item If not conscious: classify as \textbf{emergency}
-	\item If patient is conscious: is the patient's pulse $<40$ beats per minute?
+	Consider the following scenario: suppose someone comes into a hispital emergency room. The first step of triage is to determine - fast - whether they are in a life-threatening medical emergency, or else they can wait in line and receive treatment in a little while. The triage uses a sequence of yes/no questions, such as: Is the patient conscious yes/no?
 	\begin{itemize}
-		\item If yes (pulse $<40$): classify as textbf{emergency}
-		\item If no, (pulse $\geq 40$): is the patient's pulse $>130$ beats per minute?
+		\item If not conscious: classify as \textbf{emergency}
+		\item If patient is conscious: is the patient's pulse $<40$ beats per minute?
 		\begin{itemize}
-			\item If yes (pulse $>130$): is the patient's systolic blood pressure $<80$ mmHg?
-			\begin{itemize} %TODO - allow deeper levels
-				\item If yes classify as \textbf{emergency}
-				\item If not, is the patient's systolic blood pressure $>140$ mmHg? If yes, classify as \textbf{emergency}. Otherwise, classify as \textbf{no emergency}
+			\item If yes (pulse $<40$): classify as textbf{emergency}
+			\item If no, (pulse $\geq 40$): is the patient's pulse $>130$ beats per minute?
+			\begin{itemize}
+				\item If yes (pulse $>130$): is the patient's systolic blood pressure $<80$ mmHg?
+				\begin{itemize} %TODO - allow deeper levels
+					\item If yes classify as \textbf{emergency}
+					\item If not, is the patient's systolic blood pressure $>140$ mmHg? If yes, classify as \textbf{emergency}. Otherwise, classify as \textbf{no emergency}
+				\end{itemize}
+				\item If not classify as \textbf{no emergency}
 			\end{itemize}
-			\item If not classify as \textbf{no emergency}
 		\end{itemize}
 	\end{itemize}
-\end{itemize}
-
-~\\This is a decision tree that uses three features: conscious (a binary categorical feature), pulse (a numerical feature) and blood pressure (also a numerical feature). See if you can we write a diagram for this decision tree in the shape of a tree, where every node is a question, and every leaf is a decision / classification. The root of the tree is the first question ("conscious yes/no?").
-Now observe that every function in our Classification Trees hypothesis class $\Hc_{CT}$ is equivalent to a decision tree. In the notations of the generic example above, the first question is: "$x_{i_1}>t_1$-yes/no?".  If yes, we ask the second question "$x_{i_{2,1}}>t_{2,1}$ - yes/no?". If not, we ask the second question: "$x_{i_{2,2}}>t_{2,2}$ - yes/no?". And so on, until there are no more splits and we have reached a box over which the function in $\Hc_{CT}$ is constant. If the constant value is $1$, we classify / predict class $1$. If the constant value is $0$, we predict class $0$. This is why our hypothesis class is called - classification trees
+	
+	~\\This is a decision tree that uses three features: conscious (a binary categorical feature), pulse (a numerical feature) and blood pressure (also a numerical feature). See if you can we write a diagram for this decision tree in the shape of a tree, where every node is a question, and every leaf is a decision / classification. The root of the tree is the first question ("conscious yes/no?").
+	Now observe that every function in our Classification Trees hypothesis class $\Hc_{CT}$ is equivalent to a decision tree. In the notations of the generic example above, the first question is: "$x_{i_1}>t_1$-yes/no?".  If yes, we ask the second question "$x_{i_{2,1}}>t_{2,1}$ - yes/no?". If not, we ask the second question: "$x_{i_{2,2}}>t_{2,2}$ - yes/no?". And so on, until there are no more splits and we have reached a box over which the function in $\Hc_{CT}$ is constant. If the constant value is $1$, we classify / predict class $1$. If the constant value is $0$, we predict class $0$. This is why our hypothesis class is called - classification trees
 \end{example}
 
 \subsection{Growing a Classification Tree}
@@ -865,12 +973,3 @@ Before we introduced the CART heuristic we described that solving the ERM princi
 ~\\The next question is how many steps will the algorithm perform? We know that the algorithm will terminate after growing a tree with at most $k$ levels. Such a tree will have at most $2^k-1$ nodes and leaves. Though this seems exponentinal in the given input (notice that the hyper-parameter $k$ is also part of the input) we can upper bound this value. As we do not allow empty boxes (and in fact any box with less than some minimal number of samples) the number of nodes (including leaves) in the tree is at most $m$. We therefore conclude that the time complexity of the CART heuristic is $\mathcal{O}\left(m^2 d\right)$
 \subsection{Pruning a Decision Tree}
 \todo{Add explanation about pruning}
-
-
-
-
-\section{Summary}
-\subsection{Exercises}
-\begin{enumerate}
-	\item Prove that optimization problem \ref{eqn:hard_svm_opt3} is a Quadratic Program.
-\end{enumerate}

@@ -1,15 +1,15 @@
-latex\main.bbl
-latex\main.aux
-latex\main.bcf
-latex\main.log
-latex\main.out
-latex\main.pdf
-latex\main.ptc
-latex\main.toc
-latex\main.ptc
-latex\main.blg
-latex\main.run.xml
-latex\main.synctex.gz
+latex/main.bbl
+latex/main.aux
+latex/main.bcf
+latex/main.log
+latex/main.out
+latex/main.pdf
+latex/main.ptc
+latex/main.toc
+latex/main.ptc
+latex/main.blg
+latex/main.run.xml
+latex/main.synctex.gz
 
 
 *.aux

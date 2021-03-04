@@ -13,7 +13,7 @@ As such, the bias-variance \textbf{tradeoff} is that: the more complicated the m
     	
 \begin{figure}[h!]
 \centering
-\includegraphics[width=4.5in]{chapters/ensemble.methods/figures/ESL_bias_variance.png}  
+\includegraphics[width=4.5in]{chapters/ensemble.methods/figures/bias_variance.png}  
 \caption{\textbf{The bias-variance tradeoff:} Train- vs. test errors as function of complexity of $h$}
 \end{figure}
 
@@ -341,16 +341,3 @@ namely convex combinations of hypotheses from $\Hc_{base}$. So $\Hc_t$ becomes l
 For example, we have a canonical way to measure the ``size`` of $\Hc_T$. While we won't go into the details, under certain conditions, $VCdim(\Hc_T)$ is roughly $T\cdot VCdim(\Hc_{base})$. So we can expect Boosting to increase the variance (compared with the base learner) as $T$ increases, but ``not too fast``. 
 \\~\\
 On the other hand, it's clear that Boosting decreases bias - that is obvious from the fact that the empirical risk decreases as $T$ grows - indeed $\Hc_T$ is able to come closer and closer to the labeling function on the training set. And the fact that empirical risk decreases \textbf{exponentially} with $T$ tells us that bias decreases quite quickly. Overall, Boosting typically decreases bias much faster than it increases variance, which is why it typically improves generalization loss quite dramatically. But a question remains: If we use $T$ too large, will boosting overfit? 
-
-\subsection{Gradient Boosting Algorithm}
-\todo{ Matan - Add subsection about Gradient Boosting}
-\subsection{Lab: Boosting - Image Classification}
-
-
-\section{Summary}
-\subsection{Exercises}
-\begin{enumerate}
-	\item Let $X_1,\ldots,X_m$ be i.i.d random variables with some distribution $\mathcal{F}$ on the real line $\R$. Let $x_i\in\R$ be a sampled value of $X_i$. Show that the CDF of this sample is a step function, increasing from $0$ to $1$, with jump of size $1/m$ at each value $x_i$ (see Figure \ref{ecdf}).
-	\item Given a sample $\trainset$ and a bootstrap sample $S^*$ show that for large $m$, about 37\% of data points are not in $S^*$.
-	\item \todo{check and fix - Showing that transition to predicted class probabilities is an MLE estimator of it}
-\end{enumerate}
