@@ -8,13 +8,13 @@ An introductory code to the world of machine- and statistical learning, aimed fo
 
 
 ## Setting Up Code and Labs Envrionment
-Set a local copy of this GitHub repository. Do so by cloning the repository using GitBash and 
+Set a local copy of this GitHub repository. Do so by [cloning the repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) using GitBash and 
 ```
 cd LOCAL_REPOSITORY_PATH
 git clone https://github.com/GreenGilad/IML.HUJI.git
 ```
 
-or download and unzip in `LOCAL_REPOSITORY_PATH`. Then:
+or by downloading and unzipping it in `LOCAL_REPOSITORY_PATH`. Then:
 
 ### Anaconda + Jupyter Notebooks Setup
 - Download and install Anaconda from [official website](https://www.anaconda.com/products/individual#Downloads). 
