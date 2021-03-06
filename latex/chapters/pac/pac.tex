@@ -116,7 +116,7 @@ In the following sections, we will inspect the definitions of PAC-learnability a
 
 \subsection{Learning as a Game - first attempt}
 
-The framework in Section \ref{sec:frame} can be thought of as a {\bf game} between us and Nature, with a random payoff. The game proceeds as follows. The number of training samples $m$ is given in advanced as a game parameter. \\
+The framework in Section \ref{sec:frame} can be thought of as a \textit{game} between us and Nature, with a random payoff. The game proceeds as follows. The number of training samples $m$ is given in advanced as a game parameter. \\
 
 We move first. We choose a learner $\mathcal{A}$ that trains on $m$ samples. This is our strategy.
 Nature moves second. Nature chooses a distribution $\mathcal{D}$ and a labeling function $f$. This is Nature's strategy. Importantly, Nature knows the strategy we chose when she chooses her strategy.
@@ -148,117 +148,86 @@ Let's define this as \textit{\textbf{ The Learning Game}} (first version):
 
 \section{Probably correct \& Approximately correct learners}
 
-Recalling that the loss is random - it depends on the draw of training sample
-$S$ - we now can ask the following questions. 
+\begin{definition} \label{approximately correct}
+Let $0<\epsilon<1$.  We  say that a learner $\Ac$ is \textit{\textbf{Approximately Correct}}  with  \textit{\textbf{accuracy}} $\epsilon$, if we are certain (with probability 1) that for any training sample, $S$, drawn using $\Dc$, $\Ac$ will output a prediction rule, $h_S$, with a loss smaller or equal to $\epsilon$:
+$$D\{S|~ L_{\Dc,f}(h_S) \leq \epsilon\}=1$$
 
-\vspace{3mm}
-{\bf Question:} Given an $0\leq\epsilon<1$, is there a strategy that will guarantee that the loss will not exceed $\epsilon$, with probability 1? In other words, that almost surely, for any sample $S$ drawn according to $\Dc$, we will have  $L_{\Dc,f}(h) \leq \epsilon$?
-	%     \item Is there a learner $\Ac$ (``strategy we play'') that will ensure 
-	%        $L_{\Dc,f}(h) = 0$ 
+Note that the loss is random - it depends on the draw of $S$ - therefore it makes sense to talk about the probability that a learner has a certain loss (a probability that, in the present case, is required to be 1).
+\end{definition}
 
+Now can ask the following question.
+ 
+\textbf{Question}: Is there an accuracy parameter, $0\leq\epsilon<1$, for which we can choose a learner, $\Ac$,  that will be approximately correct? 
+In other words, that almost surely (with probability 1), for any sample $S$ drawn according to $\Dc$, we will have  $L_{\Dc,f}(h_S) \leq \epsilon$?
 
 \textbf{Answer}: {\bf No.} 
-Choose $0\leq \epsilon <1 $. The learner cannot hope to produce, regardless of how Nature plays, and with probability $1$, a rule $h$ with $L_{\Dc,f}(h) \leq \epsilon$.
-
-\textbf{Reason}: There's always a (small) probability to get a completely ``pathological'' training	sample $S$ that does not represent $\Dc$ at all. The resulting rule $h_S$ can
+Choose $0\leq \epsilon <1 $. The learner cannot hope to produce, regardless of how Nature plays, and with probability $1$, a rule $h_S$ with $L_{\Dc,f}(h_S) \leq \epsilon$.
+There's always a (small) probability to get a completely ``pathological'' training	sample $S$ that does not represent $\Dc$ at all. The resulting rule $h_S$ can
 	be wrong on most of $\Xc$. If $S$ is really bad, $h_S$ can have a loss as high as $1$, higher than any $\epsilon$.
 	
-{\bf Example: }
-		Choose $0\leq \epsilon <1 $. Take $\Xc=\left\{ x_1,x_2 \right\}$.  Fix $0<\gamma$ such that  $1-\gamma>\epsilon$. Our learner $\Ac$ must specify what to predict on a point that was not seen in the training set. 
-		Let us assume, without a loss of generality, that our algorithm predicts the label $+1$ on a point we have not seen in the training set. Now, Nature chooses $\Dc$ with
-		$\Dc(\{x_1\}) = 1-\gamma$, $\Dc(\{x_2\}) = \gamma$, and chooses a labeling function $f$ with  $f(x_1)=f(x_2)=-1$. 
+\begin{example}\label{counter example absolute confidence}
+
+		Choose an accuracy $0\leq \epsilon <1 $. Take $\Xc=\left\{ x_1,x_2 \right\}$. 
+		Our learner $\Ac$ must specify what to predict on a point that was not seen in the training set. 
+		Let us consider the case where $S$ contains only $x_2$'s and denote it by $S_2$, that is, $S_2\equiv (x_2,f(x_2)), (x_2,f(x_2)),..., (x_2,f(x_2))$, 
+		and assume, without a loss of generality, that in this case our algorithm predicts the label $x_1$ by $+1$:  $h_{S_2}(x_1)=+1$.
+		Now, Nature chooses $\Dc$ with	$\Dc(\{x_1\}) = \gamma$, $\Dc(\{x_2\}) = 1-\gamma$, where $\gamma$ is a number satisfying  $0<\epsilon<\gamma<1$. 
+		Nature also chooses a labeling function $f$ with  $f(x_1)=-1=-h_{S_2}(x_1)$. 
+		So in case obtaining  $S_2$ as the training set,  the loss, $L_{\Dc,f}(h_{S_2})$ would satisfy
+		$$L_{\Dc,f}(h_{S_2})>\gamma>\epsilon$$ 
+		since the probability of drawing $x_1$ as a test point (on which Nature made sure that our prediction will fail)  is $\gamma$, and  $\gamma$ was chosen by Nature to be bigger than $\epsilon$. The probability of obtaining $S_2$ is $(1-\gamma)^m$, even if very small,  is not zero because $\gamma<1$ and therefore we failed to ensure with probability 1, that the loss will be smaller than $\epsilon$.  
 		
-		With probability 		$\gamma^m$, the training sample $S$ contains only  $x_2$'s. How does $h_S=\Ac(S)$
-		classify $x_1$ in this event? Since there's no information in the training data about $x_1$, the algorithm will predict $h_S(x_1)=+1$.
-		As as result, on a random test point drawn according to $\Dc$, unfortunately $h_S$ will be wrong with probability $1-\gamma$, which is the probability to draw $x_1$. Thus,
-		$L_{\Dc,f}(h)=1-\gamma>\epsilon$. Now make $\gamma$ small enough to have $1-\gamma > \epsilon$. 
- In conclusion , even on a sample space $\Xc$ with only two points, for any fixed $\epsilon>0$, 
-		for every strategy $\Ac$ we might play, Nature has a strategy $\Dc,f$, such that 
-		with some probability $\delta$ that depends only on $\epsilon$, over the choice of training samples of length $m$, we have  
-		$L_{\Dc,f}(h_S) \geq \epsilon$.
-		
- As $\epsilon$ was arbitrary, this means that for any arbitrarily "bad" loss $\epsilon$, Nature can cause the game to end, with strictly positive probability, with a loss at least $\epsilon$.
-	  What went wrong? In this example, with probability $\gamma^m$ (which is really very tiny) we get a "lousy" training sample $S$, one that does not represent $\Dc$  good enough, and does not allow us to generalize. 
-	  
+		 
+Thus, even on a sample space $\Xc$ with only two points, for any fixed $\epsilon>0$, for every strategy $\Ac$ we might play, Nature has a strategy $\Dc,f$, such that 
+		with some probability over the choice of training samples of length $m$, we have  $L_{\Dc,f}(h_S) \geq \epsilon$. As $\epsilon$ was arbitrary, this means that for any arbitrarily "bad" loss $\epsilon$, Nature can, with non-vanishing probability,  cause the game to end with a loss of at least $\epsilon$.
+	  What went wrong? In this example, with probability $(1-\gamma)^m$ (which can be really very tiny if $m$ is large) we get a "lousy" training sample, $S_2$, that does not represent $\Dc$  good enough, and does not allow us to generalize. 
+  \end{example}
+	  \vspace{3mm}
  
-  {\bf Conclusion:} No learner $\Ac$ can guarantee, that given an $0<\epsilon<1$, and with probability $1$,  the loss will have an upper bound of  $L_{\Dc,f}(h_S) \le \epsilon$, against \textit{any} strategy of Nature. 
-	
-  {\bf Relaxation:} We allow the learner $\Ac$ to ``fail completely''	(produce $h_S$ with potentially huge loss) with
-	probability $\delta$, where $\delta \in (0,1)$ is specified in the conditions 	of the game.
-	
-  {\bf Bottom line:} We must allow a small probability for
-	``pathological'' sample $S$, from which it is impossible to generalize. 
-	
-  {\bf Definition:} When a learner $\Ac$ has  an arbitrary large loss with probability
-	at most $\delta$ (for some $\delta>0$), we say that $\Ac$ is {\bf Probably}
-	correct, with {\bf confidence} $\delta$.
+We therefore conclude that, given any accuracy parameter $0< \epsilon<1$, no learner $\Ac$ can guarantee, that with probability $1$, the loss will not exceed  $\epsilon$:  Nature can always find a strategy for which  $L_{\Dc,f}(h_S) > \epsilon$ will have a non-zero probability to occur. 
+
+So now that we are aware that "bad" samples may always appear, with non-zero (even if small) probability, we should not aspire for an absolute certainty in achieving a limited loss. We will accept the fact that on these bad, but with limited chance to appear, training samples, the learner $\Ac$ might  "fail completely"	(produce $h_S$ with potentially huge loss).  We will, from now on, only require a limited certainty, that we will call 'confidence', for having a limited loss. This means that we will demand that the probability of drawing a bad sample will not exceed a certain threshold, that we will denote by $\delta$ and that  $\delta$ will be  specified in the initial parameters of the game, together with $\epsilon$. 
+
+Since we no longer demand absolute confidence in having a limited loss, perhaps we can instead require absolute accuracy (zero loss), but with a limited confidence? 
+That is, perhaps we can require that at least for those good training samples (the ones that will have a probability of $1-\delta$ to appear) the loss will vanish? 
  
 
-So, we have no choice but to make a huge sacrifice - we must allow our learner to
-{\bf fail completely} with probability at most $\delta$, where $\delta$ is a fixed parameter. 
-We can only hope for an upper bound on the
-loss (an upper bound that will hold regardless of how Nature plays) - with probability at least  $1-\delta$. 
-This leads us to the second question that we now ask.
+\begin{definition} \label{probably correcty}
+Let $0<\delta<1$. 	We  say that a learner, $\Ac$, is \textit{\textbf{Probably Correct}} with \textit{\textbf{confidence}} $\delta$, if the probability to obtain a training sample, $S$, for which $\Ac$ will output a prediction rule, $h_S$, with a perfect accuracy (zero loss), is larger or equal to $1-\delta$:
+$$D\{S|~ L_{\Dc,f}(h_S)=0\}\ge 1-\delta$$
+  
+Note that in definition \ref{approximately correct}  we required  prefect confidence $\delta=0$ ("with probability 1" ), to have a certain accuracy ($\epsilon<1$),
+while in definition \ref{probably correcty}  we require a certain confidence $\delta<1$ to have a prefect accuracy $\epsilon=0$. 
+\end{definition}
+Definition \ref{probably correcty} helps us rephrase the  question above more formally.
+ 
 
+\textbf{Question:} Is there a confidence parameter  $0<\delta<1$,  for which we can choose a learner, $\Ac$, that will be probably correct?
+In other words, in the event of a non-pathological sample (the event with probability of at least $1-\delta$) can we achieve perfect accuracy,  $L_{\Dc,f}(h_S) = 0$?  
 
-\textbf{Question:} In the event of a non-pathological sample (the event with probability at least $1-\delta$), can we please have perfect accuracy?  
-In other words, is there a strategy $\Ac$ for us with {\bf zero loss} (w.p. at least $1-\delta$) regardless of how Nature plays?
-	%     \item Is there a learner $\Ac$ (``strategy we play'') that will ensure 
-	%        $L_{\Dc,f}(h) = 0$ 
+\textbf{Answer:} {\bf No.} Choose $0<\delta<1$. The learner cannot 	hope to produce, with probability of at least $1-\delta$, a rule $h_S$ with $L_{\Dc,f}(h_S)=0$, independently of how Nature plays.  $L_{\Dc,f}(h_S)=0$ means that $\Dc\{h_S(x)= f(x)\}=1$ ($h_S$ is, with probability 1 with respect to $\Dc$, always correct). 	Nature can choose some $x\in\Xc$ and can play a $\Dc$ that gives a finite but tiny probability mass to a certain $x$. Then, with high probability, the sample $S$ will not include $x$, and therefore, whatever label the learner assigns to $h_S(x)$, it will be a guess and therefore might be incorrect, causing a finite loss.
 	
-\textbf{Answer:} {\bf No.} Choose $\delta>0$ (probability of complete failure - getting an
-	arbitrarily large loss). The learner cannot 	hope to produce, regardless of how Nature plays, and with probability at
-	least $1-\delta$, a 	rule $h$ with $L_{\Dc,f}(h_S)=0$.
+\begin{example} \label{counter example absolute accuracy}
+	Choose a confidence $0<\delta <1$. Take $\Xc=\left\{ x_1,x_2 \right\}$. 
 	
-	\textbf{Reason:} $L_{\Dc,f}(h)=0$ means that $\Dc\{h_S(x)= f(x)\}=1$ ($h_S$ is never wrong, almost surely with respect to $\Dc$). 	If Nature plays $\Dc$ that gives a
-	tiny mass to some $x\in\Xc$, with high probability, the 	$S$ will not include $x$, and there, $h_S$ has no 	idea what to do. So it cannot generalize perfectly to $x$.
+	As in example \ref{counter example absolute confidence} , we consider the case of the training sample $S_2\equiv (x_2,f(x_2)), (x_2,f(x_2)),..., (x_2,f(x_2))$. 
+	Once again we assume that in this case our algorithm predicts the label $x_1$ by $+1$:  $h_{S_2}(x_1)=+1$.
+	As in example \ref{counter example absolute confidence}, Nature chooses a labeling function $f$ with  $f(x_1)=-1=-h_{S_2}(x_1)$ and a distribution, $\Dc$, with	$\Dc(\{x_1\}) = \gamma$, $\Dc(\{x_2\}) = 1-\gamma$, but now $\gamma$ is chosen so that  $\delta<(1-\gamma)^m$. Note that this requirement means that when $m$ is large, Nature chose the probability of getting $x_1$, namely, $\gamma$, to be close to zero, which means that $S_2$ is actually a typical ("non-pathological", "good") sample: its probability to appear, $(1-\gamma)^m$ is larger than $\delta$.
 	
-	\textbf{Example:}
-	\begin{itemize}
-		\item Fix confidence $\delta>0$. Our learner will be allowed to fail
-		completely (have an arbitrary large loss) with probability $\delta$.
-		As before, fix $\gamma$. Our learner $\Ac$ must specify what to predict on a point that was not seen in the training set. WLOG we choose to predict $+$ on a point we have not seen in the training set. As before, Nature plays $\Dc$ with
-		$\Dc(\{x_1\}) = 1-\gamma$, $\Dc(\{x_2\}) = \gamma$, and chooses a labeling function $f(x_1)=f(x_2)=-$. 
-		Now, with probability
-		$(1-\gamma)^m$, $S$ does not include $x_2$. 
-		How does $h_S=\Ac(S)$
-		classify $x_2$ in this event? since there's no training data there, we will predict $h_S(x_2)=+$.
-		As as result, on a random test point drawn according to $\Dc$, unfortunately $h_S$ will be wrong with probability $\gamma$. So
-		$L_{\Dc,f}(h)=\gamma>0$. Now make $\gamma$ small enough to have $(1-\gamma)^m > \delta$.
-		\item In conclusion, for any fixed confidence $\delta>0$, 
-		for every strategy $\Ac$ we might play, Nature has a strategy $\Dc,f$, such that 
-		with probability strictly more that $\delta$ over the choice of training samples of length $m$, we have  
-		$L_{\Dc,f}(h_S)$ strictly positive and bounded away from $0$.
-		\item What went wrong? In this example, with probability $(1-\gamma)^m$ (which is large - we got a "typical" training sample), we "miss" the rare point $x_2$ in our training sample, and cannot have perfect generalization. 
-	\end{itemize}
+	As in example \ref{counter example absolute confidence}, in case of obtaining  $S_2$ as the training set,  the loss, $L_{\Dc,f}(h_{S_2})$ would satisfy
+	$$L_{\Dc,f}(h_{S_2})>\gamma$$ and since $\gamma>0$ that would mean a non-zero loss. 
+  Since $S_2$ has a probability $(1-\gamma)^m$ to appear and since $(1-\gamma)^m >\delta$, the probability of ending up with a non-zero loss is larger than $\delta$.
+  In other words, our learner $\Ac$ is not a probably correct one. 
+\end{example}
 	
-	{\bf Claim:} For any confidence $\delta$, 
-	no learner can hope to produce a perfect rule ( a rule $h_S$ with
-	$L_{\Dc,f}(h_S) =
-	0$) with probability at least $1-\delta$ regardless of  Nature's strategy.
+	We conclude that for any confidence parameter  $0<\delta<1$, no learner $\Ac$ can guarantee, that with probability $1-\delta$, the loss will vanish: Nature can always find a strategy for which $L_{\Dc,f}(h_S) > 0$ will have a probability large than $\delta$ to occur. Even a "typical"  training sample may miss small areas in $\Xc$. On these areas
+	the resulting $h_S$ might be wrong. We have to allow $h_S$ to be wrong sometimes (to make some generalization errors) even when the training sample is "typical".
 	
-	{\bf Relaxation:} We must be satisfied with an {\bf approximately correct}
-	learning rule: A rule $h_S$ with $L_{\Dc,f}(h_S) \le
-	\epsilon$, where $\epsilon$ is specified in the conditions of the game.
+	So whatever learner we construct, we can never have an absolute confidence that our loss limited by some fixed $\epsilon$, neither we can have even a limited-confidence (with probability larger than  $1-\delta$, for some fixed $\delta$) in obtaining an absolute accuracy. 	What we might be able is to have is a limited-confidence that our loss will be limited, which brings us to the following definition.
 	
-	{\bf Bottom line:} Even a ``typical'' (``non-pathological'') training sample $S$ may miss small areas in $\Xc$. On these areas
-	the resulting $h_S$ will be wrong in the worst case. We have to allow $h_S$ to
-	be wrong sometimes (to make some generalization errors) even when the training sample is ``typical''.
-    
-    {\bf Definition:}  When a learner $\Ac$ has an upper bound $\epsilon>0$ on
-	the loss (for some $\epsilon$), we  say that $\Ac$ is {\bf Approximately}
-	correct \\with {\bf accuracy} $\epsilon$.
-
-
-
-
-
-Now we can define a {\bf Probably Approximately Correct} learner.
-\begin{definition}
-	When a learner $\Ac$ has an upper bound $\epsilon>0$ on the loss with
-	probability at least $1-\delta$, for some $\delta>0$ and $\epsilon>0$, 
-	but and can have an arbitrary large loss with probability at most
-	$\delta$, we say that $\Ac$ is {\bf Probably} {\bf Approximately} correct with accuracy $\epsilon$ and confidence $\delta$.
+\begin{definition}	
+	Let $\delta>0$ and $\epsilon>0$. We say that a learner, $\Ac$, is \textit{\textbf{Probably Approximately Correct}} with a confidence $\delta$ and an accuracy $\epsilon$ if the probability of obtaining a training sample, $S$, for which $\Ac$ will output a prediction rule, $h_S$, with a loss that does not exceeds $\epsilon$, is larger or equal to $1-\delta$:
+		$$D\{S|~ L_{\Dc,f}(h_S)=0\}\ge 1-\delta.$$
 \end{definition}
 
 
@@ -272,17 +241,9 @@ Now we can define a {\bf Probably Approximately Correct} learner.
 %\item How big should $m$ be?
 %\end{itemize}
 
-It's important to understand the difference between \textbf{accuracy} $\epsilon$ and \textbf{confidence} $\delta$:
+It is important to understand the difference between the  \textit{accuracy}  $\epsilon$ and the \textit{confidence} $\delta$:
 \textit{First}, we draw the training sample $S$ at random. The learning algorithm runs on this random input and its prediction is therefore random.
-If $S$ is by chance "weird" (not representing $\Dc$ well), the rule $h$ produced will be "wrong", namely, it won't generalize well. The number $\delta$ is the probability of failure due to a "weird" sample $S$.
-\textit{Second}, we test the rule $h$ on new data. New data is also random. $L_{\Dc,f}(h)$ is the expected number of errors $h$ will make. The number $\epsilon$ refers to the accuracy of $h$.
-
-%In terms of the above example, the number $\delta$ represents the probability of getting a training sample $S$ which is "weird" because it has only  $x_1$'s and $x_2$'s in it.
-%The number $\epsilon$ refers to the accuracy of $h$ which is limited because the test samples will likely contain also $x_3$'s and $x_4$'s of which we know nothing.
-
-%\textcolor{red}{[Maybe add also the following paragraph?]}
-%Can we at least be confident-enough that most probably we will get a sample $S$  with which we can find an %approximately correct $h$ to a high-enough accuracy, no matter what $D$ and $f$ are?
-%In general, as we shall see below, the answer is "maybe" since it depends on the choice of our hypothesis class. %Considering the above example, it looks reasonable to expect with high confidence, that for large enough $m$, %$S$ will contain, additionally, to the $x_1$'s and $x_2$'s, at least one $x_3$ or one $x_4$ which will give us %enough information about $f$ to approximate it with the required accuracy. And indeed we will see that in such a %case the answer would be positive. However, in our example, the number of different possible $f$'s is limited: %there are at most $2^3$ possible functions in $\Hc$ (recall: $|\Xc|=3$, $|\Yc|=2$). If, on the contrary, $\Xc=\R$ %then the number  of possible functions is infinite and, as we shall see, if we include too many\footnote{"too %many", in a sense that will be clearer later on in this lecture, once we define the VC dimension of $\Hc$} of %them in $\Hc$, then \textit{no} $m$ would be large enough to ensure with high-enough confidence that we can get %an $h$ with a high-enough accuracy.
+If $S$ is by chance "weird" (not representing $\Dc$ well), the rule $h_S$ produced will be "wrong", namely, it won't generalize well. The number $\delta$ is the probability of failure due to a "weird" sample $S$. \textit{Second}, we test the rule $h_S$ on new data. The new data is also random. $L_{\Dc,f}(h_S)$ is  the expected number of errors $h_S$ will make, i.e., its accuracy. The number $\epsilon$ refers to that accuracy.
 
 \subsection{The game - for Probably Approximately correct learners}
 
