@@ -56,6 +56,9 @@ custom = [[0.0, "rgb(165,0,38)"],
           [0.8888888888888888, "rgb(69,117,180)"],
           [1.0, "rgb(49,54,149)"]]
 
+class_symbols = np.array(["circle", "x", "diamond"])
+class_colors = lambda n: [custom[i] for i in np.linspace(0, len(custom)-1, n).astype(int)]
+
 def decision_surface(predict, xrange, yrange, density=120, dotted=False, colorscale=custom, showscale=True):
     xrange, yrange = np.linspace(*xrange, density), np.linspace(*yrange, density)
     xx, yy = np.meshgrid(xrange, yrange)
@@ -66,19 +69,19 @@ def decision_surface(predict, xrange, yrange, density=120, dotted=False, colorsc
     return go.Contour(x=xrange, y=yrange, z=pred.reshape(xx.shape), colorscale=colorscale, reversescale=False, opacity=.7, connectgaps=True, hoverinfo="skip", showlegend=False, showscale=showscale)
 
 
-
-def save_animated_gif(frames, filename, frame_duration=100):
+   
+def animation_to_gif(fig, filename, frame_duration=100, width=1200, height=800):
     import gif
-
     @gif.frame
-    def plot(fr):
-        fig = go.Figure(data=fr["data"], layout=fr["layout"])
-        return fig
-    
-    frames = [plot(fr) for fr in frames]
-    gif.save(frames, filename, duration=frame_duration)
-    
-    
+    def plot(f, i):
+        f_ = go.Figure(data=f["frames"][i]["data"], layout=f["layout"])
+        f_["layout"]["updatemenus"] = []
+        f_.update_layout(title=f["frames"][i]["layout"]["title"], width=width, height=height)
+        return f_
+
+    gif.save([plot(fig, i) for i in range(len(fig["frames"]))], filename, duration=frame_duration)
+
+
 
 def create_data_bagging_utils(d = 4, number_of_members = 1, n_samples = 1000):
     
