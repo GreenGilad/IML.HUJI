@@ -63,7 +63,7 @@ def decision_surface(predict, xrange, yrange, density=120, dotted=False, colorsc
 
     if dotted:
         return go.Scatter(x=xx.ravel(), y=yy.ravel(), opacity=1, mode="markers", marker=dict(color=pred, size=1, colorscale=colorscale, reversescale=False), hoverinfo="skip", showlegend=False)
-    return go.Contour(x=xrange, y=yrange, z=pred.reshape(xx.shape), colorscale=colorscale, reversescale=False, opacity=.5, connectgaps=True, hoverinfo="skip", showlegend=False, showscale=showscale)
+    return go.Contour(x=xrange, y=yrange, z=pred.reshape(xx.shape), colorscale=colorscale, reversescale=False, opacity=.7, connectgaps=True, hoverinfo="skip", showlegend=False, showscale=showscale)
 
 
 
@@ -77,3 +77,64 @@ def save_animated_gif(frames, filename, frame_duration=100):
     
     frames = [plot(fr) for fr in frames]
     gif.save(frames, filename, duration=frame_duration)
+    
+    
+
+def create_data_bagging_utils(d = 4, number_of_members = 1, n_samples = 1000):
+    
+    def sample_beta(limit1, limit2):
+        margin1 = limit1 + (limit2 - limit1)*0.45
+        margin2 = limit2 - (limit2 - limit1)*0.45
+        beta = np.random.uniform(margin1, margin2)
+        return beta
+
+  # Creates n samples
+    samples = np.random.uniform(size=(n_samples, 2))
+
+    samples_of_half = "samples_of_half"
+    x_1 = "x_1"; x_2 = "x_2"; y_1 = "y_1"; y_2 = "y_2"; tag = "tag"
+    list_of_array = {0: {samples_of_half : samples, x_1 : 0, x_2 : 1, y_1 : 0, y_2 : 1}}
+
+    for i in range(0, d):
+        built_list =  {}
+        for sample_curr_i, sample_curr in enumerate(list_of_array.values()):
+      # Choose if we want to split x axis or y axis
+            dim_half = np.random.choice([0,1])
+
+            dots_coords = sample_curr[samples_of_half]
+            if (dim_half == 0):
+                beta = sample_beta(sample_curr[x_1], sample_curr[x_2])
+                built_list[sample_curr_i*2] = {samples_of_half: dots_coords[dots_coords[:,0] <= beta],
+                                       x_1 : sample_curr[x_1],
+                                       x_2 : beta,
+                                       y_1 : sample_curr[y_1],
+                                       y_2 : sample_curr[y_2],
+                                       tag : np.random.choice([0, 1]).astype(int)}
+
+                built_list[sample_curr_i*2 + 1] = {samples_of_half: dots_coords[dots_coords[:,0] > beta],
+                                       x_1 : beta,
+                                       x_2 : sample_curr[x_2],
+                                       y_1 : sample_curr[y_1],
+                                       y_2 : sample_curr[y_2],
+                                       tag : np.random.choice([0, 1]).astype(int)}
+            else:
+                beta = sample_beta(sample_curr[y_1], sample_curr[y_2])
+                built_list[sample_curr_i*2] = {samples_of_half: dots_coords[dots_coords[:,1] <= beta],
+                                       x_1 : sample_curr[x_1],
+                                       x_2 : sample_curr[x_2],
+                                       y_1 : sample_curr[y_1],
+                                       y_2 : beta,
+                                       tag : np.random.choice([0, 1]).astype(int)}
+
+                built_list[sample_curr_i*2 + 1] = {samples_of_half: dots_coords[dots_coords[:,1] > beta],
+                                       x_1 : sample_curr[x_1],
+                                       x_2 : sample_curr[x_2],
+                                       y_1 : beta,
+                                       y_2 : sample_curr[y_2],
+                                       tag : np.random.choice([0, 1]).astype(int)}
+
+
+        list_of_array =  built_list
+    samples = np.vstack([samples_["samples_of_half"] for samples_ in built_list.values()])
+    tags =  np.hstack([np.repeat(samples_["tag"], samples_["samples_of_half"].shape[0]) for samples_ in built_list.values()])
+    return samples, tags
