@@ -2,14 +2,15 @@
 **Hebrew University, Jerusalem, Israel**
 
 An introductory code to the world of machine- and statistical learning, aimed for undergraduate students of computer science. The following repository contains:
-1) Code examples and graphs generating code, used in course lectures
-2) Hands-on guided labs to experience aspects discussed in lectures and recitations
-3) Skeleton files for software package ``IMLearn`` developed throughout the course
-4) Skeleton files for course exercises
+1) Course Book - Based on lecture- and recitation notes
+2) Code examples and graphs generating code, used throughout the book
+3) Hands-on guided labs to experience aspects discussed in lectures and recitations
+4) Skeleton files for software package ``IMLearn`` developed throughout the course
+5) Skeleton files for course exercises
 
 
 ## Setting Up Code and Labs Environment
-Set a local copy of this GitHub repository. Do so by [cloning the repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) using GitBash and 
+Set a local copy of this GitHub repository. Do so by [forking and cloning the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) or [cloning the repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) using GitBash and 
 ```
 cd LOCAL_REPOSITORY_PATH
 git clone https://github.com/GreenGilad/IML.HUJI.git
