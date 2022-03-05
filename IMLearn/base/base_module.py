@@ -1,0 +1,101 @@
+from abc import ABC
+import numpy as np
+
+
+class BaseModule(ABC):
+    """
+    Base class representing a function to be optimized in a descent method algorithm or a neural network
+    """
+
+    def __init__(self):
+        """
+        Initialize a module instance
+
+        Attributes
+        ----------
+        _weights : ndarray of shape (n_in, n_out)
+            Parameters of function with respect to which the function is optimized.
+            Set by ``self.compute_output`` function
+        """
+        self._weights = None
+
+    def compute_output(self, input: np.ndarray, **kwargs) -> np.ndarray:
+        """
+        Compute the output value of the function
+
+        Parameters
+        ----------
+        input: ndarray of shape (n_in,)
+            Input value to evaluate function at
+
+        kwargs: Additional arguments to be passed and used by derived objects
+
+        Returns
+        -------
+        output: ndarray of shape (n_out,)
+            Value of function at `input`
+
+        Examples
+        --------
+        For f:R^d->R defined by f(x) = <w,x> then: n_in=d, n_out=1 and thus output shape is (1,)
+        """
+        raise NotImplementedError()
+
+    def compute_jacobian(self, input: np.ndarray, **kwargs) -> np.ndarray:
+        """
+        Compute the derivative of the function with respect to each of its parameters
+
+        Parameters
+        ----------
+        input: ndarray of shape (n_in,)
+            Input value to evaluate function derivative at
+
+        kwargs: Additional arguments to be passed and used by derived objects
+
+        Returns
+        -------
+        output: ndarray of shape (n_out, n_in)
+            Derivative of function with respect to its parameters at `input`
+
+        Examples
+        --------
+        For f:R^d->R defined by f(x) = <w,x> then: n_in=d, n_out=1 and thus output shape is (1,d)
+
+        """
+        raise NotImplementedError()
+
+    @property
+    def weights(self):
+        """
+        Wrapper property to retrieve module parameter
+
+        Returns
+        -------
+        weights: ndarray of shape (n_in, n_out)
+        """
+        return self._weights
+
+    @weights.setter
+    def weights(self, weights: np.ndarray) -> None:
+        """
+        Setter function for module parameters
+
+        Parameters
+        ----------
+        weights: ndarray array of shape (n_in, n_out)
+        """
+        self._weights = weights
+
+    @property
+    def shape(self):
+        """
+        Specify the dimensions of the function
+
+        Returns
+        -------
+        shape: Tuple[int]
+            Specifying the dimensions of the functions parameters. If ``self.weights`` is None returns `(0,)`
+        """
+        return self.weights.shape if self.weights is not None else (0,)
+
+
