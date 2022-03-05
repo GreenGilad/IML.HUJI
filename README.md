@@ -1,13 +1,14 @@
-# Introduction to Machine Learning (67577)
+# Introduction to Machine Learning
 **Hebrew University, Jerusalem, Israel**
 
-An introductory code to the world of machine- and statistical learning, aimed for undergraduate students of computer science. The following is found in this repository:
-1) Course Book - Based on lecture- and recitation notes
-3) Code examples and graphs generating code, seen throughout the book
+An introductory code to the world of machine- and statistical learning, aimed for undergraduate students of computer science. The following repository contains:
+1) Code examples and graphs generating code, used in course lectures
 2) Hands-on guided labs to experience aspects discussed in lectures and recitations
+3) Skeleton files for software package ``IMLearn`` developed throughout the course
+4) Skeleton files for course exercises
 
 
-## Setting Up Code and Labs Envrionment
+## Setting Up Code and Labs Environment
 Set a local copy of this GitHub repository. Do so by [cloning the repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) using GitBash and 
 ```
 cd LOCAL_REPOSITORY_PATH
