@@ -32,7 +32,7 @@ or by downloading and unzipping it in `LOCAL_REPOSITORY_PATH`. Then:
 - Activate the environment by `conda activate iml.env`.
 - To open one of the Jupyter notebooks:
   ```
-  jupyter notebook "LOCAL_REPOSITORY_PATH\lab\Lab 01 - A - Data Analysis In Python - First Steps.ipynb"
+  jupyter notebook "LOCAL_REPOSITORY_PATH\lab\Lab 00 - A - Data Analysis In Python - First Steps.ipynb"
   ```
 
 ### Using PyCharm
