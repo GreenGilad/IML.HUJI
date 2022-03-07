@@ -9,7 +9,7 @@ An introductory code to the world of machine- and statistical learning, aimed fo
 5) Skeleton files for course exercises
 
 
-## Setting Up Code and Labs Environment
+## Setting Up Code and Labs Environment - test change
 Set a local copy of this GitHub repository. Do so by [forking and cloning the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) or [cloning the repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) using GitBash and 
 ```
 cd LOCAL_REPOSITORY_PATH
