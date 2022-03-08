@@ -12,7 +12,7 @@ dependencies:
   - numpy
   - scikit-learn
   - python=3.7
-  - plotly-orca
+  # - plotly-orca
   - statsmodels
   - pip
   - pip:
