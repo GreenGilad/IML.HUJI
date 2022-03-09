@@ -43,3 +43,6 @@ Another option is to run the Jupyter notebooks through the PyCharm IDE plug-in.
 
 ### Using Google Colab
 One can also view and run the labs and code examples via Google Colab. It supports loading and running Jupyter notebooks and running using a specified Conda environemnt.
+
+
+#test change
