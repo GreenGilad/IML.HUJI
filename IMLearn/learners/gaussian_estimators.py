@@ -1,5 +1,6 @@
 from __future__ import annotations
 import numpy as np
+from scipy.stats import norm, multivariate_normal
 from numpy.linalg import inv, det, slogdet
 
 
@@ -51,8 +52,11 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
 
+        # estimate the expected value and standard deviation of the samples
+        # than set the instance parameters accordingly:
+        self.mu_ = np.mean(X)  # todo bias and un bias?
+        self.var_ = np.std(X)
         self.fitted_ = True
         return self
 
@@ -76,7 +80,9 @@ class UnivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+
+        # calculate and return the pdf array:
+        return norm.pdf(X, self.mu_, self.var_)
 
     @staticmethod
     def log_likelihood(mu: float, sigma: float, X: np.ndarray) -> float:
@@ -97,7 +103,9 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+
+        # because of the log, the product becomes sum.
+        return np.log(norm.pdf(X, mu, sigma)).sum()
 
 
 class MultivariateGaussian:
@@ -143,8 +151,9 @@ class MultivariateGaussian:
         Sets `self.mu_`, `self.cov_` attributes according to calculated estimation.
         Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
 
+        self.mu_ = np.mean(X) # todo check
+        self.cov_ = np.cov(X)
         self.fitted_ = True
         return self
 
@@ -168,7 +177,9 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+
+        # calculate and return the pdf array:
+        return multivariate_normal.pdf(X, mean=self.mu_, cov=self.cov_)
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -189,4 +200,5 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        raise NotImplementedError()
+        # todo ok?
+        return multivariate_normal.logpdf(X, mu, cov).sum()
