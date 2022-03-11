@@ -5,14 +5,13 @@ dependencies:
   - nb_conda_kernels
   - pandas
   - scipy
-  - plotly
+  - plotly 
   - psutil
   - nb_conda
   - requests
   - numpy
   - scikit-learn
   - python=3.7
-  - plotly-orca
   - statsmodels
   - pip
   - pip:
