@@ -51,32 +51,77 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
+        self.mu_ = UnivariateGaussian.calc_mu(X)
+        if self.biased_:
+            self.var_ = UnivariateGaussian.calc_unbiased_var(self.mu_, X)
+        else:
+            self.var_ = UnivariateGaussian.calc_biased_var(self.mu_, X)
 
         self.fitted_ = True
         return self
 
-    def pdf(self, X: np.ndarray) -> np.ndarray:
+    @staticmethod
+    def calc_mu(X: np.ndarray) -> float:
         """
-        Calculate PDF of observations under Gaussian model with fitted estimators
+        Calculate mean estimator of observations under Gaussian model
 
         Parameters
         ----------
         X: ndarray of shape (n_samples, )
-            Samples to calculate PDF for
+            Samples to calculate mean for
 
         Returns
         -------
-        pdfs: ndarray of shape (n_samples, )
-            Calculated values of given samples for PDF function of N(mu_, var_)
-
-        Raises
-        ------
-        ValueError: In case function was called prior fitting the model
+        mean: float
+           mean calculated
         """
-        if not self.fitted_:
-            raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+        if len(X) == 0:  # Don't divide by 0, if the array is empty return mean = 0
+            return 0
+        return X.sum() / len(X)
+
+    @staticmethod
+    def calc_biased_var(mu: float, X: np.ndarray) -> float:
+        """
+        Calculate variant estimator of observations under Gaussian model for biased estimator
+
+        Parameters
+        ----------
+        mu : float
+            Expectation of Gaussian
+        X: ndarray of shape (n_samples, )
+            Samples to calculate mean for
+
+        Returns
+        -------
+        mean: float
+           variant calculated
+        """
+        if len(X) == 0:  # Don't divide by 0, if the array is empty return var = 0
+            return 0
+        scalar = 1 / len(X)
+        return scalar * np.sum(np.power((X - mu), 2))
+
+    @staticmethod
+    def calc_unbiased_var(mu: float, X: np.ndarray) -> float:
+        """
+        Calculate variant estimator of observations under Gaussian model for unbiased estimator
+
+        Parameters
+        ----------
+        mu : float
+            Expectation of Gaussian
+        X: ndarray of shape (n_samples, )
+            Samples to calculate mean for
+
+        Returns
+        -------
+        mean: float
+           variant calculated
+        """
+        if len(X) <= 1:  # Don't divide by 0, if the array is empty or single sample return var = 0
+            return 0
+        scalar = 1 / (len(X) - 1)
+        return scalar * np.sum(np.power((X - mu), 2))
 
     @staticmethod
     def log_likelihood(mu: float, sigma: float, X: np.ndarray) -> float:
@@ -97,7 +142,8 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+        scalar = -1 / (2 * sigma)
+        return np.log(np.exp(scalar * np.sum(X - mu)))
 
 
 class MultivariateGaussian:
