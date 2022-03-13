@@ -60,6 +60,27 @@ class UnivariateGaussian:
         self.fitted_ = True
         return self
 
+    def pdf(self, X: np.ndarray) -> np.ndarray:
+        """
+        Calculate PDF of observations under Gaussian model with fitted estimators
+        Parameters
+        ----------
+        X: ndarray of shape (n_samples, )
+            Samples to calculate PDF for
+        Returns
+        -------
+        pdfs: ndarray of shape (n_samples, )
+            Calculated values of given samples for PDF function of N(mu_, var_)
+        Raises
+        ------
+        ValueError: In case function was called prior fitting the model
+        """
+        if not self.fitted_:
+            raise ValueError("Estimator must first be fitted before calling `pdf` function")
+        scalar1 = 1 / np.sqrt(2 * np.pi * self.var_)
+        scalar2 = -2 * np.power(self.var_)
+        return np.exp((np.power((X - self.mu_), 2)) / scalar2)
+
     @staticmethod
     def calc_mu(X: np.ndarray) -> float:
         """
