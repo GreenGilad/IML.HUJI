@@ -51,11 +51,11 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        self.mu_ = UnivariateGaussian.calc_mu(X)
+        self.mu_ = UnivariateGaussian._calc_mu(X)
         if self.biased_:
-            self.var_ = UnivariateGaussian.calc_unbiased_var(self.mu_, X)
+            self.var_ = UnivariateGaussian._calc_unbiased_var(self.mu_, X)
         else:
-            self.var_ = UnivariateGaussian.calc_biased_var(self.mu_, X)
+            self.var_ = UnivariateGaussian._calc_biased_var(self.mu_, X)
 
         self.fitted_ = True
         return self
@@ -82,7 +82,7 @@ class UnivariateGaussian:
         return np.exp((np.power((X - self.mu_), 2)) / scalar2)
 
     @staticmethod
-    def calc_mu(X: np.ndarray) -> float:
+    def _calc_mu(X: np.ndarray) -> float:
         """
         Calculate mean estimator of observations under Gaussian model
 
@@ -101,7 +101,7 @@ class UnivariateGaussian:
         return X.sum() / len(X)
 
     @staticmethod
-    def calc_biased_var(mu: float, X: np.ndarray) -> float:
+    def _calc_biased_var(mu: float, X: np.ndarray) -> float:
         """
         Calculate variant estimator of observations under Gaussian model for biased estimator
 
@@ -123,7 +123,7 @@ class UnivariateGaussian:
         return scalar * np.sum(np.power((X - mu), 2))
 
     @staticmethod
-    def calc_unbiased_var(mu: float, X: np.ndarray) -> float:
+    def _calc_unbiased_var(mu: float, X: np.ndarray) -> float:
         """
         Calculate variant estimator of observations under Gaussian model for unbiased estimator
 
