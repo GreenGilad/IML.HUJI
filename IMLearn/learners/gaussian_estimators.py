@@ -1,6 +1,8 @@
 from __future__ import annotations
 import numpy as np
+from matplotlib import rcParams
 from numpy.linalg import inv, det, slogdet
+
 
 
 class UnivariateGaussian:
@@ -51,8 +53,9 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
-
+        # raise NotImplementedError()
+        self.mu_ = np.mean(X)
+        self.var_ = np.var(X)  # todo where does bias play out
         self.fitted_ = True
         return self
 
@@ -76,7 +79,9 @@ class UnivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+        # raise NotImplementedError()
+
+        return (1 / np.sqrt(2 * np.pi * self.var_**2)) * np.exp(-(X - self.mu_)**2 / (2 * self.var_**2))
 
     @staticmethod
     def log_likelihood(mu: float, sigma: float, X: np.ndarray) -> float:
@@ -97,8 +102,49 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+        # raise NotImplementedError()
+        # todo
+        applied_pdf = (1 / np.sqrt(2 * np.pi * sigma**2)) * np.exp(-(X - mu)**2 / (2 * sigma**2))
+        return np.log(applied_pdf)
 
+
+def practical_3_1():
+    # 1000 samples taken from ~ N(10, 1)
+    X = np.random.normal(10, 1, 1000)
+    univariate_gaussian = UnivariateGaussian()
+    univariate_gaussian.fit(X)
+    print("Expectation: " + str(univariate_gaussian.mu_) + ", Variance: " + str(univariate_gaussian.var_))
+
+def practical_3_2():
+    mu = 10
+    univariate_gaussian = UnivariateGaussian()
+    absolute_distance = []
+    for sample_size in range(10, 1010, 10):
+        X = np.random.normal(mu, 1, sample_size)
+        univariate_gaussian.fit(X)
+        absolute_distance.append(np.abs(univariate_gaussian.mu_ - mu))
+
+    import plotly.express as px
+    fig = px.line(x=range(10, 1010, 10),
+                  y=np.asarray(absolute_distance),
+                  labels={"x": "Sample Size", "y": "Distance of Estimated Expectation from True Value"},
+                  title='Distance between the estimated and true value of the Expectation',)
+    fig.show()
+
+
+def practical_3_3():
+    X = sorted(np.random.normal(10, 1, 1000))
+    univariate_gaussian = UnivariateGaussian()
+    univariate_gaussian.fit(X)
+    import matplotlib.pyplot as plt
+    plt.scatter(x=X, y=univariate_gaussian.pdf(X), s=rcParams['lines.markersize'] ** 2 / 10)
+    mu, sigma = univariate_gaussian.mu_, univariate_gaussian.var_
+    x = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 100)
+    plt.plot(x, (1 / np.sqrt(2 * np.pi * sigma**2)) * np.exp(-(x - mu)**2 / (2 * sigma**2)), 'r-')
+    plt.show()
+    print("hello")
+
+practical_3_3()
 
 class MultivariateGaussian:
     """
