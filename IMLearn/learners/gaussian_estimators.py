@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+import math
+
 import numpy as np
 from numpy.linalg import inv, det, slogdet
 
@@ -13,7 +16,7 @@ class UnivariateGaussian:
 
         Parameters
         ----------
-        biased_var : bool, default=True
+        biased_var : bool, default=False
             Should fitted estimator of variance be a biased or unbiased estimator
 
         Attributes
@@ -51,8 +54,9 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
-
+        # raise NotImplementedError()
+        self.mu_ = np.mean(X)
+        self.var_ = X.var(ddof=1) if not self.biased_ else X.var() # default unbiased
         self.fitted_ = True
         return self
 
@@ -76,7 +80,15 @@ class UnivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+        resArr = np.ndarray(X.size,)
+        i = 0
+        for sample in X:
+            powerToTheVar = self.var_**2
+            divFactor = 1 / (math.sqrt(2*math.pi*powerToTheVar))
+            exp = math.exp((-(sample-self.mu_)**2)/(2*powerToTheVar))
+            resArr[i] = divFactor*exp
+            i+=1
+        return resArr
 
     @staticmethod
     def log_likelihood(mu: float, sigma: float, X: np.ndarray) -> float:
@@ -97,7 +109,15 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+        sum = 0
+        # calculate sum of (xi - mu )**2:
+        for sample in X:
+            sum += (sample - mu)**2
+        multFactor = 1 / (2 * sigma)
+        logOfAddfactor = X.size * math.log((1 / (math.sqrt(2*math.pi*sigma)))
+                                           , math.e)
+        return logOfAddfactor - multFactor*sum
+
 
 
 class MultivariateGaussian:
@@ -143,8 +163,8 @@ class MultivariateGaussian:
         Sets `self.mu_`, `self.cov_` attributes according to calculated estimation.
         Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
-
+        self.mu_ = X.mean(axis=0)
+        self.cov_ = np.cov(X.T)
         self.fitted_ = True
         return self
 
@@ -168,7 +188,20 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+        pdfs = np.ndarray((X.size//X[0].size)) # initialize output array
+        sizeOfSingleSample = X.shape[1]
+        detCov = np.linalg.det(self.cov_)
+        inverseCov = np.linalg.inv(self.cov_)
+
+        multFactor =  1 / (math.sqrt((2*math.pi)**(sizeOfSingleSample)*detCov))
+        i = 0
+        for singleSample in X:
+            xMinusMu = singleSample - self.mu_
+            xMinusMuTranspose = xMinusMu.reshape(xMinusMu.shape + (1,))
+            exp = math.exp(-0.5*(xMinusMu @ inverseCov @ xMinusMuTranspose))
+            pdfs[i] = multFactor * exp
+            i += 1
+        return pdfs
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -189,4 +222,37 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+        # each row in the X array represents a single sample.
+
+        # cov_inverse = np.linalg.inv(cov)
+        # cov_det = np.linalg.det(cov)
+        # e_power = 0
+        # pi_d = (2 * math.pi) ** X.shape[1]
+        # for x in X:
+        #     x_mu = x - mu
+        #     mat_multiply = x_mu @ cov_inverse @ (x_mu.reshape(x_mu.shape + (1,)))
+        #     e_power += -0.5 * mat_multiply
+        #
+        # return X.shape[0] * math.log(1 / math.sqrt(pi_d * cov_det)) + e_power[0]
+
+
+
+        numberOfSamples = X.shape[0]
+        sizeOfSingleSample = X.shape[1]
+        detCov = np.linalg.det(cov)
+        inverseCov = np.linalg.inv(cov)
+        # logArg = numberOfSamples * math.log( 1 /
+        #                                      (math.sqrt
+        #                                       ((2*math.pi)**sizeOfSingleSample
+        #                                        *(detCov))),math.e)
+        twoTimesPi = (2 * math.pi) ** sizeOfSingleSample
+        logArg = numberOfSamples * math.log(1 /
+                                            (math.sqrt
+                                             (twoTimesPi * (detCov))), math.e)
+        sum = 0
+        for i in range (numberOfSamples):
+            xMinusMu = X[i] - mu
+            xMinusMuTranspose = xMinusMu.reshape(xMinusMu.shape+(1,))
+            sum += xMinusMu @ inverseCov @ xMinusMuTranspose
+        sum *= -0.5
+        return logArg + sum[0]
