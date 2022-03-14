@@ -14,6 +14,7 @@ def test_univariate_gaussian():
     g = UnivariateGaussian()
     g.fit(samples)
     print("(" + str(g.mu_) + "," + str(g.var_) + ")")
+    print("PDF:" + str(g.pdf(samples)))
 
     # Question 2 - Empirically showing sample mean is consistent
     data_q2 = np.empty((2, 100))  # Data array for plot Q2
