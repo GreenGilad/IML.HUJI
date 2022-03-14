@@ -157,7 +157,7 @@ class MultivariateGaussian:
         Then sets `self.fitted_` attribute to `True`
         """
         self.mu_ = np.mean(X, axis=0)
-        self.cov_ = np.cov(X.T)
+        self.cov_ = np.cov(X, rowvar=0)
         self.fitted_ = True
         return self
 
@@ -181,17 +181,18 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-
-        X = X.reshape(-1, 1)
-        mu = self.mu_.reshape(-1, 1)
-        var = self.cov_
-        dim = var.shape[0]
-
-        # Compute values
-        var_inv = np.linalg.inv(self.cov_)
-        denominator = np.sqrt((2 * np.pi) ** dim * np.linalg.det(var))
-        exponent = -(1 / 2) * ((X - mu).T @ var_inv @ (X - mu))
-        return float((1. / denominator) * np.exp(exponent))
+        # extract dimenssions
+        dim = X.shape[0]
+        d = X.shape[1]
+        # same scalar for all samples
+        denominator = 1 / (np.sqrt((2 * np.pi) ** d * np.linalg.det(self.cov_)))
+        # calc the exponent val for each sample
+        pdfs_res = np.ndarray(shape=(X.shape[0],))
+        for i in range(dim):
+            diffs = X[i] - self.mu_
+            exponent = -0.5 * (diffs @ np.linalg.inv(self.cov_) @ diffs.reshape(diffs.shape + (1,)))
+            pdfs_res[i] = denominator * np.exp(exponent)
+        return pdfs_res
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -217,9 +218,7 @@ class MultivariateGaussian:
         res = 0
         for i in range(dim):
             diffs = X[i] - mu
-            res += diffs @ np.linalg.inv(cov) @ diffs.reshape(diffs.shape+(1,))
+            res += diffs @ np.linalg.inv(cov) @ diffs.reshape(diffs.shape + (1,))
         denominator = 1 / (np.sqrt((2 * np.pi) ** d * np.linalg.det(cov)))
-        log_like = dim * math.log(denominator, np.e) -0.5*res[0, 0]
+        log_like = dim * math.log(denominator, np.e) - 0.5 * res[0, 0]
         return log_like
-
-

@@ -8,19 +8,6 @@ import plotly.express as px
 pio.templates.default = "simple_white"
 
 
-def plot_pdfs(normal_samples, pdfs):
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(x=normal_samples, y=pdfs, mode='markers',
-                             marker=dict(color="Blue"),
-                             legendgroup="female", name="female"))
-
-    fig.update_xaxes(title_text="Samples values")
-    fig.update_yaxes(title_text="PDFs values")
-    fig.update_layout(
-        title="PDFs for given samples")
-    fig.show()
-
-
 def test_univariate_gaussian():
     # Question 1 - Draw samples and print fitted model
     uni = UnivariateGaussian()
@@ -35,11 +22,7 @@ def test_univariate_gaussian():
     # Question 3 - Plotting Empirical PDF of fitted model
     uni.fit(normal_univariate_samples)
     pdf_res = uni.pdf(normal_univariate_samples)
-    print(pdf_res)
     plot_pdfs(normal_univariate_samples, pdf_res)
-
-    # try 4 // TODO : delete
-    print(uni.log_likelihood(10, 1, normal_univariate_samples))
 
 
 def test_multivariate_gaussian():
@@ -59,28 +42,50 @@ def test_multivariate_gaussian():
     print(multi.cov_)
 
     # Question 5 - Likelihood evaluation
-    f1 = np.linspace(-10, 10, 200)
-    f3 = np.linspace(-10, 10, 200)
-    inner_log = []
+    vals = np.linspace(-10, 10, 200)
     outer_log = []
-    #for i in range(0, 200):
-    #  print(i)
+    max_f1 = None
+    max_f3 = None
+    max_log_likelihood = None
 
-    print(MultivariateGaussian.log_likelihood(mu2, var2, normal_multivariate_samples))
-
-
-
-    # for j in range(200):
-    #         tempt_mu = np.array([f1[j], 0, f3[j], 0])
-    #         log_likelihood = multi.log_likelihood(tempt_mu, var2, normal_multivariate_samples)
-    #         inner_log.append(log_likelihood)
-    #     #outer_log.append(inner_log)
-    # fig = go.Figure(data=go.Heatmap(x=f1, y=f3, z=outer_log))
-    # fig.show()
-
+    for i in range(0, 200):
+        inner_log = []
+        for j in range(200):
+            tempt_mu = np.array([vals[i], 0, vals[j], 0])
+            log_likelihood = MultivariateGaussian.\
+                log_likelihood(tempt_mu, var2, normal_multivariate_samples)
+            inner_log.append(log_likelihood)
+            # get the maximal log-likelihood
+            if (max_log_likelihood is None) or (max_log_likelihood < log_likelihood):
+                max_log_likelihood = log_likelihood
+                max_f1 = vals[i]
+                max_f3 = vals[j]
+        outer_log.append(inner_log)
+    fig = go.Figure(data=go.Heatmap(x=vals, y=vals, z=outer_log))
+    fig.update_layout(
+        title="Log-likelihood of different expectation values",
+        xaxis_title="f3 values",
+        yaxis_title="f1 values")
+    fig.show()
 
     # Question 6 - Maximum likelihood
+    print("maximal log-likelihood:")
+    print(max_log_likelihood)
+    print("Maximizer f1 and f3:")
+    print(tuple([max_f1, max_f3]))
 
+
+def plot_pdfs(normal_samples, pdfs):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=normal_samples, y=pdfs, mode='markers',
+                             marker=dict(color="Blue"),
+                             legendgroup="female", name="female"))
+
+    fig.update_xaxes(title_text="Samples values")
+    fig.update_yaxes(title_text="PDFs values")
+    fig.update_layout(
+        title="PDFs for given samples")
+    fig.show()
 
 
 def plot_distances(mu, samples):
@@ -108,5 +113,6 @@ def plot_distances(mu, samples):
 
 if __name__ == '__main__':
     np.random.seed(0)
-    #test_univariate_gaussian()
+    test_univariate_gaussian()
     test_multivariate_gaussian()
+
