@@ -13,8 +13,7 @@ def test_univariate_gaussian():
     samples = np.random.normal(mu, sigma, 1000)
     g = UnivariateGaussian()
     g.fit(samples)
-    print("(" + str(g.mu_) + "," + str(g.var_) + ")")
-    print("PDF:" + str(g.pdf(samples)))
+    print("(" + str(g.mu_) + ", " + str(g.var_) + ")")
 
     # Question 2 - Empirically showing sample mean is consistent
     data_q2 = np.empty((2, 100))  # Data array for plot Q2
@@ -43,16 +42,28 @@ def test_univariate_gaussian():
     plt.savefig('part1_q2.png')  # Save the plot for insta story
     plt.show()
 
-    # fig = px.line(data_q2, x="sample_size", y="abs_diff", title=q2_title)
-    # fig.show()
-
     # Question 3 - Plotting Empirical PDF of fitted model
-    # raise NotImplementedError()
+    data_q3 = {
+        "samples": samples,
+        "pdf": g.pdf(samples)
+    }
+    plt.xlabel('Sample Value')
+    plt.ylabel('PDF Value')
+    q3_title = "Scatterplot of PDF Value Vs. Sample Value"
+    plt.title(q3_title)
+    plt.scatter(data_q3["samples"], data_q3["pdf"], label="Scatter")
+    plt.legend(loc="upper right")
+    plt.tight_layout()
+    plt.savefig('part1_q3.png')  # Save the plot for insta story
+    plt.show()
 
 
 def test_multivariate_gaussian():
     # Question 4 - Draw samples and print fitted model
-    raise NotImplementedError()
+    # mean and covariance
+    mu = [0, 0, 4, 0]
+    cov = [[1, 0.2, 0, 0.5], [0.2, 2, 0, 0], [0, 0, 1, 0], [0.5, 0, 0, 1]]
+    samples = np.random.multivariate_normal(mu, cov, 1000)
 
     # Question 5 - Likelihood evaluation
     raise NotImplementedError()
