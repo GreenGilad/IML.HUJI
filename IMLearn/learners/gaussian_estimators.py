@@ -55,13 +55,11 @@ class UnivariateGaussian:
 
         # estimate the expected value and standard deviation of the samples
         # than set the instance parameters accordingly:
-        self.mu_ = np.mean(X)  # todo make sure
-        self.var_ = np.std(X) ** 2
+        self.mu_ = np.mean(X)
 
-        if self.biased_:
-            self.var_ = (self.var_ * (X.shape[0] - 1)) / X.shape[0] # todo oposite
-
-        # self.var_ = (1/m or m-1) * ((X-mu)**2).sum()
+        self.var_ = ((X - self.mu_) ** 2).sum()
+        self.var_ = self.var_ * (1 / X.shape[0]) if self.biased_ else \
+            self.var_ * (1 / (X.shape[0] - 1))
 
         self.fitted_ = True
         return self
@@ -116,8 +114,6 @@ class UnivariateGaussian:
         return np.log((1 / np.sqrt(2 * np.pi * sigma)) * np.exp(
             -0.5 * ((X - mu) / np.sqrt(sigma)) ** 2)).sum()
 
-        # return (-0.5 * sigma) * ((X - mu) ** 2).sum() - (X.shape[0] / 2) * np.log(2 * np.pi * sigma)
-
 
 class MultivariateGaussian:
     """
@@ -164,8 +160,9 @@ class MultivariateGaussian:
         Then sets `self.fitted_` attribute to `True`
         """
 
-        self.mu_ = np.mean(X, axis=0)  # todo check bias
-        self.cov_ = (1 / (X.shape[0] - 1)) * np.dot((X - self.mu_).T, (X - self.mu_))
+        self.mu_ = np.mean(X, axis=0)
+        self.cov_ = \
+            (1 / (X.shape[0] - 1)) * np.dot((X - self.mu_).T, (X - self.mu_))
         self.fitted_ = True
         return self
 
@@ -194,8 +191,8 @@ class MultivariateGaussian:
         # calculate and return the pdf array:
 
         return (1 / np.sqrt(((2 * np.pi) ** X.shape[1]) * np.linalg.det(
-                self.cov_))) * np.exp(-0.5 * (
-                    (X - self.mu_) * np.matrix(self.cov_.I) * (X - self.mu_).T))
+            self.cov_))) * np.exp(-0.5 * (
+                (X - self.mu_) * np.matrix(self.cov_.I) * (X - self.mu_).T))
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray,
@@ -217,12 +214,7 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        # todo ok?
-
-        # return np.log((1 / np.sqrt(((2 * np.pi) ** X.shape[1]) * np.linalg.det(
-        #     cov))) * np.exp(-0.5 * ((X - mu) * np.matrix(cov).I * (X - mu).T))).sum()
-
-        # return -np.log((np.sqrt(((2 * np.pi) ** X.shape[1]) * np.linalg.det(cov)))) * (X.shape[0] / 2) + (-0.5 * ((X - mu) * np.matrix(cov).I * (X - mu).T)).sum()
-        return (-0.5) * (np.log((np.sqrt(((2 * np.pi) ** X.shape[1]) * np.linalg.det(cov)))) * (X.shape[0]) + (np.dot((X - mu), inv(cov)) * (X - mu)).sum())
-
-        # return multivariate_normal.logpdf(X, mu, cov).sum()
+        return (-0.5) * (
+                np.log((np.sqrt(((2 * np.pi) ** X.shape[1]) *
+                                np.linalg.det(cov)))) * (X.shape[0]) + (
+                        np.dot((X - mu), inv(cov)) * (X - mu)).sum())
