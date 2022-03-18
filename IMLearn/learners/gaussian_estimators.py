@@ -51,8 +51,19 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
-
+        my_sum = 0
+        my_sum_squared = 0
+        count = 0
+        for v in X:
+            my_sum += v
+            my_sum_squared += v * v
+            count += 1
+        if not self.biased_:
+            self.mu_ = my_sum / count
+            self.var_ = (my_sum_squared / count) - pow(self.mu_, 2)
+        else:
+            self.mu_ = my_sum / (count - 1)
+            self.var_ = (my_sum_squared / (count - 1)) - pow(self.mu_, 2)
         self.fitted_ = True
         return self
 
@@ -76,7 +87,15 @@ class UnivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+
+        count = 0
+        ndarr = np.zeros(X.size)
+        for i in X:
+            ndarr[count] = (1 / np.sqrt(2 * np.pi * self.var_)
+                            ) * np.power(np.e, -np.power(i - self.mu_, 2
+                                                         ) / self.var_ * 2)
+            count += 1
+        return ndarr
 
     @staticmethod
     def log_likelihood(mu: float, sigma: float, X: np.ndarray) -> float:
@@ -97,7 +116,9 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+        times = (-1 / (2 * sigma ** 2)) * np.sum(np.power(np.subtract(X, mu), 2))
+        coef = 1 / ((2 * np.pi * sigma ** 2) ** (np.shape(X)[0] / 2))
+        return np.log(coef) + times
 
 
 class MultivariateGaussian:
@@ -143,8 +164,24 @@ class MultivariateGaussian:
         Sets `self.mu_`, `self.cov_` attributes according to calculated estimation.
         Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
+        count, sigma = 0, 0
+        row, col = np.shape(X)
+        covMat = np.ndarray((col, col))
+        self.mu_ = np.ndarray(col, )
 
+        for i in np.transpose(X):
+            sigma = np.sum(i)
+            self.mu_[count] = sigma / row
+            count += 1
+
+        for i in range(0, col):
+            for j in range(0, col):
+                sijma = 0
+                for k in range(0, row):
+                    sijma += (X[k][i] - self.mu_[i]) * (X[k][j] - self.mu_[j])
+                covMat[i][j] = sijma / (row - 1)
+
+        self.cov_ = covMat
         self.fitted_ = True
         return self
 
@@ -168,7 +205,20 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+
+        covDet = np.abs(np.linalg.det(self.cov_))
+        row, col = np.shape(X)
+        coef = 1 / np.sqrt(np.power(2 * np.pi, col)*covDet)
+        ansArr = np.ndarray(row)
+        count = 0
+        for i in X:
+            vec = i - self.mu_
+            val = np.dot(np.dot(vec, np.invert(covDet)), np.transpose(vec))
+            val = np.exp(-0.5 * val) * coef
+            ansArr[count] = val
+            count += 1
+
+        return ansArr
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -189,4 +239,20 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        raise NotImplementedError()
+        covDet = np.linalg.det(cov)
+        row, col = np.shape(X)
+        # coef = 1 / np.sqrt(np.power(2 * np.pi, col) * covDet)
+        ansArr = np.ndarray(row)
+        count = 0
+        ans = 0
+        invMat = np.linalg.inv(cov)
+        for i in X:
+            pdf_vec = np.subtract(i, mu)
+            val = np.dot(np.dot(pdf_vec, invMat), pdf_vec)
+            ansArr[count] = val
+            count += 1
+
+        for i in ansArr:
+            ans += i
+        ans *= -0.5
+        return ans
