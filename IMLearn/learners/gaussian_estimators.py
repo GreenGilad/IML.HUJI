@@ -253,16 +253,16 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        from scipy.stats import multivariate_normal
-        var = multivariate_normal(self.mu_, self.cov_)
-        real_pdf = var.pdf(X)
+        # from scipy.stats import multivariate_normal
+        # var = multivariate_normal(self.mu_, self.cov_)
+        # real_pdf = var.pdf(X)
 
-        m = X - self.mu_
-        scalar = 1 / (np.sqrt(np.power(2 * np.pi, len(self.mu_)) * np.linalg.det(self.cov_)))
-        pdf = np.zeros(len(X))
-        for i in range(len(pdf)):
-            pdf[i] = scalar * np.exp((-1 / 2) * (m[i].T @ np.linalg.inv(self.cov_) @ m[i]))
-        return pdf
+        # m = X - self.mu_
+        # scalar = 1 / (np.sqrt(np.power(2 * np.pi, len(self.mu_)) * np.linalg.det(self.cov_)))
+        # pdf = np.zeros(len(X))
+        # for i in range(len(pdf)):
+        #     pdf[i] = scalar * np.exp((-1 / 2) * (m[i].T @ np.linalg.inv(self.cov_) @ m[i]))
+        return MultivariateGaussian._calc_pdf(self.mu_, self.cov_, X)
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -283,7 +283,7 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        raise NotImplementedError()
+        return np.sum(np.log(MultivariateGaussian._calc_pdf(mu, cov, X)))
 
     @staticmethod
     def _calc_mu(X: np.ndarray) -> np.ndarray:
@@ -292,8 +292,8 @@ class MultivariateGaussian:
 
         Parameters
         ----------
-        X: ndarray of shape (n_samples, )
-            Samples to calculate mean for
+        X: ndarray of shape (n_samples, n_features)
+            Training data
 
         Returns
         -------
@@ -305,28 +305,6 @@ class MultivariateGaussian:
         return np.mean(X, axis=0)
 
     @staticmethod
-    def _calc_biased_cov(mu: np.ndarray, X: np.ndarray) -> np.ndarray:
-        """
-        Calculate covariance multivariate estimator of observations under Gaussian model for biased estimator
-
-        Parameters
-        ----------
-        mu : ndarray of shape (n_features,)
-            Expectation of Gaussian
-        X: ndarray of shape (n_samples, )
-            Samples to calculate mean for
-
-        Returns
-        -------
-        covariance: ndarray of shape (n_features,)
-           covariance calculated
-        """
-        if len(X) == 0:  # Don't divide by 0, if the array is empty return var = 0
-            raise ValueError("Non valid samples were given to fit function, samples size must be > 1")
-        scalar = 1 / len(X)
-        return scalar * np.sum(np.dot((X - mu), np.transpose(X - mu)), 1)
-
-    @staticmethod
     def _calc_unbiased_cov(mu: np.ndarray, X: np.ndarray) -> np.ndarray:
         """
         Calculate covariance multivariate estimator of observations under Gaussian model for unbiased estimator
@@ -335,8 +313,8 @@ class MultivariateGaussian:
         ----------
         mu : ndarray of shape (n_features,)
             Expectation of Gaussian
-        X: ndarray of shape (n_samples, )
-            Samples to calculate mean for
+        X: ndarray of shape (n_samples, n_features)
+            Training data
 
         Returns
         -------
@@ -346,15 +324,39 @@ class MultivariateGaussian:
         if len(X) <= 1:  # Don't divide by 0, if the array is empty or single sample return var = 0
             raise ValueError("Non valid samples were given to fit function, samples size must be > 1")
         scalar = 1 / (len(X) - 1)
-        samples = X
+        m = X - mu
         try:
-            cov = scalar * np.dot(np.transpose(samples - mu), (samples - mu))
+            cov2 = np.cov(X.T)  # Reminder: come back here and decide which implementation to choose
+            cov = scalar * m.T @ m
         except:
-            samples = X.T
             try:
-                cov = scalar * np.dot(np.transpose(samples - mu), (samples - mu))
+                cov = scalar * m @ m.T
             except:
                 raise ValueError("Non valid samples were given to pdf")
         return cov
+
+    @staticmethod
+    def _calc_pdf(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> np.ndarray:
+        """
+        Calculate PDF of observations under Gaussian model if random variable X~N(mu, var)
+        Parameters
+        ----------
+        mu : ndarray of shape (n_features,)
+            Expectation of Gaussian
+        cov : ndarray of shape (n_features, n_features)
+            covariance matrix of Gaussian
+        X: ndarray of shape (n_samples, n_features)
+            Training data
+        Returns
+        -------
+        pdfs: ndarray of shape (n_samples, )
+            Calculated values of given samples for PDF function of N(mu_, var_)
+        """
+        m = X - mu
+        scalar = 1 / (np.sqrt(np.power(2 * np.pi, len(mu)) * np.linalg.det(cov)))
+        pdf = np.zeros(len(X))
+        for i in range(len(pdf)):
+            pdf[i] = scalar * np.exp((-1 / 2) * (m[i].T @ np.linalg.inv(cov) @ m[i]))
+        return pdf
 
 
