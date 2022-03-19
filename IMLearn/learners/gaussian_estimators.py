@@ -103,7 +103,7 @@ class UnivariateGaussian:
             log-likelihood calculated
         """
         m = X.shape[0]
-        return np.log((1/pow((2*np.pi*sigma), m/2))*np.exp((-1/(2*sigma))*(X - mu).sum()**2))
+        return -(1/2*sigma)*(((X-mu)**2).sum()) - (m/2)*np.log(2*np.pi*sigma)
 
 
 class MultivariateGaussian:
@@ -151,11 +151,10 @@ class MultivariateGaussian:
         """
         m, d = X.shape
         self.mu_ = X.sum(0)/m
-        dist = X-np.repeat(self.mu_.reshape(1, -1), m, 0)
+        dist = (X-np.expand_dims(self.mu_, -2)).squeeze()
         # dist[i][j] = X[i][j]-mu[j] distance from estimated mu by feature
 
-        Y = np.repeat(dist.reshape(m,d,1), d, 2)
-        self.cov_ = (Y*Y.swapaxes(1,2)).sum(0)/(1/m-1) if m>1 else np.zeros((d,d))
+        self.cov_ = (dist.T @ dist)/m-1 if m>1 else np.zeros((d,d))
 
         self.fitted_ = True
         return self
