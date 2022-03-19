@@ -1,4 +1,8 @@
 from __future__ import annotations
+
+import math
+
+import numpy
 import numpy as np
 from numpy.linalg import inv, det, slogdet
 
@@ -51,7 +55,16 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
+        self.mu_ = np.mean(X)
+
+
+        # Now calculate the expected variance based on whether the sample is biased or not
+        the_divisor = X.size if self.biased_ == True else X.size - 1
+        val_minus_mu_squared = lambda t: (t - self.mu_)**2
+        sum_of_values_minus_mu_squared = 0
+        for val in X:
+            sum_of_values_minus_mu_squared += val_minus_mu_squared(val)
+        self.var_ = (1/the_divisor)*sum_of_values_minus_mu_squared
 
         self.fitted_ = True
         return self
@@ -76,7 +89,13 @@ class UnivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+
+        calc_pdf = lambda t:\
+            (1/math.sqrt(2*math.pi*self.var_))*math.pow(math.e, (-1/2*self.var_)*((t - self.mu_)**2))
+
+        # Apply the lambda function over all the sample values
+        map_pdf = np.vectorize(calc_pdf)
+        return map_pdf(X)
 
     @staticmethod
     def log_likelihood(mu: float, sigma: float, X: np.ndarray) -> float:
@@ -97,7 +116,12 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+        sum_of_vars_minus_mu_squared = 0
+        for var in X:
+            sum_of_vars_minus_mu_squared += (var-mu)**2
+
+        return math.log((1/((2*math.pi*(sigma))**(X.size/2)))\
+               *math.pow(math.e,(-1/(2*(sigma)))*sum_of_vars_minus_mu_squared))
 
 
 class MultivariateGaussian:
@@ -143,7 +167,16 @@ class MultivariateGaussian:
         Sets `self.mu_`, `self.cov_` attributes according to calculated estimation.
         Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
+
+        # Calculating the expectation vector
+        self.mu_ = []
+        for i in range(X[0].size):
+            row_i = X[:, i]
+            self.mu_.append(np.mean(row_i))
+
+
+        # Calculating covariance matrix
+        self.cov_ = numpy.cov(X, rowvar=False)
 
         self.fitted_ = True
         return self
@@ -168,7 +201,15 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+
+        # Calculates the pdf for a multivariate sample vector
+        num_of_features = X[0].size
+        calc_pdf = lambda t: (1/math.sqrt(((2*math.pi)**num_of_features)*np.linalg.det(self.cov_)))\
+        *math.pow(math.e,(-1/2)*(numpy.matmul(numpy.matmul(numpy.transpose(t - self.mu_),
+                                                           numpy.linalg.inv(self.cov_)), t-self.mu_)))
+        # Map this function over input array
+        map_pdf = np.vectorize(calc_pdf)
+        return map_pdf(X)
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -189,4 +230,12 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        raise NotImplementedError()
+        n = X.size
+        d = X[0].size
+        helper_calculation = lambda t: np.matmul(np.matmul(np.transpose(t - mu), np.linalg.inv(cov)), t - mu)
+
+        the_sum = 0
+        for var in X:
+            the_sum += helper_calculation(var)
+
+        return (-n)*(d/2)*math.log(2*math.pi) - (n/2)*math.log(np.linalg.det(cov)) - (1/2)*the_sum
