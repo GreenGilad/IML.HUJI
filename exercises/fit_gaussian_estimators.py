@@ -64,15 +64,17 @@ def test_multivariate_gaussian():
     mu = [0, 0, 4, 0]
     cov = [[1, 0.2, 0, 0.5], [0.2, 2, 0, 0], [0, 0, 1, 0], [0.5, 0, 0, 1]]
     samples = np.random.multivariate_normal(mu, cov, 1000)
+    m = MultivariateGaussian()
+    m.fit(samples)
+    print("Estimated expectation: \n" + str(m.mu_))
+    print("Estimated covariance: \n" + str(m.cov_))
 
     # Question 5 - Likelihood evaluation
-    raise NotImplementedError()
-
+    pdf_returned = m.pdf(samples)
     # Question 6 - Maximum likelihood
-    raise NotImplementedError()
 
 
 if __name__ == '__main__':
     np.random.seed(0)
     test_univariate_gaussian()
-    # test_multivariate_gaussian()
+    test_multivariate_gaussian()
