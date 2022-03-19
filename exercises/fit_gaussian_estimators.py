@@ -9,16 +9,16 @@ import plotly.express as px
 pio.templates.default = "simple_white"
 
 
-def plot_pdf(X: np.ndarray, univariate_gaussian: UnivariateGaussian):
+def plot_univar_pdf(X: np.ndarray, uni_gauss: UnivariateGaussian):
     """
-    Plots the pdf
+    Plots the pfd function over a given input sample for a univariate_gaussian
     """
     fig = px.scatter(x=X,
-                     y=univariate_gaussian.pdf(X),
+                     y=uni_gauss.pdf(X),
                      labels={
                          'x': 'Sample Value',
                          'y': 'Calculated values of given samples for PDF function'},
-                     title=f"Calculated values of given samples for PDF function of N({univariate_gaussian.mu_}, {univariate_gaussian.var_})")
+                     title=f"Calculated values of given samples for PDF function of N({uni_gauss.mu_}, {uni_gauss.var_})")
     fig.show()
 
 
@@ -46,8 +46,12 @@ def find_distance(X: np.ndarray, true_expectation: float, dis_from_true_exp_list
     dis_from_true_exp_list.append(abs(true_expectation - univar_gaus.mu_))
 
 
-# This function should return the
+
 def get_max_val_and_indexes(results_matrix, f1_sample_values, f3_sample_values):
+    """
+    Returns the maximum value for a given input matrix and the indexes at which this
+    max value occurs.
+    """
     x = y = len(results_matrix)
     x_coord_of_max = 0
     y_coord_of_max = 0
@@ -61,6 +65,24 @@ def get_max_val_and_indexes(results_matrix, f1_sample_values, f3_sample_values):
     return (curr_max, f1_sample_values[x_coord_of_max], f3_sample_values[y_coord_of_max])
 
 
+def plot_heatmap_for_multivar_gauss(
+    data_array,
+    f1_values,
+    f3_values):
+    """
+    Plots the heatmap for the given multivar_gaussian and the given feature 1 and f3 value arrays
+    """
+    fig = px.imshow(data_array,
+                    title="Heatmap of log-likelihood for normal multivariate distribution",
+                    labels=dict(
+                        x="f1 values",
+                        y="f3 values",
+                        color="log-likelihood"),
+                    x=f1_values,
+                    y=f3_values)
+    fig.show()
+
+
 
 def calculate_log_likelihood_for_miltivariate(
         multivar_gaussian: MultivariateGaussian,
@@ -68,6 +90,9 @@ def calculate_log_likelihood_for_miltivariate(
         f1_values,
         f3_values,
         sample_data_array):
+    """
+    Calculates the log-likelihood function over 2 given arrays of features f1 and f3
+    """
     data_matrix = []
     for i in range(len(f1_values)):
         data_matrix_row = []
@@ -77,7 +102,7 @@ def calculate_log_likelihood_for_miltivariate(
                 cov_matrix,
                 sample_data_array))
         data_matrix.append(data_matrix_row)
-        print(f"done with row {i}")
+        print(f"done with row {i}") #TODO: Delete this
     return data_matrix
 
 
@@ -116,7 +141,7 @@ def test_univariate_gaussian():
     find_consistency_of_expectation(univariant_guassian, samples_array)
 
     # Question 3 - Plotting Empirical PDF of fitted model
-    plot_pdf(samples_array, univariant_guassian)
+    plot_univar_pdf(samples_array, univariant_guassian)
 
 
 def test_multivariate_gaussian():
@@ -127,10 +152,17 @@ def test_multivariate_gaussian():
     sigma = np.array([[1, 0.2, 0, 0.5], [0.2, 2, 0, 0], [0, 0, 1, 0], [0.5, 0, 0, 1]])
 
     samples_array = np.random.multivariate_normal(mu, sigma, size=1000)
+
+
     multivariant_gaussian = MultivariateGaussian()
     multivariant_gaussian.fit(samples_array)
 
+    # Printing the estimated expectation and covariance matrix
+    print(multivariant_gaussian.mu_)
+    print(multivariant_gaussian.cov_)
+
     # Question 5 - Likelihood evaluation
+    # Getting the required array of f1 values and f3 values
     f1_values = np.linspace(-10, 10, 200)
     f3_values = np.linspace(-10, 10, 200)
 
@@ -141,18 +173,11 @@ def test_multivariate_gaussian():
         f3_values,
         samples_array)
 
-    fig = px.imshow(data_array,
-                    title="Heatmap of log-likelihood for normal multivariate distribution",
-                    labels=dict(
-                        x="f1 values",
-                        y="f3 values",
-                        color="log-likelihood"),
-                    x=f1_values,
-                    y=f3_values)
-    fig.show()
+    plot_heatmap_for_multivar_gauss(data_array,f1_values,f3_values)
 
     # Question 6 - Maximum likelihood
     results = get_max_val_and_indexes(data_array, f1_values, f3_values)
+    # TODO: Get rid of this
     print(f"The max value is: {results[0]} for f3 value {results[1]} and f1 value {results[2]}")
 
 
