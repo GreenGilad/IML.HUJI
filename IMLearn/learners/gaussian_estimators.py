@@ -90,8 +90,7 @@ class UnivariateGaussian:
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
 
-        calc_pdf = lambda t:\
-            (1/math.sqrt(2*math.pi*self.var_))*math.pow(math.e, (-1/2*self.var_)*((t - self.mu_)**2))
+        calc_pdf = lambda t: (1/math.sqrt(2*math.pi*self.var_))*math.exp((-1/2*self.var_)*((t - self.mu_)**2))
 
         # Apply the lambda function over all the sample values
         map_pdf = np.vectorize(calc_pdf)
@@ -120,8 +119,7 @@ class UnivariateGaussian:
         for var in X:
             sum_of_vars_minus_mu_squared += (var-mu)**2
 
-        return math.log((1/((2*math.pi*(sigma))**(X.size/2)))\
-               *math.pow(math.e,(-1/(2*(sigma)))*sum_of_vars_minus_mu_squared))
+        return ((-X.size)/2)*math.log(2*math.pi*sigma)-(1/2)*sum_of_vars_minus_mu_squared
 
 
 class MultivariateGaussian:
@@ -168,15 +166,9 @@ class MultivariateGaussian:
         Then sets `self.fitted_` attribute to `True`
         """
 
-        # Calculating the expectation vector
-        self.mu_ = []
-        for i in range(X[0].size):
-            row_i = X[:, i]
-            self.mu_.append(np.mean(row_i))
-
-
-        # Calculating covariance matrix
-        self.cov_ = numpy.cov(X, rowvar=False)
+        # Calculating the expectation vector and covariance matrix
+        self.mu_ = np.mean(X,axis=0)
+        self.cov_ = np.cov(X, rowvar=False)
 
         self.fitted_ = True
         return self
@@ -204,9 +196,10 @@ class MultivariateGaussian:
 
         # Calculates the pdf for a multivariate sample vector
         num_of_features = X[0].size
-        calc_pdf = lambda t: (1/math.sqrt(((2*math.pi)**num_of_features)*np.linalg.det(self.cov_)))\
-        *math.pow(math.e,(-1/2)*(numpy.matmul(numpy.matmul(numpy.transpose(t - self.mu_),
-                                                           numpy.linalg.inv(self.cov_)), t-self.mu_)))
+        inverse_cov = np.linalg.inv(self.cov_)
+
+        first_part = (1/math.sqrt(((2*math.pi)**num_of_features)*np.linalg.det(self.cov_)))
+        calc_pdf = lambda t: first_part*math.exp((t-self.mu_) @ inverse_cov * (t-self.mu_))
         # Map this function over input array
         map_pdf = np.vectorize(calc_pdf)
         return map_pdf(X)

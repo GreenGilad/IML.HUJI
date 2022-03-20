@@ -18,7 +18,7 @@ def plot_univar_pdf(X: np.ndarray, uni_gauss: UnivariateGaussian):
                      labels={
                          'x': 'Sample Value',
                          'y': 'Calculated values of given samples for PDF function'},
-                     title=f"Calculated values of given samples for PDF function of N({uni_gauss.mu_}, {uni_gauss.var_})")
+                     title=f"Calculated values of given samples for PDF function")
     fig.show()
 
 
@@ -49,8 +49,8 @@ def find_distance(X: np.ndarray, true_expectation: float, dis_from_true_exp_list
 
 def get_max_val_and_indexes(results_matrix, f1_sample_values, f3_sample_values):
     """
-    Returns the maximum value for a given input matrix and the indexes at which this
-    max value occurs.
+    Returns the maximum value for a given input matrix and the values at the
+    indexes of f1,f3 samples at  which max value occurs.
     """
     x = y = len(results_matrix)
     x_coord_of_max = 0
@@ -70,7 +70,7 @@ def plot_heatmap_for_multivar_gauss(
     f1_values,
     f3_values):
     """
-    Plots the heatmap for the given multivar_gaussian and the given feature 1 and f3 value arrays
+    Plots the heatmap for the given multivar_gaussian and the given f1 and f3 value arrays
     """
     fig = px.imshow(data_array,
                     title="Heatmap of log-likelihood for normal multivariate distribution",
@@ -102,7 +102,6 @@ def calculate_log_likelihood_for_miltivariate(
                 cov_matrix,
                 sample_data_array))
         data_matrix.append(data_matrix_row)
-        print(f"done with row {i}") #TODO: Delete this
     return data_matrix
 
 
@@ -148,8 +147,8 @@ def test_multivariate_gaussian():
     # Question 4 - Draw samples and print fitted model
 
     # First we draw the samples for given expectation and variance
-    mu = np.array([0, 0, 4, 0])
-    sigma = np.array([[1, 0.2, 0, 0.5], [0.2, 2, 0, 0], [0, 0, 1, 0], [0.5, 0, 0, 1]])
+    mu = np.array([0,0,4,0]).transpose()
+    sigma = np.array([[1., 0.2, 0., 0.5],[0.2, 2., 0., 0.],[0., 0., 1., 0.],[0.5, 0., 0., 1.]])
 
     samples_array = np.random.multivariate_normal(mu, sigma, size=1000)
 
@@ -177,12 +176,9 @@ def test_multivariate_gaussian():
 
     # Question 6 - Maximum likelihood
     results = get_max_val_and_indexes(data_array, f1_values, f3_values)
-    # TODO: Get rid of this
-    print(f"The max value is: {results[0]} for f3 value {results[1]} and f1 value {results[2]}")
-
 
 if __name__ == '__main__':
     np.random.seed(0)
-    # test_univariate_gaussian()
+    test_univariate_gaussian()
     test_multivariate_gaussian()
 
