@@ -230,12 +230,9 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        n = X.size # The length of the list
-        d = X[0].size # the number of features
-        helper_calculation = lambda t: np.matmul(np.matmul(np.transpose(t - mu), np.linalg.inv(cov)), t - mu)
-
-        the_sum = 0
-        for var in X:
-            the_sum += helper_calculation(var)
+        n,d = X.shape
+        inverse_cov = np.linalg.inv(cov)
+        bar = X - np.full((n,d), mu)
+        the_sum = np.sum(bar @ inverse_cov * bar)
 
         return (-n)*(d/2)*math.log(2*math.pi) - (n/2)*math.log(np.linalg.det(cov)) - (1/2)*the_sum
