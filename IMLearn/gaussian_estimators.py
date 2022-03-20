@@ -160,10 +160,7 @@ class MultivariateGaussian:
         d = X.shape[1]  # dim of each feature
         DET = det(cov)  # determinant of cov
         constant = 1 / np.sqrt(np.power(2 * np.pi, d) * DET)
-        # todo check dims
-
-        exponent = np.exp(-0.5 * (X - mu) @ np.linalg.inv(cov) * (X - mu))
-        print(exponent.shape)
+        exponent = np.squeeze(np.exp(-0.5 * (X-mu)[..., None, :] @ inv(cov) @ (X-mu)[..., None]))
         return constant * exponent
 
     @staticmethod
@@ -183,7 +180,6 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        # todo
         m = X.shape[0]
         DET = det(cov)
 

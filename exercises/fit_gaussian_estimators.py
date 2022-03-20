@@ -28,7 +28,6 @@ def test_univariate_gaussian():
     fig.show()
 
     # Question 3 - Plotting Empirical PDF of fitted model
-    # todo axis and title
     univariate_gaussian = UnivariateGaussian()
     univariate_gaussian.fit(X)
     import matplotlib.pyplot as plt
@@ -37,7 +36,10 @@ def test_univariate_gaussian():
     mu, sigma = univariate_gaussian.mu_, univariate_gaussian.var_
     x = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 100)
     plt.plot(x, (1 / np.sqrt(2 * np.pi * sigma)) * np.exp(-(x - mu) ** 2 / (2 * sigma)), 'r-')
-    #  plt.legend() todo
+    plt.xlabel("Sample Values")
+    plt.ylabel("PDF of sample value")
+    plt.title("Empirical PDF under Fitted Model")
+    plt.legend(["PDF of sample", "Empirical PDF"])
     plt.show()
 
 
@@ -51,7 +53,6 @@ def test_multivariate_gaussian():
     X = np.random.multivariate_normal(MU, COV, 1000)
     multi = MultivariateGaussian()
     multi.fit(X)
-    print(multi.pdf(X))
     print("Expectation: " + str(multi.mu_) + "\n Variance: \n" + str(multi.cov_))
 
     # Question 5 - Likelihood evaluation
@@ -64,7 +65,9 @@ def test_multivariate_gaussian():
     fig = px.imshow(log_likelihood,
                     x=np.linspace(-10, 10, 200),
                     labels=dict(x="f3 value", y="f1 value", color="log likelihood"),
-                    y=np.linspace(-10, 10, 200))
+                    y=np.linspace(-10, 10, 200),
+                    title="Log-Likelihood using Different expectation vectors: [f1, 0, f3, 0]")
+
     fig.show()
 
     # Question 6 - Maximum likelihood
@@ -72,11 +75,10 @@ def test_multivariate_gaussian():
     f1 = np.linspace(-10, 10, 200)[max_idx[0]]
     f3 = np.linspace(-10, 10, 200)[max_idx[1]]
 
-    print(f'f1: {f1}, f3: {f3}')
+    print(f'f1: {f1[0]}, f3: {f3[0]}')
 
 
 if __name__ == '__main__':
     np.random.seed(0)
-    #test_univariate_gaussian()
+    test_univariate_gaussian()
     test_multivariate_gaussian()
-
