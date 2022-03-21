@@ -246,8 +246,6 @@ def targil_3_1_3():
                 title="PDFs values as an output of sample values for Univariate Gaussian with expectation 10, variance 1",
                 xaxis_title="Sample values",
                 yaxis_title="PDFs values")
-
-
     fig.show()
 
 
@@ -271,26 +269,26 @@ def targil_3_2_5():
                       [0.2, 2, 0, 0],
                       [0, 0, 1, 0],
                       [0.5, 0, 0, 1]])
-    data = np.random.multivariate_normal(np.array([0, 0, 4, 0]),
-                                         np.array([[1, 0.2, 0, 0.5],
-                                                   [0.2, 2, 0, 0],
-                                                   [0, 0, 1, 0],
-                                                   [0.5, 0, 0, 1]]),
-                                         1000)
-    results = [MultivariateGaussian.log_likelihood(np.array([i, 0, j, 0]).transpose(), sigma, data)
-               for i in f1 for j in f3]
-    results = np.array(results)
-    fig = px.imshow(results,
-                    labels=dict(x="f1", y="f3", color="Productivity"),
-                    x=range_f1,
-                    y=range_f3)
-    fig.update_xaxes(side="top")
-    fig.show()
+    # data = np.random.multivariate_normal(np.array([0, 0, 4, 0]),
+    #                                      np.array([[1, 0.2, 0, 0.5],
+    #                                                [0.2, 2, 0, 0],
+    #                                                [0, 0, 1, 0],
+    #                                                [0.5, 0, 0, 1]]),
+    #                                      1000)
+    # results = [MultivariateGaussian.log_likelihood(np.array([i, 0, j, 0]).transpose(), sigma, data)
+    #            for i in f1 for j in f3]
+    # results = np.array(results)
+    # fig = go.imshow(results,
+    #                 labels=dict(x="f1", y="f3", color="Productivity"),
+    #                 x=range_f1,
+    #                 y=range_f3)
+    # fig.update_xaxes(side="top")
+    # fig.show()
 
 
-targil_3_1_1()
-targil_3_1_2()
-targil_3_1_3()
-targil_3_2_4()
+# targil_3_1_1()
+# targil_3_1_2()
+# targil_3_1_3()
+# targil_3_2_4()
 #targil_3_2_5()
 print("finished!")

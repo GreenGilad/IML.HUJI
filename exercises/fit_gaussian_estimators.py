@@ -7,22 +7,63 @@ pio.templates.default = "simple_white"
 
 def test_univariate_gaussian():
     # Question 1 - Draw samples and print fitted model
-    raise NotImplementedError()
+    univariate_normal = UnivariateGaussian()
+    data = np.random.normal(10, 1, 1000)
+    univariate_normal.fit(data)
+    print("(" + str(univariate_normal.mu_) + "," + str(univariate_normal.var_) + ")")
 
     # Question 2 - Empirically showing sample mean is consistent
-    raise NotImplementedError()
+    sample_sizes = range(10, 1000, 10)
+    distances = []
+    for sample_size in sample_sizes:
+        data = np.random.normal(10, 1, sample_size)
+        univariate_normal.fit(data)
+        distances.append(univariate_normal.mu_ - 10)
+
+    fig = go.Figure(data=go.Scatter(x=np.array(range(10, 1000, 10)), y=distances))
+    fig.update_layout(title="Distance from estimated expectation to real expectation as an output of sample size"
+                            "for Univariate Gaussian with expectation 10, variance 1",
+                      xaxis_title="Sample size",
+                      yaxis_title="Distance from estimated expectation to real expectation")
+    fig.show()
 
     # Question 3 - Plotting Empirical PDF of fitted model
-    raise NotImplementedError()
+    univariate_normal.fit(data)
+    y = univariate_normal.pdf(data)
+    fig = go.Figure(go.Scatter(x=data, y=y,  mode='markers'))
+    fig.update_layout(
+                title="PDFs values as an output of sample values for Univariate Gaussian with expectation 10, variance 1",
+                xaxis_title="Sample values",
+                yaxis_title="PDFs values")
+    fig.show()
 
 
 def test_multivariate_gaussian():
     # Question 4 - Draw samples and print fitted model
-    raise NotImplementedError()
-
+    sigma = np.array([[1, 0.2, 0, 0.5],
+                      [0.2, 2, 0, 0],
+                      [0, 0, 1, 0],
+                      [0.5, 0, 0, 1]])
+    data = np.random.multivariate_normal(np.array([0, 0, 4, 0]),
+                                         sigma,
+                                         1000)
+    multivariate_normal = MultivariateGaussian()
+    multivariate_normal.fit(data)
+    print(multivariate_normal.mu_)
+    print(multivariate_normal.cov_)
     # Question 5 - Likelihood evaluation
-    raise NotImplementedError()
+    f1, f3 = np.linspace(-10, 10, 200), np.linspace(-10, 10, 200)
 
+    results = [MultivariateGaussian.log_likelihood(np.array([i, 0, j, 0]).transpose(), sigma, data)
+               for i in f1 for j in f3]
+
+    results = np.array(results)
+    fig1 = go.imshow(results,
+                    labels=dict(x="f1", y="f3", color="Productivity"),
+                    x=f1,
+                    y=f3)
+    fig1.update_xaxes(side="top")
+    fig1.show()
     # Question 6 - Maximum likelihood
     raise NotImplementedError()
 
