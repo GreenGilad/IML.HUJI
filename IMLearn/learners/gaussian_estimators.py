@@ -111,6 +111,7 @@ class MultivariateGaussian:
     """
     Class for multivariate Gaussian Distribution Estimator
     """
+
     def __init__(self):
         """
         Initialize an instance of multivariate Gaussian estimator
@@ -181,7 +182,7 @@ class MultivariateGaussian:
         X_centered = X - self.mu_
         return math.pow(np.linalg.det(self.cov_ * 2 * math.pi), -0.5) \
                * math.exp(-0.5 * (np.transpose(X_centered) * np.inv(self.cov_) *
-                                                       X_centered.transpose()))
+                                  X_centered.transpose()))
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -205,6 +206,6 @@ class MultivariateGaussian:
         X_centered = X - mu
         m = X.shape[0]
         d = X.shape[1]
-        return -m * d / 2 * math.log(2 * math.pi) - m / 2 * math.log(np.linalg.det(cov)) \
-               - 0.5 * (np.dot(np.dot(X_centered, inv(cov)), X_centered.transpose()))
-
+        return - m * d / 2 * np.log(2 * math.pi) \
+               - m / 2 * np.log(np.linalg.det(cov)) \
+               - 0.5 * np.sum((np.dot(np.dot(X_centered, inv(cov)), X_centered.transpose())))
