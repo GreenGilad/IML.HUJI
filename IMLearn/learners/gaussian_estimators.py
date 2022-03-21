@@ -180,9 +180,8 @@ class MultivariateGaussian:
         pdf_func = lambda x: math.exp(self.log_likelihood(self.mu_, self.cov_, X))
         X_centered = X - self.mu_
         return math.pow(np.linalg.det(self.cov_ * 2 * math.pi), -0.5) \
-               * math.exp(-0.5 * (np.linalg.multi_dot([X_centered.transpose(),
-                                                       np.linalg.inv(self.cov_),
-                                                       X_centered])))
+               * math.exp(-0.5 * (np.transpose(X_centered) * np.inv(self.cov_) *
+                                                       X_centered.transpose()))
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -207,88 +206,5 @@ class MultivariateGaussian:
         m = X.shape[0]
         d = X.shape[1]
         return -m * d / 2 * math.log(2 * math.pi) - m / 2 * math.log(np.linalg.det(cov)) \
-               - 0.5 * (np.linalg.multi_dot([X_centered.transpose(),
-                                             np.linalg.inv(cov),
-                                             X_centered]))
+               - 0.5 * (np.dot(np.dot(X_centered, inv(cov)), X_centered.transpose()))
 
-
-def targil_3_1_1():
-    univariate_normal = UnivariateGaussian()
-    data = np.random.normal(10, 1, 1000)
-    univariate_normal.fit(data)
-    print("(" + str(univariate_normal.mu_) + "," + str(univariate_normal.var_) + ")")
-
-
-def targil_3_1_2():
-    sample_sizes = range(10, 1000, 10)
-    distances = []
-    univariate_normal = UnivariateGaussian()
-    mu = 10
-    for sample_size in sample_sizes:
-        data = np.random.normal(mu, 1, sample_size)
-        univariate_normal.fit(data)
-        distances.append(univariate_normal.mu_ - mu)
-
-    fig = go.Figure(data=go.Scatter(x=np.array(range(10, 1000, 10)), y=distances))
-    fig.update_layout(title="Distance from estimated expectation to real expectation as an output of sample size",
-                      xaxis_title="Sample size",
-                      yaxis_title="Distance from estimated expectation to real expectation")
-    fig.show()
-
-
-def targil_3_1_3():
-    data = np.random.normal(10, 1, 1000)
-    univariate_normal = UnivariateGaussian()
-    univariate_normal.fit(data)
-    y = univariate_normal.pdf(data)
-    fig = go.Figure(go.Scatter(x=data, y=y,  mode='markers'))
-    fig.update_layout(
-                title="PDFs values as an output of sample values for Univariate Gaussian with expectation 10, variance 1",
-                xaxis_title="Sample values",
-                yaxis_title="PDFs values")
-    fig.show()
-
-
-def targil_3_2_4():
-    data = np.random.multivariate_normal(np.array([0, 0, 4, 0]),
-                                         np.array([[1, 0.2, 0, 0.5],
-                                                   [0.2, 2, 0, 0],
-                                                   [0, 0, 1, 0],
-                                                   [0.5, 0, 0, 1]]),
-                                         1000)
-    multivariate_normal = MultivariateGaussian()
-    multivariate_normal.fit(data)
-    print(multivariate_normal.mu_)
-    print(multivariate_normal.cov_)
-
-
-def targil_3_2_5():
-    f1 = np.linspace(-10, 10, 200)
-    f3 = np.linspace(-10, 10, 200)
-    sigma = np.array([[1, 0.2, 0, 0.5],
-                      [0.2, 2, 0, 0],
-                      [0, 0, 1, 0],
-                      [0.5, 0, 0, 1]])
-    # data = np.random.multivariate_normal(np.array([0, 0, 4, 0]),
-    #                                      np.array([[1, 0.2, 0, 0.5],
-    #                                                [0.2, 2, 0, 0],
-    #                                                [0, 0, 1, 0],
-    #                                                [0.5, 0, 0, 1]]),
-    #                                      1000)
-    # results = [MultivariateGaussian.log_likelihood(np.array([i, 0, j, 0]).transpose(), sigma, data)
-    #            for i in f1 for j in f3]
-    # results = np.array(results)
-    # fig = go.imshow(results,
-    #                 labels=dict(x="f1", y="f3", color="Productivity"),
-    #                 x=range_f1,
-    #                 y=range_f3)
-    # fig.update_xaxes(side="top")
-    # fig.show()
-
-
-# targil_3_1_1()
-# targil_3_1_2()
-# targil_3_1_3()
-# targil_3_2_4()
-#targil_3_2_5()
-print("finished!")

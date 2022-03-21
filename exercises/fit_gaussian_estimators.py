@@ -13,14 +13,14 @@ def test_univariate_gaussian():
     print("(" + str(univariate_normal.mu_) + "," + str(univariate_normal.var_) + ")")
 
     # Question 2 - Empirically showing sample mean is consistent
-    sample_sizes = range(10, 1000, 10)
+    sample_sizes = range(10, 1010, 10)
+    data = np.random.normal(10, 1, 1000)
     distances = []
     for sample_size in sample_sizes:
-        data = np.random.normal(10, 1, sample_size)
-        univariate_normal.fit(data)
-        distances.append(univariate_normal.mu_ - 10)
+        univariate_normal.fit(data[:sample_size])
+        distances.append(np.abs(univariate_normal.mu_ - 10))
 
-    fig = go.Figure(data=go.Scatter(x=np.array(range(10, 1000, 10)), y=distances))
+    fig = go.Figure(data=go.Scatter(x=np.array(range(10, 1010, 10)), y=distances,  mode="markers"))
     fig.update_layout(title="Distance from estimated expectation to real expectation as an output of sample size"
                             "for Univariate Gaussian with expectation 10, variance 1",
                       xaxis_title="Sample size",
@@ -51,9 +51,9 @@ def test_multivariate_gaussian():
     multivariate_normal.fit(data)
     print(multivariate_normal.mu_)
     print(multivariate_normal.cov_)
+
     # Question 5 - Likelihood evaluation
     f1, f3 = np.linspace(-10, 10, 200), np.linspace(-10, 10, 200)
-
     results = [MultivariateGaussian.log_likelihood(np.array([i, 0, j, 0]).transpose(), sigma, data)
                for i in f1 for j in f3]
 
@@ -70,5 +70,5 @@ def test_multivariate_gaussian():
 
 if __name__ == '__main__':
     np.random.seed(0)
-    test_univariate_gaussian()
+    #test_univariate_gaussian()
     test_multivariate_gaussian()
