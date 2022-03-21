@@ -242,6 +242,12 @@ def targil_3_1_3():
     univariate_normal.fit(data)
     y = univariate_normal.pdf(data)
     fig = go.Figure(go.Scatter(x=data, y=y,  mode='markers'))
+    fig.update_layout(
+                title="PDFs values as an output of sample values for Univariate Gaussian with expectation 10, variance 1",
+                xaxis_title="Sample values",
+                yaxis_title="PDFs values")
+
+
     fig.show()
 
 
@@ -282,9 +288,9 @@ def targil_3_2_5():
     fig.show()
 
 
-# targil_3_1_1()
-# targil_3_1_2()
-#targil_3_1_3()
-#targil_3_2_4()
-targil_3_2_5()
+targil_3_1_1()
+targil_3_1_2()
+targil_3_1_3()
+targil_3_2_4()
+#targil_3_2_5()
 print("finished!")
