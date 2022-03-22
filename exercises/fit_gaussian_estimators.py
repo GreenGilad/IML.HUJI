@@ -17,8 +17,7 @@ def test_univariate_gaussian():
     univariate_gaussian = UnivariateGaussian()
     absolute_distance = []
     for sample_size in range(10, 1010, 10):
-        S = np.random.normal(10, 1, sample_size)
-        univariate_gaussian.fit(S)
+        univariate_gaussian.fit(X[:sample_size])
         absolute_distance.append(np.abs(univariate_gaussian.mu_ - 10))
     import plotly.express as px
     fig = px.line(x=range(10, 1010, 10),
@@ -33,13 +32,9 @@ def test_univariate_gaussian():
     import matplotlib.pyplot as plt
     from matplotlib import rcParams
     plt.scatter(x=X, y=univariate_gaussian.pdf(X), s=rcParams['lines.markersize'] ** 2 / 10)
-    mu, sigma = univariate_gaussian.mu_, univariate_gaussian.var_
-    x = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 100)
-    plt.plot(x, (1 / np.sqrt(2 * np.pi * sigma)) * np.exp(-(x - mu) ** 2 / (2 * sigma)), 'r-')
     plt.xlabel("Sample Values")
     plt.ylabel("PDF of sample value")
     plt.title("Empirical PDF under Fitted Model")
-    plt.legend(["PDF of sample", "Empirical PDF"])
     plt.show()
 
 
@@ -82,3 +77,5 @@ if __name__ == '__main__':
     np.random.seed(0)
     test_univariate_gaussian()
     test_multivariate_gaussian()
+
+
