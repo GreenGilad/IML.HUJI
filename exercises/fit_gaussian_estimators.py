@@ -7,7 +7,7 @@ pio.templates.default = "simple_white"
 
 def test_univariate_gaussian():
     # Question 1 - Draw samples and print fitted model
-    raise NotImplementedError()
+
 
     # Question 2 - Empirically showing sample mean is consistent
     raise NotImplementedError()
