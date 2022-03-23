@@ -1,10 +1,7 @@
 from __future__ import annotations
 import math
 import numpy as np
-from numpy.linalg import inv, det, slogdet
-
-import plotly.graph_objects as go
-import plotly.io as pio
+from numpy.linalg import inv
 
 
 class UnivariateGaussian:
@@ -178,7 +175,6 @@ class MultivariateGaussian:
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
 
-        pdf_func = lambda x: math.exp(self.log_likelihood(self.mu_, self.cov_, X))
         X_centered = X - self.mu_
         return math.pow(np.linalg.det(self.cov_ * 2 * math.pi), -0.5) \
                * math.exp(-0.5 * (np.transpose(X_centered) * np.inv(self.cov_) *
