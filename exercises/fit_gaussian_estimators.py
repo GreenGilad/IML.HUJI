@@ -2,6 +2,7 @@ from IMLearn.learners import UnivariateGaussian, MultivariateGaussian
 import numpy as np
 import plotly.graph_objects as go
 import plotly.io as pio
+he
 pio.templates.default = "simple_white"
 
 
@@ -20,7 +21,7 @@ def test_univariate_gaussian():
         univariate_normal.fit(data[:sample_size])
         distances.append(np.abs(univariate_normal.mu_ - 10))
 
-    fig = go.Figure(data=go.Scatter(x=np.array(range(10, 1010, 10)), y=distances,  mode="markers"))
+    fig = go.Figure(data=go.Scatter(x=np.array(range(10, 1010, 10)), y=distances, mode="markers"))
     fig.update_layout(title="Distance from estimated expectation to real expectation as an output of sample size"
                             "for Univariate Gaussian with expectation 10, variance 1",
                       xaxis_title="Sample size",
@@ -30,11 +31,11 @@ def test_univariate_gaussian():
     # Question 3 - Plotting Empirical PDF of fitted model
     univariate_normal.fit(data)
     y = univariate_normal.pdf(data)
-    fig = go.Figure(go.Scatter(x=data, y=y,  mode='markers'))
+    fig = go.Figure(go.Scatter(x=data, y=y, mode='markers'))
     fig.update_layout(
-                title="PDFs values as an output of sample values for Univariate Gaussian with expectation 10, variance 1",
-                xaxis_title="Sample values",
-                yaxis_title="PDFs values")
+        title="PDFs values as an output of sample values for Univariate Gaussian with expectation 10, variance 1",
+        xaxis_title="Sample values",
+        yaxis_title="PDFs values")
     fig.show()
 
 
@@ -58,17 +59,13 @@ def test_multivariate_gaussian():
                for i in f1 for j in f3]
 
     results = np.array(results)
-    fig1 = go.imshow(results,
-                    labels=dict(x="f1", y="f3", color="Productivity"),
-                    x=f1,
-                    y=f3)
-    fig1.update_xaxes(side="top")
-    fig1.show()
+    go.Figure(go.Heatmap(x=f1, y=f3, z=results), layout=go.Layout(title="title", height=500, width=500)).show()
+
     # Question 6 - Maximum likelihood
     raise NotImplementedError()
 
 
 if __name__ == '__main__':
     np.random.seed(0)
-    #test_univariate_gaussian()
+    # test_univariate_gaussian()
     test_multivariate_gaussian()
