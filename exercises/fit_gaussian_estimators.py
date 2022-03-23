@@ -70,10 +70,10 @@ def test_multivariate_gaussian():
     max_f1, max_f3 = f1[f1_index], f3[f3_index]
     str_max_f1 = f"{float(max_f1):.3f}"
     str_max_f3 = f"{float(max_f3):.3f}"
-    print(f"maximum log-likelihood achieved for f1 " + str_max_f1 + ", f3 " + str_max_f3)
+    print("maximum log-likelihood achieved for f1 " + str_max_f1 + ", f3 " + str_max_f3)
 
 
 if __name__ == '__main__':
-    np.random.seed(50)
+    np.random.seed(0)
     test_univariate_gaussian()
     test_multivariate_gaussian()
