@@ -320,19 +320,13 @@ class MultivariateGaussian:
         covariance: ndarray of shape (n_features,)
            covariance calculated
         """
-        if len(X) <= 1:  # Don't divide by 0, if the array is empty or single sample return var = 0
-            raise ValueError("Non valid samples were given to fit function, samples size must be > 1")
-        scalar = 1 / (len(X) - 1)
-        m = X - mu
-        try:
-            cov = np.cov(X.T)  # Reminder: come back here and decide which implementation to choose
-            # cov = scalar * m.T @ m
-        except:
-            try:
-                cov = scalar * m @ m.T
-            except:
-                raise ValueError("Non valid samples were given to pdf")
-        return cov
+        # if len(X) <= 1:  # Don't divide by 0, if the array is empty or single sample return var = 0
+        #     raise ValueError("Non valid samples were given to fit function, samples size must be > 1")
+        # scalar = 1 / (len(X) - 1)
+        # m = X - mu
+        # cov = scalar * m.T @ m
+        # return cov
+        return np.cov(X.T)
 
     @staticmethod
     def _calc_pdf(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> np.ndarray:
