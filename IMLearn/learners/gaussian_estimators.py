@@ -1,4 +1,5 @@
 from __future__ import annotations
+import math
 import numpy as np
 from numpy.linalg import inv, det, slogdet
 
@@ -7,6 +8,7 @@ class UnivariateGaussian:
     """
     Class for univariate Gaussian Distribution Estimator
     """
+
     def __init__(self, biased_var: bool = False) -> UnivariateGaussian:
         """
         Estimator for univariate Gaussian mean and variance parameters
@@ -51,7 +53,15 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
+
+        # estimation for mu is the mean
+        est_mu = np.mean(X)
+        self.mu_ = est_mu
+
+        if self.biased_:
+            self.var_ = np.var(X)
+        else:
+            self.var_ = np.var(X, ddof=1)
 
         self.fitted_ = True
         return self
@@ -76,7 +86,8 @@ class UnivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+
+        return (1 / (math.sqrt(2 * math.pi * self.var_))) * math.e ** ((-1 / (2 * self.var_)) * (X - self.mu_) ** 2)
 
     @staticmethod
     def log_likelihood(mu: float, sigma: float, X: np.ndarray) -> float:
@@ -97,13 +108,15 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+
+        return -(X.shape[0] / 2) * np.log(2 * np.pi * sigma ** 2) - np.sum(np.square(X - mu)) / 2 * sigma ** 2
 
 
 class MultivariateGaussian:
     """
     Class for multivariate Gaussian Distribution Estimator
     """
+
     def __init__(self):
         """
         Initialize an instance of multivariate Gaussian estimator
@@ -122,8 +135,7 @@ class MultivariateGaussian:
             Estimated covariance initialized as None. To be set in `MultivariateGaussian.ft`
             function.
         """
-        self.mu_, self.cov_ = None, None
-        self.fitted_ = False
+        self.fitted_, self.mu_, self.cov_ = False, None, None
 
     def fit(self, X: np.ndarray) -> MultivariateGaussian:
         """
@@ -143,7 +155,10 @@ class MultivariateGaussian:
         Sets `self.mu_`, `self.cov_` attributes according to calculated estimation.
         Then sets `self.fitted_` attribute to `True`
         """
-        raise NotImplementedError()
+        self.mu_ = np.array([np.mean(v) for v in np.transpose(X)])
+
+        centered_X = np.array([v - self.mu_ for v in X])
+        self.cov_ = np.matmul(centered_X.transpose(), centered_X) / (len(centered_X) - 1)
 
         self.fitted_ = True
         return self
@@ -168,7 +183,10 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        raise NotImplementedError()
+        differnece_matrix = X - self.mu_
+        cov_determinant = 1 / math.sqrt((2 * math.pi) ** X.shape[0] * det(self.cov_))
+        exp_part = (-0.5 * (np.matmul(np.matmul(np.transpose(differnece_matrix), inv(self.cov_)), differnece_matrix)))
+        return cov_determinant * math.e ** float(exp_part)
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -177,9 +195,9 @@ class MultivariateGaussian:
 
         Parameters
         ----------
-        mu : float
+        mu : ndarray
             Expectation of Gaussian
-        cov : float
+        cov : ndarray
             covariance matrix of Gaussian
         X : ndarray of shape (n_samples, )
             Samples to calculate log-likelihood with
@@ -189,4 +207,8 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        raise NotImplementedError()
+        first_part = -X.shape[0] * X.shape[1] / 2 * np.log(2 * np.pi) - X.shape[0] / 2 * np.log(det(cov))
+        cov_inv = inv(cov)
+        exp_part = -0.5 * (np.sum(((X - mu) @ cov_inv) * np.transpose(X - mu)))
+
+        return float(first_part + exp_part)
