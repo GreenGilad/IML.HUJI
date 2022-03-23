@@ -1,3 +1,10 @@
+#################################################################
+# FILE : gaussian_estimators.py
+# WRITER : Bar Melinarskiy
+# EXERCISE : Intro to Machine Learning - 67577 - Exercise 1
+# DESCRIPTION: UnivariateGaussian and MultivariateGaussian classes.
+#################################################################
+
 from __future__ import annotations
 import numpy as np
 
@@ -181,7 +188,7 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        return np.sum(np.log(UnivariateGaussian._calc_pdf(mu, sigma, X)))
+        return np.float(np.sum(np.log(UnivariateGaussian._calc_pdf(mu, sigma, X))))
 
 
 class MultivariateGaussian:
@@ -253,15 +260,6 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        # from scipy.stats import multivariate_normal
-        # var = multivariate_normal(self.mu_, self.cov_)
-        # real_pdf = var.pdf(X)
-
-        # m = X - self.mu_
-        # scalar = 1 / (np.sqrt(np.power(2 * np.pi, len(self.mu_)) * np.linalg.det(self.cov_)))
-        # pdf = np.zeros(len(X))
-        # for i in range(len(pdf)):
-        #     pdf[i] = scalar * np.exp((-1 / 2) * (m[i].T @ np.linalg.inv(self.cov_) @ m[i]))
         return MultivariateGaussian._calc_pdf(self.mu_, self.cov_, X)
 
     @staticmethod
@@ -283,7 +281,8 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        return np.sum(np.log(MultivariateGaussian._calc_pdf(mu, cov, X)))
+
+        return np.float(np.sum(np.log(MultivariateGaussian._calc_pdf(mu, cov, X))))
 
     @staticmethod
     def _calc_mu(X: np.ndarray) -> np.ndarray:
@@ -326,8 +325,8 @@ class MultivariateGaussian:
         scalar = 1 / (len(X) - 1)
         m = X - mu
         try:
-            cov2 = np.cov(X.T)  # Reminder: come back here and decide which implementation to choose
-            cov = scalar * m.T @ m
+            cov = np.cov(X.T)  # Reminder: come back here and decide which implementation to choose
+            # cov = scalar * m.T @ m
         except:
             try:
                 cov = scalar * m @ m.T
@@ -356,7 +355,7 @@ class MultivariateGaussian:
         scalar = 1 / (np.sqrt(np.power(2 * np.pi, len(mu)) * np.linalg.det(cov)))
         pdf = np.zeros(len(X))
         for i in range(len(pdf)):
-            pdf[i] = scalar * np.exp((-1 / 2) * (m[i].T @ np.linalg.inv(cov) @ m[i]))
+            pdf[i] = scalar * np.exp((-0.5) * (m[i].T @ np.linalg.inv(cov) @ m[i]))
         return pdf
 
 

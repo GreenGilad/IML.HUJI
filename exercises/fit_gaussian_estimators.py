@@ -1,8 +1,14 @@
+#################################################################
+# FILE : fit_gaussian_estimators.py
+# WRITER : Bar Melinarskiy
+# EXERCISE : Intro to Machine Learning - 67577 - Exercise 1
+# DESCRIPTION: Testing UnivariateGaussian and MultivariateGaussian classes.
+#################################################################
+
 from IMLearn.learners import UnivariateGaussian, MultivariateGaussian
 import numpy as np
 import plotly.graph_objects as go
 import plotly.io as pio
-import plotly.express as px
 import matplotlib.pyplot as plt
 pio.templates.default = "simple_white"
 
@@ -13,6 +19,7 @@ def test_univariate_gaussian():
     samples = np.random.normal(mu, sigma, 1000)
     g = UnivariateGaussian()
     g.fit(samples)
+    print(" Question 1 - Draw samples and print fitted model:")
     print("(" + str(g.mu_) + ", " + str(g.var_) + ")")
 
     # Question 2 - Empirically showing sample mean is consistent
@@ -39,7 +46,7 @@ def test_univariate_gaussian():
     plt.plot(data_q2[0, :], p(data_q2[0, :]), "r--", label="Scatter trend line")
     plt.legend(loc="upper right")
     plt.tight_layout()
-    plt.savefig('part1_q2.png')  # Save the plot for insta story
+    # plt.savefig('part1_q2.png')  # Save the plot for insta story
     plt.show()
 
     # Question 3 - Plotting Empirical PDF of fitted model
@@ -54,52 +61,49 @@ def test_univariate_gaussian():
     plt.scatter(data_q3["samples"], data_q3["pdf"], label="Scatter")
     plt.legend(loc="upper right")
     plt.tight_layout()
-    plt.savefig('part1_q3.png')  # Save the plot for insta story
+    # plt.savefig('part1_q3.png')  # Save the plot for insta story
     plt.show()
 
 
 def test_multivariate_gaussian():
     # Question 4 - Draw samples and print fitted model
     # mean and covariance
-    mu = [0, 0, 4, 0]
-    cov = [[1, 0.2, 0, 0.5], [0.2, 2, 0, 0], [0, 0, 1, 0], [0.5, 0, 0, 1]]
+    mu = np.array([0, 0, 4, 0])
+    cov = np.array([[1, 0.2, 0, 0.5], [0.2, 2, 0, 0], [0, 0, 1, 0], [0.5, 0, 0, 1]])
     samples = np.random.multivariate_normal(mu, cov, 1000)
     m = MultivariateGaussian()
     m.fit(samples)
+    print(" Question 4 - Draw samples and print fitted model:")
     print("Estimated expectation: \n" + str(m.mu_))
     print("Estimated covariance: \n" + str(m.cov_))
 
     # Question 5 - Likelihood evaluation
     f_arr = np.linspace(-10, 10, 200)
-    data_q5 = {
-        'X': np.empty(200 * 200),
-        'Y': np.empty(200 * 200),
-        'Z': np.empty(200 * 200)
-    }
-    i = 0
+    data_q5 = []
     for f1 in f_arr:
         for f3 in f_arr:
-            print(i)
-            new_mu = [f1, 0, f3, 0]
+            new_mu = np.array([f1, 0, f3, 0]).T
             log_likelihood = MultivariateGaussian.log_likelihood(new_mu, cov, samples)
-            data_q5['X'][i] = f1
-            data_q5['Y'][i] = f3
-            data_q5['Z'][i] = log_likelihood
-            i += 1
+            data_q5.append(log_likelihood)
 
-    q5_title = 'Q5: Heatmap of log_likelihood'
-    fig = go.Figure(go.Heatmap(x=data_q5['X'], y=data_q5['Y'], z=data_q5['Z']),
-              layout=go.Layout(title=q5_title))
-    fig.update_xaxes(title_text="f1 values")
-    fig.update_yaxes(title_text="f3 values")
+    data_q5 = np.array(data_q5).reshape(200, 200)
+    q5_title = 'Q5: Heatmap of log_likelihood Vs. values in mu = [f1, 0, f3, 0]'
+    fig = go.Figure(go.Heatmap(x=f_arr, y=f_arr, z=data_q5, colorbar=dict(title='Log Likelihood')),
+                    layout=go.Layout(
+                        title=q5_title,
+                        xaxis=dict(title="f3 values"),
+                        yaxis=dict(title="f1 values")
+                    ))
     fig.show()
 
     # Question 6 - Maximum likelihood
-
-    max_index = np.argmax(data_q5['Z'])
+    max_index = np.argmax(data_q5)
+    i = int(max_index / 200)
+    j = max_index % 200
     form = "{:.3f}"
-    print("The (f1, f3) pair with the max log_likelihood of: " + form.format(data_q5['Z'][max_index]))
-    print("Is: (" + form.format(data_q5['X'][max_index]) + ", " + form.format(data_q5['Y'][max_index]) + ")")
+    print(" Question 6 - Maximum likelihood:")
+    print("The (f1, f3) pair with the max log_likelihood of: " + form.format(data_q5.max()))
+    print("Is: (" + form.format(f_arr[i]) + ", " + form.format(f_arr[j]) + ")")
 
 
 if __name__ == '__main__':
