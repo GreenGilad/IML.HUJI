@@ -281,8 +281,16 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-
-        return np.float(np.sum(np.log(MultivariateGaussian._calc_pdf(mu, cov, X))))
+        # direct method, very slow so changed it to the formula from question 9 in the theoretical part
+        log_likelihood = np.float(np.sum(np.log(MultivariateGaussian._calc_pdf(mu, cov, X))))
+        m = len(X)
+        d = X.shape[1]
+        matrix = X - mu
+        sign, log_det = np.linalg.slogdet(cov)
+        scalar1 = m * (d * np.log(2 * np.pi) + (sign * log_det))
+        scalar2 = np.float(np.sum(np.multiply(matrix.T, (np.linalg.inv(cov) @ matrix.T))))
+        log_likelihood = (-1 / 2) * (scalar1 + scalar2)
+        return log_likelihood
 
     @staticmethod
     def _calc_mu(X: np.ndarray) -> np.ndarray:
@@ -350,6 +358,12 @@ class MultivariateGaussian:
         pdf = np.zeros(len(X))
         for i in range(len(pdf)):
             pdf[i] = scalar * np.exp((-0.5) * (m[i].T @ np.linalg.inv(cov) @ m[i]))
+
         return pdf
 
+    @staticmethod
+    def mult_gaus_density(X: np.ndarray, sigma: np.ndarray, meu: np.ndarray):
+        d = meu.shape[0]
+        power = np.linalg.multi_dot([np.transpose(X - meu), np.linalg.inv(sigma), X - meu]) * (-0.5)
+        return 1 / ((2 * np.pi) ** d * np.linalg.det(sigma)) * np.exp(power)
 
