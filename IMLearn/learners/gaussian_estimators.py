@@ -52,18 +52,18 @@ class UnivariateGaussian:
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
         my_sum = 0
-        my_sum_squared = 0
         count = 0
+        var_sum = 0
         for v in X:
             my_sum += v
-            my_sum_squared += v * v
             count += 1
+        self.mu_ = my_sum / count
+        for v in X:
+            var_sum += np.power(v - self.mu_, 2)
         if not self.biased_:
-            self.mu_ = my_sum / count
-            self.var_ = (my_sum_squared / count) - pow(self.mu_, 2)
+            self.var_ = var_sum / (count - 1)
         else:
-            self.mu_ = my_sum / (count - 1)
-            self.var_ = (my_sum_squared / (count - 1)) - pow(self.mu_, 2)
+            self.var_ = var_sum / count
         self.fitted_ = True
         return self
 
@@ -239,9 +239,7 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        covDet = np.linalg.det(cov)
         row, col = np.shape(X)
-        # coef = 1 / np.sqrt(np.power(2 * np.pi, col) * covDet)
         ansArr = np.ndarray(row)
         count = 0
         ans = 0

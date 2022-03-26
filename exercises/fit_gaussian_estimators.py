@@ -21,16 +21,18 @@ def test_univariate_gaussian():
         if i % 10 == 0 and i != 0:
             tmp = int(i / 10)
             y_arr[tmp] = abs((sum / i) - mu)
-    fig1 = go.Figure(go.Scatter(x=arr_x, y=y_arr, name="Fit Model"))
-    layout1 = dict(title='fit graph', xaxis=dict(title='x axis name'), yaxis=dict(title='y axis name'))
-    fig1.show(layout=layout1)
+    plt.scatter(x=arr_x, y=y_arr)
+    plt.title("Fit graph")
+    plt.xlabel("sample size")
+    plt.ylabel("distance between estimated nad true value")
+    plt.show()
 
     # Question 3 - Plotting Empirical PDF of fitted model
     pdf = uvg.pdf(ndarr)
     plt.scatter(x=ndarr, y=pdf)
     plt.title("Empirical PDF of fitted model")
-    plt.xlabel("x axis")
-    plt.ylabel("y label")
+    plt.xlabel("sample value")
+    plt.ylabel("sample pdf")
     plt.show()
 
 
@@ -61,7 +63,6 @@ def test_multivariate_gaussian():
                 maxf1 = ind
                 maxf2 = jnd
             heatMap[ind][jnd] = int(heat_val)
-        print(ind)
     fig, ax = plt.subplots()
 
     c = ax.pcolormesh(xv, yv, heatMap, cmap='RdBu',
@@ -80,5 +81,5 @@ def test_multivariate_gaussian():
 
 if __name__ == '__main__':
     np.random.seed(0)
-    # test_univariate_gaussian()
+    test_univariate_gaussian()
     test_multivariate_gaussian()
