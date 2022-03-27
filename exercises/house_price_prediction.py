@@ -1,3 +1,5 @@
+import os.path
+
 from IMLearn.utils import split_train_test
 from IMLearn.learners.regressors import LinearRegression
 
@@ -8,6 +10,11 @@ import plotly.graph_objects as go
 import plotly.express as px
 import plotly.io as pio
 pio.templates.default = "simple_white"
+
+# todo remove:
+from IMLearn.learners.regressors import  PolynomialFitting
+
+DATE_REGEX = r'(20[0-2][0-9])((0[1-9])|(1[0-2]))([0][1-9]|[1-2][0-9]|3[0-1])T[0]{6}'
 
 
 def load_data(filename: str):
@@ -23,7 +30,50 @@ def load_data(filename: str):
     Design matrix and response vector (prices) - either as a single
     DataFrame or a Tuple[DataFrame, Series]
     """
-    raise NotImplementedError()
+    normalize = lambda x: x / x.max()
+
+    # read data:
+    df = pd.read_csv(filename)
+
+    # clean data:
+    # price:
+    df = df[df.price > 0]
+
+    # date:
+    df = df[df.date.str.match(DATE_REGEX)==True]
+    df.date = pd.to_datetime(df.date).apply(lambda x: ((x.year - 2010) * 365 + x.month * 30 + x.day) / 2500)
+
+    # zip:
+    df.zipcode = df.zipcode - 98000
+    for z in sorted(list(np.unique(df.zipcode))):
+        df[f'zip_{int(z)}'] = (df.zipcode == z).astype(int)
+
+    # rooms and area:
+    df = df[(df.bathrooms > 0) & (df.bedrooms > 0) &
+            (df.bedrooms < 15) & (df.sqft_lot15 > 0) &
+            (df.sqft_basement > 0)]
+
+    # lat:
+    df.lat = df.lat - 47
+
+    # long:
+    df.long = -df.long - 121
+
+    # year renovated
+    df.yr_renovated = np.where(df.yr_renovated > 0, df.yr_renovated - 1930, 0)
+
+    # remove un used values:
+    df.drop(columns=['id', 'zipcode'], inplace=True)
+
+    # normalize:
+    for col in df.columns:
+        if np.issubdtype(df[col].dtype, np.number):
+            df[col] = normalize(df[col])
+
+
+    # split:
+    return df[[feature for feature in list(df.columns) if feature != 'price']],\
+           df.price
 
 
 def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") -> NoReturn:
@@ -43,19 +93,33 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
     output_path: str (default ".")
         Path to folder in which plots are saved
     """
-    raise NotImplementedError()
+
+    df = pd.concat([X, y], axis=1)
+
+    for feature in X.columns[:20]:
+        if feature[0:3] == 'zip':
+            continue
+        fig = px.scatter(df[[feature, y.name]], x=feature, y=y.name)
+        pearson = np.cov(df[feature], y)[0][1] / (np.std(df[feature])*np.std(y)) # todo why 4? cov
+
+        fig.update_layout(
+            title_text=f'{pearson}',
+            title_x=0.5)
+        fig.show()
+        # pio.write_image(fig, output_path, format='png')
+        # fig.write_image(os.path.join(output_path, f'{feature}.png'))
 
 
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of housing prices dataset
-    raise NotImplementedError()
+    x, y = load_data('../datasets/house_prices.csv')
 
     # Question 2 - Feature evaluation with respect to response
-    raise NotImplementedError()
+    # feature_evaluation(x, y, '../plots/ex2')
 
     # Question 3 - Split samples into training- and testing sets.
-    raise NotImplementedError()
+    x_train, y_train, x_test, y_test = split_train_test(x, y, 0.75)
 
     # Question 4 - Fit model over increasing percentages of the overall training data
     # For every percentage p in 10%, 11%, ..., 100%, repeat the following 10 times:
@@ -64,4 +128,37 @@ if __name__ == '__main__':
     #   3) Test fitted model over test set
     #   4) Store average and variance of loss over test set
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
-    raise NotImplementedError()
+    # df_train = pd.concat([x_train, y_train], axis=1)
+    # lin_reg_model = LinearRegression()
+    # loss_df = pd.DataFrame(columns=['x', 'loss', '2_std_up', '2_std_down'])
+    # loss_df.x = np.linspace(0.1, 1, 91).round(2)
+    #
+    # for i, frac in enumerate(loss_df.x):
+    #     print(f'frac: {frac}')
+    #     std_arr = []
+    #     loss_arr = []
+    #     for _ in range(10):
+    #         # generate train sample:
+    #         sample = df_train.sample(frac=frac, random_state=1)
+    #
+    #         # train model:
+    #         lin_reg_model.fit(sample.iloc[:, :-1], sample.price)
+    #
+    #         # predict:
+    #         std_arr.append(np.std(lin_reg_model.predict(x_test)))
+    #         loss_arr.append(lin_reg_model.loss(x_test, y_test))
+    #
+    #     # save results:
+    #     loss = np.mean(loss_arr)
+    #     std = np.mean(std_arr)
+    #     loss_df.at[i, 'loss'] = loss
+    #     loss_df.at[i, '2_std_up'] = loss + (2 * std)
+    #     loss_df.at[i, '2_std_down'] = loss - (2 * std)
+    #
+    # fig = px.line(loss_df, x='x', y=['loss', '2_std_up', '2_std_down'])
+    # fig.show()
+
+    poly_reg_model = PolynomialFitting(30)
+    poly_reg_model.fit(x, y)
+
+
