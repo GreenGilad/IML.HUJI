@@ -11,7 +11,7 @@ def test_univariate_gaussian():
     # 1000 samples taken from ~ N(10, 1)
     X = np.random.normal(10, 1, 1000)
     univariate_gaussian = UnivariateGaussian().fit(X)
-    print("Expectation: " + str(univariate_gaussian.mu_) + ", Variance: " + str(univariate_gaussian.var_))
+    print(f'Expectation: {str(univariate_gaussian.mu_)}, Variance: {str(univariate_gaussian.var_)}')
 
     # Question 2 - Empirically showing sample mean is consistent
     univariate_gaussian = UnivariateGaussian()
@@ -30,12 +30,12 @@ def test_univariate_gaussian():
     univariate_gaussian = UnivariateGaussian()
     univariate_gaussian.fit(X)
     import matplotlib.pyplot as plt
-    from matplotlib import rcParams
-    plt.scatter(x=X, y=univariate_gaussian.pdf(X), s=rcParams['lines.markersize'] ** 2 / 10)
+    plt.scatter(x=X, y=univariate_gaussian.pdf(X))
     plt.xlabel("Sample Values")
     plt.ylabel("PDF of sample value")
     plt.title("Empirical PDF under Fitted Model")
     plt.show()
+
 
 
 def test_multivariate_gaussian():
@@ -69,7 +69,6 @@ def test_multivariate_gaussian():
     max_idx = np.where(log_likelihood == np.amax(log_likelihood))
     f1 = np.linspace(-10, 10, 200)[max_idx[0]]
     f3 = np.linspace(-10, 10, 200)[max_idx[1]]
-
     print(f'f1: {f1[0]}, f3: {f3[0]}')
 
 
@@ -77,5 +76,6 @@ if __name__ == '__main__':
     np.random.seed(0)
     test_univariate_gaussian()
     test_multivariate_gaussian()
+
 
 

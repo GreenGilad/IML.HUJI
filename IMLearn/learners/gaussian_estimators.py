@@ -180,10 +180,12 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        m = X.shape[0]
+
+        m, d = X.shape[0], X.shape[1]
         DET = det(cov)
 
-        first = m * np.log(1 / np.sqrt(2 * np.pi * DET))
+        first = -0.5 * (m * (d * np.log(2 * np.pi) + np.log(DET)))
         second = -0.5 * np.sum((X - mu) @ inv(cov) * (X - mu))
 
         return first + second
+
