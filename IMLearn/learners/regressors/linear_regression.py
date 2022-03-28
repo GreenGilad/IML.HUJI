@@ -55,7 +55,7 @@ class LinearRegression(BaseEstimator):
             m = X.shape[1]
             X = np.c_(np.ones(m), X)
         # x = np.linalg.lstsq()
-        self.coefs_ = np.matmul(np.linalg.pinv(X), y)
+        self.coefs_ = np.matmul(np.linalg.pinv(X.transpose()), y)
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
