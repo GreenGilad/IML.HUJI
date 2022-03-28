@@ -1,3 +1,5 @@
+import pandas
+
 from IMLearn.utils import split_train_test
 from IMLearn.learners.regressors import LinearRegression
 
@@ -23,9 +25,9 @@ def load_data(filename: str):
     Design matrix and response vector (prices) - either as a single
     DataFrame or a Tuple[DataFrame, Series]
     """
-    raise NotImplementedError()
-
-
+    df = pandas.read_csv(filename)
+    df = df[df]
+    load_data
 def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") -> NoReturn:
     """
     Create scatter plot between each feature and the response.
@@ -49,8 +51,7 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of housing prices dataset
-    raise NotImplementedError()
-
+    load_data("datasets/house_prices.csv")
     # Question 2 - Feature evaluation with respect to response
     raise NotImplementedError()
 
