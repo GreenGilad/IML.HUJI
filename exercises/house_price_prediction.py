@@ -1,5 +1,3 @@
-import os.path
-
 from IMLearn.utils import split_train_test
 from IMLearn.learners.regressors import LinearRegression
 
@@ -128,35 +126,35 @@ if __name__ == '__main__':
     #   3) Test fitted model over test set
     #   4) Store average and variance of loss over test set
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
-    # df_train = pd.concat([x_train, y_train], axis=1)
-    # lin_reg_model = LinearRegression()
-    # loss_df = pd.DataFrame(columns=['x', 'loss', '2_std_up', '2_std_down'])
-    # loss_df.x = np.linspace(0.1, 1, 91).round(2)
-    #
-    # for i, frac in enumerate(loss_df.x):
-    #     print(f'frac: {frac}')
-    #     std_arr = []
-    #     loss_arr = []
-    #     for _ in range(10):
-    #         # generate train sample:
-    #         sample = df_train.sample(frac=frac, random_state=1)
-    #
-    #         # train model:
-    #         lin_reg_model.fit(sample.iloc[:, :-1], sample.price)
-    #
-    #         # predict:
-    #         std_arr.append(np.std(lin_reg_model.predict(x_test)))
-    #         loss_arr.append(lin_reg_model.loss(x_test, y_test))
-    #
-    #     # save results:
-    #     loss = np.mean(loss_arr)
-    #     std = np.mean(std_arr)
-    #     loss_df.at[i, 'loss'] = loss
-    #     loss_df.at[i, '2_std_up'] = loss + (2 * std)
-    #     loss_df.at[i, '2_std_down'] = loss - (2 * std)
-    #
-    # fig = px.line(loss_df, x='x', y=['loss', '2_std_up', '2_std_down'])
-    # fig.show()
+    df_train = pd.concat([x_train, y_train], axis=1)
+    lin_reg_model = LinearRegression()
+    loss_df = pd.DataFrame(columns=['x', 'loss', '2_std_up', '2_std_down'])
+    loss_df.x = np.linspace(0.1, 1, 91).round(2)
+
+    for i, frac in enumerate(loss_df.x):
+        print(f'frac: {frac}')
+        std_arr = []
+        loss_arr = []
+        for _ in range(10):
+            # generate train sample:
+            sample = df_train.sample(frac=frac, random_state=1)
+
+            # train model:
+            lin_reg_model.fit(sample.iloc[:, :-1], sample.price)
+
+            # predict:
+            std_arr.append(np.std(lin_reg_model.predict(x_test)))
+            loss_arr.append(lin_reg_model.loss(x_test, y_test))
+
+        # save results:
+        loss = np.mean(loss_arr)
+        std = np.mean(std_arr)
+        loss_df.at[i, 'loss'] = loss
+        loss_df.at[i, '2_std_up'] = loss + (2 * std)
+        loss_df.at[i, '2_std_down'] = loss - (2 * std)
+
+    fig = px.line(loss_df, x='x', y=['loss', '2_std_up', '2_std_down'])
+    fig.show()
 
     poly_reg_model = PolynomialFitting(30)
     poly_reg_model.fit(x, y)
