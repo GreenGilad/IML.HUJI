@@ -52,13 +52,15 @@ class LinearRegression(BaseEstimator):
         -----
         Fits model with or without an intercept depending on value of `self.include_intercept_`
         """
-        x = X if self.include_intercept_ else X[:,1:]
+        x = X if self.include_intercept_ else X[:,1:] # todo check !
         u, sigma, vt = np.linalg.svd(x)
         # todo: check if pinv on sigma or on x
         sigma_cross = np.zeros((vt.shape[0], u.shape[0]))
         sigma_cross[:vt.shape[0], :vt.shape[0]] = np.diag(sigma)
         sigma_cross = pinv(sigma_cross)
         x_cross = u @ sigma_cross @ vt
+
+
         self.coefs_ = x_cross.T @ y # todo why T?
 
     def _predict(self, X: np.ndarray) -> np.ndarray:

@@ -114,7 +114,7 @@ if __name__ == '__main__':
     x, y = load_data('../datasets/house_prices.csv')
 
     # Question 2 - Feature evaluation with respect to response
-    # feature_evaluation(x, y, '../plots/ex2')
+    feature_evaluation(x, y, '../plots/ex2')
 
     # Question 3 - Split samples into training- and testing sets.
     x_train, y_train, x_test, y_test = split_train_test(x, y, 0.75)
@@ -156,7 +156,5 @@ if __name__ == '__main__':
     fig = px.line(loss_df, x='x', y=['loss', '2_std_up', '2_std_down'])
     fig.show()
 
-    poly_reg_model = PolynomialFitting(30)
-    poly_reg_model.fit(x, y)
 
 
