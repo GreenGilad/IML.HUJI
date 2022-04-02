@@ -11,6 +11,7 @@ class PolynomialFitting(BaseEstimator):
     """
     Polynomial Fitting using Least Squares estimation
     """
+
     def __init__(self, k: int) -> PolynomialFitting:
         """
         Instantiate a polynomial fitting estimator
@@ -38,7 +39,6 @@ class PolynomialFitting(BaseEstimator):
         """
         vandermonde_matrix = self.__transform(X)
         self.linear_regressor.fit(vandermonde_matrix, y)
-
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -75,8 +75,7 @@ class PolynomialFitting(BaseEstimator):
             Performance under MSE loss function
         """
         vandermonde = self.__transform(X)
-        return self.linear_regressor.loss(vandermonde,y)
-
+        return self.linear_regressor.loss(vandermonde, y)
 
     def __transform(self, X: np.ndarray) -> np.ndarray:
         """
@@ -91,4 +90,4 @@ class PolynomialFitting(BaseEstimator):
         transformed: ndarray of shape (n_samples, k+1)
             Vandermonde matrix of given samples up to degree k
         """
-        return np.vander(X,self.poly_rank_)
+        return np.vander(X, self.poly_rank_)

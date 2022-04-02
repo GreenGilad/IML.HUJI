@@ -6,9 +6,11 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
+
 pio.templates.default = "simple_white"
 
-def plot_mse_of_israeli_model_on_all_countries(data_frame: pd.DataFrame, data_frame_israel_only: pd.DataFrame):
+
+def plot_mse_of_israeli_model_on_all_countries(data_frame_without_Israel: pd.DataFrame):
     """
     Plots the MSE values for the israeli polynomial fit for all countries
     """
@@ -16,34 +18,35 @@ def plot_mse_of_israeli_model_on_all_countries(data_frame: pd.DataFrame, data_fr
     polynomial_fit = PolynomialFitting(6)
     polynomial_fit.fit(data_frame_israel_only['day_of_year'].to_numpy(), data_frame_israel_only['Temp'].to_numpy())
 
-    # Get array of other countries
-    unique_countries_array = data_frame['Country'].unique()
+    # Get a unique array of other countries
+    unique_countries_array = data_frame_without_Israel['Country'].unique()
     number_of_countries = len(unique_countries_array)
 
     # The collected MSE values will be stored in this array
-    mse_for_each_country = np.empty([1,number_of_countries])
+    mse_for_each_country = np.empty([1, number_of_countries])
 
     for i in range(number_of_countries):
-        country_data = data_frame[data_frame.Country == unique_countries_array[i]]
-        mse_for_each_country[0][i] =\
+        country_data = data_frame_without_Israel[data_frame_without_Israel.Country == unique_countries_array[i]]
+        mse_for_each_country[0][i] = \
             polynomial_fit.loss(country_data['day_of_year'].to_numpy(), country_data['Temp'].to_numpy())
 
     fig = px.bar(title="MSE for Israeli polynomial model by country",
                  x=unique_countries_array,
                  y=mse_for_each_country[0],
-                 labels= {
+                 labels={
                      'x': 'Countries',
                      'y': 'MSE value for Israeli model'
                  })
     fig.show()
 
-def plot_mse_for_increasing_deg_for_poly_fit(data_frame: pd.DataFrame):
+
+def plot_mse_for_increasing_deg_for_poly_fit():
     """
     Plots the mse for polynomial fit using vondermonde matrix with several ranks in the range
     1 to 10
     """
     # First split the input dataframe training data
-    train_X, train_y, test_X, test_y = split_train_test(data_frame_israel_only, data_frame['Temp'], 0.75)
+    train_X, train_y, test_X, test_y = split_train_test(data_frame_israel_only, data_frame_israel_only['Temp'], 0.75)
 
     # Setting up test data
     test_data = test_X['day_of_year'].to_numpy()
@@ -80,16 +83,17 @@ def plot_mse_for_increasing_deg_for_poly_fit(data_frame: pd.DataFrame):
     fig.show()
 
 
-def plot_average_temp_in_israel(data_frame: pd.DataFrame):
+def plot_average_temp_in_israel():
     """
     Plots the average temp in Israel by day of the year
     """
     # extract the year column as a string which is later used to set the colour
-    years_as_string_arr = data_frame['Year'].map(lambda t: str(t))
+    # as a discrete var
+    years_as_string_arr = data_frame_israel_only['Year'].map(lambda t: str(t))
 
-    fig = px.scatter(years_as_string_arr,title='Average temp by day of year',
-                     x=data_frame['day_of_year'],
-                     y= data_frame['Temp'],
+    fig = px.scatter(years_as_string_arr, title='Average temp by day of year',
+                     x=data_frame_israel_only['day_of_year'],
+                     y=data_frame_israel_only['Temp'],
                      color=years_as_string_arr,
                      labels={
                          'x': 'Day of year',
@@ -97,30 +101,32 @@ def plot_average_temp_in_israel(data_frame: pd.DataFrame):
                      })
     fig.show()
 
-def plot_std_by_month(data_frame: pd.DataFrame):
+
+def plot_std_by_month():
     """
     PLots standard deviation of daily temp by month in Israel
     """
     # Rearranging data frame to be grouped by month
-    grouped_by_month = data_frame.groupby(['Month']).agg({'Temp': ['std']})
+    grouped_by_month = data_frame_israel_only.groupby(['Month']).agg({'Temp': ['std']})
     grouped_by_month.columns = ['the_std']
     grouped_by_month.reset_index()
 
     fig = px.bar(grouped_by_month,
                  title='Standard deviation of average temp by month',
-                 labels= {
-                     'x' : 'Month',
+                 labels={
+                     'x': 'Month',
                      'value': 'standard deviation of daily temp'
                  })
     fig.show()
 
-def plot_average_temp_by_country(data_frame: pd. DataFrame):
+
+def plot_average_temp_by_country():
     """
     Plots a line graph of average temp by month for each of the countries in the data_frame
     together with the standard deviation of temps for this month
     """
-    # First group the data
-    grouped_by_month = data_frame.groupby(['Country', 'Month']).agg({'Temp': ['mean','std']})
+    # First group the data and calculate the mean and std for each month
+    grouped_by_month = data_frame.groupby(['Country', 'Month']).agg({'Temp': ['mean', 'std']})
     grouped_by_month.columns = ['the_mean', 'the_std']
     grouped_by_month = grouped_by_month.reset_index()
 
@@ -134,6 +140,7 @@ def plot_average_temp_by_country(data_frame: pd. DataFrame):
                   )
     fig.show()
 
+
 def load_data(filename: str) -> pd.DataFrame:
     """
     Load city daily temperature dataset and preprocess data.
@@ -146,12 +153,12 @@ def load_data(filename: str) -> pd.DataFrame:
     -------
     Design matrix and response vector (Temp)
     """
-    # Read the raw data
+    # Read the raw data from csv filie
     data_frame = pd.read_csv(filename, parse_dates=[2])
     # Removing invalid temp values from the dataframe
     data_frame = data_frame[data_frame.Temp > -10]
     # Add day of the year column
-    data_frame['day_of_year']  = data_frame['Date'].map(lambda t: t.timetuple().tm_yday)
+    data_frame['day_of_year'] = data_frame['Date'].map(lambda t: t.timetuple().tm_yday)
 
     return data_frame
 
@@ -159,18 +166,19 @@ def load_data(filename: str) -> pd.DataFrame:
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of city temperature dataset
+    # As several methods required the Israel only data we will create this as a separate dataframe
     data_frame = load_data('../datasets/City_Temperature.csv')
     data_frame_israel_only = data_frame[data_frame.Country == 'Israel']
 
     # Question 2 - Exploring data for specific country
-    plot_average_temp_in_israel(data_frame_israel_only)
-    plot_std_by_month(data_frame_israel_only)
+    plot_average_temp_in_israel()
+    plot_std_by_month()
 
     # Question 3 - Exploring differences between countries
-    plot_average_temp_by_country(data_frame)
+    plot_average_temp_by_country()
 
     # Question 4 - Fitting model for different values of `k`
-    plot_mse_for_increasing_deg_for_poly_fit(data_frame_israel_only)
+    plot_mse_for_increasing_deg_for_poly_fit()
 
     # Question 5 - Evaluating fitted model on different countries
-    plot_mse_of_israeli_model_on_all_countries(data_frame[data_frame.Country != 'Israel'],data_frame_israel_only)
+    plot_mse_of_israeli_model_on_all_countries(data_frame[data_frame.Country != 'Israel'])
