@@ -1,5 +1,6 @@
 import math
 import datetime
+import os
 
 from IMLearn.utils import split_train_test
 from IMLearn.learners.regressors import LinearRegression
@@ -27,6 +28,7 @@ def adding_dist_from_central_seattle(X: pd.DataFrame):
     X['dist_from_seattle'] = (X['long'] + X['lat']).map(lambda t: math.sqrt(t))
 
 
+# TODO: Change the docs
 def convert_date_to_distance_from_central_date(date: str):
     """
     Converts a date string to a distance in days from center (int)
@@ -39,7 +41,7 @@ def convert_date_to_distance_from_central_date(date: str):
     month = int(date[4:6])
     day = int(date[6:8])
     date_sold = datetime.datetime(year, month, day)
-    return abs((central_date - date_sold).days)
+    return (central_date - date_sold).days / 30
 
 
 def load_data(filename: str):
@@ -57,29 +59,28 @@ def load_data(filename: str):
     """
 
     # First load the raw cvs table
-    data_frame = pd.read_csv(filename)
+    df = pd.read_csv(filename)
 
     # Removing empty or all zero rows
-    data_frame.dropna(inplace=True)
-    data_frame = data_frame[data_frame.id != 0]  # valid id's cannot be zero
+    df.dropna(inplace=True)
+    df = df[df.id != 0]  # valid id's cannot be zero
 
     # Adding distance from central seattle column
-    adding_dist_from_central_seattle(data_frame)
+    adding_dist_from_central_seattle(df)
 
     # One-hot encoding zip codes
-    data_frame = pd.concat([data_frame, pd.get_dummies(data_frame['zipcode'])], axis=1)
+    df = pd.concat([df, pd.get_dummies(df['zipcode'])], axis=1)
 
-    # TODO: Days from beginning of the year
     # Converting date string to usable "distance from central date" object
-    data_frame['dev_from_cent_date'] = data_frame['date'].map(lambda t: convert_date_to_distance_from_central_date(t))
+    df['dev_from_cent_date'] = df['date'].map(lambda t: convert_date_to_distance_from_central_date(t))
 
     # Removing unnecessary columns
-    data_frame.drop(['id', 'long', 'lat', 'zipcode', 'date'], axis=1, inplace=True)
+    df.drop(['id', 'long', 'lat', 'zipcode', 'date'], axis=1, inplace=True)
 
-    return data_frame
+    return df
 
 
-def plot_correlation_graph(feature_vec: np.ndarray, prices_vec:np.ndarray, feature_name: str, output_folder_name: str):
+def plot_correlation_graph(feature_vec: np.ndarray, prices_vec: np.ndarray, feature_name: str, output_folder_name: str):
     """
     Plots scatter graph with input feature values on the x-axis and house price on the y-axis
     and outputs these graphs to the "plots_output_folder"
@@ -88,7 +89,7 @@ def plot_correlation_graph(feature_vec: np.ndarray, prices_vec:np.ndarray, featu
         return
     pc = (np.cov(feature_vec, prices_vec)[0][1]) / (feature_vec.std() * prices_vec.std())  # compute the PC value
     x_axis_name = feature_name if str(feature_name)[0] != '9' else f"zip_code {feature_name}"
-    # Create the figure
+
     fig = px.scatter(x=feature_vec,
                      y=prices_vec,
                      labels={
@@ -96,7 +97,6 @@ def plot_correlation_graph(feature_vec: np.ndarray, prices_vec:np.ndarray, featu
                          'y': 'prices'
                      },
                      title=f"Correlation between {x_axis_name} and price with PC value {round(pc, 6)}")
-    # Write the figure to output folder
     fig.write_image(f"{output_folder_name}/{x_axis_name}.png")
 
 
@@ -110,7 +110,7 @@ def plot_mse_as_func_of_sample_size(train_X: pd.DataFrame, test_X: pd.DataFrame,
     # - 0: The % of the sample used
     # - 1: The MSE for the given iteration
     # - 2: The standard deviation of the input for given iteration
-    mean_loss_for_each_p = np.empty([3,91])
+    mean_loss_for_each_p = np.empty([3, 91])
 
     # Setting up test data
     p_test_data = test_X.drop(['price'], axis=1).to_numpy()
@@ -118,7 +118,7 @@ def plot_mse_as_func_of_sample_size(train_X: pd.DataFrame, test_X: pd.DataFrame,
 
     # Performing iterations on increasing sample size
     for p in range(10, 101):
-        mse_array = np.empty([1,10])
+        mse_array = np.empty([1, 10])
         for j in range(10):
             # Set up training data
             p_training_sample = train_X.sample(frac=(p / 100))
@@ -130,21 +130,22 @@ def plot_mse_as_func_of_sample_size(train_X: pd.DataFrame, test_X: pd.DataFrame,
             mse_array[0][j] = linear_regression_model.loss(p_test_data, p_test_values)
 
         # Collecting results
-        mean_loss_for_each_p[0][p-10] = p
-        mean_loss_for_each_p[1][p-10] = np.mean(mse_array)
-        mean_loss_for_each_p[2][p-10] = mse_array.std()
+        mean_loss_for_each_p[0][p - 10] = p
+        mean_loss_for_each_p[1][p - 10] = np.mean(mse_array)
+        mean_loss_for_each_p[2][p - 10] = mse_array.std() * 2
 
+    #todo: Come back to fix this
+    np.delete(mean_loss_for_each_p[1],1)
     # Plotting the results
     fig = px.scatter(title="MSE as a function of sample size",
                      x=mean_loss_for_each_p[0],
                      y=mean_loss_for_each_p[1],
                      error_y=mean_loss_for_each_p[2],
-                     labels= {
+                     labels={
                          'x': 'percentage of overall sample used',
                          'y': 'mean MSE over 10 iterations'
                      })
     fig.show()
-
 
 
 def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") -> NoReturn:
@@ -176,12 +177,11 @@ if __name__ == '__main__':
     # Question 2 - Feature evaluation with respect to response
 
     # First create the output folder for the features plots
-    # if not os.path.exists('plots_output_folder'):
-    #     os.mkdir('plots_output_folder')
+    if not os.path.exists('plots_output_folder'):
+        os.mkdir('plots_output_folder')
 
     # Performing the features evaluation on the processed data
-    feature_evaluation(data_frame, data_frame['price'], 'plots_output_folder')
-
+    # feature_evaluation(data_frame, data_frame['price'], 'plots_output_folder')
 
     # Question 3 - Split samples into training- and testing sets.
     train_X, train_y, test_X, test_y = split_train_test(data_frame, data_frame['price'], 0.75)
