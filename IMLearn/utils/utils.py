@@ -34,8 +34,8 @@ def split_train_test(X: pd.DataFrame, y: pd.Series, train_proportion: float = .7
         Responses of test samples
 
     """
-    y = y.sample(frac=1)
-    X = X.reindex_like(X)
+    X = X.sample(frac=1)
+    y = y.reindex_like(X)
 
     n = math.ceil(train_proportion * len(y))
     return X[:n], y[:n], X[n:], y[n:]

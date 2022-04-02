@@ -2,7 +2,6 @@ from IMLearn.learners import UnivariateGaussian, MultivariateGaussian
 import numpy as np
 import plotly.graph_objects as go
 import plotly.io as pio
-he
 pio.templates.default = "simple_white"
 
 

@@ -3,20 +3,23 @@ import pandas
 from typing import NoReturn, Tuple
 import numpy as np
 import pandas as pd
-import plotly
 import plotly.io as pio
 import plotly.express as px
+import plotly.graph_objects as go
 
+from IMLearn.learners.regressors import LinearRegression
 from IMLearn.utils import split_train_test
 
 pio.templates.default = "simple_white"
-POSITIVE_OR_ZERO_COLS = ["yr_renovated", "floors", "sqft_basement","bathrooms"]
+POSITIVE_OR_ZERO_COLS = ["yr_renovated", "floors", "sqft_basement", "bathrooms"]
 POSITIVE_COLS = ["sqft_living", "price", "sqft_living15", "sqft_above", "yr_built", "sqft_lot", "sqft_lot15"]
 REDUNDANT_COLS = ["lat", "long"]
 DATE_TIME_FORMAT = "%Y%m%dT%H%M%S%f"
 MAX_ROOMS = 15
 MAX_LOT_SQRT = 1250000
 MAX_LOT_14_SQRT = 500000
+REPEAT_FACTOR = 3
+RESOLUTION = 0.01
 
 
 def load_data(filename: str) -> pd.DataFrame:
@@ -70,17 +73,16 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
         if not worst_beneficial_value or worst_beneficial_value > value:
             worst_beneficial_value = value
             worst_beneficial_feature = feature
-    # TODO: fix millions sizes
         fig = px.scatter(pd.DataFrame({'x': X[feature], 'y': y}), x="x", y="y", trendline="ols",
                          labels={"x": feature + " values", "y": "House price"},
                          title="Pearson Correlation between " + feature + " and price is " + f'{value:.3f}')
         fig.write_image(feature + "_correlation.png")
 
-    print(f"Worst beneficial value is {worst_beneficial_feature} with value {worst_beneficial_value}\n"
-          f"Best beneficial feature is {best_beneficial_feature} with value {best_beneficial_value}")
+    print(f"Worst feature is {worst_beneficial_feature}, value is {worst_beneficial_value}\n"
+          f"Best  feature is {best_beneficial_feature}, value is {best_beneficial_value}")
 
 
-def process_houses_data_frame(df: pandas.DataFrame)\
+def process_houses_data_frame(df: pandas.DataFrame) \
         -> Tuple[pd.DataFrame, pd.Series]:
     # remove missing and duplicate data rows
     df = df.dropna().drop_duplicates()
@@ -98,7 +100,7 @@ def process_houses_data_frame(df: pandas.DataFrame)\
     df = df[df['view'].isin(range(5)) &
             df['grade'].isin(range(1, 15)) &
             df['waterfront'].isin([0, 1]) &
-            df['condition'].isin(range(1,  6))]
+            df['condition'].isin(range(1, 6))]
 
     # remove redundant cols
     for col in REDUNDANT_COLS:
@@ -122,7 +124,7 @@ def process_houses_data_frame(df: pandas.DataFrame)\
     # relative date for today in months
     # change discrete zipcodes to linear, set resolution to 10 units intervals (98000, 98010..98200)
     today = date.today()
-    #df["date"] = dt["date"].apply(lambda x: (today - datetime.strptime(x, DATE_TIME_FORMAT).days) // 30)
+    # df["date"] = dt["date"].apply(lambda x: (today - datetime.strptime(x, DATE_TIME_FORMAT).days) // 30)
     df['date'] = df['date'].apply(
         lambda x: (today - date(int(x[0:4]), int(x[4:6]), int(x[6:8]))).days // 30)
 
@@ -138,13 +140,15 @@ def process_houses_data_frame(df: pandas.DataFrame)\
     df = df.drop("price", 1)
     return df, prices
 
+
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of housing prices dataset
     df = load_data("datasets/house_prices.csv")
     X, y = process_houses_data_frame(df)
     # Question 2 - Feature evaluation with respect to response
-    #feature_evaluation(X, y)
+    #toso: remove comment out!
+    # feature_evaluation(X, y)
     # Question 3 - Split samples into training- and testing sets.
     train_X, train_Y, test_X, test_Y = split_train_test(X, y)
     # Question 4 - Fit model over increasing percentages of the overall training data
@@ -154,4 +158,26 @@ if __name__ == '__main__':
     #   3) Test fitted model over test set
     #   4) Store average and variance of loss over test set
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
-    raise NotImplementedError()
+    percentages = np.arange(0.1, 1.005, 0.01)
+    model = LinearRegression()
+    means, deviations = [], []
+    for p in percentages:
+        losses = []
+        for _ in range(REPEAT_FACTOR):
+            train_X_cur = train_X.sample(frac=p)
+            train_Y_cur = train_Y.reindex_like(train_X_cur)
+            model.fit(train_X_cur.to_numpy(), train_Y_cur.to_numpy())
+            losses.append(model.loss(test_X.to_numpy(), test_Y.to_numpy()))
+        means.append(np.mean(np.array(losses)))
+        deviations.append(np.std(np.array(losses)))
+    means = np.array(means)
+    deviations = np.array(deviations)
+    fig = go.Figure([go.Scatter(x=percentages * 100, y=means, name="Mean Prediction", mode="markers+lines"),
+                     go.Scatter(x=percentages * 100, y=means + 2 * deviations, name="Upper confidence Prediction",
+                                mode="markers+lines"),
+                     go.Scatter(x=percentages * 100, y=means - 2 * deviations, name="Lower confidence bound",
+                                mode="markers+lines")],
+                    layout=go.Layout(title="Prediction of Loss values as a function of training data size",
+                                     xaxis=dict(title="Percentage of full training data"),
+                                     yaxis=dict(title="Loss value")))
+    fig.show()

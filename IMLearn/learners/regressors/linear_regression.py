@@ -55,7 +55,7 @@ class LinearRegression(BaseEstimator):
             m = X.shape[1]
             X = np.c_(np.ones(m), X)
         # x = np.linalg.lstsq()
-        self.coefs_ = np.matmul(np.linalg.pinv(X.transpose()), y)
+        self.coefs_ = np.matmul(np.linalg.pinv(X.transpose()).transpose(), y)
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -71,7 +71,7 @@ class LinearRegression(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        return np.matmul(self.coefs_, X)
+        return np.matmul(self.coefs_, X.transpose())
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
@@ -92,3 +92,5 @@ class LinearRegression(BaseEstimator):
         """
         results = self._predict(X)
         return mean_square_error(results, y)
+
+
