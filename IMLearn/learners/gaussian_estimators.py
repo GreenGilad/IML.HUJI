@@ -361,9 +361,3 @@ class MultivariateGaussian:
 
         return pdf
 
-    @staticmethod
-    def mult_gaus_density(X: np.ndarray, sigma: np.ndarray, meu: np.ndarray):
-        d = meu.shape[0]
-        power = np.linalg.multi_dot([np.transpose(X - meu), np.linalg.inv(sigma), X - meu]) * (-0.5)
-        return 1 / ((2 * np.pi) ** d * np.linalg.det(sigma)) * np.exp(power)
-

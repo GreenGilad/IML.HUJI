@@ -4,13 +4,17 @@ from IMLearn.learners.regressors import LinearRegression
 from typing import NoReturn
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 import plotly.graph_objects as go
 import plotly.express as px
 import plotly.io as pio
+
 pio.templates.default = "simple_white"
 
 
-def load_data(filename: str):
+def load_data(filename: str) -> (pd.DataFrame, pd.DataFrame):
     """
     Load house prices dataset and preprocess data.
     Parameters
@@ -23,7 +27,55 @@ def load_data(filename: str):
     Design matrix and response vector (prices) - either as a single
     DataFrame or a Tuple[DataFrame, Series]
     """
-    raise NotImplementedError()
+    df = pd.read_csv(filename).dropna().drop_duplicates()
+    return preprocess_data(df)
+
+
+def preprocess_data(data: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
+    """
+    Preprocess data.
+    Parameters
+    ----------
+    data: pd.DataFrame
+        House prices dataset
+
+    Returns
+    -------
+    Design matrix and response vector (prices) - either as a single
+    DataFrame or a Tuple[DataFrame, Series]
+    """
+    # Drop houses with negative number of bedrooms/bathrooms
+    data = data[data['bedrooms'] >= 0]
+    data = data[data['bathrooms'] >= 0]
+    data = data[data['sqft_living'] > 0]
+    data = data[data['floors'] > 0]
+    data['year_sold'] = pd.to_datetime(data['date']).dt.year
+    data['yr_renovated'] = data['yr_renovated'].astype(int)
+    data['renovated_bool'] = np.where(data['year_sold'] - data['yr_renovated'] <= 30, 1, 0)
+
+    fields_to_drop = ["id", "date", "long", "lat"]
+    for field in fields_to_drop:
+        data = data.drop([field], axis=1)
+
+    # Check all range properties are within their value ranges
+    data = data[data['view'].isin(np.arange(0, 5, 1))]
+    data = data[data['condition'].isin(np.arange(0, 6, 1))]
+    data = data[data['grade'].isin(np.arange(0, 14, 1))]
+
+    data['grade_bad'] = np.where(data['grade'] <= 5, 1, 0)
+    data['grade_medium'] = np.where(data['grade'].isin(np.arange(6, 11, 1)), 1, 0)
+    data['grade_great'] = np.where(data['grade'] >= 11, 1, 0)
+    data = pd.get_dummies(data, columns=['zipcode'])
+
+    cor = data.corr()
+    plt.figure(figsize=(30, 30))
+    sns.heatmap(cor[['price']], annot=True, cmap=plt.cm.Purples)
+    plt.tight_layout()
+    plt.show()
+    # Create labels and features to return
+    labels = data["price"]
+    features = data.drop("price", 1)
+    return features, labels
 
 
 def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") -> NoReturn:
@@ -43,19 +95,20 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
     output_path: str (default ".")
         Path to folder in which plots are saved
     """
-    raise NotImplementedError()
+
 
 
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of housing prices dataset
-    raise NotImplementedError()
+    filename = "../datasets/house_prices.csv"
+    df = load_data(filename)
 
     # Question 2 - Feature evaluation with respect to response
-    raise NotImplementedError()
+    # raise NotImplementedError()
 
     # Question 3 - Split samples into training- and testing sets.
-    raise NotImplementedError()
+    # raise NotImplementedError()
 
     # Question 4 - Fit model over increasing percentages of the overall training data
     # For every percentage p in 10%, 11%, ..., 100%, repeat the following 10 times:
@@ -64,4 +117,5 @@ if __name__ == '__main__':
     #   3) Test fitted model over test set
     #   4) Store average and variance of loss over test set
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
-    raise NotImplementedError()
+    # raise NotImplementedError()
+    print("The end!")
