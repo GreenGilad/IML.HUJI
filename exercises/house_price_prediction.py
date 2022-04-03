@@ -23,7 +23,22 @@ def load_data(filename: str):
     Design matrix and response vector (prices) - either as a single
     DataFrame or a Tuple[DataFrame, Series]
     """
-    raise NotImplementedError()
+    df = pd.read_csv(filename, index_col='id')
+    # get rid of "date" feature
+    # get rid of "lat" and "long" features - location will be encoded via one-hot zipcode entries
+    # price feature to separate series
+    # add total sqft feature (sum of sqft columns)
+    # add ratio of rooms to total sqft (bedrooms+bathrooms / sqft_total)
+    df.drop(['date', 'lat', 'long'], inplace=True, axis=1)
+    zip_codes = pd.get_dummies(df.pop('zipcode'))
+    df = pd.concat([df, zip_codes], axis=1)
+
+    df['total_sqft'] = df.loc[:, 'sqft_living'] + df.loc[:, 'sqft_lot'] + df.loc[:, 'sqft_above']+ df.loc[:, 'sqft_basement']
+    df['room_size'] = df['total_sqft'] / (df.loc[:, 'bedrooms'] + df.loc[:, 'bathrooms'])
+
+    y = df.pop('price')
+
+    return df, y
 
 
 def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") -> NoReturn:
