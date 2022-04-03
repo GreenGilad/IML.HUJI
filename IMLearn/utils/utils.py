@@ -2,7 +2,7 @@ from typing import Tuple
 import numpy as np
 import pandas as pd
 import random
-
+from sklearn.model_selection import train_test_split
 
 def split_train_test(X: pd.DataFrame, y: pd.Series, train_proportion: float = .75) \
         -> Tuple[pd.DataFrame, pd.Series, pd.DataFrame, pd.Series]:
@@ -34,16 +34,18 @@ def split_train_test(X: pd.DataFrame, y: pd.Series, train_proportion: float = .7
         Responses of test samples
 
     """
-    index_list = list(range(0, len(X)))
-    train_index_list = random.sample(index_list, int(len(index_list)*0.7))
-    train_X = X.iloc[train_index_list]
-    train_y = y.iloc[train_index_list]
-    print(55)
-    test_index = index_list.delite(train_index_list)
-    print("fix split data!!!!")
-    test_X = X.iloc[test_index]
-    test_y = y[test_index]
-    return train_X, train_y, test_X, test_y
+    # index_list = list(range(len(X)))
+    # random.shuffle(index_list)
+    # slice_index = int(len(X) * train_proportion)
+    # train_index = index_list[:slice_index]
+    # test_index = index_list[slice_index:]
+    # train_X = X.iloc[train_index]
+    # train_y = y.iloc[train_index]
+    # test_X = X.iloc[test_index]
+    # test_Y = y.iloc[test_index]
+
+    train_X, test_X, train_y, test_Y  = train_test_split(X, y, test_size=train_proportion, random_state=0)
+    return train_X, train_y, test_X, test_Y
 
 
 def confusion_matrix(a: np.ndarray, b: np.ndarray) -> np.ndarray:
