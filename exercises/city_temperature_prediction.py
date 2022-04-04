@@ -47,7 +47,7 @@ if __name__ == '__main__':
     # Question 1 - Load and preprocessing of city temperature dataset
     df = load_data("datasets/City_Temperature.csv")
     df = process_city_temperatures(df)
-    #
+
     # Question 2 - Exploring data for specific country
     israel_df = df[df["Country"] == "Israel"]
     fig = px.scatter(israel_df, x="DayOfYear", y="Temp", color="Year")
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     # Question 3 - Exploring differences between countries
     deviation_and_mean_by_months_and_countries = df.groupby(['Country', 'Month']).Temp.agg(['std', 'mean']).reset_index()
     fig = px.line(deviation_and_mean_by_months_and_countries, x='Month', y='mean', error_y='std', color='Country',
-                  title="Mean Temperature as a function of Month in any country",
+                  title="Mean Temperature as a function of month in any country",
                   labels={'mean': 'Mean monthly temperature'})
     fig.show()
 

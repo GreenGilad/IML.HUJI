@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 import pandas
 from typing import NoReturn, Tuple
 import numpy as np
@@ -20,6 +20,7 @@ MAX_LOT_SQRT = 1250000
 MAX_LOT_14_SQRT = 500000
 REPEAT_FACTOR = 3
 RESOLUTION = 0.01
+RENOVATED_FACTOR = 0.25
 
 
 def load_data(filename: str) -> pd.DataFrame:
@@ -56,7 +57,7 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
         Path to folder in which plots are saved
     """
     features = X.columns
-    features = [feat for feat in set(features) if 'zipcode' not in feat]
+    features = [feat for feat in set(features) if 'zipcode' not in feat and 'id' != feat]
     deviation_y = np.std(y)
     best_beneficial_value, best_beneficial_feature = None, None
     worst_beneficial_value, worst_beneficial_feature = None, None
@@ -112,16 +113,15 @@ def process_houses_data_frame(df: pandas.DataFrame) \
     df["yr_built"] = df["yr_built"].astype(int)
 
     df['yr_built'] = df.apply(lambda x:
-                              x['yr_built'] if x['yr_built'] >= x["yr_renovated"] - 5 else x["yr_renovated"],
+                              x['yr_built'] if x['yr_built'] >= x["yr_built"] + RENOVATED_FACTOR * (x["yr_renovated"] - x['yr_built'])
+                              else x["yr_built"] + RENOVATED_FACTOR * (x["yr_renovated"]-x['yr_built']),
                               axis=1)
 
     df = df.drop("yr_renovated", 1)
     df = df.drop("today_year", 1)
 
     # relative date for today in months
-    # change discrete zipcodes to linear, set resolution to 10 units intervals (98000, 98010..98200)
     today = date.today()
-    # df["date"] = dt["date"].apply(lambda x: (today - datetime.strptime(x, DATE_TIME_FORMAT).days) // 30)
     df['date'] = df['date'].apply(
         lambda x: (today - date(int(x[0:4]), int(x[4:6]), int(x[6:8]))).days // 30)
 
@@ -130,7 +130,7 @@ def process_houses_data_frame(df: pandas.DataFrame) \
 
     # form zipcode as dummies features
     df["zipcode"] = df["zipcode"].astype(int)
-    df = pd.get_dummies(df, prefix='zipcode_', columns=['zipcode'])
+    df = pd.get_dummies(df, prefix='zipcode.', columns=['zipcode'])
 
     # Separate data X and prices Y
     prices = df['price']
@@ -144,8 +144,7 @@ if __name__ == '__main__':
     df = load_data("datasets/house_prices.csv")
     X, y = process_houses_data_frame(df)
     # Question 2 - Feature evaluation with respect to response
-    #toso: remove comment out!
-    # feature_evaluation(X, y)
+    feature_evaluation(X, y)
     # Question 3 - Split samples into training- and testing sets.
     train_X, train_Y, test_X, test_Y = split_train_test(X, y)
     # Question 4 - Fit model over increasing percentages of the overall training data
@@ -155,25 +154,24 @@ if __name__ == '__main__':
     #   3) Test fitted model over test set
     #   4) Store average and variance of loss over test set
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
-    percentages = np.arange(0.1, 1.005, 0.01)
+    percentages = np.arange(0.1, 1.005, RESOLUTION)
     model = LinearRegression()
     means, deviations = [], []
+    test_X, test_Y = test_X.to_numpy(), test_Y.to_numpy()
     for p in percentages:
         losses = []
         for _ in range(REPEAT_FACTOR):
             train_X_cur = train_X.sample(frac=p)
             train_Y_cur = train_Y.reindex_like(train_X_cur)
             model.fit(train_X_cur.to_numpy(), train_Y_cur.to_numpy())
-            losses.append(model.loss(test_X.to_numpy(), test_Y.to_numpy()))
+            losses.append(model.loss(test_X, test_Y))
         means.append(np.mean(np.array(losses)))
         deviations.append(np.std(np.array(losses)))
     means = np.array(means)
     deviations = np.array(deviations)
     fig = go.Figure([go.Scatter(x=percentages * 100, y=means, name="Mean Prediction", mode="markers+lines"),
-                     go.Scatter(x=percentages * 100, y=means + 2 * deviations, name="Upper confidence Prediction",
-                                mode="markers+lines"),
-                     go.Scatter(x=percentages * 100, y=means - 2 * deviations, name="Lower confidence bound",
-                                mode="markers+lines")],
+                     go.Scatter(x=percentages * 100, y=means + 2 * deviations, name="Upper confidence Prediction", mode="markers+lines"),
+                     go.Scatter(x=percentages * 100, y=means - 2 * deviations, name="Lower confidence bound", mode="markers+lines")],
                     layout=go.Layout(title="Prediction of Loss values as a function of training data size",
                                      xaxis=dict(title="Percentage of full training data"),
                                      yaxis=dict(title="Loss value")))
