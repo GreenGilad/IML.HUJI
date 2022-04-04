@@ -7,6 +7,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 import plotly.io as pio
+
 pio.templates.default = "simple_white"
 
 
@@ -23,7 +24,58 @@ def load_data(filename: str):
     Design matrix and response vector (prices) - either as a single
     DataFrame or a Tuple[DataFrame, Series]
     """
-    raise NotImplementedError()
+    df = pd.read_csv(filename)
+    # remove infecting features
+    df.drop(["id", "long", "date", "lat"], axis=1, inplace=True)
+
+    # remove invalid rows:
+    df.drop(df[df['price'] <= 0].index, inplace=True)
+    df.drop(df[df['sqft_living'] <= 0].index, inplace=True)
+    df.drop(df[df['sqft_above'] <= 0].index, inplace=True)
+    df.drop(df[df['yr_built'] <= 0].index, inplace=True)
+    df.drop(df[df['sqft_living15'] <= 0].index, inplace=True)
+    df.drop(df[df['sqft_lot'] <= 0].index, inplace=True)
+    df.drop(df[df['sqft_lot15'] <= 0].index, inplace=True)
+
+    # remove houses without rooms or too many rooms
+    df.drop(df[df['bathrooms'] < 0].index, inplace=True)
+    df.drop(df[df['bedrooms'] < 0].index, inplace=True)
+    df.drop(df[df['bedrooms'] >= 15].index, inplace=True)
+
+    # remove house that seems to be to much big
+    df.drop(df[df['sqft_lot'] > 982998].index, inplace=True)
+
+    # add feature: has been Recently_renovated
+    conditions1 = [
+        (df['yr_built'] > 2005) | (df['yr_renovated'] > 2005),
+        (df['yr_built'] <= 2005) & (df['yr_renovated'] <= 2005)]
+    df['Recently_renovated_or_built'] = np.select(conditions1, [1, 0])
+    df.drop(["yr_built", "yr_renovated"], axis=1, inplace=True)
+
+    # add feature of maximum people in the house
+    mean_sqft_above = np.ceil(df['sqft_above'].mean())
+    mean_bedrooms = df['bedrooms'].mean()
+    conditions2 = [
+        df['sqft_above'] > mean_sqft_above,
+        df['sqft_above'] <= mean_sqft_above]
+    values2 = [df['bedrooms'] +
+               np.ceil((1 / (mean_sqft_above // mean_bedrooms))
+                       * (df['sqft_above'] - mean_sqft_above)),
+               df['bedrooms']]
+    df['number_of_people'] = np.select(conditions2, values2)
+
+    # convert categorical "zipcode" to numerical
+    df["zipcode"] = df["zipcode"].astype(int)
+    df = pd.get_dummies(df, prefix='zipcode', columns=['zipcode'])
+
+    # replace nan values with the mean of this feature
+    for column in df:
+        mean = df[column].mean()
+        df[column].replace(np.nan, mean, inplace=True)
+
+    # add intercept column
+    df.insert(0, "intercept", 1, allow_duplicates=True)
+    return df.drop(["price"], axis=1), df['price']
 
 
 def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") -> NoReturn:
@@ -43,19 +95,39 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
     output_path: str (default ".")
         Path to folder in which plots are saved
     """
-    raise NotImplementedError()
+    # remove irrelevant columns
+    X = X.drop("intercept", 1)
+    X = X.loc[:, ~(X.columns.str.contains('^zipcode'))]
+
+    for feature in X:
+        cov_x_y = np.cov(X[feature], y)
+        cor_x_y = cov_x_y[0][1] / np.sqrt(cov_x_y[0][0] * cov_x_y[1][1])
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=X[feature],
+            y=y,
+            mode="markers"
+        ))
+
+        title = "Feature name: {feature}\n Pearson correlation: {cor}"
+        fig.update_layout(
+            title=title.format(feature=feature, cor=cor_x_y),
+            xaxis_title="feature values",
+            yaxis_title="response values"
+        )
+        fig.write_image(output_path + feature + ".png")
 
 
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of housing prices dataset
-    raise NotImplementedError()
+    X, y = load_data('house_prices.csv')
 
     # Question 2 - Feature evaluation with respect to response
-    raise NotImplementedError()
+    feature_evaluation(X, y)
 
     # Question 3 - Split samples into training- and testing sets.
-    raise NotImplementedError()
+    train_x, train_y, test_x, test_y = split_train_test(X, y)
 
     # Question 4 - Fit model over increasing percentages of the overall training data
     # For every percentage p in 10%, 11%, ..., 100%, repeat the following 10 times:
@@ -64,4 +136,33 @@ if __name__ == '__main__':
     #   3) Test fitted model over test set
     #   4) Store average and variance of loss over test set
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
-    raise NotImplementedError()
+    lr = LinearRegression(True)
+    train_x.insert(0, "response", np.array(train_y), allow_duplicates=True)
+    mean_losses = []
+    std_losses = []
+    for p in range(10, 101):
+        inner_loss = []
+        for i in range(10):
+            sample = train_x.sample(frac=p/float(100))
+            lr.fit(sample.drop(["response"], 1), sample.response)
+            inner_loss.append(lr.loss(np.array(test_x), np.array(test_y)))
+        mean_losses.append(np.mean(np.array(inner_loss)))
+        std_losses.append(np.std(np.array(inner_loss)))
+    percents = np.arange(10, 101)
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=percents, y=mean_losses, mode="markers+lines", name="Mean loss",
+                             line=dict(dash="dash"), marker=dict(color="green", opacity=.7)))
+    fig.add_trace(go.Scatter(x=percents, y=np.array(mean_losses) - np.array(std_losses) * 2, fill=None, mode="lines",
+                             line=dict(color="lightgrey"), showlegend=False))
+    fig.add_trace(go.Scatter(x=percents, y=np.array(mean_losses) + np.array(std_losses) * 2, fill='tonexty',
+                    mode="lines", line=dict(color="lightgrey"), showlegend=False))
+    fig.update_layout(
+        title="Mean loss as a function of training set size",
+        xaxis_title="Percents of training dataset",
+        yaxis_title="Mean loss values"
+    )
+    fig.show()
+
+
+
