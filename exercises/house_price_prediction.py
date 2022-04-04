@@ -114,9 +114,6 @@ def process_houses_data_frame(df: pandas.DataFrame) \
     df['yr_built'] = df.apply(lambda x:
                               x['yr_built'] if x['yr_built'] >= x["yr_renovated"] - 5 else x["yr_renovated"],
                               axis=1)
-    df['yr_built'] = df.apply(lambda x:
-                              x['today_year'] if x['today_year'] < x['yr_built'] else x["yr_built"],
-                              axis=1)
 
     df = df.drop("yr_renovated", 1)
     df = df.drop("today_year", 1)
