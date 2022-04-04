@@ -20,7 +20,7 @@ def adding_dist_from_central_seattle(X: pd.DataFrame):
     Adds a distance from seattle column
     """
     # lat and long coordinates of central seattle
-    seattle_lat, seattle_long = 47.60, -122.30
+    seattle_lat, seattle_long = 47.6062, -122.3321
 
     # adding the new column
     X['lat'] = X['lat'].map(lambda t: ((seattle_lat - t) ** 2))
@@ -28,20 +28,15 @@ def adding_dist_from_central_seattle(X: pd.DataFrame):
     X['dist_from_seattle'] = (X['long'] + X['lat']).map(lambda t: math.sqrt(t))
 
 
-# TODO: Change the docs
-def convert_date_to_distance_from_central_date(date: str):
+def convert_date_to_numeric(date: str):
     """
-    Converts a date string to a distance in days from center (int)
+    Converts a date to a numerical value of year + (month/12) that can
+    be used for fitting a linear model
     """
-    # this date is roughly the chronological middle of the dates of houses sold
-    central_date = datetime.datetime(2014, 12, 1)
-
     # Valid data inputs will allow us to use the following format
     year = int(date[:4])
     month = int(date[4:6])
-    day = int(date[6:8])
-    date_sold = datetime.datetime(year, month, day)
-    return (central_date - date_sold).days / 30
+    return year + (month / 12)
 
 
 def load_data(filename: str):
@@ -58,7 +53,7 @@ def load_data(filename: str):
     DataFrame or a Tuple[DataFrame, Series]
     """
 
-    # First load the raw cvs table
+    # First load the raw csv table
     df = pd.read_csv(filename)
 
     # Removing empty or all zero rows
@@ -71,11 +66,11 @@ def load_data(filename: str):
     # One-hot encoding zip codes
     df = pd.concat([df, pd.get_dummies(df['zipcode'])], axis=1)
 
-    # Converting date string to usable "distance from central date" object
-    df['dev_from_cent_date'] = df['date'].map(lambda t: convert_date_to_distance_from_central_date(t))
+    # Converting date string to a numeric value
+    df['date'] = df['date'].map(lambda t: convert_date_to_numeric(t))
 
     # Removing unnecessary columns
-    df.drop(['id', 'long', 'lat', 'zipcode', 'date'], axis=1, inplace=True)
+    df.drop(['id', 'long', 'lat', 'zipcode', 'yr_renovated'], axis=1, inplace=True)
 
     return df
 
@@ -87,6 +82,7 @@ def plot_correlation_graph(feature_vec: np.ndarray, prices_vec: np.ndarray, feat
     """
     if feature_name == 'price':  # we don't want to calculate the correlation for the prices column
         return
+
     pc = (np.cov(feature_vec, prices_vec)[0][1]) / (feature_vec.std() * prices_vec.std())  # compute the PC value
     x_axis_name = feature_name if str(feature_name)[0] != '9' else f"zip_code {feature_name}"
 
@@ -105,7 +101,6 @@ def plot_mse_as_func_of_sample_size(train_X: pd.DataFrame, test_X: pd.DataFrame,
     Function plots the mse as a function of the percentage taken from a given input sample. For each percentage
     point we perform 10 estimations and check their mean
     """
-
     # The mean loss vector matrix. with the rows:
     # - 0: The % of the sample used
     # - 1: The MSE for the given iteration
@@ -122,8 +117,8 @@ def plot_mse_as_func_of_sample_size(train_X: pd.DataFrame, test_X: pd.DataFrame,
         for j in range(10):
             # Set up training data
             p_training_sample = train_X.sample(frac=(p / 100))
-            p_sample_values = p_training_sample['price'].to_numpy()
             p_sample_data = p_training_sample.drop(['price'], axis=1).to_numpy()
+            p_sample_values = p_training_sample['price'].to_numpy()
 
             # perform fit
             linear_regression_model.fit(p_sample_data, p_sample_values)
@@ -134,9 +129,6 @@ def plot_mse_as_func_of_sample_size(train_X: pd.DataFrame, test_X: pd.DataFrame,
         mean_loss_for_each_p[1][p - 10] = np.mean(mse_array)
         mean_loss_for_each_p[2][p - 10] = mse_array.std() * 2
 
-    #todo: Come back to fix this
-    np.delete(mean_loss_for_each_p[1],1)
-    # Plotting the results
     fig = px.scatter(title="MSE as a function of sample size",
                      x=mean_loss_for_each_p[0],
                      y=mean_loss_for_each_p[1],
@@ -181,7 +173,7 @@ if __name__ == '__main__':
         os.mkdir('plots_output_folder')
 
     # Performing the features evaluation on the processed data
-    # feature_evaluation(data_frame, data_frame['price'], 'plots_output_folder')
+    feature_evaluation(data_frame, data_frame['price'], 'plots_output_folder')
 
     # Question 3 - Split samples into training- and testing sets.
     train_X, train_y, test_X, test_y = split_train_test(data_frame, data_frame['price'], 0.75)
@@ -195,5 +187,5 @@ if __name__ == '__main__':
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
 
     linear_regression_model = LinearRegression()
-    # Plotting the MSE as a function os
+    # Plotting the MSE as a function of sample size
     plot_mse_as_func_of_sample_size(train_X, test_X, test_y)
