@@ -60,7 +60,7 @@ def test_multivariate_gaussian():
         temp = []
         for j in range(len(f1_3)):
             # print loading percent
-            print('\r', (i * len(f1_3) + j) * 100 / (len(f1_3) * len(f1_3)), '%', end='')
+            # print('\r', (i * len(f1_3) + j) * 100 / (len(f1_3) * len(f1_3)), '%', end='')
             temp.append(MultivariateGaussian.log_likelihood(np.array([f1_3[i], 0, f1_3[j], 0]), cov, multi_sample))
         res.append(temp)
     res = np.array(res)
