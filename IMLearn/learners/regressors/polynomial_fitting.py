@@ -19,7 +19,7 @@ class PolynomialFitting(BaseEstimator):
             Degree of polynomial to fit
         """
         super().__init__()
-        raise NotImplementedError()
+        self.k = k
 
     def _fit(self, X: np.ndarray, y: np.ndarray) -> NoReturn:
         """
@@ -33,7 +33,8 @@ class PolynomialFitting(BaseEstimator):
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
         """
-        raise NotImplementedError()
+        self.lr = LinearRegression(False)
+        self.lr.coefs_ = np.vander(self.lr.fit(X, y).coefs_, self.k)
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -49,7 +50,7 @@ class PolynomialFitting(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+        self.lr.predict(X)
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
