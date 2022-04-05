@@ -70,7 +70,7 @@ def plot_mse_for_increasing_deg_for_poly_fit():
         # Collect MSE and rank values
         mean_loss_for_each_k[0][k - 1] = k
         mean_loss_for_each_k[1][k - 1] = round(loss_with_mse_function, 2)
-        print(f"The test error for {k} is {round(loss_with_mse_function, 2)}")
+        print(f"The test error for k={k} is {round(loss_with_mse_function, 2)}")
 
     fig = px.bar(mean_loss_for_each_k,
                  title="The MSE for each k in range 10",
