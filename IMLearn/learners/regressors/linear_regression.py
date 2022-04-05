@@ -1,11 +1,10 @@
 from __future__ import annotations
 from typing import NoReturn
 
-import numpy.linalg
-
 from ...base import BaseEstimator
 import numpy as np
 from numpy.linalg import pinv
+from IMLearn.metrics.loss_functions import mean_square_error
 
 
 class LinearRegression(BaseEstimator):
@@ -52,16 +51,25 @@ class LinearRegression(BaseEstimator):
         -----
         Fits model with or without an intercept depending on value of `self.include_intercept_`
         """
-        x = X if self.include_intercept_ else X[:,1:] # todo check !
-        u, sigma, vt = np.linalg.svd(x)
-        # todo: check if pinv on sigma or on x
-        sigma_cross = np.zeros((vt.shape[0], u.shape[0]))
-        sigma_cross[:vt.shape[0], :vt.shape[0]] = np.diag(sigma)
-        sigma_cross = pinv(sigma_cross)
-        x_cross = u @ sigma_cross @ vt
+        x = X if self.include_intercept_ else X[:,1:]
 
+        self.coefs_ = pinv(x) @ y
 
-        self.coefs_ = x_cross.T @ y # todo why T?
+        # the calculation "by hand":
+
+        # xtx = x.T @ x
+        #
+        # if np.linalg.det(xtx) != 0:
+        #     print('short')
+        #     self.coefs_ = np.array(pinv(xtx) @ x.T @ y).reshape(-1, 1)
+        # else:
+        #     print('long')
+        #     u, sigma, vt = np.linalg.svd(x)
+        #     sigma_cross = np.zeros((vt.shape[0], u.shape[0]))
+        #     sigma_cross[:vt.shape[0], :vt.shape[0]] = np.diag(sigma)
+        #     sigma_cross = pinv(sigma_cross)
+        #     x_cross = u @ sigma_cross @ vt
+        #     self.coefs_ = x_cross.T @ y
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -77,11 +85,9 @@ class LinearRegression(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        # todo ?
-        return X @ self.coefs_
+        return np.array(X @ self.coefs_).reshape((X.shape[0], 1))
 
 
-        # raise NotImplementedError()
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
@@ -100,5 +106,4 @@ class LinearRegression(BaseEstimator):
         loss : float
             Performance under MSE loss function
         """
-        return (numpy.linalg.norm(self.predict(X) - y)) ** 2
-        # raise NotImplementedError()
+        return mean_square_error(self.predict(X), y)

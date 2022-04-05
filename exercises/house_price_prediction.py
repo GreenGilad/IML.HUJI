@@ -1,3 +1,5 @@
+from os import path
+
 from IMLearn.utils import split_train_test
 from IMLearn.learners.regressors import LinearRegression
 
@@ -7,13 +9,13 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 import plotly.io as pio
+
 pio.templates.default = "simple_white"
 
-# todo remove:
-from IMLearn.learners.regressors import  PolynomialFitting
 
 DATE_REGEX = r'(20[0-2][0-9])((0[1-9])|(1[0-2]))([0][1-9]|[1-2][0-9]|3[0-1])T[0]{6}'
-
+normalize_coef = {}
+MAX_RANDOM_SEED = 1000
 
 def load_data(filename: str):
     """
@@ -28,8 +30,6 @@ def load_data(filename: str):
     Design matrix and response vector (prices) - either as a single
     DataFrame or a Tuple[DataFrame, Series]
     """
-    normalize = lambda x: x / x.max()
-
     # read data:
     df = pd.read_csv(filename)
 
@@ -39,7 +39,8 @@ def load_data(filename: str):
 
     # date:
     df = df[df.date.str.match(DATE_REGEX)==True]
-    df.date = pd.to_datetime(df.date).apply(lambda x: ((x.year - 2010) * 365 + x.month * 30 + x.day) / 2500)
+    df.date = pd.to_datetime(df.date).\
+        apply(lambda x: ((x.year - 2010) * 365 + x.month * 30 + x.day) / 2500)
 
     # zip:
     df.zipcode = df.zipcode - 98000
@@ -62,12 +63,6 @@ def load_data(filename: str):
 
     # remove un used values:
     df.drop(columns=['id', 'zipcode'], inplace=True)
-
-    # normalize:
-    for col in df.columns:
-        if np.issubdtype(df[col].dtype, np.number):
-            df[col] = normalize(df[col])
-
 
     # split:
     return df[[feature for feature in list(df.columns) if feature != 'price']],\
@@ -98,14 +93,16 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
         if feature[0:3] == 'zip':
             continue
         fig = px.scatter(df[[feature, y.name]], x=feature, y=y.name)
-        pearson = np.cov(df[feature], y)[0][1] / (np.std(df[feature])*np.std(y)) # todo why 4? cov
+        pearson = np.cov(df[feature], y)[0][1] / (np.std(df[feature])*np.std(y))
+
+        title = f'{feature} - Pearson: {pearson:.4f}'
 
         fig.update_layout(
-            title_text=f'{pearson}',
+            title_text=title,
             title_x=0.5)
+
         fig.show()
-        # pio.write_image(fig, output_path, format='png')
-        # fig.write_image(os.path.join(output_path, f'{feature}.png'))
+        pio.write_image(fig, path.join(output_path, f"pearson correlation of {feature}.png"))
 
 
 if __name__ == '__main__':
@@ -133,27 +130,31 @@ if __name__ == '__main__':
 
     for i, frac in enumerate(loss_df.x):
         print(f'frac: {frac}')
-        std_arr = []
+        # std_arr = []
         loss_arr = []
         for _ in range(10):
             # generate train sample:
-            sample = df_train.sample(frac=frac, random_state=1)
+            sample = df_train.sample(frac=frac, random_state=np.random.randint(MAX_RANDOM_SEED))
 
             # train model:
-            lin_reg_model.fit(sample.iloc[:, :-1], sample.price)
+            lin_reg_model.fit(sample.drop('price', axis=1), sample.price)
 
             # predict:
-            std_arr.append(np.std(lin_reg_model.predict(x_test)))
-            loss_arr.append(lin_reg_model.loss(x_test, y_test))
+            loss = lin_reg_model.loss(np.array(x_test), np.array(y_test).reshape(-1, 1))
+            loss_arr.append(loss)
 
         # save results:
         loss = np.mean(loss_arr)
-        std = np.mean(std_arr)
+        std = np.std(loss_arr)
         loss_df.at[i, 'loss'] = loss
         loss_df.at[i, '2_std_up'] = loss + (2 * std)
         loss_df.at[i, '2_std_down'] = loss - (2 * std)
 
+
     fig = px.line(loss_df, x='x', y=['loss', '2_std_up', '2_std_down'])
+    fig.update_layout(
+        title_text='Loss and Std over training size',
+        title_x=0.5)
     fig.show()
 
 
