@@ -53,8 +53,8 @@ if __name__ == '__main__':
     fig = px.scatter(israel_df, x="DayOfYear", y="Temp", color="Year")
     fig.show()
 
-    deviation_by_months = df.groupby(['Month']).Temp.agg(['std'])
-    fig = px.bar(deviation_by_months, y='std',   title="Deviations value as a function of month in Israel")
+    deviation_by_months_in_IL = israel_df.groupby(['Month']).Temp.agg(['std'])
+    fig = px.bar(deviation_by_months_in_IL, y='std', title="Deviations value as a function of month in Israel")
     fig.show()
 
     # Question 3 - Exploring differences between countries
