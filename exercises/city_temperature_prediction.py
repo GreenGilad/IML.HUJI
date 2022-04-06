@@ -15,7 +15,7 @@ def plot_mse_of_israeli_model_on_all_countries(data_frame_without_Israel: pd.Dat
     Plots the MSE values for the israeli polynomial fit for all countries
     """
     # First perform the fist using the chosen rank of 6
-    polynomial_fit = PolynomialFitting(6)
+    polynomial_fit = PolynomialFitting(5)
     polynomial_fit.fit(data_frame_israel_only['day_of_year'].to_numpy(), data_frame_israel_only['Temp'].to_numpy())
 
     # Get a unique array of other countries

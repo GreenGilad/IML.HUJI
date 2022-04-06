@@ -51,11 +51,11 @@ class LinearRegression(BaseEstimator):
         -----
         Fits model with or without an intercept depending on value of `self.include_intercept_`
         """
-        # If include_intercept is true then we must add a 1's column
+        # If include_intercept is true then we must add a 1's column to account for intercept
         if self.include_intercept_:
             ones_vector = np.ones((X.shape[0],1))
             X = np.hstack((ones_vector,X))
-
+        # getting coeffs vector as done in class.
         self.coefs_ = pinv(X) @ y
 
 

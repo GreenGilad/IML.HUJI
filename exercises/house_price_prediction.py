@@ -82,8 +82,8 @@ def plot_correlation_graph(feature_vec: np.ndarray, prices_vec: np.ndarray, feat
     """
     if feature_name == 'price':  # we don't want to calculate the correlation for the prices column
         return
-
-    pc = (np.cov(feature_vec, prices_vec)[0][1]) / (feature_vec.std() * prices_vec.std())  # compute the PC value
+    # compute the PC value
+    pc = (np.cov(feature_vec, prices_vec)[0][1]) / (feature_vec.std() * prices_vec.std())
     x_axis_name = feature_name if str(feature_name)[0] != '9' else f"zip_code {feature_name}"
 
     fig = px.scatter(x=feature_vec,
