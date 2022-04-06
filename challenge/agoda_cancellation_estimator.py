@@ -1,30 +1,31 @@
 from __future__ import annotations
 from typing import NoReturn
-from . import LinearRegression
-from ...base import BaseEstimator
+from IMLearn.base import BaseEstimator
 import numpy as np
 
 
-class PolynomialFitting(BaseEstimator):
+class AgodaCancellationEstimator(BaseEstimator):
     """
-    Polynomial Fitting using Least Squares estimation
+    An estimator for solving the Agoda Cancellation challenge
     """
-    def __init__(self, k: int) -> PolynomialFitting:
+
+    def __init__(self) -> AgodaCancellationEstimator:
         """
-        Instantiate a polynomial fitting estimator
+        Instantiate an estimator for solving the Agoda Cancellation challenge
 
         Parameters
         ----------
-        k : int
-            Degree of polynomial to fit
+
+
+        Attributes
+        ----------
+
         """
         super().__init__()
-        self.LinearRegression_ = LinearRegression(False)
-        self.k_ = k
 
     def _fit(self, X: np.ndarray, y: np.ndarray) -> NoReturn:
         """
-        Fit Least Squares model to polynomial transformed samples
+        Fit an estimator for given samples
 
         Parameters
         ----------
@@ -33,8 +34,12 @@ class PolynomialFitting(BaseEstimator):
 
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
+
+        Notes
+        -----
+
         """
-        self.LinearRegression_.fit(self.__transform(X), y)
+        pass
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -50,11 +55,11 @@ class PolynomialFitting(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        return self.LinearRegression_.predict(self.__transform(X))
+        return np.zeros(X.shape[0])
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
-        Evaluate performance under MSE loss function
+        Evaluate performance under loss function
 
         Parameters
         ----------
@@ -67,22 +72,6 @@ class PolynomialFitting(BaseEstimator):
         Returns
         -------
         loss : float
-            Performance under MSE loss function
+            Performance under loss function
         """
-        return self.LinearRegression_.loss(self.__transform(X), y)
-
-    def __transform(self, X: np.ndarray) -> np.ndarray:
-        """
-        Transform given input according to the univariate polynomial transformation
-
-        Parameters
-        ----------
-        X: ndarray of shape (n_samples,)
-
-        Returns
-        -------
-        transformed: ndarray of shape (n_samples, k+1)
-            Vandermonde matrix of given samples up to degree k
-        """
-        return np.vander(X, self.k_ + 1, increasing=True)
-
+        pass
