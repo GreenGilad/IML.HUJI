@@ -30,6 +30,7 @@ def process_city_temperatures(df: DataFrame) -> pd.DataFrame:
     df = df[df['Day'].isin(range(32))]
     df = df[df['Month'].isin(range(13))]
     df = df[df['Year'].isin(range(2023))]
+    df["Temp"] = df["Temp"].astype(int)
     df = df[df['Temp'].isin(range(-50, 50))]
 
     # create DayOfYear coulomn
@@ -38,7 +39,6 @@ def process_city_temperatures(df: DataFrame) -> pd.DataFrame:
     df["Year"] = df["Year"].astype(str)
     df["Temp"] = df["Temp"].astype(int)
 
-    df.dropna().drop_duplicates()
     return df
 
 
