@@ -36,7 +36,7 @@ def split_train_test(X: pd.DataFrame, y: pd.Series, train_proportion: float = .7
     x_df = pd.DataFrame(X)
     y_df = pd.DataFrame(y)
     train_size = int(np.floor(x_df.shape[0] * train_proportion))
-    temp_df_rand = pd.concat([x_df, y_df], axis=1).sample(frac=1)
+    temp_df_rand = pd.concat([x_df, y_df], axis=1).sample(frac=1).reset_index(drop=True)
     temp_x = temp_df_rand.iloc[:, :-1]
     temp_y = temp_df_rand.iloc[:, -1]
     return temp_x.iloc[:train_size], temp_y.iloc[:train_size], temp_x.iloc[train_size:], temp_y.iloc[train_size:]

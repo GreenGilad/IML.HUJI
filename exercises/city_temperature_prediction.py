@@ -9,7 +9,6 @@ import plotly.express as px
 import plotly.io as pio
 pio.templates.default = "simple_white"
 
-
 def load_data(filename: str) -> pd.DataFrame:
     """
     Load city daily temperature dataset and preprocess data.
@@ -22,7 +21,7 @@ def load_data(filename: str) -> pd.DataFrame:
     -------
     Design matrix and response vector (Temp)
     """
-    dateparser = lambda x: int(dt.datetime.strftime(pd.Timestamp(x).to_pydatetime(), '%j')) / 365
+    dateparser = lambda x: int(dt.datetime.strftime(pd.Timestamp(x).to_pydatetime(), '%j'))
 
     df = pd.read_csv(filename, parse_dates=['Date'])
 
@@ -89,7 +88,6 @@ if __name__ == '__main__':
     fig_4.update_layout(title_text='Loss of Polynomial Regression by k',
                         title_x=0.5)
     fig_4.show()
-
 
 
     # Question 5 - Evaluating fitted model on different countries
