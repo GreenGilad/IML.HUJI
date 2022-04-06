@@ -74,8 +74,9 @@ if __name__ == '__main__':
         loss = np.round(model.loss(test_X, test_y), decimals=2)
         results.append(loss)
         print(f'Lost value is {loss}, for k {k}')
-    fig = px.bar(y=results)
+    fig = px.bar(y=results, x=range(1, 11), title="Loss Value as a function of degree k")
     fig.show()
+
 
     # Question 5 - Evaluating fitted model on different countries' data
     # setup model - 5 is the closest degree
