@@ -34,13 +34,20 @@ def split_train_test(X: pd.DataFrame, y: pd.Series, train_proportion: float = .2
         Responses of test samples
 
     """
-    total_sample_num = X.shape[0]
-    number_of_training_samples = math.ceil(train_proportion*total_sample_num)
+    # First get the size of the largest index and the number of samples that we wish to chose
+    biggest_index = X.shape[0] - 1
+    number_of_samples = int(train_proportion * X.shape[0])
 
-    train_X = X.head(number_of_training_samples)
-    train_y = y.head(number_of_training_samples)
-    test_X = X.tail(total_sample_num - number_of_training_samples)
-    test_y = y.tail(total_sample_num - number_of_training_samples)
+    # Use np function in order to chose random array of rows from our data
+    random_rows = np.random.choice(a=biggest_index, size=number_of_samples, replace=False)
+
+    # Choosing the rows of training data
+    train_X = X.iloc[random_rows]
+    train_y = y.iloc[random_rows]
+
+    # The rest of the rows are used for testing
+    test_X = X.drop(X.index[random_rows])
+    test_y = y.drop(y.index[random_rows])
     return train_X, train_y, test_X, test_y
 
 def confusion_matrix(a: np.ndarray, b: np.ndarray) -> np.ndarray:
