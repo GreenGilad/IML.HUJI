@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import plotly.io as pio
 pio.templates.default = "simple_white"
+import os
 
 
 def load_data(filename: str):
@@ -24,17 +25,24 @@ def load_data(filename: str):
     DataFrame or a Tuple[DataFrame, Series]
     """
     df = pd.read_csv(filename, index_col='id')
+
     # get rid of "date" feature
     # get rid of "lat" and "long" features - location will be encoded via one-hot zipcode entries
     # price feature to separate series
     # add total sqft feature (sum of sqft columns)
     # add ratio of rooms to total sqft (bedrooms+bathrooms / sqft_total)
     df.drop(['date', 'lat', 'long'], inplace=True, axis=1)
+
+    df.fillna(0, inplace=True)
+    df[df <= 0] = 0.1
+
     zip_codes = pd.get_dummies(df.pop('zipcode'))
     df = pd.concat([df, zip_codes], axis=1)
 
-    df['total_sqft'] = df.loc[:, 'sqft_living'] + df.loc[:, 'sqft_lot'] + df.loc[:, 'sqft_above']+ df.loc[:, 'sqft_basement']
-    df['room_size'] = df['total_sqft'] / (df.loc[:, 'bedrooms'] + df.loc[:, 'bathrooms'])
+
+    df['total_sqft'] = df['sqft_living'] + df['sqft_lot'] + df['sqft_above'] + df['sqft_basement']
+    df['room_size'] = df['total_sqft'] / (df['bedrooms'] + df['bathrooms'])
+    df['floors'] = df['floors'].astype(float)
 
     y = df.pop('price')
 
@@ -58,19 +66,30 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
     output_path: str (default ".")
         Path to folder in which plots are saved
     """
-    raise NotImplementedError()
+    sigmaX = X.std(axis=0)
+    sigmay = y.std()
+    pearson = X.apply(lambda col: y.cov(col)) / (sigmaX*sigmay)
+    for feature in pearson.index:
+        plot = px.scatter(x=X[feature],
+                          y=y,
+                          labels={"x": str(feature), "y": "Price (USD)"},
+                          title=f"<b>Pearson Correlation by Feature</b><br>{feature} correlation={pearson[feature]}")
+        plot.show()
+        plot.write_image(output_path + f"/PearsonPlot_{feature}.png")
 
 
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of housing prices dataset
-    raise NotImplementedError()
+    X, y = load_data("/Users/natandavids/IML/IML.HUJI/datasets/house_prices.csv")
 
     # Question 2 - Feature evaluation with respect to response
-    raise NotImplementedError()
+    if not os.path.exists('ex2_plots'):
+        os.mkdir('ex2_plots')
+    #feature_evaluation(X, y, 'ex2_plots')
 
     # Question 3 - Split samples into training- and testing sets.
-    raise NotImplementedError()
+    train_X, train_y, test_X, test_y = split_train_test(X, y)
 
     # Question 4 - Fit model over increasing percentages of the overall training data
     # For every percentage p in 10%, 11%, ..., 100%, repeat the following 10 times:
@@ -79,4 +98,40 @@ if __name__ == '__main__':
     #   3) Test fitted model over test set
     #   4) Store average and variance of loss over test set
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
-    raise NotImplementedError()
+    avgloss = np.zeros(101)
+    std = np.zeros(101)
+
+    train_X['response'] = train_y
+
+    for p in range(10, 101):
+        loss = np.empty(10)
+        for i in range(10):
+            data = train_X.sample(frac=p/100)
+            response = data['response']
+            LR = LinearRegression()
+            LR._fit(data.drop('response', axis=1).to_numpy(), response.to_numpy())
+            loss[i] = LR.loss(test_X.to_numpy(), test_y.to_numpy())
+        avgloss[p], std[p] = loss.mean(), loss.std()
+
+    x = np.arange(10, 101)
+    avgloss = avgloss[10:]
+    std = std[10:]
+    graph = px.scatter(x=x, y=avgloss, title="Average Loss By Percentage of Data Sampled", labels={'x': "percentage", 'y': "Avg Loss"})
+    graph.add_scatter(x=x, y=avgloss - 2 * std)
+    graph.add_scatter(x=x, y=avgloss + 2 * std)
+    graph.show()
+    graph.write_image("ex2_plots/Average_Loss.png")
+
+    # fig = go.Figure()
+    # x = np.arange(101)
+    # p1 = go.Scatter(x=x, y=avgloss, mode="markers+lines", name="Average Loss", line=dict(dash="dash"), marker=dict(color="blue"))
+    # p2 = go.Scatter(x=x, y=avgloss - 2 * std, fill=None, mode="lines", line=dict(color="lightgrey"),
+    #            showlegend=False),
+    # p3 = go.Scatter(x=x, y=avgloss + 2 * std, fill='tonexty', mode="lines", line=dict(color="lightgrey"),
+    #            showlegend=False)
+    # p1.show()
+    # p2.show()
+    # p3.show()
+    #
+    # fig.show()
+    # fig.write_image("ex2_plots/Average_Loss.png")
