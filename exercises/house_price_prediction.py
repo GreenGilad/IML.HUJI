@@ -31,6 +31,7 @@ def load_data(filename: str):
     # price feature to separate series
     # add total sqft feature (sum of sqft columns)
     # add ratio of rooms to total sqft (bedrooms+bathrooms / sqft_total)
+
     df.drop(['date', 'lat', 'long'], inplace=True, axis=1)
 
     df.fillna(0, inplace=True)
@@ -80,15 +81,19 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
 
 if __name__ == '__main__':
     np.random.seed(0)
+    data_filepath = "/Users/natandavids/IML/IML.HUJI/datasets/house_prices.csv"
+    plot_dir = "ex2_plots"
     # Question 1 - Load and preprocessing of housing prices dataset
-    X, y = load_data("/Users/natandavids/IML/IML.HUJI/datasets/house_prices.csv")
+    X, y = load_data(data_filepath)
 
     # Question 2 - Feature evaluation with respect to response
-    if not os.path.exists('ex2_plots'):
-        os.mkdir('ex2_plots')
-    #feature_evaluation(X, y, 'ex2_plots')
+
+    if not os.path.exists(plot_dir):
+        os.mkdir(plot_dir)
+    feature_evaluation(X, y, plot_dir)
 
     # Question 3 - Split samples into training- and testing sets.
+
     train_X, train_y, test_X, test_y = split_train_test(X, y)
 
     # Question 4 - Fit model over increasing percentages of the overall training data
@@ -98,14 +103,21 @@ if __name__ == '__main__':
     #   3) Test fitted model over test set
     #   4) Store average and variance of loss over test set
     # Then plot average loss as function of training size with error ribbon of size (mean-2*std, mean+2*std)
-    avgloss = np.zeros(101)
-    std = np.zeros(101)
+
+    percent_range = 10, 101
+    n_trials = 10
+    confidence_weight = 2
+    plot_filename = "/Average_Loss.png"
+
+
+    avgloss = np.zeros(percent_range[1])
+    std = np.zeros(percent_range[1])
 
     train_X['response'] = train_y
 
-    for p in range(10, 101):
-        loss = np.empty(10)
-        for i in range(10):
+    for p in range(*percent_range):
+        loss = np.empty(n_trials)
+        for i in range(n_trials):
             data = train_X.sample(frac=p/100)
             response = data['response']
             LR = LinearRegression()
@@ -113,25 +125,12 @@ if __name__ == '__main__':
             loss[i] = LR.loss(test_X.to_numpy(), test_y.to_numpy())
         avgloss[p], std[p] = loss.mean(), loss.std()
 
-    x = np.arange(10, 101)
-    avgloss = avgloss[10:]
-    std = std[10:]
+    x = np.arange(*percent_range)
+    avgloss = avgloss[percent_range[0]:]
+    std = std[percent_range[0]:]
     graph = px.scatter(x=x, y=avgloss, title="Average Loss By Percentage of Data Sampled", labels={'x': "percentage", 'y': "Avg Loss"})
-    graph.add_scatter(x=x, y=avgloss - 2 * std)
-    graph.add_scatter(x=x, y=avgloss + 2 * std)
+    graph.add_scatter(x=x, y=avgloss - confidence_weight * std)
+    graph.add_scatter(x=x, y=avgloss + confidence_weight * std)
     graph.show()
-    graph.write_image("ex2_plots/Average_Loss.png")
+    graph.write_image(plot_dir + plot_filename)
 
-    # fig = go.Figure()
-    # x = np.arange(101)
-    # p1 = go.Scatter(x=x, y=avgloss, mode="markers+lines", name="Average Loss", line=dict(dash="dash"), marker=dict(color="blue"))
-    # p2 = go.Scatter(x=x, y=avgloss - 2 * std, fill=None, mode="lines", line=dict(color="lightgrey"),
-    #            showlegend=False),
-    # p3 = go.Scatter(x=x, y=avgloss + 2 * std, fill='tonexty', mode="lines", line=dict(color="lightgrey"),
-    #            showlegend=False)
-    # p1.show()
-    # p2.show()
-    # p3.show()
-    #
-    # fig.show()
-    # fig.write_image("ex2_plots/Average_Loss.png")
