@@ -51,7 +51,8 @@ class LinearRegression(BaseEstimator):
         -----
         Fits model with or without an intercept depending on value of `self.include_intercept_`
         """
-        x = X if self.include_intercept_ else X[:,1:]
+        # x = X if self.include_intercept_ else X[:,1:]
+        x = np.hstack((np.ones((X.shape[0], 1)), X)) if self.include_intercept_ else X
 
         self.coefs_ = pinv(x) @ y
 
@@ -85,7 +86,8 @@ class LinearRegression(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        return np.array(X @ self.coefs_).reshape((X.shape[0], 1))
+        x = np.hstack((np.ones((X.shape[0], 1)), X)) if self.include_intercept_ else X
+        return np.array(x @ self.coefs_).reshape((x.shape[0], 1))
 
 
 

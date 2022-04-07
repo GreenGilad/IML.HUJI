@@ -111,7 +111,8 @@ if __name__ == '__main__':
     x, y = load_data('../datasets/house_prices.csv')
 
     # Question 2 - Feature evaluation with respect to response
-    feature_evaluation(x, y, '../plots/ex2')
+    # feature_evaluation(x, y, '../plots/ex2') # for my directory structure
+    feature_evaluation(x, y)
 
     # Question 3 - Split samples into training- and testing sets.
     x_train, y_train, x_test, y_test = split_train_test(x, y, 0.75)
@@ -156,6 +157,7 @@ if __name__ == '__main__':
         title_text='Loss and Std over training size',
         title_x=0.5)
     fig.show()
+    # pio.write_image(fig, path.join('../plots/ex2', f"q4_res.png"))
 
 
 

@@ -7,6 +7,7 @@ import pandas as pd
 import datetime as dt
 import plotly.express as px
 import plotly.io as pio
+import os.path as path
 pio.templates.default = "simple_white"
 
 def load_data(filename: str) -> pd.DataFrame:
@@ -46,6 +47,7 @@ if __name__ == '__main__':
     fig_a.update_layout(title_text='Temp in Israel by Day of Year over Several Years',
                         title_x=0.5)
     fig_a.show()
+    # pio.write_image(fig_a, path.join('../plots/ex2', f"part_2_q_{2}_a.png"))
 
     fig_b = px.bar(x=pd.unique(israel_df.Month),
                    y=israel_df.groupby(israel_df.Month).Temp.apply(np.std),
@@ -54,6 +56,8 @@ if __name__ == '__main__':
     fig_b.update_layout(title_text='STD of Temp by Month',
                          title_x=0.5)
     fig_b.show()
+    # pio.write_image(fig_b, path.join('../plots/ex2', f"part_2_q_{2}_b.png"))
+
 
     # Question 3 - Exploring differences between countries
     q3_df = pd.DataFrame({
@@ -67,6 +71,8 @@ if __name__ == '__main__':
     fig_3.update_layout(title_text='Mean Temp by Month and Country',
                         title_x=0.5)
     fig_3.show()
+    # pio.write_image(fig_3, path.join('../plots/ex2', f"part_2_q_{3}.png"))
+
 
 
     # Question 4 - Fitting model for different values of `k`
@@ -88,6 +94,7 @@ if __name__ == '__main__':
     fig_4.update_layout(title_text='Loss of Polynomial Regression by k',
                         title_x=0.5)
     fig_4.show()
+    # pio.write_image(fig_4, path.join('../plots/ex2', f"part_2_q_{4}.png"))
 
 
     # Question 5 - Evaluating fitted model on different countries
@@ -107,3 +114,5 @@ if __name__ == '__main__':
     fig_5.update_layout(title_text='Loss on all countries when fitted to Israel with k=6',
                         title_x=0.5)
     fig_5.show()
+    # pio.write_image(fig_5, path.join('../plots/ex2', f"part_2_q_{5}.png"))
+
