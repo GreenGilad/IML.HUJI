@@ -52,6 +52,10 @@ def load_data(filename: str) -> pd.DataFrame:
     return city_tempdf
 
 
+"""
+NOTE: the figure is not shown if trying to run it regularly, But the printing
+at the end of the function is executed. The figure is shown while running in debug
+"""
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of city temperature dataset
@@ -123,3 +127,6 @@ if __name__ == '__main__':
         xaxis_title="Country",
         yaxis_title="mean loss")
     fig.show()
+
+    # prints it but don't show the figure. Although it is, if running in debug
+    print("finish execution!!")

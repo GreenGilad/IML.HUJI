@@ -118,6 +118,10 @@ def feature_evaluation(X: pd.DataFrame, y: pd.Series, output_path: str = ".") ->
         fig.write_image(output_path + feature + ".png")
 
 
+"""
+NOTE: the figure is not shown if trying to run it regularly, But the printing
+at the end of the function is executed. The figure is shown while running in debug
+"""
 if __name__ == '__main__':
     np.random.seed(0)
     # Question 1 - Load and preprocessing of housing prices dataset
@@ -163,6 +167,9 @@ if __name__ == '__main__':
         yaxis_title="Mean loss values"
     )
     fig.show()
+
+    # prints it but don't show the figure. Although it is, if running in debug
+    print("finish execution")
 
 
 
