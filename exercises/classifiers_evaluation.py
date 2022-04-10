@@ -26,6 +26,8 @@ def load_dataset(filename: str) -> Tuple[np.ndarray, np.ndarray]:
         Class vector specifying for each sample its class
 
     """
+
+
     raise NotImplementedError()
 
 
