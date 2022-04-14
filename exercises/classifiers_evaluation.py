@@ -37,15 +37,25 @@ def run_perceptron():
     as a function of the training iterations (x-axis).
     """
     for n, f in [("Linearly Separable", "linearly_separable.npy"), ("Linearly Inseparable", "linearly_inseparable.npy")]:
-        # Load dataset
-        raise NotImplementedError()
+        # Load dataset with `load_dataset`
+        X, y = load_dataset(f)
 
-        # Fit Perceptron and record loss in each fit iteration
+
+
+        # Fit the Perceptron algorithm with `fit` while inside the fit loop
+        # use callback function to append the loss value to the list `losses`
         losses = []
-        raise NotImplementedError()
-
+        perceptron = Perceptron(max_iter=100, callback=lambda per, item1, item2: losses.append(per._loss(X, y)))
+        perceptron.fit(X, y)
+        # Plot loss progression
+        # create a list of x-values for plotting
+        num_of_iterations = np.arange(1, len(losses) + 1)
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=num_of_iterations, y=losses, mode="lines", name="Loss"))
+        fig.update_layout(title=f"Perceptron: {n}", xaxis_title="Iteration", yaxis_title="Loss")
+        losses = []
+        fig.show()
         # Plot figure of loss as function of fitting iteration
-        raise NotImplementedError()
 
 
 def get_ellipse(mu: np.ndarray, cov: np.ndarray):
@@ -103,4 +113,4 @@ def compare_gaussian_classifiers():
 if __name__ == '__main__':
     np.random.seed(0)
     run_perceptron()
-    compare_gaussian_classifiers()
+    # compare_gaussian_classifiers()
