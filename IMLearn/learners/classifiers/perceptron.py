@@ -57,7 +57,7 @@ class Perceptron(BaseEstimator):
         include_intercept_: bool
             Should fitted model include an intercept or not
 
-        max_iter): int, default = 1000
+        max_iter_: int, default = 1000
             Maximum number of passes over training data
 
         callback_: Callable[[Perceptron, np.ndarray, int], None]
@@ -75,7 +75,7 @@ class Perceptron(BaseEstimator):
 
     def _fit(self, X: np.ndarray, y: np.ndarray) -> NoReturn:
         """
-        Fit a halfspace to to given samples. Iterate over given data as long as there exists a sample misclassified
+        Fit a halfspace to given samples. Iterate over given data as long as there exists a sample misclassified
         or that did not reach `self.max_iter_`
 
         Parameters
@@ -106,7 +106,7 @@ class Perceptron(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+        return
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
