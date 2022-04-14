@@ -89,15 +89,30 @@ def compare_gaussian_classifiers():
     """
     for f in ["gaussian1.npy", "gaussian2.npy"]:
         # Load dataset
-        raise NotImplementedError()
+        X, y = load_dataset(f)
 
         # Fit models and predict over training set
-        raise NotImplementedError()
+        lda = LDA()
+        lda.fit(X, y)
 
+        gnb = GaussianNaiveBayes()
+        gnb.fit(X, y)
         # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
         # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
         # Create subplots
+        # plot the following:
+        # - 2D scatter plot of samples with marker color indicating Gaussian Naive Bayes predicted class
+        # and marker shape indicating true class
+        # - 2D scatter plot of samples with marker color indicating LDA predicted class
+        # and marker shape indicating true class
+        # provide classifier names and accuracy as title
         from IMLearn.metrics import accuracy
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode="markers", marker_color=gnb.predict(X), marker_symbol=y))
+        fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode="markers", marker_color=lda.predict(X), marker_symbol=y))
+        # add accuracy and names to title
+        fig.update_layout(title=f"Gaussian Naive Bayes: {accuracy(gnb.predict(X), y)} LDA: {accuracy(lda.predict(X), y)}")
+        fig.show()
         raise NotImplementedError()
 
         # Add traces for data-points setting symbols and colors
@@ -112,5 +127,5 @@ def compare_gaussian_classifiers():
 
 if __name__ == '__main__':
     np.random.seed(0)
-    run_perceptron()
-    # compare_gaussian_classifiers()
+    # crun_perceptron()
+    compare_gaussian_classifiers()
