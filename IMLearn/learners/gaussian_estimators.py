@@ -205,9 +205,6 @@ class MultivariateGaussian:
         d = X.shape[1]
         m = X.shape[0]
         cov_inverse = inv(cov)
-        print(np.shape(X-mu))
-        print(np.shape(mu))
-        print(np.shape(cov_inverse))
         in_exp = -0.5 * np.sum((X - mu) @ cov_inverse * (X - mu))
         # in_exp = -0.5 * sum([np.matmul(np.matmul((r - mu), cov_inverse), np.transpose(r - mu)) for r in X])
         out_exp = -m * d / 2 * np.log(2 * np.pi) - m / 2 * np.log(det(cov))

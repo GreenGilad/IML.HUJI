@@ -1,14 +1,16 @@
 from __future__ import annotations
 from typing import NoReturn
-from . import LinearRegression
-from ...base import BaseEstimator
+from IMLearn.learners.regressors import LinearRegression
+from IMLearn.base import BaseEstimator
 import numpy as np
+from IMLearn.metrics import mean_square_error
 
 
 class PolynomialFitting(BaseEstimator):
     """
     Polynomial Fitting using Least Squares estimation
     """
+
     def __init__(self, k: int) -> PolynomialFitting:
         """
         Instantiate a polynomial fitting estimator
@@ -19,7 +21,8 @@ class PolynomialFitting(BaseEstimator):
             Degree of polynomial to fit
         """
         super().__init__()
-        raise NotImplementedError()
+        self.degree = k
+        self.coef = None
 
     def _fit(self, X: np.ndarray, y: np.ndarray) -> NoReturn:
         """
@@ -33,7 +36,13 @@ class PolynomialFitting(BaseEstimator):
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
         """
-        raise NotImplementedError()
+        # vandermonde_of_x = []
+        # for i in range(self.degree + 1):
+        #     vandermonde_of_x.append(X ** i)
+        vandermonde_of_x = self.__transform(X)  # np.array(vandermonde_of_x).T
+        l_reg = LinearRegression(include_intercept=False)
+        l_reg.fit(vandermonde_of_x, y)
+        self.coef = l_reg.coefs_
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -49,7 +58,7 @@ class PolynomialFitting(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+        return self.__transform(X) @ self.coef
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
@@ -68,7 +77,8 @@ class PolynomialFitting(BaseEstimator):
         loss : float
             Performance under MSE loss function
         """
-        raise NotImplementedError()
+        mse = mean_square_error(y, self._predict(X))
+        return mse
 
     def __transform(self, X: np.ndarray) -> np.ndarray:
         """
@@ -83,4 +93,10 @@ class PolynomialFitting(BaseEstimator):
         transformed: ndarray of shape (n_samples, k+1)
             Vandermonde matrix of given samples up to degree k
         """
-        raise NotImplementedError()
+        return np.vander(X, self.degree + 1, increasing=True)
+
+
+# test = np.array([2, 3, 4, 5])
+# w = PolynomialFitting(k=3)
+# print(len(test))
+# w.fit(test, np.array([]))
