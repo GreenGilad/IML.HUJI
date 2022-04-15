@@ -163,5 +163,5 @@ def decision_boundaries_of_models(X, gnb, lda, y):
 
 if __name__ == '__main__':
     np.random.seed(0)
-    # run_perceptron()
+    run_perceptron()
     compare_gaussian_classifiers()
