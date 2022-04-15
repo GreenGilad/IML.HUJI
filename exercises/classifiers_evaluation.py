@@ -4,6 +4,7 @@ from utils import *
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from math import atan2, pi
+from IMLearn.metrics import accuracy, misclassification_error
 
 
 def load_dataset(filename: str) -> Tuple[np.ndarray, np.ndarray]:
@@ -94,38 +95,73 @@ def compare_gaussian_classifiers():
         # Fit models and predict over training set
         lda = LDA()
         lda.fit(X, y)
-
+        # compare predictions by printing all the samples
         gnb = GaussianNaiveBayes()
         gnb.fit(X, y)
+
+        # run the decision boundary plot
+        decision_boundaries_of_models(X,gnb,lda,y)
         # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
         # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
         # Create subplots
-        # plot the following:
-        # - 2D scatter plot of samples with marker color indicating Gaussian Naive Bayes predicted class
-        # and marker shape indicating true class
-        # - 2D scatter plot of samples with marker color indicating LDA predicted class
-        # and marker shape indicating true class
-        # provide classifier names and accuracy as title
-        from IMLearn.metrics import accuracy
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode="markers", marker_color=gnb.predict(X), marker_symbol=y))
-        fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode="markers", marker_color=lda.predict(X), marker_symbol=y))
-        # add accuracy and names to title
-        fig.update_layout(title=f"Gaussian Naive Bayes: {accuracy(gnb.predict(X), y)} LDA: {accuracy(lda.predict(X), y)}")
+        # decision_boundaries_of_models(X, gnb, lda, y)
+        fig = make_subplots(rows=1, cols=2, specs=[[{"type": "scatter"}, {"type": "scatter"}]], subplot_titles=("Gaussian Naive Bayes", "LDA"))
+        fig.update_layout(showlegend=False)
+        # Add scatter traces
+        # add the predicted Gaussian Naive Bayes classifications with different colors
+        fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode="markers",marker_symbol=class_symbols[y],
+                                 marker_color=gnb.predict(X), name="Gaussian Naive Bayes", marker_size=12,), 1, 1)
+        # add the predicted LDA classifications with different colors
+        fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode="markers",
+                                 marker_symbol=class_symbols[y] ,marker_color=lda.predict(X), name="LDA", marker_size=12), 1, 2)
+        # Add ellipses and don't show legend
+        fig.add_trace(get_ellipse(lda.mu_[0], lda.cov_), 1, 2)
+        fig.add_trace(get_ellipse(lda.mu_[1], lda.cov_), 1, 2)
+        fig.add_trace(get_ellipse(lda.mu_[2], lda.cov_), 1, 2)
+
+        fig.add_trace(get_ellipse(gnb.mu_[0], np.diag(gnb.vars_[0])), 1, 1)
+        fig.add_trace(get_ellipse(gnb.mu_[1], np.diag(gnb.vars_[1])), 1, 1)
+        fig.add_trace(get_ellipse(gnb.mu_[2], np.diag(gnb.vars_[2])), 1, 1)
+        # remove legend
+
+        # Add titles
+        fig.update_layout(title=f"Gaussian Naive Bayes and LDA on {f}", xaxis_title="x", yaxis_title="y", title_x=0.5)
+        # add to each subplot title a name of the model and accuracy
+        # add accuracy to the subplot title using accuracy function and layout.annotations
+        fig.layout.annotations[0].update(text=f"Gaussian Naive Bayes accuracy: {accuracy(gnb.predict(X), y)}")
+        fig.layout.annotations[1].update(text=f"LDA accuracy: {accuracy(lda.predict(X), y)}")
+        # Markers (color black and shaped 'X') indicating the center of each class
+        # add to the graph 'X' based on the mean of each class
+        # add a single dot to the graph for each class center shape 'X'
+        fig.add_trace(go.Scatter(x=np.array(lda.mu_[:,0]), y=np.array(lda.mu_[:,1]), mode="markers", marker_symbol="x", marker_color="black", marker_size=23), 1, 2)
+        fig.add_trace(go.Scatter(x=np.array(gnb.mu_[:,0]), y=np.array(gnb.mu_[:,1]), mode="markers", marker_symbol="x", marker_color="black", marker_size=23), 1, 1)
         fig.show()
-        raise NotImplementedError()
-
-        # Add traces for data-points setting symbols and colors
-        raise NotImplementedError()
-
-        # Add `X` dots specifying fitted Gaussians' means
-        raise NotImplementedError()
-
         # Add ellipses depicting the covariances of the fitted Gaussians
-        raise NotImplementedError()
+
+
+def decision_boundaries_of_models(X, gnb, lda, y):
+    models = [gnb, lda]
+    model_names = ["Gaussian Naive Bayes", "LDA"]
+    lims = np.array([X.min(axis=0), X.max(axis=0)]).T + np.array([-.4, .4])
+    fig = make_subplots(rows=1, cols=2, subplot_titles=[rf"$\textbf{{{m}}}$" for m in model_names],
+                        horizontal_spacing=0.01, vertical_spacing=.03)
+    for i, m in enumerate(models):
+        fig.add_traces([decision_surface(m.fit(X, y).predict, lims[0], lims[1], showscale=False),
+                        go.Scatter(x=X[:, 0], y=X[:, 1], mode="markers", showlegend=False,
+                                   marker=dict(color=y, colorscale=class_colors(3),
+                                               line=dict(color="black", width=1)))],
+                       rows=1, cols=(i % 2) + 1)
+    fig.update_layout(title=rf"$\textbf{{(2) Decision Boundaries Of Models - {model_names[0]} VS {model_names[1]}}}$",
+                      margin=dict(t=100)) \
+        .update_xaxes(visible=False).update_yaxes(visible=False)
+    # calculate the number of missclassifications for each model
+    fig.layout.annotations[0].update(text=f"Gaussian Naive Bayes misclassification: {misclassification_error(gnb.predict(X), y, False)}")
+    fig.layout.annotations[1].update(text=f"LDA misclassification: {misclassification_error(lda.predict(X), y, False)}")
+    fig.show()
+    exit(1)
 
 
 if __name__ == '__main__':
     np.random.seed(0)
-    # crun_perceptron()
+    # run_perceptron()
     compare_gaussian_classifiers()

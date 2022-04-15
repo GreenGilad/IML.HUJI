@@ -1,20 +1,19 @@
 from __future__ import annotations
 import numpy as np
-from numpy.linalg import inv, det
+from numpy.linalg import inv, det, slogdet
 
 
 class UnivariateGaussian:
     """
     Class for univariate Gaussian Distribution Estimator
     """
-
     def __init__(self, biased_var: bool = False) -> UnivariateGaussian:
         """
         Estimator for univariate Gaussian mean and variance parameters
 
         Parameters
         ----------
-        biased_var : bool, default=True
+        biased_var : bool, default=False
             Should fitted estimator of variance be a biased or unbiased estimator
 
         Attributes
@@ -52,13 +51,9 @@ class UnivariateGaussian:
         Sets `self.mu_`, `self.var_` attributes according to calculated estimation (where
         estimator is either biased or unbiased). Then sets `self.fitted_` attribute to `True`
         """
-        self.mu_ = np.mean(X)
-        # Calculate variance of given samples with biased estimator
-        if self.biased_:
-            self.var_ = np.var(X, ddof=0)
-        # Calculate variance of given samples with unbiased estimator
-        else:
-            self.var_ = np.var(X, ddof=1)
+        self.mu_ = X.mean()
+        m = len(X) if self.biased_ else len(X) - 1
+        self.var_ = np.sum((X - self.mu_) ** 2) / m
         self.fitted_ = True
         return self
 
@@ -80,12 +75,9 @@ class UnivariateGaussian:
         ------
         ValueError: In case function was called prior fitting the model
         """
-
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        #  Calculate PDF of observations under Gaussian model with fitted estimators
-        # returns ndarray of shape (n_samples, ) -> array of PDFs of given samples
-        return np.exp(-(X - self.mu_) ** 2 / (2 * self.var_)) / np.sqrt(2 * np.pi * self.var_)
+        return np.exp(- (X - self.mu_) ** 2 / (2 * self.var_)) / np.sqrt(2 * np.pi * self.var_)
 
     @staticmethod
     def log_likelihood(mu: float, sigma: float, X: np.ndarray) -> float:
@@ -106,29 +98,27 @@ class UnivariateGaussian:
         log_likelihood: float
             log-likelihood calculated
         """
-        # Calculate the log-likelihood of the data under a specified Gaussian model
-        # returns float -> log-likelihood of given sample under given model
-        return -len(X)/2 * np.log(2 * np.pi * sigma) - np.sum((X-mu)**2)/(2*sigma)
-
-
+        return -np.sum((X - mu) ** 2) / (2 * sigma) - np.log(2 * np.pi * sigma)*(len(X)/2)
 
 
 class MultivariateGaussian:
     """
     Class for multivariate Gaussian Distribution Estimator
     """
-
     def __init__(self):
         """
         Initialize an instance of multivariate Gaussian estimator
+
         Attributes
         ----------
         fitted_ : bool
             Initialized as false indicating current estimator instance has not been fitted.
             To be set as True in `MultivariateGaussian.fit` function.
+
         mu_: ndarray of shape (n_features,)
             Estimated expectation initialized as None. To be set in `MultivariateGaussian.fit`
             function.
+
         cov_: ndarray of shape (n_features, n_features)
             Estimated covariance initialized as None. To be set in `MultivariateGaussian.fit`
             function.
@@ -142,22 +132,20 @@ class MultivariateGaussian:
 
         Parameters
         ----------
-        X: ndarray of shape (n_samples, )
+        X: ndarray of shape (n_samples, n_features)
             Training data
 
         Returns
         -------
-        self : returns an instance of self.
+        self : returns an instance of self
 
         Notes
         -----
         Sets `self.mu_`, `self.cov_` attributes according to calculated estimation.
         Then sets `self.fitted_` attribute to `True`
         """
-        # ndarray of shape (n_features, n_features) -> covariance matrix of given samples
-        self.cov_ = np.cov(X.T)
-        # ndarray of shape (n_features, ) -> mean of given samples
-        self.mu_ = np.mean(X, axis=0)
+        self.mu_ = X.mean(axis=0)
+        self.cov_ = (X - self.mu_).T @ (X - self.mu_) / (len(X) - 1)
         self.fitted_ = True
         return self
 
@@ -167,7 +155,7 @@ class MultivariateGaussian:
 
         Parameters
         ----------
-        X: ndarray of shape (n_samples, )
+        X: ndarray of shape (n_samples, n_features)
             Samples to calculate PDF for
 
         Returns
@@ -181,11 +169,17 @@ class MultivariateGaussian:
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `pdf` function")
-        #  Calculate PDF of observations under Gaussian model with fitted estimators
-        # Calculated values of given samples for PDF function of N(mu_, cov_) norma distribution
-        # returns ndarray of shape (n_samples, ) -> array of PDFs of given samples
-        return 1/(((2 * np.pi)**len(self.mu_)) * det(self.cov_) ** (-0.5)) * np.exp(-1/2 * (X - self.mu_) @ inv(self.cov_) @ (X - self.mu_).T)
 
+        # Option 1: broadcast X such that its dimensions are: (n_samples, 1, n_features) and then use np.dot
+        # to perform matrix multiplication over the last 2 dimensions
+        d = X[:, np.newaxis, :] - self.mu_
+        mahalanobis = np.sum(d.dot(inv(self.cov_)) * d, axis=2).flatten()
+
+        # Option 2: using np.einsum
+        mahalanobis = np.einsum("bi,ij,bj->b", X-self.mu_, inv(self.cov_), X-self.mu_)
+
+        return np.exp(-.5 * mahalanobis) / \
+               np.sqrt((2*np.pi) ** len(X) * det(self.cov_))
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray, X: np.ndarray) -> float:
@@ -194,20 +188,27 @@ class MultivariateGaussian:
 
         Parameters
         ----------
-        mu : float
+        mu : ndarray of shape (n_features,)
             Expectation of Gaussian
-        cov : float
+        cov : ndarray of shape (n_features, n_features)
             covariance matrix of Gaussian
-        X : ndarray of shape (n_samples, )
+        X : ndarray of shape (n_samples, n_features)
             Samples to calculate log-likelihood with
 
         Returns
         -------
         log_likelihood: float
-            log-likelihood calculated
+            log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        # Calculate the log-likelihood of the data under a specified Gaussian model
-        # returns float -> log-likelihood of given sample under given model
+        # Option 1: broadcast X such that its dimensions are: (n_samples, 1, n_features) and then use np.dot
+        # to perform matrix multiplication over the last 2 dimensions
+        d = X[:, np.newaxis, :] - mu
+        mahalanobis = np.sum(d.dot(inv(cov)) * d)
 
-        return -len(X)*len(mu) / 2 * np.log(2 * np.pi) - \
-               len(X)/ 2 * np.log(det(cov)) - 1 / 2 * ((X - mu) @ inv(cov) * (X - mu)).sum()
+        # Option 2: using np.einsum
+        mahalanobis = np.einsum("bi,ij,bj", X-mu, inv(cov), X-mu)
+
+        # Complete log likelihood value
+        return -(mahalanobis +
+                 len(X)*slogdet(cov)[1] +
+                 len(X)*X.shape[1]*np.log(2*np.pi)) / 2

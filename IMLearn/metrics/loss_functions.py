@@ -57,7 +57,7 @@ def accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     -------
     Accuracy of given predictions
     """
-    return 1 - misclassification_error(y_true, y_pred, normalize=False)
+    return 1 - misclassification_error(y_true, y_pred, normalize=True)
 
 
 def cross_entropy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
