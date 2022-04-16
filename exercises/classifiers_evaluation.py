@@ -40,9 +40,6 @@ def run_perceptron():
     for n, f in [("Linearly Separable", "linearly_separable.npy"), ("Linearly Inseparable", "linearly_inseparable.npy")]:
         # Load dataset with `load_dataset`
         X, y = load_dataset(f)
-
-
-
         # Fit the Perceptron algorithm with `fit` while inside the fit loop
         # use callback function to append the loss value to the list `losses`
         losses = []
@@ -100,7 +97,7 @@ def compare_gaussian_classifiers():
         gnb.fit(X, y)
 
         # run the decision boundary plot
-        decision_boundaries_of_models(X,gnb,lda,y)
+        # decision_boundaries_of_models(X,gnb,lda,y)
         # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
         # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
         # Create subplots
@@ -114,15 +111,15 @@ def compare_gaussian_classifiers():
         # add the predicted LDA classifications with different colors
         fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode="markers",
                                  marker_symbol=class_symbols[y] ,marker_color=lda.predict(X), name="LDA", marker_size=12), 1, 2)
-        # Add ellipses and don't show legend
-        fig.add_trace(get_ellipse(lda.mu_[0], lda.cov_), 1, 2)
-        fig.add_trace(get_ellipse(lda.mu_[1], lda.cov_), 1, 2)
-        fig.add_trace(get_ellipse(lda.mu_[2], lda.cov_), 1, 2)
+        # Add ellipses
 
         fig.add_trace(get_ellipse(gnb.mu_[0], np.diag(gnb.vars_[0])), 1, 1)
         fig.add_trace(get_ellipse(gnb.mu_[1], np.diag(gnb.vars_[1])), 1, 1)
         fig.add_trace(get_ellipse(gnb.mu_[2], np.diag(gnb.vars_[2])), 1, 1)
-        # remove legend
+
+        fig.add_trace(get_ellipse(lda.mu_[0], lda.cov_), 1, 2)
+        fig.add_trace(get_ellipse(lda.mu_[1], lda.cov_), 1, 2)
+        fig.add_trace(get_ellipse(lda.mu_[2], lda.cov_), 1, 2)
 
         # Add titles
         fig.update_layout(title=f"Gaussian Naive Bayes and LDA on {f}", xaxis_title="x", yaxis_title="y", title_x=0.5)
@@ -133,8 +130,11 @@ def compare_gaussian_classifiers():
         # Markers (color black and shaped 'X') indicating the center of each class
         # add to the graph 'X' based on the mean of each class
         # add a single dot to the graph for each class center shape 'X'
-        fig.add_trace(go.Scatter(x=np.array(lda.mu_[:,0]), y=np.array(lda.mu_[:,1]), mode="markers", marker_symbol="x", marker_color="black", marker_size=23), 1, 2)
-        fig.add_trace(go.Scatter(x=np.array(gnb.mu_[:,0]), y=np.array(gnb.mu_[:,1]), mode="markers", marker_symbol="x", marker_color="black", marker_size=23), 1, 1)
+        fig.add_trace(go.Scatter(x=np.array(gnb.mu_[:, 0]), y=np.array(gnb.mu_[:, 1]),
+                                 mode="markers", marker_symbol="x", marker_color="black", marker_size=23), 1, 1)
+        fig.add_trace(go.Scatter(x=np.array(lda.mu_[:,0]),  y=np.array(lda.mu_[:,1]),
+                                 mode="markers", marker_symbol="x",marker_color="black", marker_size=23), 1, 2)
+
         fig.show()
         # Add ellipses depicting the covariances of the fitted Gaussians
 
@@ -163,5 +163,5 @@ def decision_boundaries_of_models(X, gnb, lda, y):
 
 if __name__ == '__main__':
     np.random.seed(0)
-    run_perceptron()
+   #  run_perceptron()
     compare_gaussian_classifiers()
