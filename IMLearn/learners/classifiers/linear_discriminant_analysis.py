@@ -2,6 +2,7 @@ from typing import NoReturn
 from ...base import BaseEstimator
 import numpy as np
 from numpy.linalg import det, inv
+from IMLearn.metrics.loss_functions import misclassification_error
 
 
 class LDA(BaseEstimator):
@@ -25,6 +26,7 @@ class LDA(BaseEstimator):
     self.pi_: np.ndarray of shape (n_classes)
         The estimated class probabilities. To be set in `GaussianNaiveBayes.fit`
     """
+
     def __init__(self):
         """
         Instantiate an LDA classifier
@@ -46,7 +48,15 @@ class LDA(BaseEstimator):
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
         """
-        raise NotImplementedError()
+        self.classes_ = np.unique(y)
+        self.mu_ = np.mean(X, axis=0)
+        self.cov_ = np.cov(X.transpose())
+        self._cov_inv = inv(self.cov_)
+        pi_lst = []
+        for i in self.classes_:
+            pi_lst.append((y == i).sum() / len(y))
+        self.pi_ = np.array(pi_lst)
+        self.fitted_ = True
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -62,7 +72,13 @@ class LDA(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+        a = self._cov_inv @ self.mu_
+        b = np.log(self.mu_) - 0.5 * self.mu_ @ self._cov_inv @ self.mu_
+        y_hat_lst = []
+        for i in X:
+            yhat = (a @ i).transpose() + b
+            y_hat_lst.append(max(yhat))
+        return np.array(y_hat_lst)
 
     def likelihood(self, X: np.ndarray) -> np.ndarray:
         """
@@ -101,4 +117,4 @@ class LDA(BaseEstimator):
         loss : float
             Performance under missclassification loss function
         """
-        raise NotImplementedError()
+        return misclassification_error(y, self.predict(X))

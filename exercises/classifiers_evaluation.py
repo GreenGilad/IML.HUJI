@@ -4,6 +4,8 @@ from typing import Tuple
 import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
+from IMLearn.metrics.loss_functions import misclassification_error
+
 pio.templates.default = "simple_white"
 
 
@@ -24,10 +26,10 @@ def load_dataset(filename: str) -> Tuple[np.ndarray, np.ndarray]:
 
     y: ndarray of shape (n_samples,)
         Class vector specifying for each sample its class
-
     """
-    arr = np.load(r'C:\Users\Lenovo\Documents\GitHub\IML.HUJI\datasets\linearly_separable.npy')
-    return arr
+    arr = np.load(filename)
+    np.insert(arr, 0, 1, axis=1)
+    return (arr[:, 0:-1], arr[:, -1])
 
 
 def run_perceptron():
@@ -37,16 +39,22 @@ def run_perceptron():
     Create a line plot that shows the perceptron algorithm's training loss values (y-axis)
     as a function of the training iterations (x-axis).
     """
-    for n, f in [("Linearly Separable", "linearly_separable.npy"), ("Linearly Inseparable", "linearly_inseparable.npy")]:
+    res = make_subplots(rows=2, cols=1, subplot_titles=("Linearly Separable", "Linearly Inseparable"))
+    counter = 1
+    for n, f in [("Linearly Separable", "linearly_separable.npy"),
+                 ("Linearly Inseparable", "linearly_inseparable.npy")]:
         # Load dataset
-        arr = load_dataset(r'C:\Users\Lenovo\Documents\GitHub\IML.HUJI\datasets\linearly_separable.npy')
-
+        X, y = load_dataset(r'C:\Users\Lenovo\Documents\GitHub\IML.HUJI\datasets//' + f)
         # Fit Perceptron and record loss in each fit iteration
+
         losses = []
-
-
+        callfunc = lambda fit, x, i: losses.append(fit.loss(X, y))
+        my_perc = Perceptron(callback=callfunc).fit(X, y)
         # Plot figure
-        raise NotImplementedError()
+        print(len(losses), losses)
+        res.add_trace(go.Scatter(x=list(range(1, len(losses) + 1)), y=losses), row=counter, col=1)
+        counter = counter + 1
+    res.write_html('test.html', auto_open=True)
 
 
 def compare_gaussian_classifiers():
@@ -55,10 +63,11 @@ def compare_gaussian_classifiers():
     """
     for f in ["gaussian1.npy", "gaussian2.npy"]:
         # Load dataset
-        raise NotImplementedError()
+        X, y = load_dataset(r'C:\Users\Lenovo\Documents\GitHub\IML.HUJI\datasets//' + f)
 
         # Fit models and predict over training set
-        raise NotImplementedError()
+        my_lda = LDA().fit(X, y)
+        print(my_lda.predict(X))
 
         # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
         # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
@@ -68,5 +77,5 @@ def compare_gaussian_classifiers():
 
 if __name__ == '__main__':
     np.random.seed(0)
-    run_perceptron()
+    # run_perceptron()
     compare_gaussian_classifiers()
