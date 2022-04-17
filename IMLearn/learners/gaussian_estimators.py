@@ -160,9 +160,13 @@ class MultivariateGaussian:
         Then sets `self.fitted_` attribute to `True`
         """
 
-        self.mu_ = np.mean(X, axis=0)
-        self.cov_ = \
-            (1 / (X.shape[0] - 1)) * np.dot((X - self.mu_).T, (X - self.mu_))
+        # self.mu_ = np.mean(X, axis=0)
+        # self.cov_ = \
+        #     (1 / (X.shape[0] - 1)) * np.dot((X - self.mu_).T, (X - self.mu_))
+        # self.fitted_ = True
+        # return self
+        self.mu_ = X.mean(axis=0)
+        self.cov_ = (X - self.mu_).T @ (X - self.mu_) / (len(X) - 1)
         self.fitted_ = True
         return self
 
@@ -190,9 +194,13 @@ class MultivariateGaussian:
 
         # calculate and return the pdf array:
 
-        return (1 / np.sqrt(((2 * np.pi) ** X.shape[1]) * np.linalg.det(
-            self.cov_))) * np.exp(-0.5 * (
-                (X - self.mu_) * np.matrix(self.cov_.I) * (X - self.mu_).T))
+        # return (1 / np.sqrt(((2 * np.pi) ** X.shape[1]) * np.linalg.det(
+        #     self.cov_))) * np.exp(-0.5 * (
+        #         (X - self.mu_) * np.matrix(self.cov_.I) * (X - self.mu_).T))
+        d = X[:, np.newaxis, :] - self.mu_
+        mahalanobis = np.sum(d.dot(inv(self.cov_)) * d, axis=2).flatten()
+        return np.exp(-.5 * mahalanobis) / \
+               np.sqrt((2 * np.pi) ** len(X) * det(self.cov_))
 
     @staticmethod
     def log_likelihood(mu: np.ndarray, cov: np.ndarray,
@@ -214,7 +222,14 @@ class MultivariateGaussian:
         log_likelihood: float
             log-likelihood calculated over all input data and under given parameters of Gaussian
         """
-        return (-0.5) * (
-                np.log((np.sqrt(((2 * np.pi) ** X.shape[1]) *
-                                np.linalg.det(cov)))) * (X.shape[0]) + (
-                        np.dot((X - mu), inv(cov)) * (X - mu)).sum())
+
+        d = X[:, np.newaxis, :] - mu
+        mahalanobis = np.sum(d.dot(inv(cov)) * d)
+        return -(mahalanobis +
+                 len(X) * slogdet(cov)[1] +
+                 len(X) * X.shape[1] * np.log(2 * np.pi)) / 2
+
+        # return (-0.5) * (
+        #         np.log((np.sqrt(((2 * np.pi) ** X.shape[1]) *
+        #                         np.linalg.det(cov)))) * (X.shape[0]) + (
+        #                 np.dot((X - mu), inv(cov)) * (X - mu)).sum())

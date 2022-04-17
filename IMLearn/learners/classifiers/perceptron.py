@@ -2,8 +2,12 @@ from __future__ import annotations
 from typing import Callable
 from typing import NoReturn
 from ...base import BaseEstimator
+
+import random
 import numpy as np
 
+
+from IMLearn.metrics.loss_functions import misclassification_error
 
 def default_callback(fit: Perceptron, x: np.ndarray, y: int):
     pass
@@ -90,7 +94,72 @@ class Perceptron(BaseEstimator):
         -----
         Fits model with or without an intercept depending on value of `self.fit_intercept_`
         """
-        raise NotImplementedError()
+        self.fitted_ = True
+
+        # Initialize weights vector:
+        self.coefs_ = np.ones(X.shape[1] + int(self.include_intercept_))
+        X = np.c_[np.ones((X.shape[0], 1)), X] if self.include_intercept_ else X
+
+        # samples = np.c_[X, y.reshape(-1, 1)]
+        # np.random.shuffle(samples)
+
+        # X = samples[:, :-1]
+        # y = samples[:, -1]
+
+
+        # calculate weights vector:
+        # Iterate until no weights change or max_iter is reached
+        for t in range(self.max_iter_):
+            print(f'iter: {t}')
+
+            # iterate over samples and check if they are misclassified
+            misclassifications = \
+            [i for i in range(X.shape[0]) if y[i] * self.predict(X[i]) <= 0]
+
+            random.shuffle(misclassifications)
+            if not misclassifications:
+                print("No misclassifications found, stopping training")
+                return
+
+            print(f'\t- misclassifications: {len(misclassifications)}')
+
+            for i in misclassifications:
+                if (y[i] * self.predict(X[i])) <= 0:
+                    # if misclassified, update weights vector
+
+                    self.coefs_ += (y[i] * X[i])
+                    self.callback_(self, X, y)
+                    break
+
+                #
+                #
+                # # calculate predicted response
+                # y_hat = np.sign(np.dot(self.coefs_, x_i))
+                #
+                # # if misclassified, update weights
+                # if y_hat != y[i]:
+                #     self.coefs_ += y[i] * x_i
+
+            # samples = np.c_[X, y.reshape(-1, 1)]
+            # np.random.shuffle(samples)
+            #
+            # # for i, (x_, y_) in enumerate(zip(X, y)):
+            # for i, sample in enumerate(samples):
+            #     x_ = sample[:-1]
+            #     y_ = sample[-1]
+            #     # print(f"Iteration {t}/{self.max_iter_}: Checking sample {i}, x: {[round(s, 3) for s in x_]}, response {y_}")
+            #     # if y_ * self.predict(x_) <= 0:
+            #     if np.dot(y, np.dot(X, self.coefs_)) <= 0:
+            #         print(f'self.coefs_ {self.coefs_}, y * x {y_ * x_}')
+            #         self.coefs_ += y_ * x_
+            #         # self.callback_(self, x_, y_)
+            #         self.callback_(self, X, y)
+            #         continue
+            #         # continue
+            #
+            #     if i == len(X) - 1:
+            #         # Stop if no misclassification is found
+            #         return
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -106,7 +175,9 @@ class Perceptron(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+        # todo: intercept, activation function ?
+        # X = np.hstack((np.ones((X.shape[0], 1)), X)) if self.include_intercept_ else X
+        return np.sign(np.dot(X, self.coefs_))
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
@@ -125,4 +196,4 @@ class Perceptron(BaseEstimator):
         loss : float
             Performance under missclassification loss function
         """
-        raise NotImplementedError()
+        return misclassification_error(self.predict(X), y)

@@ -39,7 +39,22 @@ class GaussianNaiveBayes(BaseEstimator):
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
         """
-        raise NotImplementedError()
+
+        # initialize classifier fields
+        self.classes_ = np.unique(y).astype(int)
+
+        self.mu_ = np.zeros((self.classes_.size, X.shape[1]))
+        self.vars_ = np.zeros((self.classes_.size, X.shape[1]))
+        self.pi_ = np.zeros(self.classes_.size)
+
+        # todo vectorize
+        for _class in self.classes_:
+            x_class = X[y == _class]
+            self.vars_[_class] = np.var(x_class, axis=0)
+            self.mu_[_class] = np.mean(x_class, axis=0)
+            self.pi_[_class] = len(x_class) / len(X)
+
+        self.fitted_ = True
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -55,7 +70,8 @@ class GaussianNaiveBayes(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+
+        return np.argmax(self.likelihood(X), axis=1).reshape((-1, 1))
 
     def likelihood(self, X: np.ndarray) -> np.ndarray:
         """
@@ -75,7 +91,13 @@ class GaussianNaiveBayes(BaseEstimator):
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `likelihood` function")
 
-        raise NotImplementedError()
+        likelihoods = np.zeros((X.shape[0], self.classes_.size))
+        for _class in self.classes_:
+            # todo varify calculation and Mean probably mistake, vectorize
+            likelihoods[:, _class] = (1 / np.sqrt(2 * np.pi * self.vars_[_class]) * np.exp(-0.5 * (X - self.mu_[_class]) ** 2 / self.vars_[_class])).mean(axis=1)
+
+        return likelihoods
+
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """

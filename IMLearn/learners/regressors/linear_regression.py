@@ -86,7 +86,7 @@ class LinearRegression(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        x = np.hstack((np.ones((X.shape[0], 1)), X)) if self.include_intercept_ else X
+        x = np.c_[np.zeros((X.shape[0], 1)), X] if self.include_intercept_ else X
         return np.array(x @ self.coefs_).reshape((x.shape[0], 1))
 
 
