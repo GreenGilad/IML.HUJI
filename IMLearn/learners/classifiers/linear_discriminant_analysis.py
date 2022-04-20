@@ -1,13 +1,10 @@
 from typing import NoReturn
 
-import scipy.linalg
-
 from ...base import BaseEstimator
 import numpy as np
 from numpy.linalg import det, inv
 
-# todo maybe remove
-from IMLearn.learners.gaussian_estimators import MultivariateGaussian
+from IMLearn.metrics.loss_functions import misclassification_error
 
 
 class LDA(BaseEstimator):
@@ -53,45 +50,32 @@ class LDA(BaseEstimator):
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
         """
-        # initialize estimator:
-        prob = MultivariateGaussian()
-
         # initialize class labels:
         self.classes_ = np.unique(y).astype(int)
-
-        prob.fit(X)
-        self.mu_ = prob.mu_
-        self.cov_ = prob.cov_
-        self._cov_inv = inv(self.cov_)
 
         # # initialize arrays to fill:
         self.pi_ = np.zeros(len(self.classes_))
         self.mu_ = np.zeros((len(self.classes_), X.shape[1]))
-        # self.cov_ = np.zeros((len(self.classes_), X.shape[1], X.shape[1]))
-        # self._cov_inv = np.zeros((len(self.classes_), X.shape[1], X.shape[1]))
-        #
+
         for _class in self.classes_:
             # Get the indices of the samples belonging to the current class
             class_indices = np.where(y == _class)[0]
 
             # Calculate the class probability
             self.pi_[_class] = len(class_indices) / len(y)
-
-            #     # Get the samples belonging to the current class
-            #
-            # prob.fit(class_samples)
-            #
-            #     # Calculate the mean of the current class
             class_samples = X[class_indices]
             self.mu_[_class] = np.mean(class_samples, axis=0)
-        #     self.mu_[_class] = prob.mu_
-        #
-        #     # Calculate the covariance of the current class
-        #     # self.cov_[_class] = np.cov(class_samples.T)
-        #     self.cov_[_class] = prob.cov_
-        #
-        #     # Calculate the inverse of the covariance of the current class
-        #     self._cov_inv[_class] = inv(self.cov_[_class])
+
+        self.cov_ = np.zeros((X.shape[1], X.shape[1]))
+
+        for x_, y_ in zip(X, y):
+            s = (x_ - self.mu_[int(y_)]).reshape(-1, 1)
+            self.cov_ += s @ s.T
+
+        self.cov_ /= len(X)
+        self._cov_inv = inv(self.cov_)
+
+        self.fitted_ = True
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -107,18 +91,8 @@ class LDA(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        res = np.zeros(X.shape[0])
-        log_pi = np.log(self.pi_)
-        X = X.reshape((X.shape[0], X.shape[1], 1))
-        for i, x in enumerate(X):
-            res[i] = np.argmax(
-                [log_pi[k] +
-                 x.T @ self._cov_inv @ self.mu_[k] -
-                 0.5 * self.mu_[k] @ self._cov_inv @ self.mu_[k]
-                 for k in self.classes_])
-
+        res = np.argmax(self.likelihood(X), axis=1)
         return res
-
 
     def likelihood(self, X: np.ndarray) -> np.ndarray:
         """
@@ -139,7 +113,16 @@ class LDA(BaseEstimator):
             raise ValueError(
                 "Estimator must first be fitted before calling `likelihood` function")
 
-        raise NotImplementedError()
+        log_pi = np.log(self.pi_)
+        likelihoods = np.zeros((X.shape[0], len(self.classes_)))
+        X = X.reshape((X.shape[0], X.shape[1], 1))
+
+        for i, x in enumerate(X):
+            likelihoods[i] = [log_pi[k] + x.T @ self._cov_inv @ self.mu_[k] -
+                              0.5 * self.mu_[k] @ self._cov_inv @ self.mu_[k]
+                              for k in self.classes_]
+
+        return likelihoods
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
@@ -158,4 +141,5 @@ class LDA(BaseEstimator):
         loss : float
             Performance under missclassification loss function
         """
-        raise NotImplementedError()
+
+        return misclassification_error(self.predict(X), y)

@@ -1,6 +1,7 @@
 from typing import NoReturn
 from ...base import BaseEstimator
 import numpy as np
+from IMLearn.metrics.loss_functions import misclassification_error
 
 class GaussianNaiveBayes(BaseEstimator):
     """
@@ -47,7 +48,6 @@ class GaussianNaiveBayes(BaseEstimator):
         self.vars_ = np.zeros((self.classes_.size, X.shape[1]))
         self.pi_ = np.zeros(self.classes_.size)
 
-        # todo vectorize
         for _class in self.classes_:
             x_class = X[y == _class]
             self.vars_[_class] = np.var(x_class, axis=0)
@@ -70,6 +70,7 @@ class GaussianNaiveBayes(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
+
 
         return np.argmax(self.likelihood(X), axis=1).reshape((-1, 1))
 
@@ -94,7 +95,8 @@ class GaussianNaiveBayes(BaseEstimator):
         likelihoods = np.zeros((X.shape[0], self.classes_.size))
         for _class in self.classes_:
             # todo varify calculation and Mean probably mistake, vectorize
-            likelihoods[:, _class] = (1 / np.sqrt(2 * np.pi * self.vars_[_class]) * np.exp(-0.5 * (X - self.mu_[_class]) ** 2 / self.vars_[_class])).mean(axis=1)
+            # likelihoods[:, _class] = (1 / np.sqrt(2 * np.pi * self.vars_[_class]) * np.exp(-0.5 * (X - self.mu_[_class]) ** 2 / self.vars_[_class])).mean(axis=1)
+            likelihoods[:, _class] = (1 / np.sqrt(2 * np.pi * self.vars_[_class]) * np.exp(-0.5 * (X - self.mu_[_class]) ** 2 / self.vars_[_class])).sum(axis=1)
 
         return likelihoods
 
@@ -116,4 +118,5 @@ class GaussianNaiveBayes(BaseEstimator):
         loss : float
             Performance under missclassification loss function
         """
-        raise NotImplementedError()
+
+        return misclassification_error(self.predict(X), y)

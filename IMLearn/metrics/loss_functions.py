@@ -55,11 +55,12 @@ def accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     -------
     Accuracy of given predictions
     """
+    y_true = y_true.reshape((-1, 1))
+    y_pred = y_pred.reshape((-1, 1))
 
-    tp = np.sum(y_true == y_pred)
-    tn = np.sum(y_true != y_pred)
+    tp_tn = np.sum(y_true == y_pred)
 
-    return (tp + tn) / y_true.size
+    return tp_tn / y_true.size
 
 
 def cross_entropy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
