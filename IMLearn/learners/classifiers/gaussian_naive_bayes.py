@@ -26,6 +26,7 @@ class GaussianNaiveBayes(BaseEstimator):
         """
         super().__init__()
         self.classes_, self.mu_, self.vars_, self.pi_ = None, None, None, None
+        self.cov_ = None # todo maybe remove
 
     def _fit(self, X: np.ndarray, y: np.ndarray) -> NoReturn:
         """
@@ -46,13 +47,13 @@ class GaussianNaiveBayes(BaseEstimator):
         self.mu_ = np.zeros((self.classes_.size, X.shape[1]))
         self.vars_ = np.zeros((self.classes_.size, X.shape[1]))
         self.pi_ = np.zeros(self.classes_.size)
+        self.cov_ = np.cov(X.T)
 
         for _class in self.classes_:
             x_class = X[y == _class]
             self.vars_[_class] = np.var(x_class, axis=0)
             self.mu_[_class] = np.mean(x_class, axis=0)
             self.pi_[_class] = len(x_class) / len(X)
-
         self.fitted_ = True
 
     def _predict(self, X: np.ndarray) -> np.ndarray:

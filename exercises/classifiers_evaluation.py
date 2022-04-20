@@ -164,22 +164,26 @@ def compare_gaussian_classifiers():
 
             # plot classes results:
             for _class in classifier.classes_:
-                class_samples = samples[(response == _class).reshape(-1, )]
+                # class_samples = samples[(response == _class).reshape(-1, )]
+                #
+                # coords = get_ellipse_coordinates(
+                #     _class,
+                #     class_samples)
+                #
+                # fig.add_trace(go.Scatter(
+                #     x=coords[:, 0], y=coords[:, 1],
+                #     line=dict(color="black", width=4),
+                # ),
+                #     row=1, col=1 + i)
 
-                coords = get_ellipse_coordinates(
-                    _class,
-                    class_samples)
-
-                fig.add_trace(go.Scatter(
-                    x=coords[:, 0], y=coords[:, 1],
-                    line=dict(color="black", width=4),
-                ),
-                    row=1, col=1 + i)
+                fig.add_trace(get_ellipse(classifier.mu_[_class],
+                                          classifier.cov_),
+                              row=1, col=1 + i)
 
                 # add middle gaussian markers:
-                class_mu = class_samples.mean(axis=0)
-                fig.add_trace(go.Scatter(x=[class_mu[0]],  # todo mu of classifier or res?
-                                         y=[class_mu[1]],
+                # class_mu = class_samples.mean(axis=0)
+                fig.add_trace(go.Scatter(x=[classifier.mu_[_class][0]],  # todo mu of classifier or res?
+                                         y=[classifier.mu_[_class][1]],
                                          mode='markers',
                                          marker=dict(color='black',
                                                      symbol='x',
@@ -225,5 +229,5 @@ def get_ellipse_coordinates(_class, class_samples):
 
 if __name__ == '__main__':
     np.random.seed(0)
-    run_perceptron()
+    # run_perceptron()  # todo remove comment
     compare_gaussian_classifiers()
