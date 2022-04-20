@@ -50,7 +50,7 @@ def run_perceptron():
         perceptron_classifier = Perceptron(callback=
                                            lambda fit, x, y: losses.append(
                                                fit.loss(x, y)))
-
+        # px.scatter(samples, color=labels).show()
         perceptron_classifier.fit(samples, labels)
 
         # Plot figure

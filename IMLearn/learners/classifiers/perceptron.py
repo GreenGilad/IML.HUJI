@@ -116,7 +116,7 @@ class Perceptron(BaseEstimator):
             misclassifications = \
             [i for i in range(X.shape[0]) if y[i] * self.predict(X[i]) <= 0]
 
-            random.shuffle(misclassifications)
+            # random.shuffle(misclassifications)
             if not misclassifications:
                 print("No misclassifications found, stopping training")
                 return
