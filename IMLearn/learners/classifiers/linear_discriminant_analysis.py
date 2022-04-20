@@ -4,8 +4,6 @@ from ...base import BaseEstimator
 import numpy as np
 from numpy.linalg import det, inv
 
-from IMLearn.metrics.loss_functions import misclassification_error
-
 
 class LDA(BaseEstimator):
     """
@@ -142,4 +140,5 @@ class LDA(BaseEstimator):
             Performance under missclassification loss function
         """
 
+        from ...metrics import misclassification_error
         return misclassification_error(self.predict(X), y)
