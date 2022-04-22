@@ -82,6 +82,7 @@ class Perceptron(BaseEstimator):
                 if np.dot(x, self.coefs_) * y_ <= 0:
                     self.coefs_ += y_ * x
                     self.callback_(self, x, y_)
+                    break
 
 
 

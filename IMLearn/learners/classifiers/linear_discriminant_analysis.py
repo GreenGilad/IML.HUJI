@@ -78,16 +78,16 @@ class LDA(BaseEstimator):
         """
         # predict the responses for given samples
         responses = np.zeros(X.shape[0])
-        # likelihood = np.zeros((X.shape[0], self.classes_.shape[0])) todo - different option
-        # likelihood = self.likelihood(X)
-        # responses = self.classes_[np.argmax(likelihood, axis=1)]
-        for i in range(X.shape[0]):
-            prob = np.zeros(self.classes_.shape[0])
-            for j in range(self.classes_.shape[0]):
-                a_k = np.dot(self._cov_inv, self.mu_[j]).T
-                b_k = np.log(self.pi_[j]) - 0.5 * np.dot(self.mu_[j], np.dot(self._cov_inv, self.mu_[j]))
-                prob[j] = a_k @ X[i] + b_k
-            responses[i] = self.classes_[np.argmax(prob)]
+        likelihood = np.zeros((X.shape[0], self.classes_.shape[0])) # different option
+        likelihood = self.likelihood(X)
+        responses = self.classes_[np.argmax(likelihood, axis=1)]
+        # for i in range(X.shape[0]):
+        #     prob = np.zeros(self.classes_.shape[0])
+        #     for j in range(self.classes_.shape[0]):
+        #         a_k = np.dot(self._cov_inv, self.mu_[j]).T
+        #         b_k = np.log(self.pi_[j]) - 0.5 * np.dot(self.mu_[j], np.dot(self._cov_inv, self.mu_[j]))
+        #         prob[j] = a_k @ X[i] + b_k
+        #     responses[i] = self.classes_[np.argmax(prob)]
         return responses
 
     def likelihood(self, X: np.ndarray) -> np.ndarray:
@@ -110,7 +110,7 @@ class LDA(BaseEstimator):
             raise ValueError("Estimator must first be fitted before calling `likelihood` function")
         likelihoods = np.zeros((X.shape[0], self.classes_.shape[0]))
         for i in range(X.shape[0]):
-            for j in range(self.classes_.shape[0]): # todo check if the pdf is right
+            for j in range(self.classes_.shape[0]): # check if the pdf is right
                 mahalanobis = (X[i] - self.mu_[j]) @ self._cov_inv @ (X[i] - self.mu_[j]).T
                 gauss_pdf = np.exp(-.5 * mahalanobis) /  np.sqrt((2 * np.pi) ** len(X[i]) * det(self.cov_))
                 likelihoods[i, j] = self.pi_[j] * gauss_pdf

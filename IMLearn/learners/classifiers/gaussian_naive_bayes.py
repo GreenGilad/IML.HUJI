@@ -93,7 +93,7 @@ class GaussianNaiveBayes(BaseEstimator):
                 # create from the var of the specific class diagonal matrix
                 cov_mat = np.diag(self.vars_[j]) # todo check if this is correct
                 # calculate the inverse of the covariance matrix
-                inv_cov_mat = np.linalg.pinv(cov_mat)  # todo check if this is correct
+                inv_cov_mat = np.linalg.pinv(cov_mat)
                 likelihoods[i, j] = np.exp(-0.5 * np.dot(np.dot((X[i] - self.mu_[j]), inv_cov_mat), (X[i] - self.mu_[j]).T))
         return likelihoods
 

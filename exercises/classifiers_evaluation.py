@@ -43,7 +43,7 @@ def run_perceptron():
         # Fit the Perceptron algorithm with `fit` while inside the fit loop
         # use callback function to append the loss value to the list `losses`
         losses = []
-        perceptron = Perceptron(max_iter=100, callback=lambda per, item1, item2: losses.append(per._loss(X, y)))
+        perceptron = Perceptron(max_iter=1000, callback=lambda per, item1, item2: losses.append(per._loss(X, y)))
         perceptron.fit(X, y)
         # Plot loss progression
         # create a list of x-values for plotting
@@ -163,5 +163,5 @@ def decision_boundaries_of_models(X, gnb, lda, y):
 
 if __name__ == '__main__':
     np.random.seed(0)
-   #  run_perceptron()
+    run_perceptron()
     compare_gaussian_classifiers()
