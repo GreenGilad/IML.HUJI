@@ -87,15 +87,18 @@ class GaussianNaiveBayes(BaseEstimator):
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `likelihood` function")
 
-        likelihoods = np.zeros((X.shape[0], self.classes_.size))
-        for i in range(X.shape[0]):
-            for j in range(self.classes_.size):
-                # create from the var of the specific class diagonal matrix
-                cov_mat = np.diag(self.vars_[j]) # todo check if this is correct
-                # calculate the inverse of the covariance matrix
-                inv_cov_mat = np.linalg.pinv(cov_mat)
-                likelihoods[i, j] = np.exp(-0.5 * np.dot(np.dot((X[i] - self.mu_[j]), inv_cov_mat), (X[i] - self.mu_[j]).T))
+        log_likelihoods = np.zeros((X.shape[0], self.classes_.size))
+        # calculate the log likelihood for each sample for each class and for each feature
+        # use the formula for the likelihood of a gaussian distribution
+        for i in range(self.classes_.size):
+            log_likelihoods[:, i] = -0.5 * np.sum(np.log(self.vars_[i]) + (X - self.mu_[i]) ** 2 / self.vars_[i], axis=1)
+           # add the log of the class probabilities to the log likelihoods
+        log_likelihoods += np.log(self.pi_)
+        # calculate the likelihoods for each sample
+        likelihoods = np.exp(log_likelihoods)
         return likelihoods
+
+
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
