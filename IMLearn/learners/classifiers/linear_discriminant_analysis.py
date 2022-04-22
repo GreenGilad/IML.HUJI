@@ -58,15 +58,14 @@ class LDA(BaseEstimator):
         for _class in self.classes_:
             # Get the indices of the samples belonging to the current class
             class_indices = np.where(y == _class)[0]
+            class_samples = X[class_indices]
 
             # Calculate the class probability
             self.pi_[_class] = len(class_indices) / len(y)
-            class_samples = X[class_indices]
             self.mu_[_class] = np.mean(class_samples, axis=0)
-            # self.cov_[_class] = np.cov(class_samples.T)
 
+        # Calculate the covariance matrix:
         self.cov_ = np.zeros((X.shape[1], X.shape[1]))
-
         for x_, y_ in zip(X, y):
             s = (x_ - self.mu_[int(y_)]).reshape(-1, 1)
             self.cov_ += s @ s.T
@@ -74,6 +73,7 @@ class LDA(BaseEstimator):
         self.cov_ /= len(X)
         self._cov_inv = inv(self.cov_)
 
+        # update the fitted flag:
         self.fitted_ = True
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
