@@ -1,9 +1,14 @@
+import numpy as np
+import plotly.graph_objects
+
 from IMLearn.learners.classifiers import Perceptron, LDA, GaussianNaiveBayes
 from typing import Tuple
 from utils import *
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from math import atan2, pi
+
+from IMLearn.metrics.loss_functions import accuracy
 
 
 def load_dataset(filename: str) -> Tuple[np.ndarray, np.ndarray]:
@@ -51,7 +56,7 @@ def run_perceptron():
         perceptron_fit = Perceptron(callback=callback)
         perceptron_fit.fit(X, y)
 
-        # TODO: Do we want normalized loss or not?
+        # TODO: Might want a scatter graph that just had a line though the points
         # Plot figure of loss as function of fitting iteration
         fig = px.line(losses,
                       title=f"Loss as function of iterations for {n} data",
@@ -89,34 +94,113 @@ def get_ellipse(mu: np.ndarray, cov: np.ndarray):
     return go.Scatter(x=mu[0] + xs, y=mu[1] + ys, mode="lines", marker_color="black")
 
 
+def plot_classifier_predictions(X: np.ndarray, predictions: np.ndarray, true_values: np.ndarray):
+    """
+    Plots the scatter of predictions of datasets for given classifier
+    """
+    return go.Scatter(
+        x=X[:, 0],
+        y=X[:, 1],
+        mode='markers',
+        marker=dict(
+            size=20,
+            color=predictions,
+            symbol=true_values,
+            line_width=1
+        ))
+
+
+def adding_mean_class_value_crosses(mu_values: np.ndarray):
+    """
+    Adds x markers for mean values of each class to scatter plot
+    """
+    return go.Scatter(
+        x=mu_values[:, 0],
+        y=mu_values[:, 1],
+        mode='markers',
+        marker=dict(
+            size=30,
+            color='black',
+            symbol='x'
+        ))
+
+
+def add_ellipses(fig: plotly.graph_objects.Figure,classes: np.ndarray,cov_matrix: np.ndarray,
+                 mu_values: np.ndarray, column: int):
+    """
+    Adding ellipses around mean value for each class
+    """
+    for c in classes:
+        fig.add_trace(
+            get_ellipse(mu_values[c], cov_matrix),
+            row=1, col=column
+        )
+
+
 def compare_gaussian_classifiers():
     """
     Fit both Gaussian Naive Bayes and LDA classifiers on both gaussians1 and gaussians2 datasets
     """
+
     for f in ["gaussian1.npy", "gaussian2.npy"]:
         # Load dataset
-        raise NotImplementedError()
+        X, y = load_dataset(f"../datasets/{f}")
+
+        dataset_name = f[:-4]
 
         # Fit models and predict over training set
-        raise NotImplementedError()
+
+        # Fitting the LDA model
+        lda = LDA()
+        lda.fit(X, y)
+
+        # TODO: The second model fit should go here
+
+        # Predicting classes with LDA
+        lda_predictions = lda.predict(X)
+        lda_accuracy = accuracy(y, lda_predictions)
 
         # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
         # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
         # Create subplots
-        from IMLearn.metrics import accuracy
-        raise NotImplementedError()
+        fig = make_subplots(
+            rows=1, cols=2, subplot_titles=["", f"LDA model with accuracy {lda_accuracy}"])
 
         # Add traces for data-points setting symbols and colors
-        raise NotImplementedError()
+
+        # Adding the LDA trace
+        fig.add_trace(
+            plot_classifier_predictions(X, lda_predictions, y),
+            row=1, col=2
+        )
+
+        # TODO: Add the second one here
 
         # Add `X` dots specifying fitted Gaussians' means
-        raise NotImplementedError()
+        fig.add_trace(
+            adding_mean_class_value_crosses(lda.mu_),
+            row=1, col=2
+        )
 
         # Add ellipses depicting the covariances of the fitted Gaussians
-        raise NotImplementedError()
+
+        # Adding ellipses for LDA
+        add_ellipses(fig, lda.classes_, lda.cov_, lda.mu_,2)
+
+        fig.update_layout(
+            title={
+                'text': f"Predicted classifications of {dataset_name} dataset using LDA and Naive Bayes classifiers",
+                'x': 0.5,
+                'y': 0.99,
+                'font': {'size': 20, 'color': 'blue'}
+            },
+            showlegend=False)
+
+        fig.show()
+        break  # TODO: Remove
 
 
 if __name__ == '__main__':
     np.random.seed(0)
-    run_perceptron()
+    # run_perceptron()  # TODO: Uncomment
     compare_gaussian_classifiers()
