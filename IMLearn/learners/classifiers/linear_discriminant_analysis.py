@@ -54,7 +54,7 @@ class LDA(BaseEstimator):
         # # initialize arrays to fill:
         self.pi_ = np.zeros(len(self.classes_))
         self.mu_ = np.zeros((len(self.classes_), X.shape[1]))
-
+        self.cov_ = np.zeros((len(self.classes_), X.shape[1], X.shape[1]))
         for _class in self.classes_:
             # Get the indices of the samples belonging to the current class
             class_indices = np.where(y == _class)[0]
@@ -63,6 +63,7 @@ class LDA(BaseEstimator):
             self.pi_[_class] = len(class_indices) / len(y)
             class_samples = X[class_indices]
             self.mu_[_class] = np.mean(class_samples, axis=0)
+            # self.cov_[_class] = np.cov(class_samples.T)
 
         self.cov_ = np.zeros((X.shape[1], X.shape[1]))
 
