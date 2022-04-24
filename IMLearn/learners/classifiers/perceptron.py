@@ -110,7 +110,6 @@ class Perceptron(BaseEstimator):
                     break
 
             if self._loss(X, y) == 0:
-                print('yay')
                 break
 
     def _predict(self, X: np.ndarray) -> np.ndarray:

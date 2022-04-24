@@ -49,9 +49,22 @@ class LDA(BaseEstimator):
             Responses of input data to fit to
         """
         self.classes_ = np.unique(y)
-        self.mu_ = np.mean(X, axis=0)
-        self.cov_ = np.cov(X.transpose())
+
+        mu_matrix = []
+        for i in self.classes_:
+            index = np.where(y == i)
+            mu_matrix.append(np.mean(X[index], axis=0))
+        self.mu_ = np.array(mu_matrix)
+
+        self.cov_ = np.zeros(shape=(X.shape[1], X.shape[1]))
+        for i in range(len(X)):
+            index = np.where(y[i] == self.classes_)
+            temp_mat = (X[i] - self.mu_[index]).transpose() @ (X[i] - self.mu_[index])
+            self.cov_ += temp_mat
+        self.cov_ = 1 / (X.shape[0] - self.classes_.shape[0]) * self.cov_
+
         self._cov_inv = inv(self.cov_)
+
         pi_lst = []
         for i in self.classes_:
             pi_lst.append((y == i).sum() / len(y))
@@ -72,13 +85,15 @@ class LDA(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        a = self._cov_inv @ self.mu_
-        b = np.log(self.mu_) - 0.5 * self.mu_ @ self._cov_inv @ self.mu_
-        y_hat_lst = []
-        for i in X:
-            yhat = (a @ i).transpose() + b
-            y_hat_lst.append(max(yhat))
-        return np.array(y_hat_lst)
+        res_lst = []
+        for row in X:
+            cur = []
+            for i in range(len(self.classes_)):
+                a = self._cov_inv @ self.mu_[i]
+                b = np.log(self.pi_[i]) - 0.5 * self.mu_[i] @ self._cov_inv @ self.mu_[i]
+                cur.append(a.transpose() @ row + b)
+            res_lst.append(float(self.classes_[np.where(np.max(cur) == cur)]))
+        return np.array(res_lst)
 
     def likelihood(self, X: np.ndarray) -> np.ndarray:
         """
@@ -93,12 +108,18 @@ class LDA(BaseEstimator):
         -------
         likelihoods : np.ndarray of shape (n_samples, n_classes)
             The likelihood for each sample under each of the classes
-
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `likelihood` function")
-
-        raise NotImplementedError()
+        lkhd_lst = []
+        for row in X:
+            row_lkhd_lst = []
+            for k in range(len(self.classes_)):
+                exp_part = -0.5 * (row - self.mu_[k]) @ self._cov_inv @ (row - self.mu_[k]).transpose()
+                f_x_y = (1 / np.sqrt((2 * np.pi) ** (X.shape[1]) * det(self.cov_))) * np.exp(exp_part)
+                row_lkhd_lst.append(f_x_y * self.pi_[k])
+            lkhd_lst.append(row_lkhd_lst)
+        return np.array(lkhd_lst)
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
