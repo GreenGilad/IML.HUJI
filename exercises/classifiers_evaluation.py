@@ -154,7 +154,13 @@ def compare_gaussian_classifiers():
         lda = LDA()
         lda.fit(X, y)
 
-        # TODO: The second model fit should go here
+        # Fitting the Naive Gaussian bayes model
+        naive_gauss = GaussianNaiveBayes()
+        naive_gauss.fit(X,y)
+
+        # Predicting classes with Naive Gaussian
+        naive_gauss_predictions = naive_gauss.predict(X)
+        naive_gauss_accuracy = accuracy(y, naive_gauss_predictions)
 
         # Predicting classes with LDA
         lda_predictions = lda.predict(X)
@@ -164,7 +170,7 @@ def compare_gaussian_classifiers():
         # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
         # Create subplots
         fig = make_subplots(
-            rows=1, cols=2, subplot_titles=["", f"LDA model with accuracy {lda_accuracy}"])
+            rows=1, cols=2, subplot_titles=[f"Naive Gaussian model with accuracy {naive_gauss_accuracy}", f"LDA model with accuracy {lda_accuracy}"])
 
         # Add traces for data-points setting symbols and colors
 
@@ -174,18 +180,36 @@ def compare_gaussian_classifiers():
             row=1, col=2
         )
 
-        # TODO: Add the second one here
+        # Adding the naive Gaussian trace
+        fig.add_trace(
+            plot_classifier_predictions(X, naive_gauss_predictions, y),
+            row=1, col=1
+        )
 
         # Add `X` dots specifying fitted Gaussians' means
+
+        # Adding for lda classifier
         fig.add_trace(
             adding_mean_class_value_crosses(lda.mu_),
             row=1, col=2
+        )
+
+        # Adding for naive bayes classifier
+        fig.add_trace(
+            adding_mean_class_value_crosses(lda.mu_),
+            row=1, col=1
         )
 
         # Add ellipses depicting the covariances of the fitted Gaussians
 
         # Adding ellipses for LDA
         add_ellipses(fig, lda.classes_, lda.cov_, lda.mu_,2)
+
+        # Adding ellipses for
+        add_ellipses(fig, lda.classes_, lda.cov_, naive_gauss.mu_, 1)
+
+        # Adding ellipses for naive Gaussian
+        # TODO: What goes in cov here?
 
         fig.update_layout(
             title={
@@ -197,7 +221,6 @@ def compare_gaussian_classifiers():
             showlegend=False)
 
         fig.show()
-        break  # TODO: Remove
 
 
 if __name__ == '__main__':
