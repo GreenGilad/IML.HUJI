@@ -1,10 +1,13 @@
-from IMLearn.learners.classifiers import Perceptron, LDA, GaussianNaiveBayes
+from IMLearn.learners.classifiers import Perceptron, LDA, GaussianNaiveBayes, perceptron
 from typing import Tuple
 from utils import *
 import plotly.graph_objects as go
+import os
 from plotly.subplots import make_subplots
 from math import atan2, pi
 
+DATASET_DIR = 'datasets'
+LOSSES = []
 
 def load_dataset(filename: str) -> Tuple[np.ndarray, np.ndarray]:
     """
@@ -28,6 +31,8 @@ def load_dataset(filename: str) -> Tuple[np.ndarray, np.ndarray]:
     data = np.load(filename)
     return data[:, :2], data[:, 2].astype(int)
 
+def record_iteration_loss(instance, X, y):
+    LOSSES.append(instance.loss(X, y))
 
 def run_perceptron():
     """
@@ -38,15 +43,20 @@ def run_perceptron():
     """
     for n, f in [("Linearly Separable", "linearly_separable.npy"), ("Linearly Inseparable", "linearly_inseparable.npy")]:
         # Load dataset
-        raise NotImplementedError()
+        X, y = load_dataset(os.path.join(DATASET_DIR, f))
 
         # Fit Perceptron and record loss in each fit iteration
-        losses = []
-        raise NotImplementedError()
-
+        # losses = []
+        Perceptron(callback=record_iteration_loss).fit(X, y) 
         # Plot figure of loss as function of fitting iteration
-        raise NotImplementedError()
-
+        go.Figure(
+            data = go.Scatter(x=np.arange(start=1, stop=len(LOSSES)), y=LOSSES, mode='lines'),
+            layout = go.Layout(
+                title = 'Loss Values as a function of Training Iteration',
+                #xaxis = 'Training Iteration',
+                #yaxis = 'Loss',
+            )
+        ).show()
 
 def get_ellipse(mu: np.ndarray, cov: np.ndarray):
     """
@@ -79,10 +89,11 @@ def compare_gaussian_classifiers():
     """
     for f in ["gaussian1.npy", "gaussian2.npy"]:
         # Load dataset
-        raise NotImplementedError()
-
+        X, y = load_dataset(os.path.join(DATASET_DIR, f))
+        
         # Fit models and predict over training set
-        raise NotImplementedError()
+        GaussianNaiveBayes().fit(X, y)
+        LDA().fit(X, y)
 
         # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
         # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
@@ -103,4 +114,4 @@ def compare_gaussian_classifiers():
 if __name__ == '__main__':
     np.random.seed(0)
     run_perceptron()
-    compare_gaussian_classifiers()
+    # compare_gaussian_classifiers()
