@@ -160,8 +160,22 @@ def decision_boundaries_of_models(X, gnb, lda, y):
     fig.show()
     exit(1)
 
+def quiz_1():
+    # X∈R2, Y∈{0, 1}
+    # S = {([1, 1], 0), ([1, 2], 0), ([2, 3], 1), ([2, 4], 1), ([3, 3], 1), ([3, 4], 1)}
+    X = np.array([[1, 1], [1, 2], [2, 3], [2, 4], [3, 3], [3, 4]])
+    y = np.array([0, 0, 1, 1, 1, 1])
+    # fit naive bayes
+    gnb = GaussianNaiveBayes()
+    gnb.fit(X, y)
+    # print the mu_ and var_ and pi_ of the fitted model
+    print(f"mu_: {gnb.mu_}")
+    print(f"var_: {gnb.vars_}")
+    print(f"pi_: {gnb.pi_}")
+    pass
 
 if __name__ == '__main__':
     np.random.seed(0)
     run_perceptron()
     compare_gaussian_classifiers()
+    #quiz_1()
