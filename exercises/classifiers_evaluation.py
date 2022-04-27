@@ -175,15 +175,15 @@ def compare_gaussian_classifiers():
 
         # Add `X` dots specifying fitted Gaussians' means
 
-        # Adding for lda classifier
+        # Adding 'X' for lda classifier
         fig.add_trace(
             adding_mean_class_value_crosses(lda.mu_),
             row=1, col=2
         )
 
-        # Adding 'X' for naive bayes classifier
+        # Adding 'X' for naive gauss classifier
         fig.add_trace(
-            adding_mean_class_value_crosses(lda.mu_),
+            adding_mean_class_value_crosses(naive_gauss.mu_),
             row=1, col=1
         )
 
