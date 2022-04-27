@@ -39,7 +39,7 @@ def misclassification_error(y_true: np.ndarray, y_pred: np.ndarray, normalize: b
     Misclassification of given predictions
     """
     subtraction_vec = np.subtract(y_true, y_pred)
-    # We will sum over all the indexes that had different true and prediction values
+    # We will sum over all the indexes that had different true and predicted values
     num_of_errors = np.sum(np.where(subtraction_vec != 0, 1, 0))
     return num_of_errors if not normalize else num_of_errors / y_true.shape[0]
 
@@ -59,7 +59,6 @@ def accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     -------
     Accuracy of given predictions
     """
-    #TODO: Still need to test this
     return 1 - misclassification_error(y_true, y_pred, False) / y_true.shape[0]
 
 

@@ -58,6 +58,9 @@ class Perceptron(BaseEstimator):
         self.coefs_ = None
 
     def add_bias_col(self, X: np.ndarray):
+        """
+        Adds a bias column to a given input sample array
+        """
         ones_vector = np.ones((X.shape[0], 1))
         X = np.hstack((ones_vector, X))
         return X
@@ -96,7 +99,7 @@ class Perceptron(BaseEstimator):
                     self.callback_(self, X[i, :], y[i])
                     finished_flag = False
                     break
-            # No amendments have been implemented on teh current iteration then
+            # If No amendments have been implemented on the current iteration then
             # we don't need more iterations
             if finished_flag:
                 break

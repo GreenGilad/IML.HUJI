@@ -56,7 +56,6 @@ def run_perceptron():
         perceptron_fit = Perceptron(callback=callback)
         perceptron_fit.fit(X, y)
 
-        # TODO: Might want a scatter graph that just had a line though the points
         # Plot figure of loss as function of fitting iteration
         fig = px.line(losses,
                       title=f"Loss as function of iterations for {n} data",
@@ -124,19 +123,6 @@ def adding_mean_class_value_crosses(mu_values: np.ndarray):
             symbol='x'
         ))
 
-
-def add_ellipses(fig: plotly.graph_objects.Figure,classes: np.ndarray,cov_matrix: np.ndarray,
-                 mu_values: np.ndarray, column: int):
-    """
-    Adding ellipses around mean value for each class
-    """
-    for c in classes:
-        fig.add_trace(
-            get_ellipse(mu_values[c], cov_matrix),
-            row=1, col=column
-        )
-
-
 def compare_gaussian_classifiers():
     """
     Fit both Gaussian Naive Bayes and LDA classifiers on both gaussians1 and gaussians2 datasets
@@ -150,27 +136,28 @@ def compare_gaussian_classifiers():
 
         # Fit models and predict over training set
 
-        # Fitting the LDA model
-        lda = LDA()
-        lda.fit(X, y)
-
         # Fitting the Naive Gaussian bayes model
         naive_gauss = GaussianNaiveBayes()
         naive_gauss.fit(X,y)
 
+        # Fitting the LDA model
+        lda = LDA()
+        lda.fit(X, y)
+
         # Predicting classes with Naive Gaussian
         naive_gauss_predictions = naive_gauss.predict(X)
-        naive_gauss_accuracy = accuracy(y, naive_gauss_predictions)
+        naive_gauss_accuracy = round(accuracy(y, naive_gauss_predictions), 4)
 
         # Predicting classes with LDA
         lda_predictions = lda.predict(X)
-        lda_accuracy = accuracy(y, lda_predictions)
+        lda_accuracy = round(accuracy(y, lda_predictions), 4)
 
         # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
         # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
         # Create subplots
         fig = make_subplots(
-            rows=1, cols=2, subplot_titles=[f"Naive Gaussian model with accuracy {naive_gauss_accuracy}", f"LDA model with accuracy {lda_accuracy}"])
+            rows=1, cols=2, subplot_titles=[f"Naive Gaussian model with accuracy {naive_gauss_accuracy}"
+                , f"LDA model with accuracy {lda_accuracy}"])
 
         # Add traces for data-points setting symbols and colors
 
@@ -194,7 +181,7 @@ def compare_gaussian_classifiers():
             row=1, col=2
         )
 
-        # Adding for naive bayes classifier
+        # Adding 'X' for naive bayes classifier
         fig.add_trace(
             adding_mean_class_value_crosses(lda.mu_),
             row=1, col=1
@@ -203,13 +190,18 @@ def compare_gaussian_classifiers():
         # Add ellipses depicting the covariances of the fitted Gaussians
 
         # Adding ellipses for LDA
-        add_ellipses(fig, lda.classes_, lda.cov_, lda.mu_,2)
+        for c in lda.classes_:
+            fig.add_trace(
+                get_ellipse(lda.mu_[c], lda.cov_),
+                row=1, col=2
+            )
 
-        # Adding ellipses for
-        add_ellipses(fig, lda.classes_, lda.cov_, naive_gauss.mu_, 1)
-
-        # Adding ellipses for naive Gaussian
-        # TODO: What goes in cov here?
+        # Adding ellipses for Naive Gaussian
+        for c in naive_gauss.classes_:
+            fig.add_trace(
+                get_ellipse(naive_gauss.mu_[c], np.diag(naive_gauss.vars_[c])),
+                row=1, col=1
+            )
 
         fig.update_layout(
             title={
@@ -225,5 +217,5 @@ def compare_gaussian_classifiers():
 
 if __name__ == '__main__':
     np.random.seed(0)
-    # run_perceptron()  # TODO: Uncomment
+    run_perceptron()
     compare_gaussian_classifiers()

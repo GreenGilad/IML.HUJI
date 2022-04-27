@@ -87,18 +87,15 @@ class GaussianNaiveBayes(BaseEstimator):
 
     def calculate_likelihood_for_sample(self,sample:np.array, c: int):
         """
-        Calculates the likelihood for each of the given samples for input class
-        c
+        Calculates the likelihood for each of the given samples for input class c
         """
         # For the calculation we start with the initial prob set to the relevant pi_k
         the_prob = self.pi_[c]
-        # TODO: Is there a shorter way of writing this?
         for feature in range(len(sample)):
             sigma_c = self.vars_[c][feature]
             mu_c = self.mu_[c][feature]
-
-            lower_term = (1 / 2 * np.pi * sigma_c)
-            exponent_term = (-1 / 2 * sigma_c) * ((sample[feature] - mu_c) ** 2)
+            lower_term = (1 / np.sqrt(2 * np.pi * sigma_c))
+            exponent_term = (-1 / (2 * sigma_c)) * ((sample[feature] - mu_c) ** 2)
             the_prob *= lower_term*np.exp(exponent_term)
         return the_prob
 
@@ -127,7 +124,7 @@ class GaussianNaiveBayes(BaseEstimator):
 
         # Calculating the likelihood for each of the classes
         for c in self.classes_:
-             likelihoods[:, c] = np.apply_along_axis(self.calc_something,1,X, c)
+             likelihoods[:, c] = np.apply_along_axis(self.calculate_likelihood_for_sample,1,X, c)
         return likelihoods
 
 
