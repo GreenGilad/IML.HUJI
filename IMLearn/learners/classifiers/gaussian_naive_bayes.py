@@ -39,7 +39,19 @@ class GaussianNaiveBayes(BaseEstimator):
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
         """
-        raise NotImplementedError()
+        self.classes_ = np.unique(y)
+        classes_count = len(self.classes_)
+        feature_count = X.shape[1]
+        self.mu_ = np.zeros((classes_count, feature_count))
+        self.vars_ = np.zeros((classes_count, feature_count))
+        self.pi_ = np.zeros(classes_count)
+        # Fit values
+        # TODO: Try to do this without loop. Maybe with pandas df?
+        for index, cls in enumerate(self.classes_):
+            X_class_idx = X[y==cls]
+            self.mu_[index] = X_class_idx.mean(axis=0)
+            self.vars_[index] = np.var(X_class_idx, axis=0)
+            self.pi_[index] = np.count_nonzero(y==cls) / X.shape[0]
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -55,7 +67,16 @@ class GaussianNaiveBayes(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+        return self.classes_[np.argmax(self.likelihood(X), axis=1)]
+
+    def _calc_lh_by_sample(self, sample):
+        classes_count = len(self.classes_)
+        sample_lh = np.zeros(classes_count)
+        for index, _ in enumerate(self.classes_):
+            sum_ = np.sum(((sample - self.mu_[index])**2) / (self.vars_[index]*2))
+            sample_lh[index] = np.log(self.pi_[index]) - sum_
+        return sample_lh
+
 
     def likelihood(self, X: np.ndarray) -> np.ndarray:
         """
@@ -75,7 +96,14 @@ class GaussianNaiveBayes(BaseEstimator):
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `likelihood` function")
 
-        raise NotImplementedError()
+        classes_count = len(self.classes_)
+        samples_count = X.shape[0]
+
+        # TODO: Try to do this without loop
+        lh = np.zeros((samples_count, classes_count))
+        for sample_idx in range(samples_count):
+            lh[sample_idx] = self._calc_lh_by_sample(X[sample_idx])
+        return lh
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
