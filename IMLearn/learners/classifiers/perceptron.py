@@ -86,9 +86,9 @@ class Perceptron(BaseEstimator):
                     self.coefs_ = self.coefs_ + y[i]*X[i]
                     break
             else:
+                # TODO: Do I need to call callback only after change? (in inner loop)
                 self.callback_(self, X, y)
                 return
-            # TODO: Do the sample and response need to be updated in some way? (coefs are updated) 
             self.callback_(self, X, y)
             iter_count += 1
 
@@ -113,7 +113,7 @@ class Perceptron(BaseEstimator):
             X = X[:, 1:]
         else:
             b = 0
-            w = self._coefs
+            w = self.coefs_
         response = []
         for i in range(len(X)):
             if np.dot(X[i], w) + b >= 0:
