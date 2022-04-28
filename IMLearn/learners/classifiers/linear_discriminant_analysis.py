@@ -61,7 +61,8 @@ class LDA(BaseEstimator):
             X_class_idx = X[y==cls]
             self.mu_[index] = X_class_idx.mean(axis=0)
             cls_cov = X_class_idx - self.mu_[index, :]
-            self.cov_ = cls_cov.transpose() @ cls_cov
+            self.cov_ += cls_cov.transpose() @ cls_cov
+            # print(self.cov_)
             self.pi_[index] = np.count_nonzero(y==cls) / X.shape[0]
         self.cov_ = self.cov_ / (X.shape[0] - classes_count)
         self._cov_inv = inv(self.cov_)
