@@ -5,6 +5,21 @@ from IMLearn.utils import split_train_test
 from IMLearn.base import BaseEstimator
 import numpy as np
 import pandas as pd
+import plotly.express as px
+
+def get_info(data: pd.DataFrame):
+    for feature in data.columns:
+        dtype = data[feature].dtype
+        print(feature)
+        print(f"{len(data[feature].unique())} Unique {dtype} Values:")
+        print(data[feature].unique())
+        if pd.api.types.is_numeric_dtype(dtype):
+            print(f"min: {data[feature].min()} max: {data[feature].max()}")
+            print(f"mean: {data[feature].mean()} median: {data[feature].median()}")
+        hist = px.histogram(data[feature], title=f"{feature} histogram")
+        hist.show()
+        print('~'*20)
+        print('')
 
 
 def load_data(filename: str):
@@ -99,6 +114,9 @@ def evaluate_and_export(estimator: BaseEstimator, X: np.ndarray, filename: str):
 
 if __name__ == '__main__':
     np.random.seed(0)
+
+    get_info(pd.read_csv("/Users/natandavids/IML/IML.HUJI/datasets/house_prices.csv"))
+    raise TypeError()
 
     # Load data
     df, cancellation_labels = load_data("../datasets/agoda_cancellation_train.csv")

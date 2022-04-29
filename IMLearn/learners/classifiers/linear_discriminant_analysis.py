@@ -46,7 +46,19 @@ class LDA(BaseEstimator):
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
         """
-        raise NotImplementedError()
+        self.classes_, class_counts = np.unique(y, return_counts=True)
+        self.pi_ = class_counts / m
+        m = y.shape[0]
+        K = self.classes_.shape[0]
+        indicator = np.zeros((K, m))
+        indicator[np.tile(y, (K, 1)) == np.tile(self.classes_, (m, 1)).T] = 1
+        XX = np.tile(X, (K, 1, 1))
+        self.mu_ = 1/class_counts * (XX * indicator).sum(axis=1)
+
+        mm = np.array([self.mu_[np.where(self.classes_==k)[0]] for k in y])
+        normalized = X - mm
+        self.cov = 1/m * (normalized.T @ normalized)
+
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """

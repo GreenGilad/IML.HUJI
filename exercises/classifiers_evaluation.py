@@ -4,6 +4,8 @@ from typing import Tuple
 import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
+import plotly.express as px
+import os
 pio.templates.default = "simple_white"
 
 
@@ -26,7 +28,10 @@ def load_dataset(filename: str) -> Tuple[np.ndarray, np.ndarray]:
         Class vector specifying for each sample its class
 
     """
-    raise NotImplementedError()
+    data = np.load(filename)
+    X = data[:, :2]
+    y = data[:, 2]
+    return X, y
 
 
 def run_perceptron():
@@ -36,16 +41,22 @@ def run_perceptron():
     Create a line plot that shows the perceptron algorithm's training loss values (y-axis)
     as a function of the training iterations (x-axis).
     """
+    root = "/Users/natandavids/IML/IML.HUJI/datasets/"
+
     for n, f in [("Linearly Separable", "linearly_separable.npy"), ("Linearly Inseparable", "linearly_inseparable.npy")]:
         # Load dataset
-        raise NotImplementedError()
+        X, y = load_dataset(root+f)
 
         # Fit Perceptron and record loss in each fit iteration
         losses = []
-        raise NotImplementedError()
+        P = Perceptron()
+        P.fit(X, y)
+        losses = P.training_loss_
 
         # Plot figure
-        raise NotImplementedError()
+        graph = px.line(x=np.arange(losses.shape[0]), y=losses, title=n, labels={'x':"iteration", 'y':"loss"})
+        graph.show()
+        graph.write_image(f"ex3_plots/{n}_plot.png")
 
 
 def compare_gaussian_classifiers():
@@ -66,6 +77,8 @@ def compare_gaussian_classifiers():
 
 
 if __name__ == '__main__':
+    if not os.path.exists("ex3_plots"):
+        os.mkdir("ex3_plots")
     np.random.seed(0)
     run_perceptron()
     compare_gaussian_classifiers()
