@@ -34,7 +34,7 @@ class AdaBoost(BaseEstimator):
         super().__init__()
         self.wl_ = wl
         self.iterations_ = iterations
-        self.models_, self.weights_, self.D_ = [], np.zeros(iterations), np.zeros(iterations)
+        self.models_, self.weights_, self.D_ = None, None, None
 
     def _fit(self, X: np.ndarray, y: np.ndarray) -> NoReturn:
         """
