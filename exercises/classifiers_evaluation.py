@@ -4,6 +4,12 @@ from utils import *
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from math import atan2, pi
+import matplotlib.pyplot as plt
+import matplotlib.patches as pltpach
+
+import utils as utl
+import IMLearn.metrics.loss_functions as lf
+
 
 
 def load_dataset(filename: str) -> Tuple[np.ndarray, np.ndarray]:
@@ -37,15 +43,20 @@ def run_perceptron():
     as a function of the training iterations (x-axis).
     """
     for n, f in [("Linearly Separable", "linearly_separable.npy"), ("Linearly Inseparable", "linearly_inseparable.npy")]:
-        # Load dataset
-        raise NotImplementedError()
+        X, y = load_dataset("../datasets/" + f)
 
         # Fit Perceptron and record loss in each fit iteration
         losses = []
-        raise NotImplementedError()
+        call = lambda a, b, c: losses.append(a.loss(b, [c]))
 
-        # Plot figure of loss as function of fitting iteration
-        raise NotImplementedError()
+        perceptron = Perceptron(callback=call)
+        perceptron.fit(X, y)
+
+        plt.plot(range(0, len(losses)), losses)
+        plt.title("percrptrone losses as function of repetitions")
+        plt.xlabel("repetitions")
+        plt.ylabel("losses")
+        plt.show()
 
 
 def get_ellipse(mu: np.ndarray, cov: np.ndarray):
@@ -77,28 +88,78 @@ def compare_gaussian_classifiers():
     """
     Fit both Gaussian Naive Bayes and LDA classifiers on both gaussians1 and gaussians2 datasets
     """
+    # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
+    # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
+    # Create subplots
+
     for f in ["gaussian1.npy", "gaussian2.npy"]:
         # Load dataset
-        raise NotImplementedError()
-
+        X, y = load_dataset("../datasets/" + f)
         # Fit models and predict over training set
-        raise NotImplementedError()
+        lda = LDA()
+        lda.fit(X, y)
+        prediction = lda.predict(X)
+        colors = list('rgbcynkmrg')
+        shapes = list('.v1spP*hXD')
 
-        # Plot a figure with two suplots, showing the Gaussian Naive Bayes predictions on the left and LDA predictions
-        # on the right. Plot title should specify dataset used and subplot titles should specify algorithm and accuracy
-        # Create subplots
-        from IMLearn.metrics import accuracy
-        raise NotImplementedError()
+        fig, axs = plt.subplots(ncols=2)
+        accuracy = lf.accuracy(y, prediction)
 
-        # Add traces for data-points setting symbols and colors
-        raise NotImplementedError()
+        for sample, pred, trueVal in zip(X, prediction, y):
+            axs[0].scatter((round(sample[0], 2)), (round(sample[1], 2)), c=colors[int(pred)], marker=shapes[trueVal])
+        axs[0].set_title("LDA classification , accuracy:" + str(accuracy) + " data set:" + f)
+        axs[0].set_xlabel('X axis')
+        axs[0].set_ylabel('Y axis')
 
         # Add `X` dots specifying fitted Gaussians' means
-        raise NotImplementedError()
+        axs[0].scatter(x=np.transpose(lda.mu_)[0], y=np.transpose(lda.mu_)[1], s=50, marker='X', color='k')
+
+
+        for i in lda.classes_:
+            COV = np.cov(X[np.where(prediction == i)].transpose())
+            eigenvalues, eigenvectors = np.linalg.eig(COV)
+            theta = np.degrees(np.arctan2(*eigenvectors[:, 0][::-1]))
+            width, height = 2 * np.sqrt(eigenvalues)
+            ellipsis = pltpach.Ellipse(xy=lda.mu_[i], width=width, height=height, angle=theta, facecolor='none', edgecolor='k')
+            axs[0].add_artist(ellipsis)
+
+        gnb = GaussianNaiveBayes()
+        gnb.fit(X, y)
+        prediction = gnb.predict(X)
+
+        accuracy = lf.accuracy(y, prediction)
+
+        axs[1].set_title("Gaussian Naive bayes classification , accuracy:"
+                         + str(accuracy) + " data set:" + f)
+        axs[1].set_xlabel('X axis')
+        axs[1].set_ylabel('Y axis')
+
+        for sample, pred, trueVal in zip(X, prediction, y):
+            axs[1].scatter((round(sample[0], 2)), (round(sample[1], 2)), c=colors[int(pred)], marker=shapes[trueVal])
+
+        axs[1].scatter(x=np.transpose(gnb.mu_)[0], y=np.transpose(gnb.mu_)[1], s=50, marker='X', color='k')
+
+        # Add traces for data-points setting symbols and colors
+        f = lambda m, c: plt.plot([], [], marker=m, color=c, ls="none")[0]
+        handles = [f("s", colors[i]) for i in gnb.classes_]
+        handles += [f(shapes[i], "k") for i in gnb.classes_]
+        labels = ["Predicted class " + str(c) for c in gnb.classes_] + ["True class " + str(c) for c in gnb.classes_]
+
+        # circles
+        for i in gnb.classes_:
+            COV = np.cov(X[np.where(prediction == i)].transpose())
+            eigenvalues, eigenvectors = np.linalg.eig(COV)
+            theta = np.degrees(np.arctan2(*eigenvectors[:, 0][::-1]))
+            width, height = 2 * np.sqrt(eigenvalues)
+            ellipsis = pltpach.Ellipse(xy=gnb.mu_[i], width=width, height=height, angle=theta, facecolor='none', edgecolor='k')
+            axs[1].add_artist(ellipsis)
 
         # Add ellipses depicting the covariances of the fitted Gaussians
-        raise NotImplementedError()
-
+        plt.legend(handles, labels)
+        plt.show()
+        plt.cla()
+        plt.clf()
+        plt.close()
 
 if __name__ == '__main__':
     np.random.seed(0)
