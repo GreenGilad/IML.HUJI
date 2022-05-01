@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 
 
-def split_train_test(X: pd.DataFrame, y: pd.Series, train_proportion: float = .25) \
+def  split_train_test(X: pd.DataFrame, y: pd.Series, train_proportion: float = .75) \
         -> Tuple[pd.DataFrame, pd.Series, pd.DataFrame, pd.Series]:
     """
-    Split given sample to a training- and testing sample
+    Randomly split given sample to a training- and testing sample
 
     Parameters
     ----------
@@ -31,22 +31,17 @@ def split_train_test(X: pd.DataFrame, y: pd.Series, train_proportion: float = .2
 
     test_y : Series of shape (floor((1-train_proportion) * n_samples), )
         Responses of test samples
-    """
-    rand = np.random.permutation(len(X))
-    X = X.iloc[rand]
-    y = y.iloc[rand]
-    sze = X.shape
-    sep = int(sze[0] * train_proportion)
-    if len(sze) > 1:
-        train_x = X.iloc[0:sep, :]
-        test_x = X.iloc[sep:, :]
-    else:
-        train_x = X.iloc[0:sep]
-        test_x = X.iloc[sep:]
-    train_y = y.iloc[0:sep]
-    test_y = y.iloc[sep:]
 
-    return train_x, train_y, test_x, test_y
+    """
+    X=X.sample(frac=1)
+    y=y.reindex_like(X)
+    count_of_train_samples=round(len(y)*train_proportion)
+    train_x=X[:count_of_train_samples]
+    train_y=y[:count_of_train_samples]
+    test_x=X[count_of_train_samples:]
+    test_y=y[count_of_train_samples:]
+
+    return train_x,train_y,test_x,test_y
 
 
 def confusion_matrix(a: np.ndarray, b: np.ndarray) -> np.ndarray:
