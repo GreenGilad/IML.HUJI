@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Tuple
-from IMLearn.learners.metalearners.adaboost import AdaBoost
 from IMLearn.learners.classifiers import DecisionStump
+from IMLearn.metalearners.adaboost import AdaBoost
 from utils import *
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -39,8 +39,13 @@ def generate_data(n: int, noise_ratio: float) -> Tuple[np.ndarray, np.ndarray]:
 
 
 def fit_and_evaluate_adaboost(noise, n_learners=250, train_size=5000, test_size=500):
-    (train_X, train_y), (test_X, test_y) = generate_data(train_size, noise), generate_data(test_size, noise)
+    (train_X, train_y), (test_X, test_y) = generate_data(5000, 0), generate_data(500, 0)
 
+    stump = DecisionStump()
+    stump.fit(train_X, train_y)
+    print(stump.loss(test_X, test_y))
+
+    (train_X, train_y), (test_X, test_y) = generate_data(train_size, noise), generate_data(test_size, noise)
     # Question 1: Train- and test errors of AdaBoost in noiseless case
     raise NotImplementedError()
 
@@ -58,4 +63,4 @@ def fit_and_evaluate_adaboost(noise, n_learners=250, train_size=5000, test_size=
 
 if __name__ == '__main__':
     np.random.seed(0)
-    raise NotImplementedError()
+    fit_and_evaluate_adaboost(0)
