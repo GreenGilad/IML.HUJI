@@ -39,7 +39,20 @@ class GaussianNaiveBayes(BaseEstimator):
         y : ndarray of shape (n_samples, )
             Responses of input data to fit to
         """
-        raise NotImplementedError()
+        n_features = X.shape[1]
+        n_samples = X.shape[0]
+        self.classes_ = np.unique(y)
+        n_classes = self.classes_.shape[0]
+
+        self.pi_ = np.zeros(n_classes)
+        self.mu_ = np.zeros((n_classes, n_features))
+        self.vars_ = np.zeros((n_classes, n_features))
+
+        for i in range(n_classes):
+            self.mu_[i] = np.mean(X[y == self.classes_[i]], axis=0)
+            self.pi_[i] = np.sum(y==self.classes_[i]) / n_samples
+            self.vars_[i] = np.var(X[y==self.classes_[i]],axis=0, ddof=1)
+
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -55,7 +68,9 @@ class GaussianNaiveBayes(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+        likelihood = self.likelihood(X)
+        return self.classes_[np.argmax(likelihood, axis=1)]
+
 
     def likelihood(self, X: np.ndarray) -> np.ndarray:
         """
@@ -74,8 +89,12 @@ class GaussianNaiveBayes(BaseEstimator):
         """
         if not self.fitted_:
             raise ValueError("Estimator must first be fitted before calling `likelihood` function")
-
-        raise NotImplementedError()
+        likelihoods = np.zeros((X.shape[0], self.classes_.shape[0]))
+        # calculate the log likelihoods instead as it was approved in forum:
+        for i in range(self.classes_.shape[0]):
+            #TODO : check if need to do sqrt to var
+            likelihoods[:,i] = np.log(self.pi_[i]) - 0.5 * (np.sum(((X-self.mu_[i])**2)/self.vars_[i] +np.log(self.vars_[i]),axis=1))
+        return likelihoods
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
@@ -94,4 +113,5 @@ class GaussianNaiveBayes(BaseEstimator):
         loss : float
             Performance under missclassification loss function
         """
-        raise NotImplementedError()
+        from ...metrics import misclassification_error
+        return misclassification_error(y, self.predict(X))

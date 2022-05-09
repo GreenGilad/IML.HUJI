@@ -1,8 +1,12 @@
 from __future__ import annotations
+
 from typing import Callable
 from typing import NoReturn
-from ...base import BaseEstimator
+
 import numpy as np
+
+from IMLearn.metrics import loss_functions
+from ...base import BaseEstimator
 
 
 def default_callback(fit: Perceptron, x: np.ndarray, y: int):
@@ -33,10 +37,12 @@ class Perceptron(BaseEstimator):
         to be filled in `Perceptron.fit` function.
 
     """
+
     def __init__(self,
                  include_intercept: bool = True,
                  max_iter: int = 1000,
-                 callback: Callable[[Perceptron, np.ndarray, int], None] = default_callback):
+                 callback: Callable[
+                     [Perceptron, np.ndarray, int], None] = default_callback):
         """
         Instantiate a Perceptron classifier
 
@@ -90,7 +96,18 @@ class Perceptron(BaseEstimator):
         -----
         Fits model with or without an intercept depending on value of `self.fit_intercept_`
         """
-        raise NotImplementedError()
+        if self.include_intercept_:
+            X = np.hstack((X, np.ones((X.shape[0], 1))))
+        t = 0
+        self.coefs_ = np.zeros(X.shape[1])
+        correctness = X @ self.coefs_ * y
+        self.fitted_=True
+        while (t < self.max_iter_ and np.any(correctness <= 0)):
+            i = np.where(correctness<=0)[0][0]
+            self.coefs_ += y[i] * X[i]
+            correctness = (X @ self.coefs_) * y
+            self.callback_(self, X[i], y[i])
+            t+=1
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -106,7 +123,9 @@ class Perceptron(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        raise NotImplementedError()
+        if self.include_intercept_:
+            X = np.hstack((X, np.ones((X.shape[0], 1))))
+        return np.sign(X @ self.coefs_)
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
@@ -125,4 +144,5 @@ class Perceptron(BaseEstimator):
         loss : float
             Performance under missclassification loss function
         """
-        raise NotImplementedError()
+        y_pred = self.predict(X)
+        return loss_functions.misclassification_error(y, y_pred)

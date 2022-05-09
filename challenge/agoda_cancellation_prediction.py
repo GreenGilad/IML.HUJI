@@ -10,9 +10,14 @@ import plotly as plt
 
 
 def f0(datetime: str):
-    day = int(datetime[8:10])
-    month = int(datetime[5:7])
-    hour = int(datetime[11:13])
+    # day = pd.to_datetime(datetime).days
+    # month = pd.to_datetime(datetime).month
+    # hour = pd.to_datetime(datetime).hour
+    hour = int(datetime.split(" ")[1].split(":")[0])
+    # day = int(datetime[8:10])
+    # month = int(datetime[5:7])
+    # hour = int(datetime[11:13])
+
     return float(hour / 24)
 
 
@@ -277,10 +282,24 @@ def evaluate_and_export(estimator: BaseEstimator, X: np.ndarray, filename: str):
 
 if __name__ == '__main__':
     np.random.seed(0)
-
+    for_test = True
+    df_train, cancellation_labels_train = None, None
+    df_test, cancellation_labels_test = None, None
     # Load data
-    df, cancellation_labels = load_data("../datasets/agoda_cancellation_train.csv")
-    train_X, train_y, test_X, test_y = split_train_test(df, cancellation_labels)
+    if for_test:
+        all_data = pd.read_csv(r"C:\Users\User\Documents\CSE_2\IML\dataChallenge\CHECK.csv")
+        df_train, cancellation_labels_train = all_data.drop(["cancellation_datetime"], axis=1), all_data["cancellation_datetime"]
+        # df_train, cancellation_labels_train = load_data(
+        #     r"C:\Users\User\Documents\CSE_2\IML\dataChallenge\TRAIN_SET.csv")
+        df_test, cancellation_labels_test = load_data(
+            r"C:\Users\User\Documents\CSE_2\IML\dataChallenge\TEST_SET.csv")
+    else:
+        df_train, cancellation_labels_train = load_data(
+            r"C:\Users\User\Documents\CSE_2\IML\dataChallenge\agoda_cancellation_train.csv")
+        df_test, cancellation_labels_test = load_data(
+            r"C:\Users\User\Documents\CSE_2\IML\dataChallenge\test_set_week_5.csv", False)
+
+    # x_train, x_test, y_train, y_test = split_train_test(df, cancellation_labels)
 
     # Fit model over data
     estimator = AgodaCancellationEstimator().fit(train_X, train_y)
