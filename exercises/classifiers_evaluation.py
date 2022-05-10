@@ -108,11 +108,11 @@ def compare_gaussian_classifiers():
         # Create subplots
         from IMLearn.metrics import accuracy
         subplots_titles = [
-            f'Gaussian Naive Bayes with Accuracy of {accuracy(y, gnb_predict)}',
-            f'Linear Discriminant Analysis with Accuracy of {accuracy(y, lda_predict)}',
+            f'Gaussian Naive Bayes with\n Accuracy of {accuracy(y, gnb_predict)}',
+            f'Linear Discriminant Analysis with\n Accuracy of {accuracy(y, lda_predict)}',
         ]
         fig = make_subplots(rows=1, cols=2, subplot_titles=subplots_titles)
-        
+        fig.update_layout(title_text=f'Data Set: {f}') 
         df = pd.DataFrame(X, columns=['x', 'y'])
         mode = 'markers'
         # Add traces for data-points setting symbols and colors

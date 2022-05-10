@@ -49,7 +49,7 @@ class GaussianNaiveBayes(BaseEstimator):
         # TODO: Try to do this without loop. Maybe with pandas df?
         for index, cls in enumerate(self.classes_):
             X_class_idx = X[y==cls]
-            self.mu_[index] = X_class_idx.mean(axis=0)
+            self.mu_[index] = np.mean(X_class_idx, axis=0)
             self.vars_[index] = np.var(X_class_idx, axis=0)
             self.pi_[index] = np.count_nonzero(y==cls) / X.shape[0]
 
@@ -76,7 +76,6 @@ class GaussianNaiveBayes(BaseEstimator):
             sum_ = np.sum(((sample - self.mu_[index])**2) / (self.vars_[index]*2))
             sample_lh[index] = np.log(self.pi_[index]) - sum_
         return sample_lh
-
 
     def likelihood(self, X: np.ndarray) -> np.ndarray:
         """
