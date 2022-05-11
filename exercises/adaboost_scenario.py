@@ -1,6 +1,6 @@
 import numpy as np
 from typing import Tuple
-from IMLearn.learners.metalearners.adaboost import AdaBoost
+from IMLearn.metalearners.adaboost import AdaBoost
 from IMLearn.learners.classifiers import DecisionStump
 from utils import *
 import plotly.graph_objects as go
@@ -42,12 +42,32 @@ def fit_and_evaluate_adaboost(noise, n_learners=250, train_size=5000, test_size=
     (train_X, train_y), (test_X, test_y) = generate_data(train_size, noise), generate_data(test_size, noise)
 
     # Question 1: Train- and test errors of AdaBoost in noiseless case
-    raise NotImplementedError()
+    ada_boost_train=AdaBoost(DecisionStump, n_learners)
+    ada_boost_train.fit(train_X, train_y)
+
+    ada_boost_test = AdaBoost(DecisionStump, n_learners)
+    ada_boost_test.fit(test_X, test_y)
+
+    losses_train=np.zeros(n_learners)
+    losses_test = np.zeros(n_learners)
+    for t in range(n_learners):
+        losses_train[t]=ada_boost_train.partial_loss(train_X,train_y,t)
+        losses_test[t] = ada_boost_test.partial_loss(test_X, test_y, t)
+
+    arr_iterations=np.arange(n_learners)
+
+    title="The training- and test errors as a function of the number of fitted learners"
+    fig = go.Figure(layout=go.Layout(title=title, margin=dict(t=100)))
+    fig.add_trace(go.Scatter(x=arr_iterations[1:], y=losses_train[1:], mode='lines', name="Train"))
+    fig.add_trace(go.Scatter(x=arr_iterations[1:], y=losses_test[1:], mode='lines', name="Test"))
+    fig.show()
+
+
 
     # Question 2: Plotting decision surfaces
     T = [5, 50, 100, 250]
     lims = np.array([np.r_[train_X, test_X].min(axis=0), np.r_[train_X, test_X].max(axis=0)]).T + np.array([-.1, .1])
-    raise NotImplementedError()
+
 
     # Question 3: Decision surface of best performing ensemble
     raise NotImplementedError()
@@ -58,4 +78,4 @@ def fit_and_evaluate_adaboost(noise, n_learners=250, train_size=5000, test_size=
 
 if __name__ == '__main__':
     np.random.seed(0)
-    raise NotImplementedError()
+    fit_and_evaluate_adaboost(0)
