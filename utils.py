@@ -1,7 +1,6 @@
 # Basic imports and settings for working with data
 import numpy as np
 import pandas as pd
-
 # Imports and settings for plotting of graphs
 import plotly.io as pio
 import plotly.graph_objects as go
