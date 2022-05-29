@@ -3,6 +3,7 @@ from copy import deepcopy
 from typing import Tuple, Callable
 import numpy as np
 from IMLearn import BaseEstimator
+from IMLearn.utils import split_train_test
 
 
 def cross_validate(estimator: BaseEstimator, X: np.ndarray, y: np.ndarray,
@@ -37,4 +38,16 @@ def cross_validate(estimator: BaseEstimator, X: np.ndarray, y: np.ndarray,
     validation_score: float
         Average validation score over folds
     """
-    raise NotImplementedError()
+    train_loss_lst = []
+    test_loss_lst = []
+    m = len(y)
+    for i in range(cv):
+        train_x = np.concatenate((X[:int(m * (i / cv))], X[int(m * ((i + 1) / cv)):]), axis=0)
+        train_y = np.concatenate((y[:int(m * (i / cv))], y[int(m * ((i + 1) / cv)):]), axis=0)
+        test_x = X[int(m * (i / cv)):int(m * ((i + 1) / cv))]
+        test_y = y[int(m * (i / cv)):int(m * ((i + 1) / cv))]
+
+        estimator.fit(train_x, train_y)
+        train_loss_lst.append(scoring(train_y, estimator.predict(train_x)))
+        test_loss_lst.append(scoring(test_y, estimator.predict(test_x)))
+    return np.average(train_loss_lst), np.average(test_loss_lst)
