@@ -74,4 +74,5 @@ class AgodaCancellationEstimator(BaseEstimator):
         loss : float
             Performance under loss function
         """
+
         pass
