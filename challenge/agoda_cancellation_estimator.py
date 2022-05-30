@@ -2,6 +2,8 @@ from __future__ import annotations
 from typing import NoReturn
 from IMLearn.base import BaseEstimator
 import numpy as np
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.datasets import make_classification
 
 
 class AgodaCancellationEstimator(BaseEstimator):
@@ -22,6 +24,7 @@ class AgodaCancellationEstimator(BaseEstimator):
 
         """
         super().__init__()
+        self.adaboost_ = AdaBoostClassifier(n_estimators=100, random_state=0)
 
     def _fit(self, X: np.ndarray, y: np.ndarray) -> NoReturn:
         """
@@ -39,7 +42,7 @@ class AgodaCancellationEstimator(BaseEstimator):
         -----
 
         """
-        pass
+        self.adaboost_.fit(X, y)
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -55,7 +58,7 @@ class AgodaCancellationEstimator(BaseEstimator):
         responses : ndarray of shape (n_samples, )
             Predicted responses of given samples
         """
-        return np.zeros(X.shape[0])
+        return self.adaboost_.predict(X)
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
