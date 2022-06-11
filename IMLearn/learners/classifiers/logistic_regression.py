@@ -84,7 +84,7 @@ class LogisticRegression(BaseEstimator):
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
-        Evaluate performance under MSE loss function
+        Evaluate performance under misclassification error
 
         Parameters
         ----------
@@ -97,6 +97,6 @@ class LogisticRegression(BaseEstimator):
         Returns
         -------
         loss : float
-            Performance under misclassification loss function
+            Performance under misclassification error
         """
         raise NotImplementedError()

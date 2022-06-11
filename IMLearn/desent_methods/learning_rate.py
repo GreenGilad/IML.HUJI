@@ -46,7 +46,7 @@ class ExponentialLR(FixedLR):
         Parameters:
         ----------
         base_lr: float
-            Learning to be returned at t=1 (i.e eta)
+            Learning to be returned at t=0 (i.e eta)
 
         decay_rate: float
             Decay rate of learning-rate (i.e. gamma)
