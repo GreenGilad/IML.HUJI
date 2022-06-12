@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import numpy as np
 from sklearn import datasets
 from IMLearn.metrics import mean_square_error
