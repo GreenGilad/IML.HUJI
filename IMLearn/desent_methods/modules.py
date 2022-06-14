@@ -101,7 +101,7 @@ class LogisticModule(BaseModule):
     """
     Class representing the logistic regression objective function
 
-    Represents the function: f(w) = - (1/m) sum_i^m[y*<x_i,w> - log(sigmoid(<x_i,w>))]
+    Represents the function: f(w) = - (1/m) sum_i^m[y*<x_i,w> - log(1+exp(<x_i,w>))]
     """
     def __init__(self, weights: np.ndarray = None):
         """

@@ -1,13 +1,36 @@
 from typing import NoReturn
-
 import numpy as np
-
 from IMLearn import BaseEstimator
 from IMLearn.desent_methods import GradientDescent
 from IMLearn.desent_methods.modules import LogisticModule, RegularizedModule, L1, L2
 
 
 class LogisticRegression(BaseEstimator):
+    """
+    Logistic Regression Classifier
+
+    Attributes
+    ----------
+    solver_: GradientDescent, default=GradientDescent()
+        Descent method solver to use for the logistic regression objective optimization
+
+    penalty_: str, default="none"
+        Type of regularization term to add to logistic regression objective. Supported values
+        are "none", "l1", "l2"
+
+    lam_: float, default=1
+        Regularization parameter to be used in case `self.penalty_` is not "none"
+
+    alpha_: float, default=0.5
+        Threshold value by which to convert class probability to class value
+
+    include_intercept_: bool, default=True
+        Should fitted model include an intercept or not
+
+    coefs_: ndarray of shape (n_features,) or (n_features+1,)
+        Coefficients vector fitted by linear regression. To be set in
+        `LogisticRegression.fit` function.
+    """
 
     def __init__(self,
                  include_intercept: bool = True,
@@ -16,8 +39,25 @@ class LogisticRegression(BaseEstimator):
                  lam: float = 1,
                  alpha: float = .5):
         """
-        Initialize a ridge regression model
-        :param lam: scalar value of regularization parameter
+        Instantiate a linear regression estimator
+
+        Parameters
+        ----------
+        solver: GradientDescent, default=GradientDescent()
+            Descent method solver to use for the logistic regression objective optimization
+
+        penalty: str, default="none"
+            Type of regularization term to add to logistic regression objective. Supported values
+            are "none", "l1", "l2"
+
+        lam: float, default=1
+            Regularization parameter to be used in case `self.penalty_` is not "none"
+
+        alpha: float, default=0.5
+            Threshold value by which to convert class probability to class value
+
+        include_intercept: bool, default=True
+            Should fitted model include an intercept or not
         """
         super().__init__()
         self.include_intercept_ = include_intercept

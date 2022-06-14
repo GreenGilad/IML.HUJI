@@ -8,7 +8,7 @@ from .learning_rate import FixedLR
 OUTPUT_VECTOR_TYPE = ["last", "best", "average"]
 
 
-def default_callback(model: GradientDescent, **kwargs) -> NoReturn:
+def default_callback(**kwargs) -> NoReturn:
     pass
 
 
@@ -34,10 +34,10 @@ class GradientDescent:
             - `best`: returns the point achieving the lowest objective
             - `average`: returns the average point over the GD iterations
 
-    callback_: Callable[[GradientDescent, ...], None]
-        A callable function to be called after each update of the model while fitting to given data
-        Callable function should receive as input a GradientDescent instance, and any additional
-        arguments specified in the `GradientDescent.fit` function
+    callback_: Callable[[...], None], default=default_callback
+        A callable function to be called after each update of the model while fitting to given data.
+        Callable function receives as input any argument relevant for the current GD iteration. Arguments
+        are specified in the `GradientDescent.fit` function
     """
     def __init__(self,
                  learning_rate: BaseLR = FixedLR(1e-3),
@@ -63,10 +63,10 @@ class GradientDescent:
         out_type: str, default="last"
             Type of returned solution. Supported types are specified in class attributes
 
-        callback: Callable[[GradientDescent, ...], None], default=default_callback
-            A callable function to be called after each update of the model while fitting to given data
-            Callable function should receive as input a GradientDescent instance, and any additional
-            arguments specified in the `GradientDescent.fit` function
+        callback: Callable[[...], None], default=default_callback
+            A callable function to be called after each update of the model while fitting to given data.
+            Callable function receives as input any argument relevant for the current GD iteration. Arguments
+            are specified in the `GradientDescent.fit` function
         """
         self.learning_rate_ = learning_rate
         if out_type not in OUTPUT_VECTOR_TYPE:
