@@ -1,7 +1,6 @@
 from __future__ import annotations
 from typing import Callable, NoReturn
 import numpy as np
-
 from IMLearn.base import BaseModule, BaseLR
 from .learning_rate import FixedLR
 
@@ -39,6 +38,7 @@ class GradientDescent:
         Callable function should receive as input a GradientDescent instance, and any additional
         arguments specified in the `GradientDescent.fit` function
     """
+
     def __init__(self,
                  learning_rate: BaseLR = FixedLR(1e-3),
                  tol: float = 1e-5,
@@ -119,4 +119,19 @@ class GradientDescent:
                 Euclidean norm of w^(t)-w^(t-1)
 
         """
-        raise NotImplementedError()
+
+        w_t = np.ones(X.shape[1])
+        for t in range(self.max_iter_):
+            w_t_p_1 = w_t - self.learning_rate_(t=t) * f.compute_jacobian(w_t)
+            f.weights = w_t_p_1
+            delta = np.linalg.norm(w_t_p_1 - w_t)
+
+            self.callback_(self, weights=w_t_p_1, val=f.compute_output(), grad=f.compute_jacobian(), t=t,
+                           eta=self.learning_rate_(t=t), delta=delta)
+
+            if delta < self.tol_:
+                w_t = w_t_p_1
+                break
+            w_t = w_t_p_1
+
+        return w_t
