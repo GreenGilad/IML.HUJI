@@ -1,33 +1,35 @@
+from __future__ import annotations
 from abc import ABC
 import numpy as np
 
 
 class BaseModule(ABC):
     """
-    Base class representing a function to be optimized in a descent method algorithm or a neural network
+    Base class representing a function to be optimized in a descent method algorithm
+
+    Attributes
+    ----------
+    weights_ : ndarray of shape (n_in, n_out)
+        Parameters of function with respect to which the function is optimized.
     """
 
-    def __init__(self):
+    def __init__(self, weights: np.ndarray = None) -> BaseModule:
         """
         Initialize a module instance
 
-        Attributes
+        Parameters:
         ----------
-        _weights : ndarray of shape (n_in, n_out)
-            Parameters of function with respect to which the function is optimized.
-            Set by ``self.compute_output`` function
+        weights: np.ndarray, default None
+            Initial value of weights
         """
-        self._weights = None
+        self.weights_ = weights
 
-    def compute_output(self, input: np.ndarray, **kwargs) -> np.ndarray:
+    def compute_output(self, **kwargs) -> np.ndarray:
         """
         Compute the output value of the function
 
         Parameters
         ----------
-        input: ndarray of shape (n_in,)
-            Input value to evaluate function at
-
         kwargs: Additional arguments to be passed and used by derived objects
 
         Returns
@@ -41,15 +43,12 @@ class BaseModule(ABC):
         """
         raise NotImplementedError()
 
-    def compute_jacobian(self, input: np.ndarray, **kwargs) -> np.ndarray:
+    def compute_jacobian(self, **kwargs) -> np.ndarray:
         """
         Compute the derivative of the function with respect to each of its parameters
 
         Parameters
         ----------
-        input: ndarray of shape (n_in,)
-            Input value to evaluate function derivative at
-
         kwargs: Additional arguments to be passed and used by derived objects
 
         Returns
@@ -73,7 +72,7 @@ class BaseModule(ABC):
         -------
         weights: ndarray of shape (n_in, n_out)
         """
-        return self._weights
+        return self.weights_
 
     @weights.setter
     def weights(self, weights: np.ndarray) -> None:
@@ -84,7 +83,7 @@ class BaseModule(ABC):
         ----------
         weights: ndarray array of shape (n_in, n_out)
         """
-        self._weights = weights
+        self.weights_ = weights
 
     @property
     def shape(self):
