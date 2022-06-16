@@ -190,7 +190,7 @@ class RegularizedModule(BaseModule):
         self.fidelity_module_, self.regularization_module_, self.lam_ = fidelity_module, regularization_module, lam
         self.include_intercept_ = include_intercept
 
-        if weights:
+        if weights is not None:
             self.weights(weights)
 
     def compute_output(self, **kwargs) -> np.ndarray:
