@@ -191,7 +191,7 @@ class RegularizedModule(BaseModule):
         self.include_intercept_ = include_intercept
 
         if weights is not None:
-            self.weights(weights)
+            self.weights = weights
 
     def compute_output(self, **kwargs) -> np.ndarray:
         """
