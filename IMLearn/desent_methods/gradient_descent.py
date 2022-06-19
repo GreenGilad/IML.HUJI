@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Callable, NoReturn
 import numpy as np
 
-from IMLearn.base import BaseModule, BaseLR
+from IMLearn.base import BaseModule, BaseLearningRate
 from .learning_rate import FixedLR
 
 OUTPUT_VECTOR_TYPE = ["last", "best", "average"]
