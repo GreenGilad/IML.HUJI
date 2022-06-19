@@ -86,3 +86,4 @@ class PolynomialFitting(BaseEstimator):
         """
         return np.vander(X, self.k_ + 1, increasing=True)
 
+

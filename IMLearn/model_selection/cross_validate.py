@@ -9,7 +9,6 @@ def cross_validate(estimator: BaseEstimator, X: np.ndarray, y: np.ndarray,
                    scoring: Callable[[np.ndarray, np.ndarray, ...], float], cv: int = 5) -> Tuple[float, float]:
     """
     Evaluate metric by cross-validation for given estimator
-
     Parameters
     ----------
     estimator: BaseEstimator
@@ -37,4 +36,37 @@ def cross_validate(estimator: BaseEstimator, X: np.ndarray, y: np.ndarray,
     validation_score: float
         Average validation score over folds
     """
-    raise NotImplementedError()
+    # indexes = np.array_split(np.arange(X.shape[0]), cv, axis=0)
+    # train_score = 0
+    # validation_score = 0
+    # for i in range(cv):
+    #     x_train = np.delete(X, indexes[i])
+    #     y_train = np.delete(y, indexes[i])
+    #     s_x = np.array(X[indexes[i][0]: indexes[i][-1]]).flatten()
+    #     s_y = y[indexes[i][0]: indexes[i][-1]]
+    #     estimator.fit(x_train, y_train)
+    #     train_score += scoring(y_train, estimator.predict(x_train))
+    #     validation_score += scoring(s_y, estimator.predict(s_x))
+    # return (train_score / cv), (validation_score / cv)
+
+    indexes = np.array_split(np.arange(X.shape[0]), cv, axis=0)
+    train_score = 0
+    validation_score = 0
+    for i in range(cv):
+        y_train = np.delete(y, indexes[i])
+        s_x = np.array(X[indexes[i][0]: indexes[i][-1]])
+        if X.shape[1] > 1:
+            x_train = np.delete(X, indexes[i], axis=0)
+            s_x = s_x.reshape(indexes[i][-1] - indexes[i][0], X.shape[1])
+        else:
+            x_train = np.delete(X, indexes[i])
+            s_x = s_x.flatten()
+        s_y = y[indexes[i][0]: indexes[i][-1]]
+        estimator.fit(x_train, y_train)
+        train_score += scoring(y_train, estimator.predict(x_train))
+        validation_score += scoring(s_y, estimator.predict(s_x))
+    return (train_score / cv), (validation_score / cv)
+
+
+
+
