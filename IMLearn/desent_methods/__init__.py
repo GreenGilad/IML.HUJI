@@ -1,4 +1,5 @@
 from .gradient_descent import GradientDescent
-from .learning_rate import FixedLR, ExponentialLR, AdaptiveLR
+from .stochastic_gradient_descent import StochasticGradientDescent
+from .learning_rate import FixedLR, ExponentialLR
 
-__all__ = ["GradientDescent", "FixedLR", "ExponentialLR", "AdaptiveLR"]
+__all__ = ["GradientDescent", "StochasticGradientDescent", "FixedLR", "ExponentialLR"]
