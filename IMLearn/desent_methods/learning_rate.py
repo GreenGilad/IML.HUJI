@@ -1,6 +1,6 @@
 import numpy as np
 
-from IMLearn.base import BaseModule, BaseLR
+from ..base import BaseModule, BaseLR
 
 
 class FixedLR(BaseLR):
@@ -32,7 +32,7 @@ class FixedLR(BaseLR):
         -----
         No arguments are expected
         """
-        raise NotImplementedError()
+        return self.base_lr
 
 
 class ExponentialLR(FixedLR):
@@ -68,4 +68,4 @@ class ExponentialLR(FixedLR):
         eta_t: float
             Exponential decay according to eta_t = eta*gamma^t
         """
-        raise NotImplementedError()
+        return self.base_lr * (self.decay_rate ** t)

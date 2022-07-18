@@ -49,24 +49,50 @@ def cross_validate(estimator: BaseEstimator, X: np.ndarray, y: np.ndarray,
     #     validation_score += scoring(s_y, estimator.predict(s_x))
     # return (train_score / cv), (validation_score / cv)
 
-    indexes = np.array_split(np.arange(X.shape[0]), cv, axis=0)
-    train_score = 0
-    validation_score = 0
-    for i in range(cv):
-        y_train = np.delete(y, indexes[i])
-        s_x = np.array(X[indexes[i][0]: indexes[i][-1]])
-        if X.shape[1] > 1:
-            x_train = np.delete(X, indexes[i], axis=0)
-            s_x = s_x.reshape(indexes[i][-1] - indexes[i][0], X.shape[1])
-        else:
-            x_train = np.delete(X, indexes[i])
-            s_x = s_x.flatten()
-        s_y = y[indexes[i][0]: indexes[i][-1]]
-        estimator.fit(x_train, y_train)
-        train_score += scoring(y_train, estimator.predict(x_train))
-        validation_score += scoring(s_y, estimator.predict(s_x))
-    return (train_score / cv), (validation_score / cv)
+    # indexes = np.array_split(np.arange(X.shape[0]), cv, axis=0)
+    # train_score = 0
+    # validation_score = 0
+    # for i in range(cv):
+    #     y_train = np.delete(y, indexes[i])
+    #     s_x = np.array(X[indexes[i][0]: indexes[i][-1]])
+    #     if X.shape[1] > 1:
+    #         x_train = np.delete(X, indexes[i], axis=0)
+    #         s_x = s_x.reshape(indexes[i][-1] - indexes[i][0], X.shape[1])
+    #     else:
+    #         x_train = np.delete(X, indexes[i])
+    #         s_x = s_x.flatten()
+    #     s_y = y[indexes[i][0]: indexes[i][-1]]
+    #     estimator.fit(x_train, y_train)
+    #     train_score += scoring(y_train, estimator.predict(x_train))
+    #     validation_score += scoring(s_y, estimator.predict(s_x))
+    # return (train_score / cv), (validation_score / cv)
 
+    train_scores, validation_scores = [], []
+    index_to_split = [i for i in range(0, X.shape[0])]
+    index_of_groups = np.array_split(index_to_split, cv)
+    groups_data = [X[v.flatten().tolist()] for v in index_of_groups]
+    groups_response = [y[v.flatten().tolist()] for v in index_of_groups]
+    for j in range(0, cv):
+        cur_data = np.array([])
+        cur_response = np.array([])
+        for k in range(0, cv):
+            if k == j:
+                continue
+            if cur_data.size == 0:
+                cur_data = groups_data[0]
+                cur_response = groups_response[0]
+            else:
+                cur_data = np.concatenate((cur_data, groups_data[k]))
+                cur_response = np.concatenate((cur_response, groups_response[k]))
+        cur_data = np.array(cur_data)
+        cur_response = np.array(cur_response)
+        estimator.fit(cur_data, cur_response)
+        train_scores.append(scoring(cur_response, estimator.predict(cur_data)))
+        validation_scores.append(scoring(np.array(groups_response[j]),
+                                         estimator.predict(np.array(groups_data[j]))))
 
+    avg_train_score = np.sum(train_scores) / cv
+    avg_val_score = np.sum(validation_scores) / cv
+    return avg_train_score, avg_val_score
 
 

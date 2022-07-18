@@ -1,14 +1,14 @@
 from __future__ import annotations
 from typing import Callable, NoReturn
 import numpy as np
-
-from IMLearn.base import BaseModule, BaseLearningRate
+from IMLearn import BaseModule
+from IMLearn import BaseLR
 from .learning_rate import FixedLR
 
 OUTPUT_VECTOR_TYPE = ["last", "best", "average"]
 
 
-def default_callback(**kwargs) -> NoReturn:
+def default_callback(model: GradientDescent, weight: np, val: np.ndarray) -> NoReturn:
     pass
 
 
@@ -119,4 +119,37 @@ class GradientDescent:
                 Euclidean norm of w^(t)-w^(t-1)
 
         """
-        raise NotImplementedError()
+        for_sum = f.weights_
+        min_value = f.compute_output(X=X, y=y)
+        min_w = f.weights_
+        num_of_iter = 1
+        w = f.weights_
+
+        loss = self.tol_
+
+        for i in range(self.max_iter_):
+            if loss < self.tol_:
+                break
+            eta = self.learning_rate_.lr_step(t=i)
+            gradient = f.compute_jacobian(X=X, y=y)
+            new_w = w - gradient * eta
+            for_sum += new_w
+            num_of_iter += 1
+            f.weights_ = new_w
+            now_value = f.compute_output(X=X, y=y)
+            if now_value < min_value:
+                min_value = now_value
+                min_w = new_w
+
+            loss = np.sum((new_w - w)**2)**0.5
+            w = new_w
+            # self.callback_(GradientDescent=self, weights=f.weights_, jacobian=f.compute_jacobian(x=X, y=y),
+            #                t=num_of_iter, eta=eta, norm=loss)
+            self.callback_(self, w, f.compute_output(X=X, y=y))
+
+        if self.out_type_ == "last":
+            return w
+        elif self.out_type_ == "best":
+            return min_w
+        elif self.out_type_ == "average":
+            return for_sum / num_of_iter

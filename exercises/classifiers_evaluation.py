@@ -46,10 +46,8 @@ def run_perceptron():
         perceptron = Perceptron(callback=callback)
         perceptron.fit(X, y)
 
-<<<<<<< HEAD
         # Plot figure of loss as function of fitting iteration
         raise NotImplementedError()
-=======
         # Plot figure
         iters = np.arange(0, len(losses))
 
@@ -79,7 +77,6 @@ def get_ellipse(mu: np.ndarray, cov: np.ndarray):
     ys = (l1 * np.sin(theta) * np.cos(t)) + (l2 * np.cos(theta) * np.sin(t))
 
     return go.Scatter(x=mu[0] + xs, y=mu[1] + ys, mode="lines", marker_color="black")
->>>>>>> 31ed4e80e7298ea676f090fc9fc1cbe965ba35ec
 
 
 def get_ellipse(mu: np.ndarray, cov: np.ndarray):
