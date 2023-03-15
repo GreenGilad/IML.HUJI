@@ -17,21 +17,25 @@ pio.templates.default = "simple_white+custom"
 
 
 class AnimationButtons():
+    @staticmethod
     def play_scatter(frame_duration = 500, transition_duration = 300):
         return dict(label="Play", method="animate", args=
                     [None, {"frame": {"duration": frame_duration, "redraw": False},
                             "fromcurrent": True, "transition": {"duration": transition_duration, "easing": "quadratic-in-out"}}])
     
+    @staticmethod
     def play(frame_duration = 1000, transition_duration = 0):
         return dict(label="Play", method="animate", args=
                     [None, {"frame": {"duration": frame_duration, "redraw": True},
                             "mode":"immediate",
                             "fromcurrent": True, "transition": {"duration": transition_duration, "easing": "linear"}}])
     
+    @staticmethod
     def pause():
         return dict(label="Pause", method="animate", args=
                     [[None], {"frame": {"duration": 0, "redraw": False}, "mode": "immediate", "transition": {"duration": 0}}])
     
+    @staticmethod
     def slider(frame_names):       
         steps= [dict(args=[[i], dict(frame={'duration': 300, 'redraw': False}, mode="immediate", transition= {'duration': 300})],
                            label=i+1, method="animate")
