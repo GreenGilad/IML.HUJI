@@ -17,6 +17,12 @@ class AdaBoost(BaseEstimator):
 
     self.models_: List[BaseEstimator]
         List of fitted estimators, fitted along the boosting iterations
+
+    self.weights_: List[float]
+        List of weights for each fitted estimator, fitted along the boosting iterations
+
+    self.D_: List[np.ndarray]
+        List of weights for each sample, fitted along the boosting iterations
     """
 
     def __init__(self, wl: Callable[[], BaseEstimator], iterations: int):
@@ -52,7 +58,7 @@ class AdaBoost(BaseEstimator):
 
     def _predict(self, X):
         """
-        Predict responses for given samples using fitted estimator
+        Predict responses for given samples using fitted estimator over all boosting iterations
 
         Parameters
         ----------
@@ -68,7 +74,7 @@ class AdaBoost(BaseEstimator):
 
     def _loss(self, X: np.ndarray, y: np.ndarray) -> float:
         """
-        Evaluate performance under misclassification loss function
+        Evaluate performance under misclassification loss function over all boosting iterations
 
         Parameters
         ----------
@@ -87,7 +93,7 @@ class AdaBoost(BaseEstimator):
 
     def partial_predict(self, X: np.ndarray, T: int) -> np.ndarray:
         """
-        Predict responses for given samples using fitted estimators
+        Predict responses for given samples using fitted estimators up to T learners
 
         Parameters
         ----------
@@ -106,7 +112,7 @@ class AdaBoost(BaseEstimator):
 
     def partial_loss(self, X: np.ndarray, y: np.ndarray, T: int) -> float:
         """
-        Evaluate performance under misclassification loss function
+        Evaluate performance under misclassification loss function using fitted estimators up to T learners
 
         Parameters
         ----------
