@@ -1,6 +1,6 @@
 # Introduction to Machine Learning
 
-"Introduction to Machine Learning" serves as an entry point into the dynamic field of machine and statistical learning. Aimed at undergraduate computer science students, the book builds on a solid foundation in mathematics (calculus, linear algebra, and probability theory) and programming, covering essential topics for aspiring machine learning experts. It addresses key concepts such as estimation theory, regression and classification models, boosting and regularization techniques, kernel methods, unsupervised learning, gradient-based methods, and neural networks, alongside the theoretical aspects of statistical learning.
+"[Introduction to Machine Learning](https://github.com/GreenGilad/IML.HUJI/blob/main/Introduction%20to%20Machine%20Learning%20-%20Course%20Book.pdf)" serves as an entry point into the dynamic field of machine and statistical learning. Aimed at undergraduate computer science students, the book builds on a solid foundation in mathematics (calculus, linear algebra, and probability theory) and programming, covering essential topics for aspiring machine learning experts. It addresses key concepts such as estimation theory, regression and classification models, boosting and regularization techniques, kernel methods, unsupervised learning, gradient-based methods, and neural networks, alongside the theoretical aspects of statistical learning.
 
 <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/35c93c33-ff85-43c6-b860-3ed1c786284c" height=400/></div>
 
